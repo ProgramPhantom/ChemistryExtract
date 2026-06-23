@@ -1,8 +1,12 @@
-### --- NEW TABLE EXTRACTION --- ###
+-------------- TABLE 1 EXTRACTION --------------
+**[Preceding Paragraphs]**
+Figure 1. Diffusion coefficients vs molar masses for PS, PEO and PMMA in different solvents at T = 298.15 K.
 
-**[Preceding Paragraph]**
+<!-- image -->
+
+the diffusion coefficients for polystyrene (PS), poly(ethylene oxide) (PEO), and poly(methyl methacrylate) (PMMA) in several solvents. The details of the polymers and the experimental DOSY conditions are given in the experimental part and Tables S1 and S2 in the SI. The diluted solutions of 1 mg · mL -1 are required for describing the molar mass dependences of the diffusion coefficients by only one slope (Flory parameter) in the range of 0.5 -0.6 depending on the polymer and solvent. Higher concentrations can cause the formation of entanglements of the polymer chains and provide molar mass dependences with two slopes. 19,25,26 However, the individual molar mass dependences of all studied solutions of PS, PEO, and PMMA show the expected linear behavior with only one slope in Figures S1 -S3. The diffusion coefficients of these molar mass dependences were fitted to eq 10 in order to determine the Mark -Houwink parameters. The calculated Mark -Houwink parameters are listed in Table 1. The K 1 and a 1 data were taken from polystyrene in THF as the reference from literature data. 27 Table 1 presents the fitted Mark -Houwink parameters, the parameters of the molar mass dependences of the diffusion coefficients as well as the dynamic viscosities. It should be noted that the calculated Mark -Houwink parameters in Table 1 deliver good agreement with experimental data found in the literature. Table S3 in the SI shows comparisons for the available data. Figure 2 also illustrates the high accuracy of the calculated diffusion data a Determined via equation 10. b Determined via equation 6. c η for CD2Cl2 was not available thus η for CH2Cl2 was used from ref 30
+
 Table 1. Mark -Houwink Parameters K and a , Flory Parameters b , and Constants c of the Molar Mass Dependences Determined via DOSY for PS, PEO, and PMMA as Well as Dynamic Viscosities
-
 **[Table Data]**
 | polymer   | solvent      |   K [mL · g - 1 ] |       a |        b |   c · 10 - 8 [m 2 · s - 1 |   η [mPa · s] |
 |-----------|--------------|-------------------|---------|----------|---------------------------|---------------|
@@ -22,8 +26,11 @@ Table 1. Mark -Houwink Parameters K and a , Flory Parameters b , and Constants c
 |           | C 6 D 6      |           0.00848 |  0.7331 | 0.530394 |                   2.07035 |        0.6067 |
 |           | CD 2 Cl 2    |           0.00702 | 0.75226 |  0.53678 |                   3.23833 |         0.413 |
 |           | DMSO         |           0.05265 | 0.47463 | 0.444236 |                  0.312052 |          2.19 |
+**[Preceding Paragraphs]**
+Figure 1. Diffusion coefficients vs molar masses for PS, PEO and PMMA in different solvents at T = 298.15 K.
 
-**[Succeeding Paragraph]**
-. c η for CD2Cl2 was not available thus η for CH2Cl2 was used from ref
+<!-- image -->
 
+the diffusion coefficients for polystyrene (PS), poly(ethylene oxide) (PEO), and poly(methyl methacrylate) (PMMA) in several solvents. The details of the polymers and the experimental DOSY conditions are given in the experimental part and Tables S1 and S2 in the SI. The diluted solutions of 1 mg · mL -1 are required for describing the molar mass dependences of the diffusion coefficients by only one slope (Flory parameter) in the range of 0.5 -0.6 depending on the polymer and solvent. Higher concentrations can cause the formation of entanglements of the polymer chains and provide molar mass dependences with two slopes. 19,25,26 However, the individual molar mass dependences of all studied solutions of PS, PEO, and PMMA show the expected linear behavior with only one slope in Figures S1 -S3. The diffusion coefficients of these molar mass dependences were fitted to eq 10 in order to determine the Mark -Houwink parameters. The calculated Mark -Houwink parameters are listed in Table 1. The K 1 and a 1 data were taken from polystyrene in THF as the reference from literature data. 27 Table 1 presents the fitted Mark -Houwink parameters, the parameters of the molar mass dependences of the diffusion coefficients as well as the dynamic viscosities. It should be noted that the calculated Mark -Houwink parameters in Table 1 deliver good agreement with experimental data found in the literature. Table S3 in the SI shows comparisons for the available data. Figure 2 also illustrates the high accuracy of the calculated diffusion data a Determined via equation 10. b Determined via equation 6. c η for CD2Cl2 was not available thus η for CH2Cl2 was used from ref 30
 
+Table 1. Mark -Houwink Parameters K and a , Flory Parameters b , and Constants c of the Molar Mass Dependences Determined via DOSY for PS, PEO, and PMMA as Well as Dynamic Viscosities
