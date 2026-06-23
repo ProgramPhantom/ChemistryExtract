@@ -1,0 +1,40 @@
+
+
+-------------- TABLE 1 EXTRACTION --------------
+**[Preceding Paragraphs]**
+Figure 1. Diffusion coefficients vs molar masses for PS, PEO and PMMA in different solvents at T = 298.15 K.
+
+<!-- image -->
+
+the diffusion coefficients for polystyrene (PS), poly(ethylene oxide) (PEO), and poly(methyl methacrylate) (PMMA) in several solvents. The details of the polymers and the experimental DOSY conditions are given in the experimental part and Tables S1 and S2 in the SI. The diluted solutions of 1 mg · mL -1 are required for describing the molar mass dependences of the diffusion coefficients by only one slope (Flory parameter) in the range of 0.5 -0.6 depending on the polymer and solvent. Higher concentrations can cause the formation of entanglements of the polymer chains and provide molar mass dependences with two slopes. 19,25,26 However, the individual molar mass dependences of all studied solutions of PS, PEO, and PMMA show the expected linear behavior with only one slope in Figures S1 -S3. The diffusion coefficients of these molar mass dependences were fitted to eq 10 in order to determine the Mark -Houwink parameters. The calculated Mark -Houwink parameters are listed in Table 1. The K 1 and a 1 data were taken from polystyrene in THF as the reference from literature data. 27 Table 1 presents the fitted Mark -Houwink parameters, the parameters of the molar mass dependences of the diffusion coefficients as well as the dynamic viscosities. It should be noted that the calculated Mark -Houwink parameters in Table 1 deliver good agreement with experimental data found in the literature. Table S3 in the SI shows comparisons for the available data. Figure 2 also illustrates the high accuracy of the calculated diffusion data a Determined via equation 10. b Determined via equation 6. c η for CD2Cl2 was not available thus η for CH2Cl2 was used from ref 30
+
+Table 1. Mark -Houwink Parameters K and a , Flory Parameters b , and Constants c of the Molar Mass Dependences Determined via DOSY for PS, PEO, and PMMA as Well as Dynamic Viscosities
+
+**[Table Data]**
+| polymer   | solvent      |   K [mL · g - 1 ] |       a |        b |   c · 10 - 8 [m 2 · s - 1 |   η [mPa · s] |
+|-----------|--------------|-------------------|---------|----------|---------------------------|---------------|
+| PS        | THF-d8       |            0.0141 |     0.7 | 0.519361 |                   2.20882 |          0.48 |
+|           | CDCl 3       |           0.00732 | 0.74596 | 0.534677 |                   2.34303 |         0.563 |
+|           | C 6 D 6      |           0.01077 | 0.72682 |   0.5283 |                   1.91203 |        0.6067 |
+|           | toluene- d 8 |            0.0098 | 0.73512 | 0.531065 |                   2.13758 |          0.56 |
+|           | CD 2 Cl 2    |           0.01155 | 0.70628 | 0.521453 |                   2.74368 |         0.413 |
+|           | acetone- d 6 |           0.07135 | 0.49819 | 0.452089 |                    2.0934 |         0.295 |
+| PEO       | CD 3 OD      |           0.03563 | 0.65424 | 0.504105 |                   1.43345 |         0.543 |
+|           | D 2 O        |           0.02554 | 0.67839 | 0.512155 |                  0.792177 |         1.098 |
+|           | THF- d 8     |           0.02417 |  0.6831 | 0.513725 |                    1.8457 |          0.48 |
+|           | CD 3 CN      |           0.02456 | 0.68948 | 0.515853 |                   2.56919 |         0.343 |
+|           | acetone- d 6 |           0.06862 | 0.56535 | 0.474477 |                   2.12079 |         0.295 |
+| PMMA      | THF- d 8     |           0.01061 | 0.69474 | 0.517608 |                   2.42854 |          0.48 |
+|           | CDCl 3       |           0.00517 | 0.77158 | 0.543219 |                   2.63117 |         0.563 |
+|           | C 6 D 6      |           0.00848 |  0.7331 | 0.530394 |                   2.07035 |        0.6067 |
+|           | CD 2 Cl 2    |           0.00702 | 0.75226 |  0.53678 |                   3.23833 |         0.413 |
+|           | DMSO         |           0.05265 | 0.47463 | 0.444236 |                  0.312052 |          2.19 |
+
+**[Preceding Paragraphs]**
+Figure 1. Diffusion coefficients vs molar masses for PS, PEO and PMMA in different solvents at T = 298.15 K.
+
+<!-- image -->
+
+the diffusion coefficients for polystyrene (PS), poly(ethylene oxide) (PEO), and poly(methyl methacrylate) (PMMA) in several solvents. The details of the polymers and the experimental DOSY conditions are given in the experimental part and Tables S1 and S2 in the SI. The diluted solutions of 1 mg · mL -1 are required for describing the molar mass dependences of the diffusion coefficients by only one slope (Flory parameter) in the range of 0.5 -0.6 depending on the polymer and solvent. Higher concentrations can cause the formation of entanglements of the polymer chains and provide molar mass dependences with two slopes. 19,25,26 However, the individual molar mass dependences of all studied solutions of PS, PEO, and PMMA show the expected linear behavior with only one slope in Figures S1 -S3. The diffusion coefficients of these molar mass dependences were fitted to eq 10 in order to determine the Mark -Houwink parameters. The calculated Mark -Houwink parameters are listed in Table 1. The K 1 and a 1 data were taken from polystyrene in THF as the reference from literature data. 27 Table 1 presents the fitted Mark -Houwink parameters, the parameters of the molar mass dependences of the diffusion coefficients as well as the dynamic viscosities. It should be noted that the calculated Mark -Houwink parameters in Table 1 deliver good agreement with experimental data found in the literature. Table S3 in the SI shows comparisons for the available data. Figure 2 also illustrates the high accuracy of the calculated diffusion data a Determined via equation 10. b Determined via equation 6. c η for CD2Cl2 was not available thus η for CH2Cl2 was used from ref 30
+
+Table 1. Mark -Houwink Parameters K and a , Flory Parameters b , and Constants c of the Molar Mass Dependences Determined via DOSY for PS, PEO, and PMMA as Well as Dynamic Viscosities
