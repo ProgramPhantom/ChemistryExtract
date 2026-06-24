@@ -43,7 +43,6 @@ def get_tables(doc_str: str) -> list[str]:
         if '|---' in block or '| ---' in block:
             # Add the table itself
             table_strings.append(f"**[Table Data]**\n{block.strip()}")
-            table_strings.append("\n") # Add spacing between different table extractions
 
     # 3. Join the extracted blocks back into a single string
     return table_strings
@@ -88,7 +87,7 @@ def get_surrounding_paragraphs(doc_str: str, num_context_paragraphs: int = 1) ->
     return surrounding_paragraphs
 
 
-def produce_table_content(input_path, output_path, clean_pdf_output=""):
+def extract_table_content(input_path, clean_pdf_output=""):
     log_capture = io.StringIO()
 
     with redirect_stdout(log_capture), redirect_stderr(log_capture):
@@ -103,16 +102,27 @@ def produce_table_content(input_path, output_path, clean_pdf_output=""):
             raw_result = converter.convert(input_path)
             raw_markdown = raw_result.document.export_to_markdown()
             
-            # 2. Set up the clean path (saving as clean+<filename> inside the "clean" subfolder)
+            # 2. Extract input directory and base filename
             input_dir = os.path.dirname(input_path)
             filename = os.path.basename(input_path)
-            clean_dir = os.path.join(input_dir, "clean")
-            os.makedirs(clean_dir, exist_ok=True)
-
-            clean_path = os.path.join(clean_pdf_output, f"clean_{filename}")
+            
+            # 3. Resolve the clean path dynamically based on clean_pdf_output
+            if clean_pdf_output:
+                if clean_pdf_output.lower().endswith('.pdf'):
+                    clean_path = clean_pdf_output
+                else:
+                    clean_path = os.path.join(clean_pdf_output, f"clean_{filename}")
+            else:
+                clean_dir = os.path.join(input_dir, "clean")
+                os.makedirs(clean_dir, exist_ok=True)
+                clean_path = os.path.join(clean_dir, f"clean_{filename}")
+                
+            clean_parent = os.path.dirname(clean_path)
+            if clean_parent:
+                os.makedirs(clean_parent, exist_ok=True)
             
             # 4. Redact the hyperlinked text and save to clean_path
-            redact_hyperlinked_text(input_path, clean_path)
+            clean_pdf(input_path, clean_path)
             
             # 5. Convert the clean PDF
             parsed_result = converter.convert(clean_path)
@@ -122,24 +132,20 @@ def produce_table_content(input_path, output_path, clean_pdf_output=""):
             tables = get_tables(parsed_markdown)
             surrounding_paragraphs = get_surrounding_paragraphs(raw_markdown, num_context_paragraphs=4)
             
-            # Ensure parent output directory exists
-            output_dir = os.path.dirname(output_path)
-            if output_dir:
-                os.makedirs(output_dir, exist_ok=True)
-
-            # 7. Write out the markdown output in the same way as the test cell
-            with open(output_path, 'w', encoding="utf-8") as output:
-                limit = min(len(tables) - 1, len(surrounding_paragraphs))
-                for i in range(limit):
-                    output.write(f"\n\n-------------- TABLE {i + 1} EXTRACTION --------------\n")
-                    output.write(f"{surrounding_paragraphs[i][0]}\n\n")
-                    output.write(f"{tables[i]}\n\n")
-                    output.write(surrounding_paragraphs[i][0])
-
-            print(f"Written to file '{output_path}'")
+            # 7. Construct formatted strings for each table
+            table_strings = []
+            for i in range(len(tables)):
+                table_str = (
+                    f"-------------- TABLE {i + 1} EXTRACTION --------------\n"
+                    f"{surrounding_paragraphs[i][0]}\n\n"
+                    f"{tables[i]}\n\n"
+                    f"{surrounding_paragraphs[i][1]}"
+                )
+                table_strings.append(table_str)
+                
         finally:
             root_logger.removeHandler(temp_handler)
             
-    return log_capture.getvalue()
+    return table_strings, log_capture.getvalue()
 
 

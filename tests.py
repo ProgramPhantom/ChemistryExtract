@@ -1,7 +1,7 @@
 import glob
 import os
 from datetime import datetime
-from extractor import produce_table_content
+from extractor import extract_table_content
 import time
 
 TEST_DIR = "./tests"
@@ -30,12 +30,19 @@ def run_tests():
         base_no_ext = os.path.splitext(base_name)[0]
         
         # Configure output paths within the timestamped run directory
-        output_path = os.path.join(output_dir, f"{base_no_ext}.md")
-        clean_path = os.path.join(clean_dir, f"clean_{base_name}")
+        test_output_dir = os.path.join(output_dir, base_no_ext)
+        os.makedirs(test_output_dir, exist_ok=True)
+        clean_path = os.path.join(clean_dir, f"clean+{base_name}")
         
         timer = time.time()
         print(f"Running test for '{base_name}'")
-        logs_content = produce_table_content(pdf_path, output_path, clean_pdf_output=clean_dir)
+        tables_list, logs_content = extract_table_content(pdf_path, clean_pdf_output=clean_path)
+        
+        # Save each table string one by one to the test folder as table1, table2, etc.
+        for i, table_str in enumerate(tables_list):
+            table_file_path = os.path.join(test_output_dir, f"table{i + 1}.txt")
+            with open(table_file_path, "w", encoding="utf-8") as table_file:
+                table_file.write(table_str)
         
         # Save Captured conversion logs
         log_file_path = os.path.join(logs_dir, f"log_{base_name}.log")
