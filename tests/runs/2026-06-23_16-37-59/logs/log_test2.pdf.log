@@ -1,4 +1,0 @@
-Loading weights:   0%|                                                                                                                   | 0/770 [00:00<?, ?it/s]Loading weights:  76%|##############################################################################6                        | 588/770 [00:00<00:00, 5838.68it/s]Loading weights: 100%|#######################################################################################################| 770/770 [00:00<00:00, 5944.40it/s]
-All hyperlinked elements redacted. Clean PDF saved.
-Stage preprocess failed for run 2, pages [8]: std::bad_alloc
-Written to file './tests\runs\2026-06-23_16-37-59\output\test2.md'

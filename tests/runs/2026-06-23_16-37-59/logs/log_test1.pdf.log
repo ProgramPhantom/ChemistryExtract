@@ -1,18 +1,0 @@
-[32m[INFO] 2026-06-23 16:38:00,290 [RapidOCR] base.py:22: Using engine_name: onnxruntime[0m
-[32m[INFO] 2026-06-23 16:38:00,301 [RapidOCR] download_file.py:60: File exists and is valid: C:\Python312\Lib\site-packages\rapidocr\models\ch_PP-OCRv4_det_infer.onnx[0m
-[32m[INFO] 2026-06-23 16:38:00,301 [RapidOCR] main.py:53: Using C:\Python312\Lib\site-packages\rapidocr\models\ch_PP-OCRv4_det_infer.onnx[0m
-[32m[INFO] 2026-06-23 16:38:00,473 [RapidOCR] base.py:22: Using engine_name: onnxruntime[0m
-[32m[INFO] 2026-06-23 16:38:00,476 [RapidOCR] download_file.py:60: File exists and is valid: C:\Python312\Lib\site-packages\rapidocr\models\ch_ppocr_mobile_v2.0_cls_infer.onnx[0m
-[32m[INFO] 2026-06-23 16:38:00,476 [RapidOCR] main.py:53: Using C:\Python312\Lib\site-packages\rapidocr\models\ch_ppocr_mobile_v2.0_cls_infer.onnx[0m
-[32m[INFO] 2026-06-23 16:38:00,555 [RapidOCR] base.py:22: Using engine_name: onnxruntime[0m
-[32m[INFO] 2026-06-23 16:38:00,566 [RapidOCR] download_file.py:60: File exists and is valid: C:\Python312\Lib\site-packages\rapidocr\models\ch_PP-OCRv4_rec_infer.onnx[0m
-[32m[INFO] 2026-06-23 16:38:00,567 [RapidOCR] main.py:53: Using C:\Python312\Lib\site-packages\rapidocr\models\ch_PP-OCRv4_rec_infer.onnx[0m
-Loading weights:   0%|                                                                                                                   | 0/770 [00:00<?, ?it/s]Loading weights:  76%|##############################################################################3                        | 586/770 [00:00<00:00, 5852.36it/s]Loading weights: 100%|#######################################################################################################| 770/770 [00:00<00:00, 5945.26it/s]
-All hyperlinked elements redacted. Clean PDF saved.
-[33m[WARNING] 2026-06-23 16:38:26,513 [RapidOCR] main.py:125: The text detection result is empty[0m
-RapidOCR returned empty result!
-[33m[WARNING] 2026-06-23 16:38:26,829 [RapidOCR] main.py:125: The text detection result is empty[0m
-RapidOCR returned empty result!
-[33m[WARNING] 2026-06-23 16:38:27,313 [RapidOCR] main.py:125: The text detection result is empty[0m
-RapidOCR returned empty result!
-Written to file './tests\runs\2026-06-23_16-37-59\output\test1.md'
