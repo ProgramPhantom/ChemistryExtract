@@ -7,6 +7,7 @@ if hasattr(sys.stderr, 'reconfigure'):
 
 import glob
 import os
+import json
 from datetime import datetime
 import time
 import gc
@@ -19,7 +20,7 @@ from rich.table import Table
 
 from extractor import TableExtractor
 from categorisation import categorise_table
-from summariser import summarise_table_conditions
+from summariser import summarise_table_conditions, extract_paper_metadata
 
 TEST_DIR = "./tests"
 MATERIAL_DIR = "./tests/material"
@@ -98,10 +99,20 @@ def categorise_extracted_tables(tables_dir: str, num_tables: int, model: str) ->
     return results
 
 
-def summarise_extracted_tables(tables_dir: str, descriptions_dir: str, num_tables: int, model: str) -> list[tuple[str, bool, str]]:
+def summarise_extracted_tables(tables_dir: str, descriptions_dir: str, num_tables: int, parsed_markdown: str, model: str) -> list[tuple[str, bool, str]]:
     """Summarises each saved table text file and saves JSON outputs to descriptions_dir."""
     os.makedirs(descriptions_dir, exist_ok=True)
     results = []
+    
+    # 1. Extract paper-level metadata
+    metadata_res = extract_paper_metadata(parsed_markdown, model=model)
+    metadata_dict = {}
+    metadata_error = None
+    if metadata_res.success:
+        metadata_dict = metadata_res.data.model_dump()
+    else:
+        metadata_error = metadata_res.error
+        
     for i in range(num_tables):
         table_file_path = os.path.join(tables_dir, "txt", f"table{i + 1}.txt")
         table_name = os.path.basename(table_file_path)
@@ -113,10 +124,18 @@ def summarise_extracted_tables(tables_dir: str, descriptions_dir: str, num_table
                 
             res = summarise_table_conditions(table_text, model=model)
             if res.success:
-                json_data = res.data.model_dump_json(indent=2)
+                # Merge paper metadata and experimental conditions
+                combined_data = {
+                    **metadata_dict,
+                    **res.data.model_dump()
+                }
                 with open(json_file_path, 'w', encoding='utf-8') as jf:
-                    jf.write(json_data)
-                results.append((table_name, True, "Successfully summarised"))
+                    json.dump(combined_data, jf, indent=2)
+                
+                status_msg = "Successfully summarised"
+                if metadata_error:
+                    status_msg += f" (metadata failed: {metadata_error})"
+                results.append((table_name, True, status_msg))
             else:
                 results.append((table_name, False, f"Failed: {res.error}"))
     return results
@@ -268,7 +287,7 @@ def run_tests(categorise_tables: bool = True, summarise_tables: bool = True, mod
         sum_results = []
         if summarise_tables:
             descriptions_dir = os.path.join(test_output_dir, "descriptions")
-            sum_results = summarise_extracted_tables(tables_dir, descriptions_dir, len(extractor.tables_markdown), model)
+            sum_results = summarise_extracted_tables(tables_dir, descriptions_dir, len(extractor.tables_markdown), extractor.parsed_markdown, model)
             
         # 6. Save Logs
         save_logs(logs_dir, base_name, extractor.logs)

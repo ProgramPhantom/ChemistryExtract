@@ -181,7 +181,6 @@ class TableExtractor:
         self.parsed_markdown = self._parsed_result.document.export_to_markdown()
         
         self._is_parsed = True
-
     
     def extract_results(self):
         # Extract table markdown content
