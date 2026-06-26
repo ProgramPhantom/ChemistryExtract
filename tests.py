@@ -1,7 +1,7 @@
 import glob
 import os
 from datetime import datetime
-from extractor import extract_table_content_markdown, extract_table_content_csv
+from extractor import TableExtractor
 from categorisation import categorise_table
 import time
 
@@ -37,8 +37,13 @@ def run_tests(categorise_tables: bool = True, model: str = "gemini"):
         
         timer = time.time()
         print(f"Running test for '{base_name}'")
-        tables_list, parsed_markdown, logs_content = extract_table_content_markdown(pdf_path, clean_pdf_output=clean_path)
-        csv_tables, csv_logs_content = extract_table_content_csv(pdf_path, clean_pdf_output=clean_path)
+        
+        # Instantiate extractor (runs path validation immediately)
+        extractor = TableExtractor(pdf_path, clean_path)
+        
+        # Perform conversions and extractions
+        tables_list, parsed_markdown, _ = extractor.extract_table_content_markdown()
+        csv_tables, _ = extractor.extract_table_content_csv()
         
         # Save the entire parsed markdown to a file
         parsed_md_path = os.path.join(test_output_dir, "output.md")
@@ -67,10 +72,10 @@ def run_tests(categorise_tables: bool = True, model: str = "gemini"):
                 else:
                     print(f"  Table {i + 1} ({os.path.basename(table_file_path)}) [{model}]: Failed with error: {res.error}")
         
-        # Save Captured conversion logs
+        # Save Captured conversion logs (stored in extractor.logs)
         log_file_path = os.path.join(logs_dir, f"log_{base_name}.log")
         with open(log_file_path, "w", encoding="utf-8") as log_file:
-            log_file.write(logs_content + "\n" + csv_logs_content)
+            log_file.write(extractor.logs)
 
         elapsed_time = time.time() - timer
         print(f"Completed test for '{base_name}' in {elapsed_time:.2f} seconds")
