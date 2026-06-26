@@ -1,4 +1,6 @@
 from docling.document_converter import DocumentConverter
+from docling.datamodel.base_models import DocumentStream
+from io import BytesIO
 import pandas as pd
 import fitz  # PyMuPDF
 import os
@@ -32,25 +34,15 @@ def time_function(func):
     return wrapper
 
 
-def require_parsed(func):
-    @wraps(func)
-    def wrapper(self, *args, **kwargs):
-        if not getattr(self, "_is_parsed", False):
-            print(f"Error: Cannot execute {func.__name__}. PDF parsing has not been executed.")
-            return None
-        return func(self, *args, **kwargs)
-    return wrapper
-
-
 class TableExtractor:
-    _is_capturing = False
-    log_stream = io.StringIO()
-
     @property
     def logs(self) -> str:
         return self.log_stream.getvalue()
 
-    def __init__(self, input_path: str, output_path: str):
+    def __init__(self, input_path: str):
+        self.log_stream = io.StringIO()
+        self._is_capturing = False
+
         if not os.path.exists(input_path):
             raise FileNotFoundError(f"Input PDF path does not exist: {input_path}")
         if not os.path.isfile(input_path):
@@ -58,21 +50,19 @@ class TableExtractor:
             
         self.input_path = os.path.abspath(input_path)
         
-        # Resolve output path dynamically
-        filename = os.path.basename(self.input_path)
-        if output_path.lower().endswith('.pdf'):
-            self.output_path = os.path.abspath(output_path)
-        else:
-            self.output_path = os.path.abspath(os.path.join(output_path, f"clean_{filename}"))
-            
+        self.clean_pdf_bytes = None
         self._raw_result = None
         self._parsed_result = None
         self.raw_markdown = None
         self.parsed_markdown = None
+        self.tables_markdown = []
+        self.tables_csv = []
         self._is_parsed = False
         
         # Parse PDF immediately upon instantiation
         self.parse_pdf()
+        # Extract tables and CSV data immediately
+        self.extract_results()
 
     @contextmanager
     def _capture_logs(self):
@@ -91,11 +81,11 @@ class TableExtractor:
                 root_logger.removeHandler(temp_handler)
                 self._is_capturing = False
 
-    def clean_pdf(self, input_path, output_path):
-        self.redact_hyperlinked_text(input_path, output_path)
+    def clean_pdf(self):
+        self.redact_hyperlinked_text()
 
-    def redact_hyperlinked_text(self, input_path, output_path):
-        doc = fitz.open(input_path)
+    def redact_hyperlinked_text(self):
+        doc = fitz.open(self.input_path)
         for page in doc:
             # get_links() returns a list of dictionaries representing all clickable areas
             links = page.get_links()
@@ -106,9 +96,10 @@ class TableExtractor:
                 page.add_redact_annot(link_rect, fill=(1, 1, 1))
             # Apply the redactions, physically wiping the text under the boxes
             page.apply_redactions()
-        doc.save(output_path)
+        # Save to in-memory bytes
+        self.clean_pdf_bytes = doc.tobytes()
         doc.close()
-        print("All hyperlinked elements redacted. Clean PDF saved.")
+        print("All hyperlinked elements redacted in-memory.")
 
     def get_tables(self, doc_str: str) -> list[str]:
         blocks = doc_str.split('\n\n')
@@ -120,8 +111,10 @@ class TableExtractor:
                 table_strings.append(f"**[Table Data]**\n{block.strip()}")
         return table_strings
 
-    def get_surrounding_paragraphs(self, doc_str: str, num_context_paragraphs: int = 1) -> list[tuple[str, str]]:
-        blocks = doc_str.split('\n\n')
+    def get_surrounding_paragraphs(self, num_context_paragraphs: int = 1) -> list[tuple[str, str]]:
+        if not self.raw_markdown:
+            return []
+        blocks = self.raw_markdown.split('\n\n')
         surrounding_paragraphs = []
         for i, block in enumerate(blocks):
             # A standard Markdown table contains a header separator row like "|---"
@@ -164,53 +157,37 @@ class TableExtractor:
         self._raw_result = _converter.convert(self.input_path)
         self.raw_markdown = self._raw_result.document.export_to_markdown()
         
-        # 2. Resolve target directories for clean pdf
-        clean_parent = os.path.dirname(self.output_path)
-        if clean_parent:
-            os.makedirs(clean_parent, exist_ok=True)
+        # 2. Redact the hyperlinked text in-memory
+        self.clean_pdf()
         
-        # 3. Redact the hyperlinked text and save to output_path
-        self.clean_pdf(self.input_path, self.output_path)
-        
-        # 4. Convert the clean PDF
-        self._parsed_result = _converter.convert(self.output_path)
+        # 3. Convert the clean PDF from in-memory bytes
+        filename = os.path.basename(self.input_path)
+        stream = DocumentStream(name=f"clean_{filename}", stream=BytesIO(self.clean_pdf_bytes))
+        self._parsed_result = _converter.convert(stream)
         self.parsed_markdown = self._parsed_result.document.export_to_markdown()
         
         self._is_parsed = True
 
     @capture_logs
     @time_function
-    @require_parsed
-    def extract_table_content_markdown(self):
-        print("Extracting table content to Markdown")
-        
-        # Extract tables and surrounding paragraphs
+    def extract_results(self):
+        # Extract table markdown content
         tables = self.get_tables(self.parsed_markdown)
-        surrounding_paragraphs = self.get_surrounding_paragraphs(self.raw_markdown, num_context_paragraphs=4)
+        surrounding_paragraphs = self.get_surrounding_paragraphs(num_context_paragraphs=4)
         
-        # Construct formatted strings for each table
-        table_strings = []
-        for i in range(len(tables)):
-            table_str = (
+        self.tables_markdown = []
+        for i, table_str in enumerate(tables):
+            formatted_table = (
                 f"-------------- TABLE {i + 1} EXTRACTION --------------\n"
                 f"{surrounding_paragraphs[i][0]}\n\n"
-                f"{tables[i]}\n\n"
+                f"{table_str}\n\n"
                 f"{surrounding_paragraphs[i][1]}"
             )
-            table_strings.append(table_str)
-                
-        return table_strings, self.parsed_markdown, self.logs
-
-    @capture_logs
-    @time_function
-    @require_parsed
-    def extract_table_content_csv(self):
-        print("Extracting table content to CSV")
-        
-        table_csvs = []
+            self.tables_markdown.append(formatted_table)
+            
+        # Extract table CSV content
+        self.tables_csv = []
         for table in self._parsed_result.document.tables:
             table_df = table.export_to_dataframe(doc=self._parsed_result.document)
             csv_str = table_df.to_csv()
-            table_csvs.append(csv_str)
-                
-        return table_csvs, self.logs
+            self.tables_csv.append(csv_str)
