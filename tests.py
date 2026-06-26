@@ -1,10 +1,18 @@
 import glob
 import os
 from datetime import datetime
-from extractor import TableExtractor
-from categorisation import categorise_table
 import time
 import gc
+import sys
+
+from rich.console import Console
+from rich.progress import Progress, SpinnerColumn, TextColumn, TimeElapsedColumn
+from rich.tree import Tree
+from rich.rule import Rule
+from rich.table import Table
+
+from extractor import TableExtractor
+from categorisation import categorise_table
 
 TEST_DIR = "./tests"
 MATERIAL_DIR = "./tests/material"
@@ -56,17 +64,20 @@ def save_tables_csv(tables_dir: str, csv_tables: list[str]):
             csv_file.write(csv_str)
 
 
-def categorise_extracted_tables(tables_dir: str, num_tables: int, model: str):
-    """Categorises each saved table text file and logs results."""
+def categorise_extracted_tables(tables_dir: str, num_tables: int, model: str) -> list[tuple[str, bool, str]]:
+    """Categorises each saved table text file and returns a list of results."""
+    results = []
     for i in range(num_tables):
         table_file_path = os.path.join(tables_dir, f"table{i + 1}.txt")
+        table_name = os.path.basename(table_file_path)
         if os.path.exists(table_file_path):
             res = categorise_table(table_file_path, model=model)
             if res.success:
                 status = "Contains" if res.contains_diffusion else "Does NOT contain"
-                print(f"  Table {i + 1} ({os.path.basename(table_file_path)}) [{model}]: {status} chemical diffusion coefficient data.")
+                results.append((table_name, True, f"{status} chemical diffusion coefficient data"))
             else:
-                print(f"  Table {i + 1} ({os.path.basename(table_file_path)}) [{model}]: Failed with error: {res.error}")
+                results.append((table_name, False, f"Failed: {res.error}"))
+    return results
 
 
 def save_logs(logs_dir: str, base_name: str, logs_content: str):
@@ -76,13 +87,92 @@ def save_logs(logs_dir: str, base_name: str, logs_content: str):
         log_file.write(logs_content)
 
 
+def print_pdf_run_tree(
+    console: Console,
+    base_name: str,
+    elapsed_time: float,
+    clean_path: str,
+    parsed_md_path: str,
+    tables_dir: str,
+    num_tables: int,
+    log_file_path: str,
+    categorise_tables: bool = False,
+    model: str = "",
+    cat_results: list = None
+):
+    """Builds and prints the hierarchical tree status for a specific test run."""
+    tree = Tree(f"[bold cyan]📄 {base_name}[/bold cyan] [dim](Completed in {elapsed_time:.2f}s)[/dim]")
+    tree.add(f"[green]✓[/green] Extracted text & tables in-memory")
+    tree.add(f"[green]✓[/green] Saved cleaned PDF to [yellow]{os.path.relpath(clean_path)}[/yellow]")
+    tree.add(f"[green]✓[/green] Saved parsed markdown to [yellow]{os.path.relpath(parsed_md_path)}[/yellow]")
+    tree.add(f"[green]✓[/green] Saved {num_tables} tables (txt & csv) to [yellow]{os.path.relpath(tables_dir)}[/yellow]")
+    
+    if categorise_tables:
+        cat_node = tree.add(f"[green]✓[/green] Categorised extracted tables using [magenta]{model}[/magenta]")
+        if not cat_results:
+            cat_node.add("[dim]No tables found to categorise[/dim]")
+        else:
+            for table_name, success, status in cat_results:
+                if success:
+                    if "Does NOT contain" in status:
+                        status_styled = f"[blue]{status}[/blue]"
+                    else:
+                        status_styled = f"[bold green]{status}[/bold green]"
+                    cat_node.add(f"{table_name}: {status_styled}")
+                else:
+                    cat_node.add(f"{table_name}: [red]{status}[/red]")
+                    
+    tree.add(f"[green]✓[/green] Saved execution logs to [yellow]{os.path.relpath(log_file_path)}[/yellow]")
+    
+    console.print(tree)
+    console.print()
+
+
+def print_summary_table(console: Console, summary_data: list[dict]):
+    """Prints the final summary table of all PDF runs."""
+    console.print(Rule(title="[bold green]TEST SUITE SUMMARY[/bold green]", style="green"))
+    console.print()
+    table = Table(show_header=True, header_style="bold magenta")
+    table.add_column("PDF File", style="cyan")
+    table.add_column("Tables Extracted", justify="right", style="green")
+    table.add_column("Execution Time", justify="right", style="yellow")
+    
+    total_time = 0.0
+    total_tables = 0
+    for row in summary_data:
+        table.add_row(
+            row["file"],
+            str(row["tables"]),
+            f"{row['time']:.2f}s"
+        )
+        total_time += row["time"]
+        total_tables += row["tables"]
+        
+    table.add_section()
+    table.add_row(
+        "[bold]Total[/bold]",
+        f"[bold]{total_tables}[/bold]",
+        f"[bold]{total_time:.2f}s[/bold]"
+    )
+    console.print(table)
+    console.print()
+
+
 def run_tests(categorise_tables: bool = True, model: str = "gemini"):
+    # Initialize rich console targeting original stdout to bypass redirections
+    console = Console(file=sys.__stdout__)
+    
     # Find all test PDF files
     pdf_files = glob.glob(os.path.join(MATERIAL_DIR, "*.pdf"))
-    print(f"--------- TESTING {len(pdf_files)} FILES ---------")
+    
+    console.print()
+    console.print(Rule(title=f"[bold magenta]TESTING {len(pdf_files)} FILES[/bold magenta]", style="magenta"))
+    console.print()
     
     # 1. Setup timestamped run directories
     clean_dir, output_dir, logs_dir = setup_run_layout(TEST_DIR)
+    
+    summary_data = []
     
     for pdf_path in pdf_files:
         base_name = os.path.basename(pdf_path)
@@ -94,11 +184,18 @@ def run_tests(categorise_tables: bool = True, model: str = "gemini"):
         clean_path = os.path.join(clean_dir, f"clean_{base_name}")
         
         timer = time.time()
-        print(f"Running test for '{base_name}'")
         
-        # 2. Extract content in-memory
-        extractor = TableExtractor(pdf_path)
-        
+        # 2. Extract content in-memory with a loading spinner and elapsed timer
+        with Progress(
+            SpinnerColumn(),
+            TextColumn("[progress.description]{task.description}"),
+            TimeElapsedColumn(),
+            console=console,
+            transient=True
+        ) as progress:
+            progress.add_task(f"[bold cyan]Extracting '{base_name}'[/bold cyan]...")
+            extractor = TableExtractor(pdf_path)
+            
         # 3. Save Cleaned PDF
         save_cleaned_pdf(clean_path, extractor.clean_pdf_bytes)
         
@@ -111,18 +208,45 @@ def run_tests(categorise_tables: bool = True, model: str = "gemini"):
         save_tables_csv(tables_dir, extractor.tables_csv)
         
         # 5. Run Categorisation if enabled
+        cat_results = []
         if categorise_tables:
-            categorise_extracted_tables(tables_dir, len(extractor.tables_markdown), model)
-        
+            cat_results = categorise_extracted_tables(tables_dir, len(extractor.tables_markdown), model)
+            
         # 6. Save Logs
         save_logs(logs_dir, base_name, extractor.logs)
+        log_file_path = os.path.join(logs_dir, f"log_{base_name}.log")
         
         elapsed_time = time.time() - timer
-        print(f"Completed test for '{base_name}' in {elapsed_time:.2f} seconds")
+        num_tables = len(extractor.tables_markdown)
+        
+        # Build and print tree list for this PDF file
+        print_pdf_run_tree(
+            console=console,
+            base_name=base_name,
+            elapsed_time=elapsed_time,
+            clean_path=clean_path,
+            parsed_md_path=parsed_md_path,
+            tables_dir=tables_dir,
+            num_tables=num_tables,
+            log_file_path=log_file_path,
+            categorise_tables=categorise_tables,
+            model=model,
+            cat_results=cat_results
+        )
+        
+        # Collect data for final summary table
+        summary_data.append({
+            "file": base_name,
+            "tables": num_tables,
+            "time": elapsed_time
+        })
 
         # 7. Deload extractor instance to release memory
         extractor = None
         gc.collect()
+        
+    # Print the final summary table
+    print_summary_table(console, summary_data)
 
 
 if __name__ == "__main__":    

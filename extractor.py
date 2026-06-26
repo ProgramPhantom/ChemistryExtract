@@ -1,18 +1,28 @@
-from docling.document_converter import DocumentConverter
-from docling.datamodel.base_models import DocumentStream
-from io import BytesIO
-import pandas as pd
-import fitz  # PyMuPDF
-import os
-import glob
-from datetime import datetime
-import logging
-from contextlib import redirect_stdout, redirect_stderr, contextmanager
-import io
-from functools import wraps
 import time
+import sys
+from rich.console import Console
 
-_converter = DocumentConverter()
+console = Console(file=sys.__stdout__)
+start_time = time.time()
+
+with console.status("[bold yellow]Loading Docling models and dependencies...[/bold yellow]"):
+    from docling.document_converter import DocumentConverter
+    from docling.datamodel.base_models import DocumentStream
+    from io import BytesIO
+    import pandas as pd
+    import fitz  # PyMuPDF
+    import os
+    import glob
+    from datetime import datetime
+    import logging
+    from contextlib import redirect_stdout, redirect_stderr, contextmanager
+    import io
+    from functools import wraps
+
+    _converter = DocumentConverter()
+
+elapsed = time.time() - start_time
+console.print(f"[bold green]✓[/bold green] Docling loaded in [yellow]{elapsed:.2f}s[/yellow]")
 
 def capture_logs(func):
     @wraps(func)
@@ -101,6 +111,8 @@ class TableExtractor:
         doc.close()
         print("All hyperlinked elements redacted in-memory.")
 
+    @capture_logs
+    @time_function
     def get_tables(self, doc_str: str) -> list[str]:
         blocks = doc_str.split('\n\n')
         table_strings = []
@@ -111,6 +123,8 @@ class TableExtractor:
                 table_strings.append(f"**[Table Data]**\n{block.strip()}")
         return table_strings
 
+    @capture_logs
+    @time_function
     def get_surrounding_paragraphs(self, num_context_paragraphs: int = 1) -> list[tuple[str, str]]:
         if not self.raw_markdown:
             return []
@@ -168,8 +182,7 @@ class TableExtractor:
         
         self._is_parsed = True
 
-    @capture_logs
-    @time_function
+    
     def extract_results(self):
         # Extract table markdown content
         tables = self.get_tables(self.parsed_markdown)
