@@ -1,5 +1,6 @@
 import time
 import sys
+import re
 from rich.console import Console
 
 console = Console(file=sys.__stdout__)
@@ -45,6 +46,14 @@ def time_function(func):
 
 
 class TableExtractor:
+    @staticmethod
+    def clean_markdown(text: str) -> str:
+        if not text:
+            return ""
+        # Remove XML control characters (ASCII 0-31 except tab (9), LF (10), CR (13), and surrogates/etc.)
+        illegal_chars = re.compile(r'[\000-\010\013\014\016-\037\ufffe\uffff]')
+        return illegal_chars.sub("", text)
+
     @property
     def logs(self) -> str:
         return self.log_stream.getvalue()
@@ -169,7 +178,7 @@ class TableExtractor:
             
         # 1. Run conversion on raw input PDF to obtain context paragraphs
         self._raw_result = _converter.convert(self.input_path)
-        self.raw_markdown = self._raw_result.document.export_to_markdown()
+        self.raw_markdown = self.clean_markdown(self._raw_result.document.export_to_markdown())
         
         # 2. Redact the hyperlinked text in-memory
         self.clean_pdf()
@@ -178,7 +187,7 @@ class TableExtractor:
         filename = os.path.basename(self.input_path)
         stream = DocumentStream(name=f"clean_{filename}", stream=BytesIO(self.clean_pdf_bytes))
         self._parsed_result = _converter.convert(stream)
-        self.parsed_markdown = self._parsed_result.document.export_to_markdown()
+        self.parsed_markdown = self.clean_markdown(self._parsed_result.document.export_to_markdown())
         
         self._is_parsed = True
     
@@ -201,5 +210,5 @@ class TableExtractor:
         self.tables_csv = []
         for table in self._parsed_result.document.tables:
             table_df = table.export_to_dataframe(doc=self._parsed_result.document)
-            csv_str = table_df.to_csv()
+            csv_str = self.clean_markdown(table_df.to_csv())
             self.tables_csv.append(csv_str)

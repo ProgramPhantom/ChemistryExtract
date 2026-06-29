@@ -19,15 +19,15 @@ class ExperimentalConditions(BaseModel):
     )
     temperature: str | None = Field(
         None,
-        description="The temperature(s) at which the experiment was conducted (e.g. '298.15 K', '25 °C'), or 'Not applicable' if not specified or not experimental data."
+        description="The temperature(s) at which the experiment was conducted (e.g. '298.15 K', '25 °C'), or 'Not applicable' if not experimental data or 'Not found' if not specified"
     )
     pressure: str | None = Field(
         None,
-        description="The pressure(s) at which the experiment was conducted (e.g. '1 atm', '101.3 kPa'), or 'Not applicable' if not specified or not experimental data."
+        description="The pressure(s) at which the experiment was conducted (e.g. '1 atm', '101.3 kPa'), or 'Not applicable' if not experimental data or 'Not found' if not specified"
     )
-    solvent: str | None = Field(
-        None,
-        description="The solvent or medium used in the experiment (e.g. 'water', 'ethanol'), or 'Not applicable' if not specified or not experimental data."
+    chemicals: list[str] = Field(
+        default_factory=list,
+        description="The list of chemicals or substances involved in the experiment or table (e.g. reagents, solvents, reactants, products), or an empty list if not applicable or none specified."
     )
     other_statistics: list[ExtraStatistic] = Field(
         default_factory=list,
@@ -59,7 +59,7 @@ def summarise_table_conditions_local(table_summary: str, model: str = "llama3.1"
     You are a chemistry data extraction assistant. Analyze the following extracted table and its surrounding context,
     and extract/summarize the experimental conditions.
     
-    If the table does not represent experimental data or does not contain experimental conditions, set the fields (description, temperature, pressure, solvent) to "Not applicable" and return an empty list for other_statistics.
+    If the table does not represent experimental data or does not contain experimental conditions, set the fields (description, temperature, pressure) to "Not applicable" and return an empty list for chemicals and other_statistics.
     
     Table Summary:
     {table_summary}
@@ -86,7 +86,7 @@ def summarise_table_conditions_gemini(table_summary: str) -> TableSummaryRespons
     You are a chemistry data extraction assistant. Analyze the following extracted table and its surrounding context,
     and extract/summarize the experimental conditions.
     
-    If the table does not represent experimental data or does not contain experimental conditions, set the fields (description, temperature, pressure, solvent) to "Not applicable" and return an empty list for other_statistics.
+    If the table does not represent experimental data or does not contain experimental conditions, set the fields (description, temperature, pressure) to "Not applicable" and return an empty list for chemicals and other_statistics.
     
     Table Summary:
     {table_summary}
@@ -94,7 +94,7 @@ def summarise_table_conditions_gemini(table_summary: str) -> TableSummaryRespons
     
     try:
         response = client.models.generate_content(
-            model='gemini-2.5-flash',
+            model='gemini-3.5-flash',
             contents=prompt,
             config=types.GenerateContentConfig(
                 response_mime_type="application/json",
@@ -108,7 +108,7 @@ def summarise_table_conditions_gemini(table_summary: str) -> TableSummaryRespons
 
 
 class PaperMetadata(BaseModel):
-    title: str = Field(description="The main title of the academic paper (typically near the top). If not found, use 'Not applicable'.")
+    title: str = Field(description="The main title of the academic paper (typically near the top). If not found, use 'Not Found'.")
     authors: list[str] = Field(description="The list of author names of the academic paper. If not found, return an empty list.")
     doi: str | None = Field(None, description="The DOI (Digital Object Identifier) number of the paper (e.g. '10.1021/acs.jced.7b00123'), or 'Not applicable' if not specified or not found.")
 
@@ -141,7 +141,7 @@ def extract_paper_metadata_local(parsed_markdown: str, model: str = "llama3.1") 
     2. The names of the authors.
     3. The DOI (Digital Object Identifier) number of the paper.
     
-    If any of these fields are not found or not specified in the text, use "Not applicable" for string fields and an empty list for the authors.
+    If any of these fields are not found or not specified in the text, use "Not found" for string fields and an empty list for the authors.
     
     Paper Content:
     {parsed_markdown[:20000]}
@@ -179,7 +179,7 @@ def extract_paper_metadata_gemini(parsed_markdown: str) -> PaperMetadataResponse
     
     try:
         response = client.models.generate_content(
-            model='gemini-2.5-flash',
+            model='gemini-3.5-flash',
             contents=prompt,
             config=types.GenerateContentConfig(
                 response_mime_type="application/json",

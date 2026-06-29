@@ -8,6 +8,10 @@ if hasattr(sys.stderr, 'reconfigure'):
 import glob
 import os
 import json
+import csv
+import openpyxl
+from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
+from openpyxl.utils import get_column_letter
 from datetime import datetime
 import time
 import gc
@@ -139,6 +143,177 @@ def summarise_extracted_tables(tables_dir: str, descriptions_dir: str, num_table
             else:
                 results.append((table_name, False, f"Failed: {res.error}"))
     return results
+
+
+def create_excel(test_output_dir: str, base_name: str, num_tables: int) -> None:
+    """Creates a beautifully formatted Excel document containing both JSON metadata/conditions and CSV table data."""
+    wb = openpyxl.Workbook()
+    if "Sheet" in wb.sheetnames:
+        wb.remove(wb["Sheet"])
+
+    font_family = "Segoe UI"
+    
+    title_font = Font(name=font_family, size=16, bold=True, color="1F497D")
+    title_fill = PatternFill(start_color="DCE6F1", end_color="DCE6F1", fill_type="solid")
+    title_align = Alignment(horizontal="center", vertical="center", wrap_text=True)
+    
+    section_font = Font(name=font_family, size=11, bold=True, color="1F497D")
+    section_fill = PatternFill(start_color="B8CCE4", end_color="B8CCE4", fill_type="solid")
+    
+    label_font = Font(name=font_family, size=10, bold=True, color="333333")
+    val_font = Font(name=font_family, size=10, color="000000")
+    desc_val_font = Font(name=font_family, size=10, italic=True, color="333333")
+    
+    table_header_font = Font(name=font_family, size=10, bold=True, color="FFFFFF")
+    table_header_fill = PatternFill(start_color="366092", end_color="366092", fill_type="solid")
+    table_header_align = Alignment(horizontal="center", vertical="center", wrap_text=True)
+    
+    thin_border_side = Side(border_style="thin", color="D9D9D9")
+    data_border = Border(left=thin_border_side, right=thin_border_side, top=thin_border_side, bottom=thin_border_side)
+    thick_bottom = Border(bottom=Side(border_style="medium", color="1F497D"))
+    
+    left_align = Alignment(horizontal="left", vertical="center")
+    right_align = Alignment(horizontal="right", vertical="center")
+    wrap_left_align = Alignment(horizontal="left", vertical="center", wrap_text=True)
+
+    for i in range(num_tables):
+        sheet_name = f"Table {i + 1}"
+        ws = wb.create_sheet(title=sheet_name)
+        ws.views.sheetView[0].showGridLines = True
+        
+        json_path = os.path.join(test_output_dir, "descriptions", f"table{i + 1}.json")
+        csv_path = os.path.join(test_output_dir, "tables", "csv", f"table{i + 1}.csv")
+        
+        data = {}
+        if os.path.exists(json_path):
+            try:
+                with open(json_path, 'r', encoding='utf-8') as jf:
+                    data = json.load(jf)
+            except Exception as e:
+                print(f"Error loading JSON {json_path}: {e}")
+        
+        title_text = data.get("title", base_name)
+        ws.merge_cells("A1:G2")
+        title_cell = ws["A1"]
+        title_cell.value = title_text
+        title_cell.font = title_font
+        title_cell.fill = title_fill
+        title_cell.alignment = title_align
+        
+        for row in range(1, 3):
+            for col in range(1, 8):
+                cell = ws.cell(row=row, column=col)
+                cell.fill = title_fill
+                
+        ws.cell(row=4, column=1, value="PAPER METADATA & EXPERIMENTAL CONDITIONS").font = section_font
+        ws.merge_cells("A4:G4")
+        for col in range(1, 8):
+            cell = ws.cell(row=4, column=col)
+            cell.fill = section_fill
+            cell.border = thick_bottom
+
+        def write_metadata_row(r, label, value, is_description=False):
+            ws.cell(row=r, column=1, value=label).font = label_font
+            ws.cell(row=r, column=1).alignment = left_align
+            ws.cell(row=r, column=2, value=value).font = desc_val_font if is_description else val_font
+            ws.cell(row=r, column=2).alignment = wrap_left_align
+            ws.merge_cells(start_row=r, start_column=2, end_row=r, end_column=7)
+            for col in range(1, 8):
+                ws.cell(row=r, column=col).border = Border(bottom=thin_border_side)
+        
+        authors_val = ", ".join(data.get("authors", [])) if isinstance(data.get("authors"), list) else data.get("authors", "")
+        write_metadata_row(5, "Authors", authors_val)
+        write_metadata_row(6, "DOI", data.get("doi", ""))
+        write_metadata_row(7, "Temperature", data.get("temperature", ""))
+        write_metadata_row(8, "Pressure", data.get("pressure", ""))
+        chemicals_val = ", ".join(data.get("chemicals", [])) if isinstance(data.get("chemicals"), list) else data.get("chemicals", "")
+        write_metadata_row(9, "Chemicals", chemicals_val)
+        
+        desc_val = data.get("description", "")
+        write_metadata_row(10, "Description", desc_val, is_description=True)
+        ws.row_dimensions[10].height = 45
+        
+        other_stats = data.get("other_statistics", [])
+        stats_str = ""
+        if isinstance(other_stats, list):
+            stats_str = ", ".join([f"{stat.get('name')}: {stat.get('value')}" for stat in other_stats if isinstance(stat, dict)])
+        elif isinstance(other_stats, dict):
+            stats_str = ", ".join([f"{k}: {v}" for k, v in other_stats.items()])
+        write_metadata_row(11, "Other Stats", stats_str)
+
+        start_row = 13
+        ws.cell(row=start_row, column=1, value="EXTRACTED TABLE DATA").font = section_font
+        ws.merge_cells(start_row=start_row, start_column=1, end_row=start_row, end_column=7)
+        for col in range(1, 8):
+            cell = ws.cell(row=start_row, column=col)
+            cell.fill = section_fill
+            cell.border = thick_bottom
+            
+        csv_start_row = start_row + 1
+        
+        if os.path.exists(csv_path):
+            try:
+                with open(csv_path, 'r', encoding='utf-8', newline='') as cf:
+                    reader = csv.reader(cf)
+                    csv_rows = list(reader)
+                
+                active_row_idx = 0
+                for csv_row in csv_rows:
+                    # Skip empty rows (blank line or list containing only whitespace strings)
+                    if not csv_row or all(val.strip() == '' for val in csv_row):
+                        continue
+                        
+                    curr_row = csv_start_row + active_row_idx
+                    is_header = (active_row_idx == 0)
+                    
+                    for c_idx, val in enumerate(csv_row):
+                        cell = ws.cell(row=curr_row, column=c_idx + 1)
+                        
+                        parsed_val = val
+                        try:
+                            if "." in val:
+                                parsed_val = float(val)
+                            else:
+                                parsed_val = int(val)
+                        except ValueError:
+                            pass
+                            
+                        cell.value = parsed_val
+                        cell.border = data_border
+                        
+                        if is_header:
+                            cell.font = table_header_font
+                            cell.fill = table_header_fill
+                            cell.alignment = table_header_align
+                        else:
+                            cell.font = val_font
+                            if isinstance(parsed_val, (int, float)):
+                                cell.alignment = right_align
+                            else:
+                                cell.alignment = left_align
+                    active_row_idx += 1
+            except Exception as e:
+                print(f"Error parsing CSV {csv_path}: {e}")
+                ws.cell(row=csv_start_row, column=1, value=f"Error loading CSV data: {e}").font = val_font
+        else:
+            ws.cell(row=csv_start_row, column=1, value="CSV data file not found.").font = val_font
+
+        for col in ws.columns:
+            max_len = 0
+            col_letter = get_column_letter(col[0].column)
+            for cell in col:
+                if cell.row in [1, 2, 4, 10, 13]:
+                    continue
+                if cell.value:
+                    max_len = max(max_len, len(str(cell.value)))
+            ws.column_dimensions[col_letter].width = min(max(max_len + 3, 12), 40)
+
+    output_filename = f"{os.path.basename(test_output_dir)}_summary.xlsx"
+    dest_path = os.path.join(test_output_dir, output_filename)
+    try:
+        wb.save(dest_path)
+    except Exception as e:
+        print(f"Error saving Excel document {dest_path}: {e}")
 
 
 ## ------- Console ouputs -------
@@ -288,6 +463,9 @@ def run_tests(categorise_tables: bool = True, summarise_tables: bool = True, mod
         if summarise_tables:
             descriptions_dir = os.path.join(test_output_dir, "descriptions")
             sum_results = summarise_extracted_tables(tables_dir, descriptions_dir, len(extractor.tables_markdown), extractor.parsed_markdown, model)
+            
+            # Generate Excel sheet
+            create_excel(test_output_dir, base_no_ext, len(extractor.tables_markdown))
             
         # 6. Save Logs
         save_logs(logs_dir, base_name, extractor.logs)
