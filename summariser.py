@@ -46,7 +46,7 @@ class TableSummaryResponse:
 
 
 def summarise_table_conditions(table_summary: str, model: str = "gemini") -> TableSummaryResponse:
-    if model == "gemini":
+    if model in ("gemini", "gemini-2.5-flash"):
         return summarise_table_conditions_gemini(table_summary)
     elif model == "llama3.1":
         return summarise_table_conditions_local(table_summary, model)
@@ -125,7 +125,7 @@ class PaperMetadataResponse:
 
 
 def extract_paper_metadata(parsed_markdown: str, model: str = "gemini") -> PaperMetadataResponse:
-    if model == "gemini":
+    if model in ("gemini", "gemini-2.5-flash"):
         return extract_paper_metadata_gemini(parsed_markdown)
     elif model == "llama3.1":
         return extract_paper_metadata_local(parsed_markdown, model)

@@ -1,29 +1,14 @@
 import time
 import sys
 import re
+import os
+import io
+import logging
+from functools import wraps
+from contextlib import redirect_stdout, redirect_stderr, contextmanager
 from rich.console import Console
 
 console = Console(file=sys.__stdout__)
-start_time = time.time()
-
-with console.status("[bold yellow]Loading Docling models and dependencies...[/bold yellow]"):
-    from docling.document_converter import DocumentConverter
-    from docling.datamodel.base_models import DocumentStream
-    from io import BytesIO
-    import pandas as pd
-    import fitz  # PyMuPDF
-    import os
-    import glob
-    from datetime import datetime
-    import logging
-    from contextlib import redirect_stdout, redirect_stderr, contextmanager
-    import io
-    from functools import wraps
-
-    _converter = DocumentConverter()
-
-elapsed = time.time() - start_time
-console.print(f"[bold green]✓[/bold green] Docling loaded in [yellow]{elapsed:.2f}s[/yellow]")
 
 def capture_logs(func):
     @wraps(func)
@@ -43,6 +28,17 @@ def time_function(func):
         print(f"Function {func.__name__} took {elapsed:.4f} seconds to execute.")
         return result
     return wrapper
+
+
+_converter = None
+
+def get_converter():
+    global _converter
+    if _converter is None:
+        with console.status("[bold yellow]Loading Docling models and dependencies...[/bold yellow]"):
+            from docling.document_converter import DocumentConverter
+            _converter = DocumentConverter()
+    return _converter
 
 
 class TableExtractor:
@@ -104,6 +100,7 @@ class TableExtractor:
         self.redact_hyperlinked_text()
 
     def redact_hyperlinked_text(self):
+        import fitz  # PyMuPDF
         doc = fitz.open(self.input_path)
         for page in doc:
             # get_links() returns a list of dictionaries representing all clickable areas
@@ -176,8 +173,12 @@ class TableExtractor:
         if self._is_parsed:
             return
             
+        from docling.datamodel.base_models import DocumentStream
+        
+        converter = get_converter()
+        
         # 1. Run conversion on raw input PDF to obtain context paragraphs
-        self._raw_result = _converter.convert(self.input_path)
+        self._raw_result = converter.convert(self.input_path)
         self.raw_markdown = self.clean_markdown(self._raw_result.document.export_to_markdown())
         
         # 2. Redact the hyperlinked text in-memory
@@ -185,8 +186,8 @@ class TableExtractor:
         
         # 3. Convert the clean PDF from in-memory bytes
         filename = os.path.basename(self.input_path)
-        stream = DocumentStream(name=f"clean_{filename}", stream=BytesIO(self.clean_pdf_bytes))
-        self._parsed_result = _converter.convert(stream)
+        stream = DocumentStream(name=f"clean_{filename}", stream=io.BytesIO(self.clean_pdf_bytes))
+        self._parsed_result = converter.convert(stream)
         self.parsed_markdown = self.clean_markdown(self._parsed_result.document.export_to_markdown())
         
         self._is_parsed = True

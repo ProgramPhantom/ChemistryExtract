@@ -67,7 +67,7 @@ def categorise_table(table_file_path: str, model="gemini") -> TableCategoryRespo
     with open(table_file_path, 'r', encoding='utf-8') as f:
         table_text = f.read()
         
-    if model == "gemini":
+    if model in ("gemini", "gemini-2.5-flash"):
         return categorise_table_gemini(table_text)
     elif model == "llama3.1":
         return categorise_table_local(table_text, model)
