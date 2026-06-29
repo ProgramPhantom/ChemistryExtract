@@ -5,13 +5,14 @@ import openpyxl
 from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
 from openpyxl.utils import get_column_letter
 import gc
-
+import time
 from rich.progress import Progress, SpinnerColumn, TextColumn, TimeElapsedColumn
+from rich.console import Console
+from rich.tree import Tree
 
 from extractor import TableExtractor
 from categorisation import categorise_table
 from summariser import summarise_table_conditions, extract_paper_metadata
-
 
 
 class PDFProcessor:
@@ -36,9 +37,12 @@ class PDFProcessor:
         self.num_tables = 0
         self.cat_results = []
         self.sum_results = []
+        self.metadata_res = None
 
     def extract(self, console=None):
         """Extracts content in-memory with a loading spinner and elapsed timer if console is provided."""
+        
+        start_time = time.time()
         if console:
             with Progress(
                 SpinnerColumn(),
@@ -52,6 +56,15 @@ class PDFProcessor:
         else:
             self.extractor = TableExtractor(self.pdf_path)
         self.num_tables = len(self.extractor.tables_markdown)
+
+        # Save output files automatically
+        self.save_cleaned_pdf()
+        self.save_outputs()
+        self.save_logs()
+
+        elapsed_time = time.time() - start_time
+        if console:
+            self.print_extraction_tree(console, elapsed_time)
 
     def save_cleaned_pdf(self):
         """Saves the cleaned PDF byte content to the specified path."""
@@ -90,12 +103,14 @@ class PDFProcessor:
         if not self.extractor:
             raise RuntimeError("Must call extract() before categorising tables.")
             
+        start_time = time.time()
         categorisation_dir = os.path.join(self.output_dir, "categorisation")
         
         def run_cat():
             os.makedirs(categorisation_dir, exist_ok=True)
             self.cat_results = []
             txt_dir = os.path.join(self.tables_dir, "txt")
+            
             for i in range(self.num_tables):
                 table_file_path = os.path.join(txt_dir, f"table{i + 1}.txt")
                 table_name = os.path.basename(table_file_path)
@@ -104,7 +119,7 @@ class PDFProcessor:
                     res = categorise_table(table_file_path, model=self.model)
                     if res.success:
                         status = "Contains" if res.contains_diffusion else "Does NOT contain"
-                        self.cat_results.append((table_name, True, f"{status} chemical diffusion coefficient data"))
+                        self.cat_results.append((table_name, True, f"{status} chemical diffusion coefficient data", res.usage_metadata))
                         
                         cat_data = {
                             "contains_scientific_data": res.contains_scientific_data,
@@ -115,7 +130,7 @@ class PDFProcessor:
                         with open(json_file_path, 'w', encoding='utf-8') as jf:
                             json.dump(cat_data, jf, indent=2)
                     else:
-                        self.cat_results.append((table_name, False, f"Failed: {res.error}"))
+                        self.cat_results.append((table_name, False, f"Failed: {res.error}", None))
                         
         if console:
             with Progress(
@@ -127,22 +142,28 @@ class PDFProcessor:
             ) as progress:
                 progress.add_task(f"[bold cyan]Categorising '{self.base_name}'[/bold cyan]...")
                 run_cat()
+            elapsed_time = time.time() - start_time
+            self.print_categorisation_tree(console, elapsed_time)
         else:
             run_cat()
 
     def summarise_tables(self, console=None):
         """Summarises each saved table text file and saves JSON outputs to descriptions_dir."""
+        
         if not self.extractor:
             raise RuntimeError("Must call extract() before summarising tables.")
             
+        start_time = time.time()
         descriptions_dir = os.path.join(self.output_dir, "descriptions")
         
-        def run_sum():
+        def run_summarise():
             os.makedirs(descriptions_dir, exist_ok=True)
             self.sum_results = []
             
             # Extract paper-level metadata
             metadata_res = extract_paper_metadata(self.extractor.parsed_markdown, model=self.model)
+            self.metadata_res = metadata_res
+            
             metadata_dict = {}
             metadata_error = None
             if metadata_res.success:
@@ -161,21 +182,23 @@ class PDFProcessor:
                         table_text = f.read()
                         
                     res = summarise_table_conditions(table_text, model=self.model)
+                    
                     if res.success:
                         # Merge paper metadata and experimental conditions
                         combined_data = {
                             **metadata_dict,
                             **res.data.model_dump()
                         }
+
                         with open(json_file_path, 'w', encoding='utf-8') as jf:
                             json.dump(combined_data, jf, indent=2)
                         
                         status_msg = "Successfully summarised"
                         if metadata_error:
-                            status_msg += f" (metadata failed: {metadata_error})"
-                        self.sum_results.append((table_name, True, status_msg))
+                            status_msg += f" (metadata extraction failed: {metadata_error})"
+                        self.sum_results.append((table_name, True, status_msg, res.usage_metadata))
                     else:
-                        self.sum_results.append((table_name, False, f"Failed: {res.error}"))
+                        self.sum_results.append((table_name, False, f"Failed: {res.error}", None))
                         
         if console:
             with Progress(
@@ -186,9 +209,11 @@ class PDFProcessor:
                 transient=True
             ) as progress:
                 progress.add_task(f"[bold cyan]Summarising '{self.base_name}'[/bold cyan]...")
-                run_sum()
+                run_summarise()
+            elapsed_time = time.time() - start_time
+            self.print_summarisation_tree(console, elapsed_time)
         else:
-            run_sum()
+            run_summarise()
 
     def create_excel(self) -> None:
         """Creates a beautifully formatted Excel document containing both JSON metadata/conditions and CSV table data."""
@@ -403,6 +428,123 @@ class PDFProcessor:
             raise RuntimeError("Must call extract() before saving logs.")
         with open(self.log_file_path, "w", encoding="utf-8") as log_file:
             log_file.write(self.extractor.logs)
+
+    def print_extraction_tree(self, console: Console, elapsed_time: float):
+        """Builds and prints the hierarchical tree status for the extraction phase."""
+        tree = Tree(f"[bold cyan]📄 {self.base_name}[/bold cyan] [dim](Extraction completed in {elapsed_time:.2f}s)[/dim]")
+        tree.add(f"[green]✓[/green] Extracted text & tables in-memory")
+        tree.add(f"[green]✓[/green] Saved cleaned PDF to [yellow]{os.path.relpath(self.clean_path)}[/yellow]")
+        tree.add(f"[green]✓[/green] Saved parsed markdown to [yellow]{os.path.relpath(self.parsed_md_path)}[/yellow]")
+        tree.add(f"[green]✓[/green] Saved {self.num_tables} tables (txt & csv) to [yellow]{os.path.relpath(self.tables_dir)}[/yellow]")
+        tree.add(f"[green]✓[/green] Saved execution logs to [yellow]{os.path.relpath(self.log_file_path)}[/yellow]")
+        console.print(tree)
+        console.print()
+
+    def print_categorisation_tree(self, console: Console, elapsed_time: float):
+        """Builds and prints the hierarchical tree status for the table categorisation phase."""
+        total_in = 0
+        total_out = 0
+        has_tokens = False
+
+        if self.cat_results:
+            for item in self.cat_results:
+                if len(item) == 4 and item[3]:
+                    total_in += item[3].get("prompt_token_count", 0)
+                    total_out += item[3].get("candidates_token_count", 0)
+                    has_tokens = True
+
+        tokens_title = ""
+        if has_tokens:
+            tokens_title = f" [dim](Total tokens: {total_in} in, {total_out} out)[/dim]"
+
+        tree = Tree(f"[bold cyan]📄 {self.base_name}[/bold cyan] [dim](Categorisation completed in {elapsed_time:.2f}s)[/dim]{tokens_title}")
+        cat_node = tree.add(f"[green]✓[/green] Categorised extracted tables using [magenta]{self.model}[/magenta]")
+        
+        if not self.cat_results:
+            cat_node.add("[dim]No tables found to categorise[/dim]")
+        else:
+            for item in self.cat_results:
+                table_name = item[0]
+                success = item[1]
+                status = item[2]
+                usage_metadata = item[3] if len(item) == 4 else None
+
+                tokens_str = ""
+                if usage_metadata:
+                    in_t = usage_metadata.get("prompt_token_count", 0)
+                    out_t = usage_metadata.get("candidates_token_count", 0)
+                    tokens_str = f" [dim](tokens: {in_t} in, {out_t} out)[/dim]"
+
+                if success:
+                    if "Does NOT contain" in status:
+                        status_styled = f"[blue]{status}[/blue]"
+                    else:
+                        status_styled = f"[bold green]{status}[/bold green]"
+                    cat_node.add(f"{table_name}: {status_styled}{tokens_str}")
+                else:
+                    cat_node.add(f"{table_name}: [red]{status}[/red]")
+        
+        console.print(tree)
+        console.print()
+
+    def print_summarisation_tree(self, console: Console, elapsed_time: float):
+        """Builds and prints the hierarchical tree status for the table summarisation phase."""
+        total_in = 0
+        total_out = 0
+        has_tokens = False
+
+        if self.metadata_res and self.metadata_res.success and self.metadata_res.usage_metadata:
+            total_in += self.metadata_res.usage_metadata.get("prompt_token_count", 0)
+            total_out += self.metadata_res.usage_metadata.get("candidates_token_count", 0)
+            has_tokens = True
+        if self.sum_results:
+            for item in self.sum_results:
+                if len(item) == 4 and item[3]:
+                    total_in += item[3].get("prompt_token_count", 0)
+                    total_out += item[3].get("candidates_token_count", 0)
+                    has_tokens = True
+
+        tokens_title = ""
+        if has_tokens:
+            tokens_title = f" [dim](Total tokens: {total_in} in, {total_out} out)[/dim]"
+
+        tree = Tree(f"[bold cyan]📄 {self.base_name}[/bold cyan] [dim](Summary completed in {elapsed_time:.2f}s)[/dim]{tokens_title}")
+        sum_node = tree.add(f"[green]✓[/green] Summarised experimental conditions using [magenta]{self.model}[/magenta]")
+        
+        if self.metadata_res:
+            tokens_str = ""
+            if self.metadata_res.usage_metadata:
+                in_t = self.metadata_res.usage_metadata.get("prompt_token_count", 0)
+                out_t = self.metadata_res.usage_metadata.get("candidates_token_count", 0)
+                tokens_str = f" [dim](tokens: {in_t} in, {out_t} out)[/dim]"
+            
+            if self.metadata_res.success:
+                sum_node.add(f"Paper Metadata: [bold green]Successfully extracted[/bold green]{tokens_str}")
+            else:
+                sum_node.add(f"Paper Metadata: [red]Failed: {self.metadata_res.error}[/red]")
+
+        if not self.sum_results:
+            sum_node.add("[dim]No tables found to summarise[/dim]")
+        else:
+            for item in self.sum_results:
+                table_name = item[0]
+                success = item[1]
+                status = item[2]
+                usage_metadata = item[3] if len(item) == 4 else None
+
+                tokens_str = ""
+                if usage_metadata:
+                    in_t = usage_metadata.get("prompt_token_count", 0)
+                    out_t = usage_metadata.get("candidates_token_count", 0)
+                    tokens_str = f" [dim](tokens: {in_t} in, {out_t} out)[/dim]"
+
+                if success:
+                    sum_node.add(f"{table_name}: [bold green]{status}[/bold green]{tokens_str}")
+                else:
+                    sum_node.add(f"{table_name}: [red]{status}[/red]")
+        
+        console.print(tree)
+        console.print()
 
     def cleanup(self):
         """Deload extractor instance and force garbage collection to release memory."""

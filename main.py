@@ -24,7 +24,7 @@ def cli():
     pass
 
 @cli.command()
-def test():
+def test_all():
     """Run extraction tests on PDFs in the materials folder."""
     questions = [
         inquirer.Confirm(
@@ -64,5 +64,3 @@ def test():
 
 if __name__ == '__main__':
     cli()
-
-

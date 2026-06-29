@@ -38,58 +38,7 @@ def setup_run_layout(test_dir: str) -> tuple[str, str, str]:
     return clean_dir, output_dir, logs_dir
 
 
-def print_pdf_run_tree(
-    console: Console,
-    base_name: str,
-    elapsed_time: float,
-    clean_path: str,
-    parsed_md_path: str,
-    tables_dir: str,
-    num_tables: int,
-    log_file_path: str,
-    categorise_tables: bool = False,
-    summarise_tables: bool = False,
-    model: str = "",
-    cat_results: list = None,
-    sum_results: list = None
-):
-    """Builds and prints the hierarchical tree status for a specific test run."""
-    tree = Tree(f"[bold cyan]📄 {base_name}[/bold cyan] [dim](Completed in {elapsed_time:.2f}s)[/dim]")
-    tree.add(f"[green]✓[/green] Extracted text & tables in-memory")
-    tree.add(f"[green]✓[/green] Saved cleaned PDF to [yellow]{os.path.relpath(clean_path)}[/yellow]")
-    tree.add(f"[green]✓[/green] Saved parsed markdown to [yellow]{os.path.relpath(parsed_md_path)}[/yellow]")
-    tree.add(f"[green]✓[/green] Saved {num_tables} tables (txt & csv) to [yellow]{os.path.relpath(tables_dir)}[/yellow]")
-    
-    if categorise_tables:
-        cat_node = tree.add(f"[green]✓[/green] Categorised extracted tables using [magenta]{model}[/magenta]")
-        if not cat_results:
-            cat_node.add("[dim]No tables found to categorise[/dim]")
-        else:
-            for table_name, success, status in cat_results:
-                if success:
-                    if "Does NOT contain" in status:
-                        status_styled = f"[blue]{status}[/blue]"
-                    else:
-                        status_styled = f"[bold green]{status}[/bold green]"
-                    cat_node.add(f"{table_name}: {status_styled}")
-                else:
-                    cat_node.add(f"{table_name}: [red]{status}[/red]")
 
-    if summarise_tables:
-        sum_node = tree.add(f"[green]✓[/green] Summarised experimental conditions using [magenta]{model}[/magenta]")
-        if not sum_results:
-            sum_node.add("[dim]No tables found to summarise[/dim]")
-        else:
-            for table_name, success, status in sum_results:
-                if success:
-                    sum_node.add(f"{table_name}: [bold green]{status}[/bold green]")
-                else:
-                    sum_node.add(f"{table_name}: [red]{status}[/red]")
-                    
-    tree.add(f"[green]✓[/green] Saved execution logs to [yellow]{os.path.relpath(log_file_path)}[/yellow]")
-    
-    console.print(tree)
-    console.print()
 
 
 def print_summary_table(console: Console, summary_data: list[dict]):
@@ -159,8 +108,6 @@ def run_tests(categorise_tables: bool = True, summarise_tables: bool = True, mod
         
         # Run standard PDF processing steps
         processor.extract(console)
-        processor.save_cleaned_pdf()
-        processor.save_outputs()
         
         if categorise_tables:
             processor.categorise_tables(console)
@@ -171,26 +118,7 @@ def run_tests(categorise_tables: bool = True, summarise_tables: bool = True, mod
         if categorise_tables or summarise_tables:
             processor.create_excel()
             
-        processor.save_logs()
-        
         elapsed_time = time.time() - timer
-        
-        # Build and print tree list for this PDF file
-        print_pdf_run_tree(
-            console=console,
-            base_name=processor.base_name,
-            elapsed_time=elapsed_time,
-            clean_path=processor.clean_path,
-            parsed_md_path=processor.parsed_md_path,
-            tables_dir=processor.tables_dir,
-            num_tables=processor.num_tables,
-            log_file_path=processor.log_file_path,
-            categorise_tables=categorise_tables,
-            summarise_tables=summarise_tables,
-            model=model,
-            cat_results=processor.cat_results,
-            sum_results=processor.sum_results
-        )
         
         # Collect data for final summary table
         summary_data.append({
