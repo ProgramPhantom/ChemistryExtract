@@ -94,7 +94,7 @@ def summarise_table_conditions_gemini(table_summary: str) -> TableSummaryRespons
     
     try:
         response = client.models.generate_content(
-            model='gemini-3.5-flash',
+            model='gemini-2.5-flash',
             contents=prompt,
             config=types.GenerateContentConfig(
                 response_mime_type="application/json",
@@ -179,7 +179,7 @@ def extract_paper_metadata_gemini(parsed_markdown: str) -> PaperMetadataResponse
     
     try:
         response = client.models.generate_content(
-            model='gemini-3.5-flash',
+            model='gemini-2.5-flash',
             contents=prompt,
             config=types.GenerateContentConfig(
                 response_mime_type="application/json",

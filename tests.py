@@ -87,17 +87,28 @@ def save_logs(logs_dir: str, base_name: str, logs_content: str):
         log_file.write(logs_content)
 
 
-def categorise_extracted_tables(tables_dir: str, num_tables: int, model: str) -> list[tuple[str, bool, str]]:
-    """Categorises each saved table text file and returns a list of results."""
+def categorise_extracted_tables(tables_dir: str, categorisation_dir: str, num_tables: int, model: str) -> list[tuple[str, bool, str]]:
+    """Categorises each saved table text file, saves JSON outputs, and returns a list of results."""
+    os.makedirs(categorisation_dir, exist_ok=True)
     results = []
     for i in range(num_tables):
         table_file_path = os.path.join(tables_dir, "txt", f"table{i + 1}.txt")
         table_name = os.path.basename(table_file_path)
+        json_file_path = os.path.join(categorisation_dir, f"table{i + 1}.json")
         if os.path.exists(table_file_path):
             res = categorise_table(table_file_path, model=model)
             if res.success:
                 status = "Contains" if res.contains_diffusion else "Does NOT contain"
                 results.append((table_name, True, f"{status} chemical diffusion coefficient data"))
+                
+                cat_data = {
+                    "contains_scientific_data": res.contains_scientific_data,
+                    "contains_diffusion_coeff": res.contains_diffusion_coeff,
+                    "contains_polymer_diffusion_coeff": res.contains_polymer_diffusion_coeff,
+                    "contains_diffusion": res.contains_diffusion
+                }
+                with open(json_file_path, 'w', encoding='utf-8') as jf:
+                    json.dump(cat_data, jf, indent=2)
             else:
                 results.append((table_name, False, f"Failed: {res.error}"))
     return results
@@ -241,7 +252,40 @@ def create_excel(test_output_dir: str, base_name: str, num_tables: int) -> None:
             stats_str = ", ".join([f"{k}: {v}" for k, v in other_stats.items()])
         write_metadata_row(11, "Other Stats", stats_str)
 
-        start_row = 13
+        cat_path = os.path.join(test_output_dir, "categorisation", f"table{i + 1}.json")
+        cat_data = {}
+        if os.path.exists(cat_path):
+            try:
+                with open(cat_path, 'r', encoding='utf-8') as cf:
+                    cat_data = json.load(cf)
+            except Exception as e:
+                print(f"Error loading categorisation JSON {cat_path}: {e}")
+
+        curr_row = 13
+        if cat_data:
+            ws.cell(row=curr_row, column=1, value="TABLE CATEGORISATION").font = section_font
+            ws.merge_cells(start_row=curr_row, start_column=1, end_row=curr_row, end_column=7)
+            for col in range(1, 8):
+                cell = ws.cell(row=curr_row, column=col)
+                cell.fill = section_fill
+                cell.border = thick_bottom
+            
+            curr_row += 1
+            def format_bool(val):
+                if val is True:
+                    return "Yes"
+                if val is False:
+                    return "No"
+                return ""
+            write_metadata_row(curr_row, "Contains Scientific Data", format_bool(cat_data.get("contains_scientific_data")))
+            curr_row += 1
+            write_metadata_row(curr_row, "Contains Diffusion Coefficients", format_bool(cat_data.get("contains_diffusion_coeff")))
+            curr_row += 1
+            write_metadata_row(curr_row, "Contains Polymer Diffusion Coefficients", format_bool(cat_data.get("contains_polymer_diffusion_coeff")))
+            
+            curr_row += 2 # gap + dynamic next section start
+
+        start_row = curr_row
         ws.cell(row=start_row, column=1, value="EXTRACTED TABLE DATA").font = section_font
         ws.merge_cells(start_row=start_row, start_column=1, end_row=start_row, end_column=7)
         for col in range(1, 8):
@@ -263,11 +307,11 @@ def create_excel(test_output_dir: str, base_name: str, num_tables: int) -> None:
                     if not csv_row or all(val.strip() == '' for val in csv_row):
                         continue
                         
-                    curr_row = csv_start_row + active_row_idx
+                    curr_row_idx = csv_start_row + active_row_idx
                     is_header = (active_row_idx == 0)
                     
                     for c_idx, val in enumerate(csv_row):
-                        cell = ws.cell(row=curr_row, column=c_idx + 1)
+                        cell = ws.cell(row=curr_row_idx, column=c_idx + 1)
                         
                         parsed_val = val
                         try:
@@ -298,11 +342,15 @@ def create_excel(test_output_dir: str, base_name: str, num_tables: int) -> None:
         else:
             ws.cell(row=csv_start_row, column=1, value="CSV data file not found.").font = val_font
 
+        excluded_rows = {1, 2, 4, 10, start_row}
+        if cat_data:
+            excluded_rows.add(13)
+
         for col in ws.columns:
             max_len = 0
             col_letter = get_column_letter(col[0].column)
             for cell in col:
-                if cell.row in [1, 2, 4, 10, 13]:
+                if cell.row in excluded_rows:
                     continue
                 if cell.value:
                     max_len = max(max_len, len(str(cell.value)))
@@ -456,15 +504,33 @@ def run_tests(categorise_tables: bool = True, summarise_tables: bool = True, mod
         # 5. Run Categorisation if enabled
         cat_results = []
         if categorise_tables:
-            cat_results = categorise_extracted_tables(tables_dir, len(extractor.tables_markdown), model)
+            categorisation_dir = os.path.join(test_output_dir, "categorisation")
+            with Progress(
+                SpinnerColumn(),
+                TextColumn("[progress.description]{task.description}"),
+                TimeElapsedColumn(),
+                console=console,
+                transient=True
+            ) as progress:
+                progress.add_task(f"[bold cyan]Categorising '{base_name}'[/bold cyan]...")
+                cat_results = categorise_extracted_tables(tables_dir, categorisation_dir, len(extractor.tables_markdown), model)
             
         # 5b. Run Summarisation if enabled
         sum_results = []
         if summarise_tables:
             descriptions_dir = os.path.join(test_output_dir, "descriptions")
-            sum_results = summarise_extracted_tables(tables_dir, descriptions_dir, len(extractor.tables_markdown), extractor.parsed_markdown, model)
+            with Progress(
+                SpinnerColumn(),
+                TextColumn("[progress.description]{task.description}"),
+                TimeElapsedColumn(),
+                console=console,
+                transient=True
+            ) as progress:
+                progress.add_task(f"[bold cyan]Summarising '{base_name}'[/bold cyan]...")
+                sum_results = summarise_extracted_tables(tables_dir, descriptions_dir, len(extractor.tables_markdown), extractor.parsed_markdown, model)
             
-            # Generate Excel sheet
+        # Generate Excel sheet if either is enabled
+        if summarise_tables or categorise_tables:
             create_excel(test_output_dir, base_no_ext, len(extractor.tables_markdown))
             
         # 6. Save Logs
@@ -507,4 +573,4 @@ def run_tests(categorise_tables: bool = True, summarise_tables: bool = True, mod
 
 
 if __name__ == "__main__":    
-    run_tests(model="gemini", categorise_tables=False, summarise_tables=True)
+    run_tests(model="gemini", categorise_tables=True, summarise_tables=True)
