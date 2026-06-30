@@ -1,0 +1,17 @@
+Running: parse_pdf
+[32m[INFO] 2026-06-30 11:13:22,871 [RapidOCR] base.py:23: Using engine_name: onnxruntime[0m
+[32m[INFO] 2026-06-30 11:13:22,883 [RapidOCR] download_file.py:60: File exists and is valid: C:\Users\henry\Github\ChemistryExtract\venv\Lib\site-packages\rapidocr\models\PP-OCRv6_det_small.onnx[0m
+[32m[INFO] 2026-06-30 11:13:22,883 [RapidOCR] main.py:63: Using C:\Users\henry\Github\ChemistryExtract\venv\Lib\site-packages\rapidocr\models\PP-OCRv6_det_small.onnx[0m
+[32m[INFO] 2026-06-30 11:13:22,981 [RapidOCR] base.py:23: Using engine_name: onnxruntime[0m
+[32m[INFO] 2026-06-30 11:13:22,982 [RapidOCR] download_file.py:60: File exists and is valid: C:\Users\henry\Github\ChemistryExtract\venv\Lib\site-packages\rapidocr\models\ch_ppocr_mobile_v2.0_cls_mobile.onnx[0m
+[32m[INFO] 2026-06-30 11:13:22,982 [RapidOCR] main.py:63: Using C:\Users\henry\Github\ChemistryExtract\venv\Lib\site-packages\rapidocr\models\ch_ppocr_mobile_v2.0_cls_mobile.onnx[0m
+[32m[INFO] 2026-06-30 11:13:23,076 [RapidOCR] base.py:23: Using engine_name: onnxruntime[0m
+[32m[INFO] 2026-06-30 11:13:23,094 [RapidOCR] download_file.py:60: File exists and is valid: C:\Users\henry\Github\ChemistryExtract\venv\Lib\site-packages\rapidocr\models\PP-OCRv6_rec_small.onnx[0m
+[32m[INFO] 2026-06-30 11:13:23,094 [RapidOCR] main.py:63: Using C:\Users\henry\Github\ChemistryExtract\venv\Lib\site-packages\rapidocr\models\PP-OCRv6_rec_small.onnx[0m
+Loading weights:   0%|          | 0/770 [00:00<?, ?it/s]Loading weights:  82%|########2 | 634/770 [00:00<00:00, 6337.77it/s]Loading weights: 100%|##########| 770/770 [00:00<00:00, 6280.18it/s]
+All hyperlinked elements redacted in-memory.
+Function parse_pdf took 50.8260 seconds to execute.
+Running: get_tables
+Function get_tables took 0.0002 seconds to execute.
+Running: get_surrounding_paragraphs
+Function get_surrounding_paragraphs took 0.0001 seconds to execute.

@@ -13,28 +13,37 @@ from chemstractor.models import pricing_matrix
 
 
 class PDFProcessor:
-    def __init__(self, pdf_path: str, clean_dir: str, output_dir: str, logs_dir: str, model: str = "gemini-2.5-flash"):
+    def __init__(self, pdf_path: str, output_dir: str = ".", model: str = "gemini-2.5-flash"):
         self.pdf_path = pdf_path
-        self.clean_dir = clean_dir
         self.output_dir = output_dir
-        self.logs_dir = logs_dir
         self.model = model
         
         self.base_name = os.path.basename(pdf_path)
         self.base_no_ext = os.path.splitext(self.base_name)[0]
         
-        # Output paths
+        # Output paths derived from output_dir
+        self.extract_dir = os.path.join(self.output_dir, "extract")
+        self.clean_dir = os.path.join(self.extract_dir, "clean")
+        self.logs_dir = os.path.join(self.extract_dir, "logs")
+        self.tables_dir = os.path.join(self.extract_dir, "tables")
+        
         self.clean_path = os.path.join(self.clean_dir, f"clean_{self.base_name}")
-        self.parsed_md_path = os.path.join(self.output_dir, "output.md")
-        self.tables_dir = os.path.join(self.output_dir, "tables")
+        self.parsed_md_path = os.path.join(self.extract_dir, "output.md")
         self.log_file_path = os.path.join(self.logs_dir, f"log_{self.base_name}.log")
+        
+        self.categorisation_dir = os.path.join(self.output_dir, "categorisation")
+        self.summary_dir = os.path.join(self.output_dir, "summary")
         
         # State
         self.extractor = None
+        self.cat_data_list = []
+        self.summarisation_data_list = []
         self.num_tables = 0
         self.cat_results = []
         self.sum_results = []
         self.metadata_res = None
+
+
     def _log_error(self, message: str):
         """Appends an error message to the log file."""
         try:
@@ -43,18 +52,13 @@ class PDFProcessor:
         except Exception:
             pass
 
-    def extract_generator(self):
+    def extract(self):
         """Extracts content in-memory and yields status messages."""
         start_time = time.time()
         yield {"status": "working", "message": "Extracting text & tables..."}
         
         self.extractor = TableExtractor(self.pdf_path)
         self.num_tables = len(self.extractor.tables_markdown)
-
-        # Save output files automatically
-        self.save_cleaned_pdf()
-        self.save_outputs()
-        self.save_logs()
 
         elapsed_time = time.time() - start_time
         yield {
@@ -64,60 +68,20 @@ class PDFProcessor:
             "num_tables": self.num_tables
         }
 
-    def extract(self):
-        """Helper to run extraction synchronously with no console output."""
-        for _ in self.extract_generator():
-            pass
-
-    def save_cleaned_pdf(self):
-        """Saves the cleaned PDF byte content to the specified path."""
-        if not self.extractor:
-            raise RuntimeError("Must call extract() before saving cleaned PDF.")
-        with open(self.clean_path, "wb") as clean_file:
-            clean_file.write(self.extractor.clean_pdf_bytes)
-
-    def save_outputs(self):
-        """Saves the parsed markdown and extraction tables (text & csv)."""
-        if not self.extractor:
-            raise RuntimeError("Must call extract() before saving outputs.")
-            
-        # Save parsed markdown
-        with open(self.parsed_md_path, "w", encoding="utf-8") as parsed_file:
-            parsed_file.write(self.extractor.parsed_markdown)
-            
-        # Save text tables
-        txt_dir = os.path.join(self.tables_dir, "txt")
-        os.makedirs(txt_dir, exist_ok=True)
-        for i, table_str in enumerate(self.extractor.tables_markdown):
-            table_file_path = os.path.join(txt_dir, f"table{i + 1}.txt")
-            with open(table_file_path, "w", encoding="utf-8") as table_file:
-                table_file.write(table_str)
-                
-        # Save CSV tables
-        csv_dir = os.path.join(self.tables_dir, "csv")
-        os.makedirs(csv_dir, exist_ok=True)
-        for i, csv_str in enumerate(self.extractor.tables_csv):
-            csv_file_path = os.path.join(csv_dir, f"table{i + 1}.csv")
-            with open(csv_file_path, "w", encoding="utf-8") as csv_file:
-                csv_file.write(csv_str)
-
-    def categorise_generator(self):
-        """Categorises each saved table text file and yields status events."""
+    
+    def categorise(self):
+        """Categorises each table in-memory and yields status events."""
         if not self.extractor:
             raise RuntimeError("Must call extract() before categorising tables.")
             
         start_time = time.time()
         yield {"status": "working", "message": "Categorising extracted tables..."}
         
-        categorisation_dir = os.path.join(self.output_dir, "categorisation")
-        os.makedirs(categorisation_dir, exist_ok=True)
         self.cat_results = []
-        txt_dir = os.path.join(self.tables_dir, "txt")
+        self.cat_data_list = []
         
         for i in range(self.num_tables):
-            table_file_path = os.path.join(txt_dir, f"table{i + 1}.txt")
-            table_name = os.path.basename(table_file_path)
-            json_file_path = os.path.join(categorisation_dir, f"table{i + 1}.json")
+            table_name = f"table{i + 1}.txt"
             
             yield {
                 "status": "table_start",
@@ -126,42 +90,42 @@ class PDFProcessor:
                 "message": f"Categorising table {i + 1}/{self.num_tables}..."
             }
             
-            if os.path.exists(table_file_path):
-                res = categorise_table(table_file_path, model=self.model)
-                if res.success:
-                    status = "Contains" if res.contains_diffusion else "Does NOT contain"
-                    status_msg = f"{status} chemical diffusion coefficient data"
-                    self.cat_results.append((table_name, True, status_msg, res.usage_metadata))
-                    
-                    cat_data = {
-                        "contains_scientific_data": res.contains_scientific_data,
-                        "contains_diffusion_coeff": res.contains_diffusion_coeff,
-                        "contains_polymer_diffusion_coeff": res.contains_polymer_diffusion_coeff,
-                        "contains_diffusion": res.contains_diffusion
-                    }
-                    with open(json_file_path, 'w', encoding='utf-8') as jf:
-                        json.dump(cat_data, jf, indent=2)
-                    
-                    yield {
-                        "status": "table_complete",
-                        "table_idx": i,
-                        "table_name": table_name,
-                        "success": True,
-                        "status_message": status_msg,
-                        "usage_metadata": res.usage_metadata
-                    }
-                else:
-                    status_msg = f"Failed: {res.error}"
-                    self.cat_results.append((table_name, False, status_msg, None))
-                    yield {
-                        "status": "table_complete",
-                        "table_idx": i,
-                        "table_name": table_name,
-                        "success": False,
-                        "status_message": status_msg,
-                        "usage_metadata": None
-                    }
-                    
+            table_text = self.extractor.tables_markdown[i]
+            res = categorise_table(table_text, model=self.model)
+            if res.success:
+                status = "Contains" if res.contains_diffusion else "Does NOT contain"
+                status_msg = f"{status} chemical diffusion coefficient data"
+                self.cat_results.append((table_name, True, status_msg, res.usage_metadata))
+                
+                categorisation_data = {
+                    "contains_scientific_data": res.contains_scientific_data,
+                    "contains_diffusion_coeff": res.contains_diffusion_coeff,
+                    "contains_polymer_diffusion_coeff": res.contains_polymer_diffusion_coeff,
+                    "contains_diffusion": res.contains_diffusion
+                }
+                self.cat_data_list.append(categorisation_data)
+                
+                yield {
+                    "status": "table_complete",
+                    "table_idx": i,
+                    "table_name": table_name,
+                    "success": True,
+                    "status_message": status_msg,
+                    "usage_metadata": res.usage_metadata
+                }
+            else:
+                status_msg = f"Failed: {res.error}"
+                self.cat_results.append((table_name, False, status_msg, None))
+                self.cat_data_list.append(None)
+                yield {
+                    "status": "table_complete",
+                    "table_idx": i,
+                    "table_name": table_name,
+                    "success": False,
+                    "status_message": status_msg,
+                    "usage_metadata": None
+                }
+                
         elapsed_time = time.time() - start_time
         yield {
             "status": "complete",
@@ -170,22 +134,16 @@ class PDFProcessor:
             "results": self.cat_results
         }
 
-    def categorise_tables(self):
-        """Helper to run categorisation synchronously with no console output."""
-        for _ in self.categorise_generator():
-            pass
-
-    def summarise_generator(self):
-        """Summarises each saved table text file and yields status events."""
+    def summarise(self):
+        """Summarises each table in-memory and yields status events."""
         if not self.extractor:
             raise RuntimeError("Must call extract() before summarising tables.")
             
         start_time = time.time()
         yield {"status": "working", "message": "Extracting paper-level metadata..."}
         
-        descriptions_dir = os.path.join(self.output_dir, "descriptions")
-        os.makedirs(descriptions_dir, exist_ok=True)
         self.sum_results = []
+        self.summarisation_data_list = []
         
         # Extract paper-level metadata
         metadata_res = extract_paper_metadata(self.extractor.parsed_markdown, model=self.model)
@@ -205,11 +163,8 @@ class PDFProcessor:
             "usage_metadata": metadata_res.usage_metadata
         }
         
-        txt_dir = os.path.join(self.tables_dir, "txt")
         for i in range(self.num_tables):
-            table_file_path = os.path.join(txt_dir, f"table{i + 1}.txt")
-            table_name = os.path.basename(table_file_path)
-            json_file_path = os.path.join(descriptions_dir, f"table{i + 1}.json")
+            table_name = f"table{i + 1}.txt"
             
             yield {
                 "status": "table_start",
@@ -218,46 +173,43 @@ class PDFProcessor:
                 "message": f"Summarising table {i + 1}/{self.num_tables}..."
             }
             
-            if os.path.exists(table_file_path):
-                with open(table_file_path, 'r', encoding='utf-8') as f:
-                    table_text = f.read()
-                    
-                res = summarise_table_conditions(table_text, model=self.model)
+            table_text = self.extractor.tables_markdown[i]
+            res = summarise_table_conditions(table_text, model=self.model)
+            
+            if res.success:
+                # Merge paper metadata and experimental conditions
+                combined_data = {
+                    **metadata_dict,
+                    **res.data.model_dump()
+                }
+                self.summarisation_data_list.append(combined_data)
                 
-                if res.success:
-                    # Merge paper metadata and experimental conditions
-                    combined_data = {
-                        **metadata_dict,
-                        **res.data.model_dump()
-                    }
-                    with open(json_file_path, 'w', encoding='utf-8') as jf:
-                        json.dump(combined_data, jf, indent=2)
-                    
-                    status_msg = "Successfully summarised"
-                    if metadata_error:
-                        status_msg += f" (metadata extraction failed: {metadata_error})"
-                    self.sum_results.append((table_name, True, status_msg, res.usage_metadata))
-                    
-                    yield {
-                        "status": "table_complete",
-                        "table_idx": i,
-                        "table_name": table_name,
-                        "success": True,
-                        "status_message": status_msg,
-                        "usage_metadata": res.usage_metadata
-                    }
-                else:
-                    status_msg = f"Failed: {res.error}"
-                    self.sum_results.append((table_name, False, status_msg, None))
-                    yield {
-                        "status": "table_complete",
-                        "table_idx": i,
-                        "table_name": table_name,
-                        "success": False,
-                        "status_message": status_msg,
-                        "usage_metadata": None
-                    }
-                    
+                status_msg = "Successfully summarised"
+                if metadata_error:
+                    status_msg += f" (metadata extraction failed: {metadata_error})"
+                self.sum_results.append((table_name, True, status_msg, res.usage_metadata))
+                
+                yield {
+                    "status": "table_complete",
+                    "table_idx": i,
+                    "table_name": table_name,
+                    "success": True,
+                    "status_message": status_msg,
+                    "usage_metadata": res.usage_metadata
+                }
+            else:
+                status_msg = f"Failed: {res.error}"
+                self.sum_results.append((table_name, False, status_msg, None))
+                self.summarisation_data_list.append(None)
+                yield {
+                    "status": "table_complete",
+                    "table_idx": i,
+                    "table_name": table_name,
+                    "success": False,
+                    "status_message": status_msg,
+                    "usage_metadata": None
+                }
+                
         elapsed_time = time.time() - start_time
         yield {
             "status": "complete",
@@ -265,11 +217,6 @@ class PDFProcessor:
             "elapsed_time": elapsed_time,
             "results": self.sum_results
         }
-
-    def summarise_tables(self):
-        """Helper to run summarisation synchronously with no console output."""
-        for _ in self.summarise_generator():
-            pass
 
     def create_excel(self) -> None:
         """Creates a beautifully formatted Excel document containing both JSON metadata/conditions and CSV table data."""
@@ -307,7 +254,7 @@ class PDFProcessor:
             ws = wb.create_sheet(title=sheet_name)
             ws.views.sheetView[0].showGridLines = True
             
-            json_path = os.path.join(self.output_dir, "descriptions", f"table{i + 1}.json")
+            json_path = os.path.join(self.summary_dir, f"table{i + 1}.json")
             csv_path = os.path.join(self.tables_dir, "csv", f"table{i + 1}.csv")
             
             data = {}
@@ -367,7 +314,7 @@ class PDFProcessor:
                 stats_str = ", ".join([f"{k}: {v}" for k, v in other_stats.items()])
             write_metadata_row(11, "Other Stats", stats_str)
 
-            cat_path = os.path.join(self.output_dir, "categorisation", f"table{i + 1}.json")
+            cat_path = os.path.join(self.categorisation_dir, f"table{i + 1}.json")
             cat_data = {}
             if os.path.exists(cat_path):
                 try:
@@ -472,11 +419,12 @@ class PDFProcessor:
                 ws.column_dimensions[col_letter].width = min(max(max_len + 3, 12), 40)
 
         output_filename = f"{self.base_no_ext}_summary.xlsx"
-        dest_path = os.path.join(self.output_dir, output_filename)
+        dest_path = os.path.join(self.summary_dir, output_filename)
         try:
             wb.save(dest_path)
         except Exception as e:
             self._log_error(f"Error saving Excel document {dest_path}: {e}")
+
 
     def save_logs(self):
         """Saves the extraction log file."""
@@ -484,6 +432,78 @@ class PDFProcessor:
             raise RuntimeError("Must call extract() before saving logs.")
         with open(self.log_file_path, "w", encoding="utf-8") as log_file:
             log_file.write(self.extractor.logs)
+
+    def save_cleaned_pdf(self):
+        """Saves the cleaned PDF byte content to the specified path."""
+        if not self.extractor:
+            raise RuntimeError("Must call extract() before saving cleaned PDF.")
+        with open(self.clean_path, "wb") as clean_file:
+            clean_file.write(self.extractor.clean_pdf_bytes)
+
+    def save_outputs(self):
+        """Saves the parsed markdown and extraction tables (text & csv)."""
+        if not self.extractor:
+            raise RuntimeError("Must call extract() before saving outputs.")
+            
+        # Save parsed markdown
+        with open(self.parsed_md_path, "w", encoding="utf-8") as parsed_file:
+            parsed_file.write(self.extractor.parsed_markdown)
+            
+        # Save text tables
+        txt_dir = os.path.join(self.tables_dir, "txt")
+        os.makedirs(txt_dir, exist_ok=True)
+        for i, table_str in enumerate(self.extractor.tables_markdown):
+            table_file_path = os.path.join(txt_dir, f"table{i + 1}.txt")
+            with open(table_file_path, "w", encoding="utf-8") as table_file:
+                table_file.write(table_str)
+                
+        # Save CSV tables
+        csv_dir = os.path.join(self.tables_dir, "csv")
+        os.makedirs(csv_dir, exist_ok=True)
+        for i, csv_str in enumerate(self.extractor.tables_csv):
+            csv_file_path = os.path.join(csv_dir, f"table{i + 1}.csv")
+            with open(csv_file_path, "w", encoding="utf-8") as csv_file:
+                csv_file.write(csv_str)
+
+    def save(self):
+        """Saves all relevant content in-memory to the output folder structure."""
+        if not self.extractor:
+            raise RuntimeError("Must call extract() before saving.")
+        
+        # Create output directories
+        os.makedirs(self.output_dir, exist_ok=True)
+        os.makedirs(self.extract_dir, exist_ok=True)
+        os.makedirs(self.clean_dir, exist_ok=True)
+        os.makedirs(self.logs_dir, exist_ok=True)
+        os.makedirs(self.tables_dir, exist_ok=True)
+        
+        # 1. Save extraction files
+        self.save_cleaned_pdf()
+        self.save_outputs()
+        self.save_logs()
+        
+        # 2. Save categorisation JSONs if available
+        if self.cat_data_list:
+            os.makedirs(self.categorisation_dir, exist_ok=True)
+            for i, cat_data in enumerate(self.cat_data_list):
+                if cat_data is not None:
+                    json_file_path = os.path.join(self.categorisation_dir, f"table{i + 1}.json")
+                    with open(json_file_path, 'w', encoding='utf-8') as jf:
+                        json.dump(cat_data, jf, indent=2)
+                        
+        # 3. Save summarisation JSONs if available
+        if self.summarisation_data_list:
+            os.makedirs(self.summary_dir, exist_ok=True)
+            for i, sum_data in enumerate(self.summarisation_data_list):
+                if sum_data is not None:
+                    json_file_path = os.path.join(self.summary_dir, f"table{i + 1}.json")
+                    with open(json_file_path, 'w', encoding='utf-8') as jf:
+                        json.dump(sum_data, jf, indent=2)
+                        
+        # 4. Save Excel summary if categorisation or summarisation was run
+        if self.cat_data_list or self.summarisation_data_list:
+            os.makedirs(self.summary_dir, exist_ok=True)
+            self.create_excel()
 
     def cleanup(self):
         """Deload extractor instance and force garbage collection to release memory."""

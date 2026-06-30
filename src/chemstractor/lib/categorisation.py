@@ -81,13 +81,7 @@ def get_categorise_prompt(table_string: str) -> str:
     """
 
 
-def categorise_table(table_file_path: str, model: AllSupportedModels = "gemini") -> TableCategoryResponse:
-    if not os.path.exists(table_file_path):
-        return TableCategoryResponse(success=False, error="Table file not found.", contains_diffusion=False)
-        
-    with open(table_file_path, 'r', encoding='utf-8') as f:
-        table_text = f.read()
-        
+def categorise_table(table_text: str, model: AllSupportedModels = "gemini") -> TableCategoryResponse:
     if model == "gemini":
         model = "gemini-2.5-flash"
 
