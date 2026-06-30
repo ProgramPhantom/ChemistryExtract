@@ -8,9 +8,40 @@ from rich.live import Live
 from chemstractor.lib.processor import PDFProcessor
 from chemstractor.models import AllSupportedModels
 
+def get_hardware_acceleration_backends() -> list[str]:
+    """Detects available hardware acceleration backends (CUDA, MPS, DirectML)."""
+    backends = []
+    try:
+        import torch
+        if torch.cuda.is_available():
+            backends.append(f"CUDA ({torch.cuda.get_device_name(0)})")
+        elif hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
+            backends.append("Apple MPS")
+    except ImportError:
+        pass
+
+    try:
+        import onnxruntime as ort
+        if "DmlExecutionProvider" in ort.get_available_providers():
+            backends.append("DirectML (AMD/Intel GPU)")
+    except ImportError:
+        pass
+
+    return backends
+
+
 def run_extract(processor: PDFProcessor, tree: Tree):
     """Executes the extraction process on the processor and updates the rich Tree with status/logs."""
     ext_node = tree.add(Spinner("dots", text="[bold cyan]Extracting text & tables...[/bold cyan]"))
+    
+    # Check and display GPU acceleration status
+    gpu_backends = get_hardware_acceleration_backends()
+    if gpu_backends:
+        gpu_str = ", ".join(gpu_backends)
+        ext_node.add(f"Hardware Acceleration: [green]GPU Active ({gpu_str})[/green]")
+    else:
+        ext_node.add("Hardware Acceleration: [yellow]CPU[/yellow]")
+
     for event in processor.extract():
         if event["status"] == "complete":
             elapsed_time = event["elapsed_time"]

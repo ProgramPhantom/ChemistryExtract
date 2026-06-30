@@ -32,8 +32,38 @@ _converter = None
 def get_converter():
     global _converter
     if _converter is None:
-        from docling.document_converter import DocumentConverter
-        _converter = DocumentConverter()
+        from docling.document_converter import DocumentConverter, PdfFormatOption
+        from docling.datamodel.pipeline_options import ThreadedPdfPipelineOptions, RapidOcrOptions
+        from docling.datamodel.base_models import InputFormat
+        import onnxruntime as ort
+        import torch
+
+        # Define custom rapidocr parameters to ensure the execution providers are set correctly
+        rapidocr_params = {}
+        
+        # 1. Enable DirectML if available on Windows
+        if "DmlExecutionProvider" in ort.get_available_providers():
+            rapidocr_params["EngineConfig.onnxruntime.use_dml"] = True
+            
+        # 2. Enable CUDA if available
+        if torch.cuda.is_available() and "CUDAExecutionProvider" in ort.get_available_providers():
+            rapidocr_params["EngineConfig.onnxruntime.use_cuda"] = True
+
+        pipeline_options = ThreadedPdfPipelineOptions(
+            ocr_batch_size=64,
+            layout_batch_size=64,
+            table_batch_size=4
+        )
+        pipeline_options.ocr_options = RapidOcrOptions(
+            backend="onnxruntime",
+            rapidocr_params=rapidocr_params
+        )
+
+        _converter = DocumentConverter(
+            format_options={
+                InputFormat.PDF: PdfFormatOption(pipeline_options=pipeline_options)
+            }
+        )
     return _converter
 
 
