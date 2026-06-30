@@ -3,7 +3,6 @@ from google.genai import types
 from pydantic import BaseModel, Field
 from dotenv import load_dotenv
 import sys
-from rich.console import Console
 import ollama
 import json
 import os
@@ -12,7 +11,6 @@ from chemstractor.models import AllSupportedModels, ONLINE_MODELS, OFFLINE_MODEL
 
 load_dotenv()
 API_KEY = os.getenv('API_KEY')
-console = Console(file=sys.__stdout__)
 
 class ExtraStatistic(BaseModel):
     name: str = Field(description="The name of the variable, parameter, or statistic (e.g. 'pH', 'concentration', 'density').")
@@ -102,12 +100,6 @@ def summarise_table_conditions_gemini(table_summary: str, model: str = 'gemini-2
     client = genai.Client(api_key=API_KEY)
     prompt = get_summarise_prompt(table_summary)
     
-    try:
-        count_resp = client.models.count_tokens(model=model, contents=prompt)
-        console.print(f"[dim]Input tokens for table summarisation: {count_resp.total_tokens}[/dim]")
-    except Exception as e:
-        console.print(f"[red]Error counting tokens: {e}[/red]")
-        
     try:
         response = client.models.generate_content(
             model=model,
@@ -212,12 +204,6 @@ def extract_paper_metadata_gemini(parsed_markdown: str, model: str = 'gemini-2.5
     client = genai.Client(api_key=API_KEY)
     prompt = get_metadata_prompt(parsed_markdown)
     
-    try:
-        count_resp = client.models.count_tokens(model=model, contents=prompt)
-        console.print(f"[dim]Input tokens for paper metadata extraction: {count_resp.total_tokens}[/dim]")
-    except Exception as e:
-        console.print(f"[red]Error counting tokens: {e}[/red]")
-        
     try:
         response = client.models.generate_content(
             model=model,

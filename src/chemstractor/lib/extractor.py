@@ -6,15 +6,12 @@ import io
 import logging
 from functools import wraps
 from contextlib import redirect_stdout, redirect_stderr, contextmanager
-from rich.console import Console
-
-console = Console(file=sys.__stdout__)
 
 def capture_logs(func):
     @wraps(func)
     def wrapper(self, *args, **kwargs):
         with self._capture_logs():
-            print(f"Running: {func.__name__}")
+            self.log_stream.write(f"Running: {func.__name__}\n")
             return func(self, *args, **kwargs)
     return wrapper
 
@@ -25,7 +22,7 @@ def time_function(func):
         start_time = time.time()
         result = func(self, *args, **kwargs)
         elapsed = time.time() - start_time
-        print(f"Function {func.__name__} took {elapsed:.4f} seconds to execute.")
+        self.log_stream.write(f"Function {func.__name__} took {elapsed:.4f} seconds to execute.\n")
         return result
     return wrapper
 
@@ -114,7 +111,7 @@ class TableExtractor:
         # Save to in-memory bytes
         self.clean_pdf_bytes = doc.tobytes()
         doc.close()
-        print("All hyperlinked elements redacted in-memory.")
+        self.log_stream.write("All hyperlinked elements redacted in-memory.\n")
 
     @capture_logs
     @time_function

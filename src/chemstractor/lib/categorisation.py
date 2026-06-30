@@ -3,7 +3,6 @@ from google.genai import types
 from pydantic import BaseModel, Field
 from dotenv import load_dotenv
 import sys
-from rich.console import Console
 import ollama
 import json
 import os
@@ -12,7 +11,6 @@ from chemstractor.models import AllSupportedModels, ONLINE_MODELS, OFFLINE_MODEL
 
 load_dotenv()
 API_KEY = os.getenv('API_KEY')
-console = Console(file=sys.__stdout__)
 
 
 class TableFilter(BaseModel):
@@ -144,12 +142,6 @@ def categorise_table_gemini(table_string: str, model: str = 'gemini-2.5-flash') 
     client = genai.Client(api_key=API_KEY)
     prompt = get_categorise_prompt(table_string)
     
-    try:
-        count_resp = client.models.count_tokens(model=model, contents=prompt)
-        console.print(f"[dim]Input tokens for table categorisation: {count_resp.total_tokens}[/dim]")
-    except Exception as e:
-        console.print(f"[red]Error counting tokens: {e}[/red]")
-        
     try:
         response = client.models.generate_content(
             model=model,

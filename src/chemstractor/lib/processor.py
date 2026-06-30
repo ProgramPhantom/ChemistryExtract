@@ -6,11 +6,6 @@ from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
 from openpyxl.utils import get_column_letter
 import gc
 import time
-from rich.console import Console
-from rich.tree import Tree
-from rich.live import Live
-from rich.spinner import Spinner
-
 from chemstractor.lib.extractor import TableExtractor
 from chemstractor.lib.categorisation import categorise_table
 from chemstractor.lib.summariser import summarise_table_conditions, extract_paper_metadata
@@ -40,20 +35,18 @@ class PDFProcessor:
         self.cat_results = []
         self.sum_results = []
         self.metadata_res = None
-        self.tree = Tree(f"[bold cyan]📄 {self.base_name}[/bold cyan]")
+    def _log_error(self, message: str):
+        """Appends an error message to the log file."""
+        try:
+            with open(self.log_file_path, "a", encoding="utf-8") as lf:
+                lf.write(f"PROCESSOR ERROR: {message}\n")
+        except Exception:
+            pass
 
-    def _start_live(self, console: Console):
-        """Starts the Live environment with the processor's tree if not already running."""
-        if console and (not hasattr(self, "live") or not self.live):
-            self.live = Live(self.tree, console=console, auto_refresh=True, refresh_per_second=12)
-            self.live.start()
-
-    def extract(self, console=None):
-        """Extracts content in-memory using Live console tree with spinner."""
+    def extract_generator(self):
+        """Extracts content in-memory and yields status messages."""
         start_time = time.time()
-        if console:
-            self._start_live(console)
-            self.ext_node = self.tree.add(Spinner("dots", text="[bold cyan]Extracting text & tables...[/bold cyan]"))
+        yield {"status": "working", "message": "Extracting text & tables..."}
         
         self.extractor = TableExtractor(self.pdf_path)
         self.num_tables = len(self.extractor.tables_markdown)
@@ -64,8 +57,17 @@ class PDFProcessor:
         self.save_logs()
 
         elapsed_time = time.time() - start_time
-        if console:
-            self.print_extraction_tree(console, elapsed_time)
+        yield {
+            "status": "complete",
+            "message": "Extracted text & tables",
+            "elapsed_time": elapsed_time,
+            "num_tables": self.num_tables
+        }
+
+    def extract(self):
+        """Helper to run extraction synchronously with no console output."""
+        for _ in self.extract_generator():
+            pass
 
     def save_cleaned_pdf(self):
         """Saves the cleaned PDF byte content to the specified path."""
@@ -99,110 +101,175 @@ class PDFProcessor:
             with open(csv_file_path, "w", encoding="utf-8") as csv_file:
                 csv_file.write(csv_str)
 
-    def categorise_tables(self, console=None):
-        """Categorises each saved table text file and saves JSON outputs."""
+    def categorise_generator(self):
+        """Categorises each saved table text file and yields status events."""
         if not self.extractor:
             raise RuntimeError("Must call extract() before categorising tables.")
             
         start_time = time.time()
+        yield {"status": "working", "message": "Categorising extracted tables..."}
+        
         categorisation_dir = os.path.join(self.output_dir, "categorisation")
+        os.makedirs(categorisation_dir, exist_ok=True)
+        self.cat_results = []
+        txt_dir = os.path.join(self.tables_dir, "txt")
         
-        def run_cat():
-            os.makedirs(categorisation_dir, exist_ok=True)
-            self.cat_results = []
-            txt_dir = os.path.join(self.tables_dir, "txt")
+        for i in range(self.num_tables):
+            table_file_path = os.path.join(txt_dir, f"table{i + 1}.txt")
+            table_name = os.path.basename(table_file_path)
+            json_file_path = os.path.join(categorisation_dir, f"table{i + 1}.json")
             
-            for i in range(self.num_tables):
-                table_file_path = os.path.join(txt_dir, f"table{i + 1}.txt")
-                table_name = os.path.basename(table_file_path)
-                json_file_path = os.path.join(categorisation_dir, f"table{i + 1}.json")
-                if os.path.exists(table_file_path):
-                    res = categorise_table(table_file_path, model=self.model)
-                    if res.success:
-                        status = "Contains" if res.contains_diffusion else "Does NOT contain"
-                        self.cat_results.append((table_name, True, f"{status} chemical diffusion coefficient data", res.usage_metadata))
-                        
-                        cat_data = {
-                            "contains_scientific_data": res.contains_scientific_data,
-                            "contains_diffusion_coeff": res.contains_diffusion_coeff,
-                            "contains_polymer_diffusion_coeff": res.contains_polymer_diffusion_coeff,
-                            "contains_diffusion": res.contains_diffusion
-                        }
-                        with open(json_file_path, 'w', encoding='utf-8') as jf:
-                            json.dump(cat_data, jf, indent=2)
-                    else:
-                        self.cat_results.append((table_name, False, f"Failed: {res.error}", None))
-                        
-        if console:
-            self._start_live(console)
-            self.cat_node = self.tree.add(Spinner("dots", text="[bold cyan]Categorising extracted tables...[/bold cyan]"))
-            run_cat()
-            elapsed_time = time.time() - start_time
-            self.print_categorisation_tree(console, elapsed_time)
-        else:
-            run_cat()
+            yield {
+                "status": "table_start",
+                "table_idx": i,
+                "table_name": table_name,
+                "message": f"Categorising table {i + 1}/{self.num_tables}..."
+            }
+            
+            if os.path.exists(table_file_path):
+                res = categorise_table(table_file_path, model=self.model)
+                if res.success:
+                    status = "Contains" if res.contains_diffusion else "Does NOT contain"
+                    status_msg = f"{status} chemical diffusion coefficient data"
+                    self.cat_results.append((table_name, True, status_msg, res.usage_metadata))
+                    
+                    cat_data = {
+                        "contains_scientific_data": res.contains_scientific_data,
+                        "contains_diffusion_coeff": res.contains_diffusion_coeff,
+                        "contains_polymer_diffusion_coeff": res.contains_polymer_diffusion_coeff,
+                        "contains_diffusion": res.contains_diffusion
+                    }
+                    with open(json_file_path, 'w', encoding='utf-8') as jf:
+                        json.dump(cat_data, jf, indent=2)
+                    
+                    yield {
+                        "status": "table_complete",
+                        "table_idx": i,
+                        "table_name": table_name,
+                        "success": True,
+                        "status_message": status_msg,
+                        "usage_metadata": res.usage_metadata
+                    }
+                else:
+                    status_msg = f"Failed: {res.error}"
+                    self.cat_results.append((table_name, False, status_msg, None))
+                    yield {
+                        "status": "table_complete",
+                        "table_idx": i,
+                        "table_name": table_name,
+                        "success": False,
+                        "status_message": status_msg,
+                        "usage_metadata": None
+                    }
+                    
+        elapsed_time = time.time() - start_time
+        yield {
+            "status": "complete",
+            "message": "Categorised extracted tables",
+            "elapsed_time": elapsed_time,
+            "results": self.cat_results
+        }
 
-    def summarise_tables(self, console=None):
-        """Summarises each saved table text file and saves JSON outputs to descriptions_dir."""
-        
+    def categorise_tables(self):
+        """Helper to run categorisation synchronously with no console output."""
+        for _ in self.categorise_generator():
+            pass
+
+    def summarise_generator(self):
+        """Summarises each saved table text file and yields status events."""
         if not self.extractor:
             raise RuntimeError("Must call extract() before summarising tables.")
             
         start_time = time.time()
-        descriptions_dir = os.path.join(self.output_dir, "descriptions")
+        yield {"status": "working", "message": "Extracting paper-level metadata..."}
         
-        def run_summarise():
-            os.makedirs(descriptions_dir, exist_ok=True)
-            self.sum_results = []
-            
-            # Extract paper-level metadata
-            metadata_res = extract_paper_metadata(self.extractor.parsed_markdown, model=self.model)
-            self.metadata_res = metadata_res
-            
-            metadata_dict = {}
-            metadata_error = None
-            if metadata_res.success:
-                metadata_dict = metadata_res.data.model_dump()
-            else:
-                metadata_error = metadata_res.error
-                
-            txt_dir = os.path.join(self.tables_dir, "txt")
-            for i in range(self.num_tables):
-                table_file_path = os.path.join(txt_dir, f"table{i + 1}.txt")
-                table_name = os.path.basename(table_file_path)
-                json_file_path = os.path.join(descriptions_dir, f"table{i + 1}.json")
-                
-                if os.path.exists(table_file_path):
-                    with open(table_file_path, 'r', encoding='utf-8') as f:
-                        table_text = f.read()
-                        
-                    res = summarise_table_conditions(table_text, model=self.model)
-                    
-                    if res.success:
-                        # Merge paper metadata and experimental conditions
-                        combined_data = {
-                            **metadata_dict,
-                            **res.data.model_dump()
-                        }
-
-                        with open(json_file_path, 'w', encoding='utf-8') as jf:
-                            json.dump(combined_data, jf, indent=2)
-                        
-                        status_msg = "Successfully summarised"
-                        if metadata_error:
-                            status_msg += f" (metadata extraction failed: {metadata_error})"
-                        self.sum_results.append((table_name, True, status_msg, res.usage_metadata))
-                    else:
-                        self.sum_results.append((table_name, False, f"Failed: {res.error}", None))
-                        
-        if console:
-            self._start_live(console)
-            self.sum_node = self.tree.add(Spinner("dots", text="[bold cyan]Summarising experimental conditions...[/bold cyan]"))
-            run_summarise()
-            elapsed_time = time.time() - start_time
-            self.print_summarisation_tree(console, elapsed_time)
+        descriptions_dir = os.path.join(self.output_dir, "descriptions")
+        os.makedirs(descriptions_dir, exist_ok=True)
+        self.sum_results = []
+        
+        # Extract paper-level metadata
+        metadata_res = extract_paper_metadata(self.extractor.parsed_markdown, model=self.model)
+        self.metadata_res = metadata_res
+        
+        metadata_dict = {}
+        metadata_error = None
+        if metadata_res.success:
+            metadata_dict = metadata_res.data.model_dump()
         else:
-            run_summarise()
+            metadata_error = metadata_res.error
+            
+        yield {
+            "status": "metadata_complete",
+            "success": metadata_res.success,
+            "error": metadata_error,
+            "usage_metadata": metadata_res.usage_metadata
+        }
+        
+        txt_dir = os.path.join(self.tables_dir, "txt")
+        for i in range(self.num_tables):
+            table_file_path = os.path.join(txt_dir, f"table{i + 1}.txt")
+            table_name = os.path.basename(table_file_path)
+            json_file_path = os.path.join(descriptions_dir, f"table{i + 1}.json")
+            
+            yield {
+                "status": "table_start",
+                "table_idx": i,
+                "table_name": table_name,
+                "message": f"Summarising table {i + 1}/{self.num_tables}..."
+            }
+            
+            if os.path.exists(table_file_path):
+                with open(table_file_path, 'r', encoding='utf-8') as f:
+                    table_text = f.read()
+                    
+                res = summarise_table_conditions(table_text, model=self.model)
+                
+                if res.success:
+                    # Merge paper metadata and experimental conditions
+                    combined_data = {
+                        **metadata_dict,
+                        **res.data.model_dump()
+                    }
+                    with open(json_file_path, 'w', encoding='utf-8') as jf:
+                        json.dump(combined_data, jf, indent=2)
+                    
+                    status_msg = "Successfully summarised"
+                    if metadata_error:
+                        status_msg += f" (metadata extraction failed: {metadata_error})"
+                    self.sum_results.append((table_name, True, status_msg, res.usage_metadata))
+                    
+                    yield {
+                        "status": "table_complete",
+                        "table_idx": i,
+                        "table_name": table_name,
+                        "success": True,
+                        "status_message": status_msg,
+                        "usage_metadata": res.usage_metadata
+                    }
+                else:
+                    status_msg = f"Failed: {res.error}"
+                    self.sum_results.append((table_name, False, status_msg, None))
+                    yield {
+                        "status": "table_complete",
+                        "table_idx": i,
+                        "table_name": table_name,
+                        "success": False,
+                        "status_message": status_msg,
+                        "usage_metadata": None
+                    }
+                    
+        elapsed_time = time.time() - start_time
+        yield {
+            "status": "complete",
+            "message": "Summarised experimental conditions",
+            "elapsed_time": elapsed_time,
+            "results": self.sum_results
+        }
+
+    def summarise_tables(self):
+        """Helper to run summarisation synchronously with no console output."""
+        for _ in self.summarise_generator():
+            pass
 
     def create_excel(self) -> None:
         """Creates a beautifully formatted Excel document containing both JSON metadata/conditions and CSV table data."""
@@ -249,7 +316,7 @@ class PDFProcessor:
                     with open(json_path, 'r', encoding='utf-8') as jf:
                         data = json.load(jf)
                 except Exception as e:
-                    print(f"Error loading JSON {json_path}: {e}")
+                    self._log_error(f"Error loading JSON {json_path}: {e}")
             
             title_text = data.get("title", self.base_no_ext)
             ws.merge_cells("A1:G2")
@@ -385,7 +452,7 @@ class PDFProcessor:
                                     cell.alignment = left_align
                             active_row_idx += 1
                 except Exception as e:
-                    print(f"Error parsing CSV {csv_path}: {e}")
+                    self._log_error(f"Error parsing CSV {csv_path}: {e}")
                     ws.cell(row=csv_start_row, column=1, value=f"Error loading CSV data: {e}").font = val_font
             else:
                 ws.cell(row=csv_start_row, column=1, value="CSV data file not found.").font = val_font
@@ -409,7 +476,7 @@ class PDFProcessor:
         try:
             wb.save(dest_path)
         except Exception as e:
-            print(f"Error saving Excel document {dest_path}: {e}")
+            self._log_error(f"Error saving Excel document {dest_path}: {e}")
 
     def save_logs(self):
         """Saves the extraction log file."""
@@ -418,167 +485,7 @@ class PDFProcessor:
         with open(self.log_file_path, "w", encoding="utf-8") as log_file:
             log_file.write(self.extractor.logs)
 
-    def _print_tree_updating(self, console: Console):
-        """Prints the shared tree, overwriting the previous print in the console if it exists."""
-        if hasattr(self, "_last_printed_lines") and self._last_printed_lines > 0:
-            try:
-                console.file.write(f"\033[{self._last_printed_lines}A\033[J")
-                console.file.flush()
-            except Exception:
-                pass
-
-    def print_extraction_tree(self, console: Console, elapsed_time: float):
-        """Builds the hierarchical tree status for the extraction phase on the persistent tree."""
-        if hasattr(self, "ext_node") and self.ext_node:
-            self.ext_node.label = f"[green]✓[/green] Extracted text & tables [dim](completed in {elapsed_time:.2f}s)[/dim]"
-            self.ext_node.add(f"Extracted text & tables in-memory")
-            self.ext_node.add(f"Saved cleaned PDF to [yellow]{os.path.relpath(self.clean_path)}[/yellow]")
-            self.ext_node.add(f"Saved parsed markdown to [yellow]{os.path.relpath(self.parsed_md_path)}[/yellow]")
-            self.ext_node.add(f"Saved {self.num_tables} tables (txt & csv) to [yellow]{os.path.relpath(self.tables_dir)}[/yellow]")
-            self.ext_node.add(f"Saved execution logs to [yellow]{os.path.relpath(self.log_file_path)}[/yellow]")
-        if hasattr(self, "live") and self.live:
-            self.live.refresh()
-
-    def print_categorisation_tree(self, console: Console, elapsed_time: float):
-        """Builds the hierarchical tree status for the table categorisation phase on the persistent tree."""
-        total_in = 0
-        total_out = 0
-        has_tokens = False
-
-        if self.cat_results:
-            for item in self.cat_results:
-                if len(item) == 4 and item[3]:
-                    total_in += item[3].get("prompt_token_count", 0)
-                    total_out += item[3].get("candidates_token_count", 0)
-                    has_tokens = True
-
-        model_key = self.model
-        tokens_title = ""
-        if has_tokens:
-            cost_str = ""
-            if model_key in pricing_matrix:
-                pricing = pricing_matrix[model_key]
-                cost = (total_in * pricing["input_per_m"] + total_out * pricing["output_per_m"]) / 1_000_000
-                cost_str = f"; Cost: ${cost:.6f}"
-            tokens_title = f" (Total tokens: {total_in} in, {total_out} out{cost_str})"
-
-        if hasattr(self, "cat_node") and self.cat_node:
-            self.cat_node.label = f"[green]✓[/green] Categorised extracted tables using [magenta]{self.model}[/magenta] [dim](completed in {elapsed_time:.2f}s){tokens_title}[/dim]"
-            
-            if not self.cat_results:
-                self.cat_node.add("[dim]No tables found to categorise[/dim]")
-            else:
-                for item in self.cat_results:
-                    table_name = item[0]
-                    success = item[1]
-                    status = item[2]
-                    usage_metadata = item[3] if len(item) == 4 else None
-
-                    tokens_str = ""
-                    if usage_metadata:
-                        in_t = usage_metadata.get("prompt_token_count", 0)
-                        out_t = usage_metadata.get("candidates_token_count", 0)
-                        cost_item_str = ""
-                        if model_key in pricing_matrix:
-                            pricing = pricing_matrix[model_key]
-                            cost_item = (in_t * pricing["input_per_m"] + out_t * pricing["output_per_m"]) / 1_000_000
-                            cost_item_str = f"; Cost: ${cost_item:.6f}"
-                        tokens_str = f" [dim](tokens: {in_t} in, {out_t} out{cost_item_str})[/dim]"
-
-                    if success:
-                        if "Does NOT contain" in status:
-                            status_styled = f"[blue]{status}[/blue]"
-                        else:
-                            status_styled = f"[bold green]{status}[/bold green]"
-                        self.cat_node.add(f"{table_name}: {status_styled}{tokens_str}")
-                    else:
-                        self.cat_node.add(f"{table_name}: [red]{status}[/red]")
-        
-        if hasattr(self, "live") and self.live:
-            self.live.refresh()
-
-    def print_summarisation_tree(self, console: Console, elapsed_time: float):
-        """Builds the hierarchical tree status for the table summarisation phase on the persistent tree."""
-        total_in = 0
-        total_out = 0
-        has_tokens = False
-
-        if self.metadata_res and self.metadata_res.success and self.metadata_res.usage_metadata:
-            total_in += self.metadata_res.usage_metadata.get("prompt_token_count", 0)
-            total_out += self.metadata_res.usage_metadata.get("candidates_token_count", 0)
-            has_tokens = True
-        if self.sum_results:
-            for item in self.sum_results:
-                if len(item) == 4 and item[3]:
-                    total_in += item[3].get("prompt_token_count", 0)
-                    total_out += item[3].get("candidates_token_count", 0)
-                    has_tokens = True
-
-        model_key = self.model
-        tokens_title = ""
-        if has_tokens:
-            cost_str = ""
-            if model_key in pricing_matrix:
-                pricing = pricing_matrix[model_key]
-                cost = (total_in * pricing["input_per_m"] + total_out * pricing["output_per_m"]) / 1_000_000
-                cost_str = f"; Cost: ${cost:.6f}"
-            tokens_title = f" (Total tokens: {total_in} in, {total_out} out{cost_str})"
-
-        if hasattr(self, "sum_node") and self.sum_node:
-            self.sum_node.label = f"[green]✓[/green] Summarised experimental conditions using [magenta]{self.model}[/magenta] [dim](completed in {elapsed_time:.2f}s){tokens_title}[/dim]"
-            
-            if self.metadata_res:
-                tokens_str = ""
-                if self.metadata_res.usage_metadata:
-                    in_t = self.metadata_res.usage_metadata.get("prompt_token_count", 0)
-                    out_t = self.metadata_res.usage_metadata.get("candidates_token_count", 0)
-                    cost_item_str = ""
-                    if model_key in pricing_matrix:
-                        pricing = pricing_matrix[model_key]
-                        cost_item = (in_t * pricing["input_per_m"] + out_t * pricing["output_per_m"]) / 1_000_000
-                        cost_item_str = f"; Cost: ${cost_item:.6f}"
-                    tokens_str = f" [dim](tokens: {in_t} in, {out_t} out{cost_item_str})[/dim]"
-                
-                if self.metadata_res.success:
-                    self.sum_node.add(f"Paper Metadata: [bold green]Successfully extracted[/bold green]{tokens_str}")
-                else:
-                    self.sum_node.add(f"Paper Metadata: [red]Failed: {self.metadata_res.error}[/red]")
-
-            if not self.sum_results:
-                self.sum_node.add("[dim]No tables found to summarise[/dim]")
-            else:
-                for item in self.sum_results:
-                    table_name = item[0]
-                    success = item[1]
-                    status = item[2]
-                    usage_metadata = item[3] if len(item) == 4 else None
-
-                    tokens_str = ""
-                    if usage_metadata:
-                        in_t = usage_metadata.get("prompt_token_count", 0)
-                        out_t = usage_metadata.get("candidates_token_count", 0)
-                        cost_item_str = ""
-                        if model_key in pricing_matrix:
-                            pricing = pricing_matrix[model_key]
-                            cost_item = (in_t * pricing["input_per_m"] + out_t * pricing["output_per_m"]) / 1_000_000
-                            cost_item_str = f"; Cost: ${cost_item:.6f}"
-                        tokens_str = f" [dim](tokens: {in_t} in, {out_t} out{cost_item_str})[/dim]"
-
-                    if success:
-                        self.sum_node.add(f"{table_name}: [bold green]{status}[/bold green]{tokens_str}")
-                    else:
-                        self.sum_node.add(f"{table_name}: [red]{status}[/red]")
-        
-        if hasattr(self, "live") and self.live:
-            self.live.refresh()
-
     def cleanup(self):
-        """Deload extractor instance, stop live display and force garbage collection to release memory."""
-        if hasattr(self, "live") and self.live:
-            try:
-                self.live.stop()
-            except Exception:
-                pass
-            self.live = None
+        """Deload extractor instance and force garbage collection to release memory."""
         self.extractor = None
         gc.collect()

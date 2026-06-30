@@ -1,9 +1,5 @@
 import sys
 import os
-
-# Add project root to sys.path so it runs directly or as a module
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
-
 import click
 import inquirer
 from chemstractor.models import AllSupportedModels, ONLINE_MODELS, OFFLINE_MODELS
@@ -54,10 +50,64 @@ def test_all():
     
     click.echo(f"Running tests with model='{selected_model}', categorise_tables={answers['categorise_tables']}, summarise_tables={answers['summarise_tables']}...")
     
-    from chemstractor.commands.tests import run_tests
-    run_tests(
+    from chemstractor.commands.test_all import test_all_command
+    test_all_command(
         categorise_tables=answers['categorise_tables'],
         summarise_tables=answers['summarise_tables'],
+        model=selected_model
+    )
+
+@cli.command()
+@click.argument('pdf_path', type=click.Path(exists=True))
+@click.option('--clean-dir', default="./tests/clean", help="Directory for cleaned PDFs.")
+@click.option('--output-dir', default="./tests/output", help="Directory for output markdown and tables.")
+@click.option('--logs-dir', default="./tests/logs", help="Directory for execution logs.")
+@click.option('--model', type=click.Choice(CHOICES), default=CHOICES[0], help="Model to use.")
+def extract(pdf_path, clean_dir, output_dir, logs_dir, model):
+    """Extract text and tables from a PDF."""
+    selected_model = choices_map[model]
+    from chemstractor.commands.extract import extract_command
+    extract_command(
+        pdf_path=pdf_path,
+        clean_dir=clean_dir,
+        output_dir=output_dir,
+        logs_dir=logs_dir,
+        model=selected_model
+    )
+
+@cli.command()
+@click.argument('pdf_path', type=click.Path(exists=True))
+@click.option('--clean-dir', default="./tests/clean", help="Directory for cleaned PDFs.")
+@click.option('--output-dir', default="./tests/output", help="Directory for output markdown and tables.")
+@click.option('--logs-dir', default="./tests/logs", help="Directory for execution logs.")
+@click.option('--model', type=click.Choice(CHOICES), default=CHOICES[0], help="Model to use.")
+def categorise(pdf_path, clean_dir, output_dir, logs_dir, model):
+    """Categorise tables extracted from a PDF."""
+    selected_model = choices_map[model]
+    from chemstractor.commands.categorise import categorise_command
+    categorise_command(
+        pdf_path=pdf_path,
+        clean_dir=clean_dir,
+        output_dir=output_dir,
+        logs_dir=logs_dir,
+        model=selected_model
+    )
+
+@cli.command()
+@click.argument('pdf_path', type=click.Path(exists=True))
+@click.option('--clean-dir', default="./tests/clean", help="Directory for cleaned PDFs.")
+@click.option('--output-dir', default="./tests/output", help="Directory for output markdown and tables.")
+@click.option('--logs-dir', default="./tests/logs", help="Directory for execution logs.")
+@click.option('--model', type=click.Choice(CHOICES), default=CHOICES[0], help="Model to use.")
+def summarise(pdf_path, clean_dir, output_dir, logs_dir, model):
+    """Summarise tables and metadata extracted from a PDF."""
+    selected_model = choices_map[model]
+    from chemstractor.commands.summarise import summarise_command
+    summarise_command(
+        pdf_path=pdf_path,
+        clean_dir=clean_dir,
+        output_dir=output_dir,
+        logs_dir=logs_dir,
         model=selected_model
     )
 
