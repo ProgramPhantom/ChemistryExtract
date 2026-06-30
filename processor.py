@@ -6,17 +6,19 @@ from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
 from openpyxl.utils import get_column_letter
 import gc
 import time
-from rich.progress import Progress, SpinnerColumn, TextColumn, TimeElapsedColumn
 from rich.console import Console
 from rich.tree import Tree
+from rich.live import Live
+from rich.spinner import Spinner
 
 from extractor import TableExtractor
 from categorisation import categorise_table
 from summariser import summarise_table_conditions, extract_paper_metadata
+from models import pricing_matrix
 
 
 class PDFProcessor:
-    def __init__(self, pdf_path: str, clean_dir: str, output_dir: str, logs_dir: str, model: str = "gemini"):
+    def __init__(self, pdf_path: str, clean_dir: str, output_dir: str, logs_dir: str, model: str = "gemini-2.5-flash"):
         self.pdf_path = pdf_path
         self.clean_dir = clean_dir
         self.output_dir = output_dir
@@ -38,23 +40,22 @@ class PDFProcessor:
         self.cat_results = []
         self.sum_results = []
         self.metadata_res = None
+        self.tree = Tree(f"[bold cyan]📄 {self.base_name}[/bold cyan]")
+
+    def _start_live(self, console: Console):
+        """Starts the Live environment with the processor's tree if not already running."""
+        if console and (not hasattr(self, "live") or not self.live):
+            self.live = Live(self.tree, console=console, auto_refresh=True, refresh_per_second=12)
+            self.live.start()
 
     def extract(self, console=None):
-        """Extracts content in-memory with a loading spinner and elapsed timer if console is provided."""
-        
+        """Extracts content in-memory using Live console tree with spinner."""
         start_time = time.time()
         if console:
-            with Progress(
-                SpinnerColumn(),
-                TextColumn("[progress.description]{task.description}"),
-                TimeElapsedColumn(),
-                console=console,
-                transient=True
-            ) as progress:
-                progress.add_task(f"[bold cyan]Extracting '{self.base_name}'[/bold cyan]...")
-                self.extractor = TableExtractor(self.pdf_path)
-        else:
-            self.extractor = TableExtractor(self.pdf_path)
+            self._start_live(console)
+            self.ext_node = self.tree.add(Spinner("dots", text="[bold cyan]Extracting text & tables...[/bold cyan]"))
+        
+        self.extractor = TableExtractor(self.pdf_path)
         self.num_tables = len(self.extractor.tables_markdown)
 
         # Save output files automatically
@@ -133,15 +134,9 @@ class PDFProcessor:
                         self.cat_results.append((table_name, False, f"Failed: {res.error}", None))
                         
         if console:
-            with Progress(
-                SpinnerColumn(),
-                TextColumn("[progress.description]{task.description}"),
-                TimeElapsedColumn(),
-                console=console,
-                transient=True
-            ) as progress:
-                progress.add_task(f"[bold cyan]Categorising '{self.base_name}'[/bold cyan]...")
-                run_cat()
+            self._start_live(console)
+            self.cat_node = self.tree.add(Spinner("dots", text="[bold cyan]Categorising extracted tables...[/bold cyan]"))
+            run_cat()
             elapsed_time = time.time() - start_time
             self.print_categorisation_tree(console, elapsed_time)
         else:
@@ -201,15 +196,9 @@ class PDFProcessor:
                         self.sum_results.append((table_name, False, f"Failed: {res.error}", None))
                         
         if console:
-            with Progress(
-                SpinnerColumn(),
-                TextColumn("[progress.description]{task.description}"),
-                TimeElapsedColumn(),
-                console=console,
-                transient=True
-            ) as progress:
-                progress.add_task(f"[bold cyan]Summarising '{self.base_name}'[/bold cyan]...")
-                run_summarise()
+            self._start_live(console)
+            self.sum_node = self.tree.add(Spinner("dots", text="[bold cyan]Summarising experimental conditions...[/bold cyan]"))
+            run_summarise()
             elapsed_time = time.time() - start_time
             self.print_summarisation_tree(console, elapsed_time)
         else:
@@ -429,19 +418,29 @@ class PDFProcessor:
         with open(self.log_file_path, "w", encoding="utf-8") as log_file:
             log_file.write(self.extractor.logs)
 
+    def _print_tree_updating(self, console: Console):
+        """Prints the shared tree, overwriting the previous print in the console if it exists."""
+        if hasattr(self, "_last_printed_lines") and self._last_printed_lines > 0:
+            try:
+                console.file.write(f"\033[{self._last_printed_lines}A\033[J")
+                console.file.flush()
+            except Exception:
+                pass
+
     def print_extraction_tree(self, console: Console, elapsed_time: float):
-        """Builds and prints the hierarchical tree status for the extraction phase."""
-        tree = Tree(f"[bold cyan]📄 {self.base_name}[/bold cyan] [dim](Extraction completed in {elapsed_time:.2f}s)[/dim]")
-        tree.add(f"[green]✓[/green] Extracted text & tables in-memory")
-        tree.add(f"[green]✓[/green] Saved cleaned PDF to [yellow]{os.path.relpath(self.clean_path)}[/yellow]")
-        tree.add(f"[green]✓[/green] Saved parsed markdown to [yellow]{os.path.relpath(self.parsed_md_path)}[/yellow]")
-        tree.add(f"[green]✓[/green] Saved {self.num_tables} tables (txt & csv) to [yellow]{os.path.relpath(self.tables_dir)}[/yellow]")
-        tree.add(f"[green]✓[/green] Saved execution logs to [yellow]{os.path.relpath(self.log_file_path)}[/yellow]")
-        console.print(tree)
-        console.print()
+        """Builds the hierarchical tree status for the extraction phase on the persistent tree."""
+        if hasattr(self, "ext_node") and self.ext_node:
+            self.ext_node.label = f"[green]✓[/green] Extracted text & tables [dim](completed in {elapsed_time:.2f}s)[/dim]"
+            self.ext_node.add(f"Extracted text & tables in-memory")
+            self.ext_node.add(f"Saved cleaned PDF to [yellow]{os.path.relpath(self.clean_path)}[/yellow]")
+            self.ext_node.add(f"Saved parsed markdown to [yellow]{os.path.relpath(self.parsed_md_path)}[/yellow]")
+            self.ext_node.add(f"Saved {self.num_tables} tables (txt & csv) to [yellow]{os.path.relpath(self.tables_dir)}[/yellow]")
+            self.ext_node.add(f"Saved execution logs to [yellow]{os.path.relpath(self.log_file_path)}[/yellow]")
+        if hasattr(self, "live") and self.live:
+            self.live.refresh()
 
     def print_categorisation_tree(self, console: Console, elapsed_time: float):
-        """Builds and prints the hierarchical tree status for the table categorisation phase."""
+        """Builds the hierarchical tree status for the table categorisation phase on the persistent tree."""
         total_in = 0
         total_out = 0
         has_tokens = False
@@ -453,42 +452,53 @@ class PDFProcessor:
                     total_out += item[3].get("candidates_token_count", 0)
                     has_tokens = True
 
+        model_key = self.model
         tokens_title = ""
         if has_tokens:
-            tokens_title = f" [dim](Total tokens: {total_in} in, {total_out} out)[/dim]"
+            cost_str = ""
+            if model_key in pricing_matrix:
+                pricing = pricing_matrix[model_key]
+                cost = (total_in * pricing["input_per_m"] + total_out * pricing["output_per_m"]) / 1_000_000
+                cost_str = f"; Cost: ${cost:.6f}"
+            tokens_title = f" (Total tokens: {total_in} in, {total_out} out{cost_str})"
 
-        tree = Tree(f"[bold cyan]📄 {self.base_name}[/bold cyan] [dim](Categorisation completed in {elapsed_time:.2f}s)[/dim]{tokens_title}")
-        cat_node = tree.add(f"[green]✓[/green] Categorised extracted tables using [magenta]{self.model}[/magenta]")
-        
-        if not self.cat_results:
-            cat_node.add("[dim]No tables found to categorise[/dim]")
-        else:
-            for item in self.cat_results:
-                table_name = item[0]
-                success = item[1]
-                status = item[2]
-                usage_metadata = item[3] if len(item) == 4 else None
+        if hasattr(self, "cat_node") and self.cat_node:
+            self.cat_node.label = f"[green]✓[/green] Categorised extracted tables using [magenta]{self.model}[/magenta] [dim](completed in {elapsed_time:.2f}s){tokens_title}[/dim]"
+            
+            if not self.cat_results:
+                self.cat_node.add("[dim]No tables found to categorise[/dim]")
+            else:
+                for item in self.cat_results:
+                    table_name = item[0]
+                    success = item[1]
+                    status = item[2]
+                    usage_metadata = item[3] if len(item) == 4 else None
 
-                tokens_str = ""
-                if usage_metadata:
-                    in_t = usage_metadata.get("prompt_token_count", 0)
-                    out_t = usage_metadata.get("candidates_token_count", 0)
-                    tokens_str = f" [dim](tokens: {in_t} in, {out_t} out)[/dim]"
+                    tokens_str = ""
+                    if usage_metadata:
+                        in_t = usage_metadata.get("prompt_token_count", 0)
+                        out_t = usage_metadata.get("candidates_token_count", 0)
+                        cost_item_str = ""
+                        if model_key in pricing_matrix:
+                            pricing = pricing_matrix[model_key]
+                            cost_item = (in_t * pricing["input_per_m"] + out_t * pricing["output_per_m"]) / 1_000_000
+                            cost_item_str = f"; Cost: ${cost_item:.6f}"
+                        tokens_str = f" [dim](tokens: {in_t} in, {out_t} out{cost_item_str})[/dim]"
 
-                if success:
-                    if "Does NOT contain" in status:
-                        status_styled = f"[blue]{status}[/blue]"
+                    if success:
+                        if "Does NOT contain" in status:
+                            status_styled = f"[blue]{status}[/blue]"
+                        else:
+                            status_styled = f"[bold green]{status}[/bold green]"
+                        self.cat_node.add(f"{table_name}: {status_styled}{tokens_str}")
                     else:
-                        status_styled = f"[bold green]{status}[/bold green]"
-                    cat_node.add(f"{table_name}: {status_styled}{tokens_str}")
-                else:
-                    cat_node.add(f"{table_name}: [red]{status}[/red]")
+                        self.cat_node.add(f"{table_name}: [red]{status}[/red]")
         
-        console.print(tree)
-        console.print()
+        if hasattr(self, "live") and self.live:
+            self.live.refresh()
 
     def print_summarisation_tree(self, console: Console, elapsed_time: float):
-        """Builds and prints the hierarchical tree status for the table summarisation phase."""
+        """Builds the hierarchical tree status for the table summarisation phase on the persistent tree."""
         total_in = 0
         total_out = 0
         has_tokens = False
@@ -504,49 +514,71 @@ class PDFProcessor:
                     total_out += item[3].get("candidates_token_count", 0)
                     has_tokens = True
 
+        model_key = self.model
         tokens_title = ""
         if has_tokens:
-            tokens_title = f" [dim](Total tokens: {total_in} in, {total_out} out)[/dim]"
+            cost_str = ""
+            if model_key in pricing_matrix:
+                pricing = pricing_matrix[model_key]
+                cost = (total_in * pricing["input_per_m"] + total_out * pricing["output_per_m"]) / 1_000_000
+                cost_str = f"; Cost: ${cost:.6f}"
+            tokens_title = f" (Total tokens: {total_in} in, {total_out} out{cost_str})"
 
-        tree = Tree(f"[bold cyan]📄 {self.base_name}[/bold cyan] [dim](Summary completed in {elapsed_time:.2f}s)[/dim]{tokens_title}")
-        sum_node = tree.add(f"[green]✓[/green] Summarised experimental conditions using [magenta]{self.model}[/magenta]")
-        
-        if self.metadata_res:
-            tokens_str = ""
-            if self.metadata_res.usage_metadata:
-                in_t = self.metadata_res.usage_metadata.get("prompt_token_count", 0)
-                out_t = self.metadata_res.usage_metadata.get("candidates_token_count", 0)
-                tokens_str = f" [dim](tokens: {in_t} in, {out_t} out)[/dim]"
+        if hasattr(self, "sum_node") and self.sum_node:
+            self.sum_node.label = f"[green]✓[/green] Summarised experimental conditions using [magenta]{self.model}[/magenta] [dim](completed in {elapsed_time:.2f}s){tokens_title}[/dim]"
             
-            if self.metadata_res.success:
-                sum_node.add(f"Paper Metadata: [bold green]Successfully extracted[/bold green]{tokens_str}")
-            else:
-                sum_node.add(f"Paper Metadata: [red]Failed: {self.metadata_res.error}[/red]")
-
-        if not self.sum_results:
-            sum_node.add("[dim]No tables found to summarise[/dim]")
-        else:
-            for item in self.sum_results:
-                table_name = item[0]
-                success = item[1]
-                status = item[2]
-                usage_metadata = item[3] if len(item) == 4 else None
-
+            if self.metadata_res:
                 tokens_str = ""
-                if usage_metadata:
-                    in_t = usage_metadata.get("prompt_token_count", 0)
-                    out_t = usage_metadata.get("candidates_token_count", 0)
-                    tokens_str = f" [dim](tokens: {in_t} in, {out_t} out)[/dim]"
-
-                if success:
-                    sum_node.add(f"{table_name}: [bold green]{status}[/bold green]{tokens_str}")
+                if self.metadata_res.usage_metadata:
+                    in_t = self.metadata_res.usage_metadata.get("prompt_token_count", 0)
+                    out_t = self.metadata_res.usage_metadata.get("candidates_token_count", 0)
+                    cost_item_str = ""
+                    if model_key in pricing_matrix:
+                        pricing = pricing_matrix[model_key]
+                        cost_item = (in_t * pricing["input_per_m"] + out_t * pricing["output_per_m"]) / 1_000_000
+                        cost_item_str = f"; Cost: ${cost_item:.6f}"
+                    tokens_str = f" [dim](tokens: {in_t} in, {out_t} out{cost_item_str})[/dim]"
+                
+                if self.metadata_res.success:
+                    self.sum_node.add(f"Paper Metadata: [bold green]Successfully extracted[/bold green]{tokens_str}")
                 else:
-                    sum_node.add(f"{table_name}: [red]{status}[/red]")
+                    self.sum_node.add(f"Paper Metadata: [red]Failed: {self.metadata_res.error}[/red]")
+
+            if not self.sum_results:
+                self.sum_node.add("[dim]No tables found to summarise[/dim]")
+            else:
+                for item in self.sum_results:
+                    table_name = item[0]
+                    success = item[1]
+                    status = item[2]
+                    usage_metadata = item[3] if len(item) == 4 else None
+
+                    tokens_str = ""
+                    if usage_metadata:
+                        in_t = usage_metadata.get("prompt_token_count", 0)
+                        out_t = usage_metadata.get("candidates_token_count", 0)
+                        cost_item_str = ""
+                        if model_key in pricing_matrix:
+                            pricing = pricing_matrix[model_key]
+                            cost_item = (in_t * pricing["input_per_m"] + out_t * pricing["output_per_m"]) / 1_000_000
+                            cost_item_str = f"; Cost: ${cost_item:.6f}"
+                        tokens_str = f" [dim](tokens: {in_t} in, {out_t} out{cost_item_str})[/dim]"
+
+                    if success:
+                        self.sum_node.add(f"{table_name}: [bold green]{status}[/bold green]{tokens_str}")
+                    else:
+                        self.sum_node.add(f"{table_name}: [red]{status}[/red]")
         
-        console.print(tree)
-        console.print()
+        if hasattr(self, "live") and self.live:
+            self.live.refresh()
 
     def cleanup(self):
-        """Deload extractor instance and force garbage collection to release memory."""
+        """Deload extractor instance, stop live display and force garbage collection to release memory."""
+        if hasattr(self, "live") and self.live:
+            try:
+                self.live.stop()
+            except Exception:
+                pass
+            self.live = None
         self.extractor = None
         gc.collect()

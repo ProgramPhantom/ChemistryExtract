@@ -35,9 +35,8 @@ _converter = None
 def get_converter():
     global _converter
     if _converter is None:
-        with console.status("[bold yellow]Loading Docling models and dependencies...[/bold yellow]"):
-            from docling.document_converter import DocumentConverter
-            _converter = DocumentConverter()
+        from docling.document_converter import DocumentConverter
+        _converter = DocumentConverter()
     return _converter
 
 

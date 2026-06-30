@@ -1,13 +1,6 @@
-from typing import Literal, get_args, Union
 import click
 import inquirer
-
-OnlineModels = Literal["gemini-2.5-flash", "gemini-3.5-flash"]
-OfflineModels = Literal["llama3.1"]
-AllSupportedModels = Union[OnlineModels, OfflineModels]
-
-ONLINE_MODELS = list(get_args(OnlineModels))
-OFFLINE_MODELS = list(get_args(OfflineModels))
+from models import AllSupportedModels, ONLINE_MODELS, OFFLINE_MODELS
 
 # Create display mapping to append a cloud emoji to server (online) models
 choices_map = {}

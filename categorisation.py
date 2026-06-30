@@ -8,7 +8,7 @@ import ollama
 import json
 import os
 
-from main import AllSupportedModels, ONLINE_MODELS, OFFLINE_MODELS
+from models import AllSupportedModels, ONLINE_MODELS, OFFLINE_MODELS
 
 load_dotenv()
 API_KEY = os.getenv('API_KEY')

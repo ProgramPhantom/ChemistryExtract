@@ -16,7 +16,7 @@ from rich.rule import Rule
 from rich.table import Table
 
 from processor import PDFProcessor
-from main import AllSupportedModels
+from models import AllSupportedModels
 
 TEST_DIR = "./tests"
 MATERIAL_DIR = "./tests/material"
