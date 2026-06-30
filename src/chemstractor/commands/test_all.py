@@ -86,19 +86,12 @@ def test_all_command(categorise_tables: bool = True, summarise_tables: bool = Tr
     summary_data = []
     
     for pdf_path in pdf_files:
-        base_name = os.path.basename(pdf_path)
-        base_no_ext = os.path.splitext(base_name)[0]
-        
-        # Configure output paths within the timestamped run directory
-        test_output_dir = os.path.join(run_dir, base_no_ext)
-        os.makedirs(test_output_dir, exist_ok=True)
-        
         timer = time.time()
         
-        # Initialize PDFProcessor
+        # Initialize PDFProcessor (it will automatically create <run_dir>/<pdf_name> during save)
         processor = PDFProcessor(
             pdf_path=pdf_path,
-            output_dir=test_output_dir,
+            output_dir=run_dir,
             model=model
         )
         
@@ -116,7 +109,7 @@ def test_all_command(categorise_tables: bool = True, summarise_tables: bool = Tr
             if summarise_tables:
                 run_summarise(processor, tree)
                 
-            processor.save()
+            processor.save_all()
             live.refresh()
             
         elapsed_time = time.time() - timer

@@ -1,4 +1,12 @@
 import sys
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8')
+if hasattr(sys.stderr, 'reconfigure'):
+    sys.stderr.reconfigure(encoding='utf-8')
+if hasattr(sys.__stdout__, 'reconfigure'):
+    sys.__stdout__.reconfigure(encoding='utf-8')
+if hasattr(sys.__stderr__, 'reconfigure'):
+    sys.__stderr__.reconfigure(encoding='utf-8')
 import os
 import click
 import inquirer

@@ -81,7 +81,7 @@ def categorise_command(pdf_path: str, output_dir: str, model: AllSupportedModels
     with Live(tree, console=console, auto_refresh=True, refresh_per_second=12) as live:
         run_extract(processor, tree)
         run_categorise(processor, tree)
-        processor.save()
+        processor.save_all()
         live.refresh()
         
     processor.cleanup()

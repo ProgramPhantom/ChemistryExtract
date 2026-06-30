@@ -15,21 +15,19 @@ from chemstractor.models import pricing_matrix
 class PDFProcessor:
     def __init__(self, pdf_path: str, output_dir: str = ".", model: str = "gemini-2.5-flash"):
         self.pdf_path = pdf_path
-        self.output_dir = output_dir
         self.model = model
         
         self.base_name = os.path.basename(pdf_path)
         self.base_no_ext = os.path.splitext(self.base_name)[0]
         
         # Output paths derived from output_dir
+        self.output_dir = os.path.join(output_dir, self.base_no_ext)
         self.extract_dir = os.path.join(self.output_dir, "extract")
-        self.clean_dir = os.path.join(self.extract_dir, "clean")
-        self.logs_dir = os.path.join(self.extract_dir, "logs")
         self.tables_dir = os.path.join(self.extract_dir, "tables")
         
-        self.clean_path = os.path.join(self.clean_dir, f"clean_{self.base_name}")
+        self.clean_path = os.path.join(self.extract_dir, f"clean_{self.base_name}")
         self.parsed_md_path = os.path.join(self.extract_dir, "output.md")
-        self.log_file_path = os.path.join(self.logs_dir, f"log_{self.base_name}.log")
+        self.log_file_path = os.path.join(self.extract_dir, f"log_{self.base_name}.log")
         
         self.categorisation_dir = os.path.join(self.output_dir, "categorisation")
         self.summary_dir = os.path.join(self.output_dir, "summary")
@@ -465,7 +463,7 @@ class PDFProcessor:
             with open(csv_file_path, "w", encoding="utf-8") as csv_file:
                 csv_file.write(csv_str)
 
-    def save(self):
+    def save_all(self):
         """Saves all relevant content in-memory to the output folder structure."""
         if not self.extractor:
             raise RuntimeError("Must call extract() before saving.")
@@ -473,8 +471,6 @@ class PDFProcessor:
         # Create output directories
         os.makedirs(self.output_dir, exist_ok=True)
         os.makedirs(self.extract_dir, exist_ok=True)
-        os.makedirs(self.clean_dir, exist_ok=True)
-        os.makedirs(self.logs_dir, exist_ok=True)
         os.makedirs(self.tables_dir, exist_ok=True)
         
         # 1. Save extraction files
