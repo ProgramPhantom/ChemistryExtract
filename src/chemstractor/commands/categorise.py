@@ -15,7 +15,7 @@ def run_categorise(processor: PDFProcessor, tree: Tree):
     model = processor.model
     for event in processor.categorise():
         if event["status"] == "working" or event["status"] == "table_start":
-            cat_node.label = f"[bold cyan]{event['message']}[/bold cyan]"
+            cat_node.label = Spinner("dots", text=f"[bold cyan]{event['message']}[/bold cyan]")
         elif event["status"] == "complete":
             elapsed_time = event["elapsed_time"]
             cat_results = event["results"]

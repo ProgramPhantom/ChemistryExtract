@@ -15,7 +15,7 @@ def run_summarise(processor: PDFProcessor, tree: Tree):
     model = processor.model
     for event in processor.summarise():
         if event["status"] == "working" or event["status"] == "table_start":
-            sum_node.label = f"[bold cyan]{event['message']}[/bold cyan]"
+            sum_node.label = Spinner("dots", text=f"[bold cyan]{event['message']}[/bold cyan]")
         elif event["status"] == "complete":
             elapsed_time = event["elapsed_time"]
             sum_results = event["results"]
