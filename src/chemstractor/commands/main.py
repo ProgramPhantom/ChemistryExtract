@@ -22,57 +22,75 @@ for m in OFFLINE_MODELS:
 
 CHOICES = list(choices_map.keys())
 
+def prompt_for_model():
+    """Prompts the user to select a model using inquirer."""
+    import inquirer
+    questions = [
+        inquirer.List(
+            'model',
+            message="Select model",
+            choices=CHOICES,
+            default=CHOICES[0]
+        )
+    ]
+    answers = inquirer.prompt(questions)
+    if answers is None:
+        click.echo("Cancelled.")
+        sys.exit(0)
+    return answers['model']
+
 @click.group()
 def cli():
     """CLI tool for extracting chemistry table data from PDFs."""
     pass
 
 @cli.command()
-def test_all():
-    """Run extraction tests on PDFs in the materials folder."""
-    import inquirer
-    questions = [
-        inquirer.Confirm(
-            'categorise_tables',
-            message="Categorise table?",
-            default=True
-        ),
-        inquirer.Confirm(
-            'summarise_tables',
-            message="Create table summary",
-            default=True
-        ),
-        inquirer.List(
-            'model',
-            message="Select model",
-            choices=CHOICES,
-            default=CHOICES[0]
-        ),
-    ]
-    
-    answers = inquirer.prompt(questions)
-    if answers is None:
-        click.echo("Cancelled.")
-        return
+@click.argument('pdf_path', type=click.Path(exists=True))
+@click.argument('output_dir', required=False)
+@click.option('--model', type=click.Choice(CHOICES), default=None, help="Model to use.")
+def process(pdf_path, output_dir, model):
+    """Process a single PDF file (extract, categorise, and summarise)."""
+    if output_dir is None:
+        output_dir = "."
+    if model is None:
+        model = prompt_for_model()
+    selected_model = choices_map[model]
+    from chemstractor.commands.process import process_command
+    process_command(
+        pdf_path=pdf_path,
+        output_dir=output_dir,
+        model=selected_model
+    )
+
+@cli.command()
+@click.argument('pdf_dir', required=False)
+@click.argument('output_dir', required=False)
+@click.option('--model', type=click.Choice(CHOICES), default=None, help="Model to use.")
+def process_all(pdf_dir, output_dir, model):
+    """Process all PDF files in a directory."""
+    if pdf_dir is None:
+        pdf_dir = "./tests/material"
+    if output_dir is None:
+        output_dir = "./tests/runs"
         
-    selected_display = answers['model']
-    selected_model = choices_map[selected_display]
-    
-    click.echo(f"Running tests with model='{selected_model}', categorise_tables={answers['categorise_tables']}, summarise_tables={answers['summarise_tables']}...")
-    
-    from chemstractor.commands.test_all import test_all_command
-    test_all_command(
-        categorise_tables=answers['categorise_tables'],
-        summarise_tables=answers['summarise_tables'],
+    if model is None:
+        model = prompt_for_model()
+    selected_model = choices_map[model]
+    from chemstractor.commands.process_all import process_all_command
+    process_all_command(
+        pdf_dir=pdf_dir,
+        output_parent_dir=output_dir,
         model=selected_model
     )
 
 @cli.command()
 @click.argument('pdf_path', type=click.Path(exists=True))
 @click.option('--output-dir', default="./", help="Directory where the output folder appears.")
-@click.option('--model', type=click.Choice(CHOICES), default=CHOICES[0], help="Model to use.")
+@click.option('--model', type=click.Choice(CHOICES), default=None, help="Model to use.")
 def extract(pdf_path, output_dir, model):
     """Extract text and tables from a PDF."""
+    if model is None:
+        model = prompt_for_model()
     selected_model = choices_map[model]
     from chemstractor.commands.extract import extract_command
     extract_command(
@@ -84,9 +102,11 @@ def extract(pdf_path, output_dir, model):
 @cli.command()
 @click.argument('pdf_path', type=click.Path(exists=True))
 @click.option('--output-dir', default="./", help="Directory where the output folder appears.")
-@click.option('--model', type=click.Choice(CHOICES), default=CHOICES[0], help="Model to use.")
+@click.option('--model', type=click.Choice(CHOICES), default=None, help="Model to use.")
 def categorise(pdf_path, output_dir, model):
     """Categorise tables extracted from a PDF."""
+    if model is None:
+        model = prompt_for_model()
     selected_model = choices_map[model]
     from chemstractor.commands.categorise import categorise_command
     categorise_command(
@@ -98,9 +118,11 @@ def categorise(pdf_path, output_dir, model):
 @cli.command()
 @click.argument('pdf_path', type=click.Path(exists=True))
 @click.option('--output-dir', default="./", help="Directory where the output folder appears.")
-@click.option('--model', type=click.Choice(CHOICES), default=CHOICES[0], help="Model to use.")
+@click.option('--model', type=click.Choice(CHOICES), default=None, help="Model to use.")
 def summarise(pdf_path, output_dir, model):
     """Summarise tables and metadata extracted from a PDF."""
+    if model is None:
+        model = prompt_for_model()
     selected_model = choices_map[model]
     from chemstractor.commands.summarise import summarise_command
     summarise_command(
