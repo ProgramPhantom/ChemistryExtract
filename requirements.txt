@@ -1,0 +1,10 @@
+click
+docling
+google-genai
+inquirer
+ollama
+openpyxl
+pydantic
+pymupdf
+python-dotenv
+rich

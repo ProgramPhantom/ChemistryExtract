@@ -1,2 +1,4 @@
 tests/runs
 .env
+venv/
+*.egg-info/
