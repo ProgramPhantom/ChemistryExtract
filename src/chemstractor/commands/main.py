@@ -107,5 +107,16 @@ def summarise(pdf_path, output_dir, model):
         model=selected_model
     )
 
+@cli.command()
+@click.argument('output_dir', type=click.Path(exists=True))
+@click.argument('validation_dir', type=click.Path(exists=True))
+def validate(output_dir, validation_dir):
+    """Validate extracted tables against correct data."""
+    from chemstractor.commands.validate import validate_command
+    validate_command(
+        output_dir=output_dir,
+        validation_dir=validation_dir
+    )
+
 if __name__ == '__main__':
     cli()

@@ -126,6 +126,11 @@ def test_all_command(categorise_tables: bool = True, summarise_tables: bool = Tr
         
     # Print the final summary table
     print_summary_table(console, summary_data)
+    
+    # Run validation on the generated outputs
+    from chemstractor.commands.validate import validate_command
+    validation_dir = os.path.join(TEST_DIR, "validation")
+    validate_command(run_dir, validation_dir)
 
 
 if __name__ == "__main__":    
