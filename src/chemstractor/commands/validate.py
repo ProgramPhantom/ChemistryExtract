@@ -6,10 +6,12 @@ from rich.console import Console
 from rich.rule import Rule
 from rich.tree import Tree
 
+
 def validate_extract(output_subfolder: str, validation_subfolder: str, parent: Tree):
     """Placeholder function for validating extraction process."""
     node = parent.add("[bold blue]Checking extraction (not implemented)...[/bold blue]")
     node.add("[dim]Extraction validation logic will go here.[/dim]")
+
 
 def validate_categorise(output_subfolder: str, validation_subfolder: str, parent: Tree):
     """Compares categorisation JSON outputs against validation data."""
@@ -108,10 +110,12 @@ def validate_categorise(output_subfolder: str, validation_subfolder: str, parent
             for k, val in only_out:
                 only_out_node.add(f"? {k}: {val}")
 
+
 def validate_summarise(output_subfolder: str, validation_subfolder: str, parent: Tree):
     """Placeholder function for validating summarisation process."""
     node = parent.add("[bold blue]Checking summarisation (not implemented)...[/bold blue]")
     node.add("[dim]Summarisation validation logic will go here.[/dim]")
+
 
 def run_validate(output_dir: str, validation_dir: str, subfolders: list[str], console: Console):
     """Coordinates the validation processes across all matching subfolders."""
@@ -119,6 +123,7 @@ def run_validate(output_dir: str, validation_dir: str, subfolders: list[str], co
         out_sub_path = os.path.join(output_dir, sub)
         val_sub_path = os.path.join(validation_dir, sub)
         run_validate_single(out_sub_path, val_sub_path, sub, console)
+
 
 def run_validate_single(output_subfolder: str, validation_subfolder: str, name: str, console: Console):
     """Validates a single PDF run folder against its correct validation data using a Tree."""
@@ -135,6 +140,7 @@ def run_validate_single(output_subfolder: str, validation_subfolder: str, name: 
     
     console.print(tree)
     console.print()
+
 
 def validate_command(output_dir: str, validation_dir: str):
     """
@@ -184,3 +190,4 @@ def validate_command(output_dir: str, validation_dir: str):
             return
             
         run_validate(output_dir, validation_dir, common, console)
+

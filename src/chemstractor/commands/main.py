@@ -1,3 +1,6 @@
+import os  
+os.environ['ConEmuANSI'] = '1' # Stops blessed terminal probe. Might cause problems later!
+
 import sys
 if hasattr(sys.stdout, 'reconfigure'):
     sys.stdout.reconfigure(encoding='utf-8')
@@ -7,9 +10,7 @@ if hasattr(sys.__stdout__, 'reconfigure'):
     sys.__stdout__.reconfigure(encoding='utf-8')
 if hasattr(sys.__stderr__, 'reconfigure'):
     sys.__stderr__.reconfigure(encoding='utf-8')
-import os
 import click
-import inquirer
 from chemstractor.models import AllSupportedModels, ONLINE_MODELS, OFFLINE_MODELS
 
 # Create display mapping to append a cloud emoji to server (online) models
@@ -29,6 +30,7 @@ def cli():
 @cli.command()
 def test_all():
     """Run extraction tests on PDFs in the materials folder."""
+    import inquirer
     questions = [
         inquirer.Confirm(
             'categorise_tables',
@@ -115,6 +117,42 @@ def validate(output_dir, validation_dir):
     from chemstractor.commands.validate import validate_command
     validate_command(
         output_dir=output_dir,
+        validation_dir=validation_dir
+    )
+
+@cli.command()
+@click.argument('outputs_dir', required=False)
+@click.argument('validation_dir', required=False)
+def validate_all(outputs_dir, validation_dir):
+    """Validate all output folders in the given path against validation data."""
+    import os
+    
+    if validation_dir is None:
+        validation_dir = "./tests/validation"
+        
+    if outputs_dir is None:
+        runs_parent = "./tests/runs"
+        if not os.path.exists(runs_parent):
+            runs_parent = "tests/runs"
+            
+        if os.path.exists(runs_parent):
+            subdirs = [
+                d for d in os.listdir(runs_parent)
+                if os.path.isdir(os.path.join(runs_parent, d))
+            ]
+            if subdirs:
+                subdirs.sort()
+                outputs_dir = os.path.join(runs_parent, subdirs[-1])
+            else:
+                click.echo("Error: No run folders found in tests/runs/ to validate.", err=True)
+                return
+        else:
+            click.echo("Error: tests/runs/ directory does not exist and no outputs path was provided.", err=True)
+            return
+
+    from chemstractor.commands.validate_all import validate_command as validate_all_command
+    validate_all_command(
+        outputs_dir=outputs_dir,
         validation_dir=validation_dir
     )
 

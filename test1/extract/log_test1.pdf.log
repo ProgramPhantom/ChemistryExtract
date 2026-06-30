@@ -1,26 +1,0 @@
-Running: parse_pdf
-[32m[INFO] 2026-06-30 15:03:19,992 [RapidOCR] base.py:23: Using engine_name: onnxruntime[0m
-[32m[INFO] 2026-06-30 15:03:20,004 [RapidOCR] download_file.py:60: File exists and is valid: C:\Users\henry\Github\ChemistryExtract\venv\Lib\site-packages\rapidocr\models\PP-OCRv6_det_small.onnx[0m
-[32m[INFO] 2026-06-30 15:03:20,005 [RapidOCR] main.py:63: Using C:\Users\henry\Github\ChemistryExtract\venv\Lib\site-packages\rapidocr\models\PP-OCRv6_det_small.onnx[0m
-[32m[INFO] 2026-06-30 15:03:20,005 [RapidOCR] provider_config.py:40: Windows 10 or above detected, try to use DirectML as primary provider[0m
-[32m[INFO] 2026-06-30 15:03:20,268 [RapidOCR] base.py:23: Using engine_name: onnxruntime[0m
-[32m[INFO] 2026-06-30 15:03:20,270 [RapidOCR] download_file.py:60: File exists and is valid: C:\Users\henry\Github\ChemistryExtract\venv\Lib\site-packages\rapidocr\models\ch_ppocr_mobile_v2.0_cls_mobile.onnx[0m
-[32m[INFO] 2026-06-30 15:03:20,270 [RapidOCR] main.py:63: Using C:\Users\henry\Github\ChemistryExtract\venv\Lib\site-packages\rapidocr\models\ch_ppocr_mobile_v2.0_cls_mobile.onnx[0m
-[32m[INFO] 2026-06-30 15:03:20,270 [RapidOCR] provider_config.py:40: Windows 10 or above detected, try to use DirectML as primary provider[0m
-[32m[INFO] 2026-06-30 15:03:20,382 [RapidOCR] base.py:23: Using engine_name: onnxruntime[0m
-[32m[INFO] 2026-06-30 15:03:20,400 [RapidOCR] download_file.py:60: File exists and is valid: C:\Users\henry\Github\ChemistryExtract\venv\Lib\site-packages\rapidocr\models\PP-OCRv6_rec_small.onnx[0m
-[32m[INFO] 2026-06-30 15:03:20,400 [RapidOCR] main.py:63: Using C:\Users\henry\Github\ChemistryExtract\venv\Lib\site-packages\rapidocr\models\PP-OCRv6_rec_small.onnx[0m
-[32m[INFO] 2026-06-30 15:03:20,400 [RapidOCR] provider_config.py:40: Windows 10 or above detected, try to use DirectML as primary provider[0m
-Loading weights:   0%|          | 0/770 [00:00<?, ?it/s]Loading weights:  80%|########  | 616/770 [00:00<00:00, 6149.48it/s]Loading weights: 100%|##########| 770/770 [00:00<00:00, 6166.69it/s]
-All hyperlinked elements redacted in-memory.
-[33m[WARNING] 2026-06-30 15:03:43,511 [RapidOCR] main.py:132: The text detection result is empty[0m
-RapidOCR returned empty result!
-[33m[WARNING] 2026-06-30 15:03:43,706 [RapidOCR] main.py:132: The text detection result is empty[0m
-RapidOCR returned empty result!
-[33m[WARNING] 2026-06-30 15:03:44,092 [RapidOCR] main.py:132: The text detection result is empty[0m
-RapidOCR returned empty result!
-Function parse_pdf took 43.5433 seconds to execute.
-Running: get_tables
-Function get_tables took 0.0001 seconds to execute.
-Running: get_surrounding_paragraphs
-Function get_surrounding_paragraphs took 0.0001 seconds to execute.
