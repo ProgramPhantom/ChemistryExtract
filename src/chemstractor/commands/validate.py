@@ -112,9 +112,105 @@ def validate_categorise(output_subfolder: str, validation_subfolder: str, parent
 
 
 def validate_summarise(output_subfolder: str, validation_subfolder: str, parent: Tree):
-    """Placeholder function for validating summarisation process."""
-    node = parent.add("[bold blue]Checking summarisation (not implemented)...[/bold blue]")
-    node.add("[dim]Summarisation validation logic will go here.[/dim]")
+    """Compares summarisation JSON outputs against validation data."""
+    import difflib
+
+    def get_similarity(val1, val2) -> float:
+        def clean_val(v):
+            if v is None:
+                return ""
+            if isinstance(v, list):
+                cleaned = sorted([str(x).strip().lower() for x in v if x is not None])
+                return ", ".join(cleaned)
+            return str(v).strip().lower()
+
+        str1 = clean_val(val1)
+        str2 = clean_val(val2)
+
+        if not str1 and not str2:
+            return 1.0
+        if not str1 or not str2:
+            return 0.0
+
+        matcher = difflib.SequenceMatcher(None, str1, str2)
+        return matcher.ratio()
+
+    node = parent.add("[bold blue]Checking summarisation...[/bold blue]")
+
+    out_sum_dir = os.path.join(output_subfolder, "summary")
+    val_sum_dir = os.path.join(validation_subfolder, "summary")
+
+    if not os.path.exists(out_sum_dir):
+        node.add("[red]✗[/red] Output summary folder does not exist.")
+        return
+
+    if not os.path.exists(val_sum_dir):
+        node.add("[red]✗[/red] Validation summary folder does not exist.")
+        return
+
+    val_files = glob.glob(os.path.join(val_sum_dir, "*.json"))
+    out_files = glob.glob(os.path.join(out_sum_dir, "*.json"))
+
+    if not val_files:
+        node.add("[yellow]⚠[/yellow] No JSON files found in validation summary folder.")
+        return
+
+    val_basenames = {os.path.basename(f) for f in val_files}
+    out_basenames = {os.path.basename(f) for f in out_files}
+
+    all_tables = sorted(list(val_basenames.union(out_basenames)))
+
+    for table_file in all_tables:
+        table_node = node.add(f"[bold]Table: {table_file}[/bold]")
+
+        val_path = os.path.join(val_sum_dir, table_file)
+        out_path = os.path.join(out_sum_dir, table_file)
+
+        if not os.path.exists(val_path):
+            table_node.add("[yellow]✗[/yellow] Table is only present in run output (missing from validation data).")
+            continue
+
+        if not os.path.exists(out_path):
+            table_node.add("[red]✗[/red] Table is missing from run output.")
+            continue
+
+        try:
+            with open(val_path, 'r', encoding='utf-8') as f:
+                val_data = json.load(f)
+        except Exception as e:
+            table_node.add(f"[red]✗[/red] Error reading validation file: {e}")
+            continue
+
+        try:
+            with open(out_path, 'r', encoding='utf-8') as f:
+                out_data = json.load(f)
+        except Exception as e:
+            table_node.add(f"[red]✗[/red] Error reading output file: {e}")
+            continue
+
+        properties = ['title', 'authors', 'doi']
+        similarities = {}
+
+        for prop in properties:
+            val_val = val_data.get(prop, "")
+            out_val = out_data.get(prop, "")
+
+            sim = get_similarity(val_val, out_val)
+            similarities[prop] = sim
+
+        avg_sim_pct = (sum(similarities.values()) / len(properties)) * 100
+
+        table_node.add(f"Match Percentage: [bold]{avg_sim_pct:.1f}%[/bold]")
+
+        for prop in properties:
+            val_val = val_data.get(prop, "")
+            out_val = out_data.get(prop, "")
+            sim_pct = similarities[prop] * 100
+
+            if sim_pct == 100.0:
+                table_node.add(f"[green]✓[/green] {prop}: 100.0%")
+            else:
+                table_node.add(f"[red]✗[/red] {prop}: {sim_pct:.1f}% (Expected: {val_val}, Got: {out_val})")
 
 
 def run_validate(output_dir: str, validation_dir: str, subfolders: list[str], console: Console):
