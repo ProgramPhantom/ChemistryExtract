@@ -194,5 +194,16 @@ def validate_all(outputs_dir, validation_dir):
         validation_dir=validation_dir
     )
 
+@cli.command()
+@click.argument('process_output_dir', type=click.Path(exists=True, file_okay=False, dir_okay=True))
+@click.option('--output', '-o', type=click.Path(), default=None, help="Output save location of the excel document.")
+def report(process_output_dir, output):
+    """Create an Excel report from a process output folder."""
+    from chemstractor.commands.report import report_command
+    report_command(
+        process_output_dir=process_output_dir,
+        output=output
+    )
+
 if __name__ == '__main__':
     cli()
