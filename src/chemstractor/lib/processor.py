@@ -31,6 +31,7 @@ class PDFProcessor:
         
         self.categorisation_dir = os.path.join(self.output_dir, "categorisation")
         self.summary_dir = os.path.join(self.output_dir, "summary")
+        self.summary_json_path = os.path.join(self.summary_dir, "summary.json")
         
         # State
         self.extractor = None
@@ -438,6 +439,16 @@ class PDFProcessor:
         with open(self.clean_path, "wb") as clean_file:
             clean_file.write(self.extractor.clean_pdf_bytes)
 
+    def save_summary_json(self):
+        """Saves the paper metadata to the summary JSON file."""
+        if self.metadata_res and self.metadata_res.success:
+            os.makedirs(self.summary_dir, exist_ok=True)
+            try:
+                with open(self.summary_json_path, 'w', encoding='utf-8') as jf:
+                    json.dump(self.metadata_res.data.model_dump(), jf, indent=2)
+            except Exception as e:
+                self._log_error(f"Error saving summary JSON {self.summary_json_path}: {e}")
+
     def save_outputs(self):
         """Saves the parsed markdown and extraction tables (text & csv)."""
         if not self.extractor:
@@ -462,6 +473,9 @@ class PDFProcessor:
             csv_file_path = os.path.join(csv_dir, f"table{i + 1}.csv")
             with open(csv_file_path, "w", encoding="utf-8") as csv_file:
                 csv_file.write(csv_str)
+                
+        # Save paper metadata summary if available
+        self.save_summary_json()
 
     def save_all(self):
         """Saves all relevant content in-memory to the output folder structure."""
@@ -495,6 +509,8 @@ class PDFProcessor:
                     json_file_path = os.path.join(self.summary_dir, f"table{i + 1}.json")
                     with open(json_file_path, 'w', encoding='utf-8') as jf:
                         json.dump(sum_data, jf, indent=2)
+                        
+        self.save_summary_json()
                         
         # 4. Save Excel summary if categorisation or summarisation was run
         if self.cat_data_list or self.summarisation_data_list:

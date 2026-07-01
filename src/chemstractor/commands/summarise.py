@@ -11,11 +11,15 @@ from chemstractor.commands.extract import run_extract
 
 def run_summarise(processor: PDFProcessor, tree: Tree):
     """Executes the summarisation process on the processor and updates the rich Tree with status/pricing."""
+
     sum_node = tree.add(Spinner("dots", text="[bold cyan]Summarising experimental conditions...[/bold cyan]"))
     model = processor.model
+
     for event in processor.summarise():
+
         if event["status"] == "working" or event["status"] == "table_start":
             sum_node.label = Spinner("dots", text=f"[bold cyan]{event['message']}[/bold cyan]")
+            
         elif event["status"] == "complete":
             elapsed_time = event["elapsed_time"]
             sum_results = event["results"]
