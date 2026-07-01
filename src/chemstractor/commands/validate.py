@@ -112,7 +112,7 @@ def validate_categorise(output_subfolder: str, validation_subfolder: str, parent
 
 
 def validate_summarise(output_subfolder: str, validation_subfolder: str, parent: Tree):
-    """Compares summarisation JSON outputs against validation data."""
+    """Compares paper metadata (summary.json) against validation data."""
     import difflib
 
     def get_similarity(val1, val2) -> float:
@@ -148,69 +148,54 @@ def validate_summarise(output_subfolder: str, validation_subfolder: str, parent:
         node.add("[red]✗[/red] Validation summary folder does not exist.")
         return
 
-    val_files = glob.glob(os.path.join(val_sum_dir, "*.json"))
-    out_files = glob.glob(os.path.join(out_sum_dir, "*.json"))
+    val_path = os.path.join(val_sum_dir, "summary.json")
+    out_path = os.path.join(out_sum_dir, "summary.json")
 
-    if not val_files:
-        node.add("[yellow]⚠[/yellow] No JSON files found in validation summary folder.")
+    if not os.path.exists(val_path):
+        node.add("[red]✗[/red] Validation summary.json file is missing.")
         return
 
-    val_basenames = {os.path.basename(f) for f in val_files}
-    out_basenames = {os.path.basename(f) for f in out_files}
+    if not os.path.exists(out_path):
+        node.add("[red]✗[/red] Output summary.json file is missing.")
+        return
 
-    all_tables = sorted(list(val_basenames.union(out_basenames)))
+    try:
+        with open(val_path, 'r', encoding='utf-8') as f:
+            val_data = json.load(f)
+    except Exception as e:
+        node.add(f"[red]✗[/red] Error reading validation file: {e}")
+        return
 
-    for table_file in all_tables:
-        table_node = node.add(f"[bold]Table: {table_file}[/bold]")
+    try:
+        with open(out_path, 'r', encoding='utf-8') as f:
+            out_data = json.load(f)
+    except Exception as e:
+        node.add(f"[red]✗[/red] Error reading output file: {e}")
+        return
 
-        val_path = os.path.join(val_sum_dir, table_file)
-        out_path = os.path.join(out_sum_dir, table_file)
+    properties = ['title', 'authors', 'doi']
+    similarities = {}
 
-        if not os.path.exists(val_path):
-            table_node.add("[yellow]✗[/yellow] Table is only present in run output (missing from validation data).")
-            continue
+    for prop in properties:
+        val_val = val_data.get(prop, "")
+        out_val = out_data.get(prop, "")
 
-        if not os.path.exists(out_path):
-            table_node.add("[red]✗[/red] Table is missing from run output.")
-            continue
+        sim = get_similarity(val_val, out_val)
+        similarities[prop] = sim
 
-        try:
-            with open(val_path, 'r', encoding='utf-8') as f:
-                val_data = json.load(f)
-        except Exception as e:
-            table_node.add(f"[red]✗[/red] Error reading validation file: {e}")
-            continue
+    avg_sim_pct = (sum(similarities.values()) / len(properties)) * 100
 
-        try:
-            with open(out_path, 'r', encoding='utf-8') as f:
-                out_data = json.load(f)
-        except Exception as e:
-            table_node.add(f"[red]✗[/red] Error reading output file: {e}")
-            continue
+    node.add(f"Match Percentage: [bold]{avg_sim_pct:.1f}%[/bold]")
 
-        properties = ['title', 'authors', 'doi']
-        similarities = {}
+    for prop in properties:
+        val_val = val_data.get(prop, "")
+        out_val = out_data.get(prop, "")
+        sim_pct = similarities[prop] * 100
 
-        for prop in properties:
-            val_val = val_data.get(prop, "")
-            out_val = out_data.get(prop, "")
-
-            sim = get_similarity(val_val, out_val)
-            similarities[prop] = sim
-
-        avg_sim_pct = (sum(similarities.values()) / len(properties)) * 100
-
-        table_node.add(f"Match Percentage: [bold]{avg_sim_pct:.1f}%[/bold]")
-
-        for prop in properties:
-            val_val = val_data.get(prop, "")
-            out_val = out_data.get(prop, "")
-            sim_pct = similarities[prop] * 100
-
-            if sim_pct == 100.0:
-                table_node.add(f"[green]✓[/green] {prop}: 100.0%")
-            else:
-                table_node.add(f"[red]✗[/red] {prop}: {sim_pct:.1f}% (Expected: {val_val}, Got: {out_val})")
+        if sim_pct == 100.0:
+            node.add(f"[green]✓[/green] {prop}: 100.0%")
+        else:
+            node.add(f"[red]✗[/red] {prop}: {sim_pct:.1f}% (Expected: {val_val}, Got: {out_val})")
 
 
 def run_validate(output_dir: str, validation_dir: str, subfolders: list[str], console: Console):

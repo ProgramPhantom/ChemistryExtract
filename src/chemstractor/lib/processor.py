@@ -176,12 +176,8 @@ class PDFProcessor:
             res = summarise_table_conditions(table_text, model=self.model)
             
             if res.success:
-                # Merge paper metadata and experimental conditions
-                combined_data = {
-                    **metadata_dict,
-                    **res.data.model_dump()
-                }
-                self.summarisation_data_list.append(combined_data)
+                # Store experimental conditions only
+                self.summarisation_data_list.append(res.data.model_dump())
                 
                 status_msg = "Successfully summarised"
                 if metadata_error:
@@ -247,24 +243,32 @@ class PDFProcessor:
         left_align = Alignment(horizontal="left", vertical="center")
         right_align = Alignment(horizontal="right", vertical="center")
         wrap_left_align = Alignment(horizontal="left", vertical="center", wrap_text=True)
+        # Load paper metadata from summary.json
+        metadata = {}
+        if os.path.exists(self.summary_json_path):
+            try:
+                with open(self.summary_json_path, 'r', encoding='utf-8') as mf:
+                    metadata = json.load(mf)
+            except Exception as e:
+                self._log_error(f"Error loading metadata JSON {self.summary_json_path}: {e}")
 
         for i in range(self.num_tables):
             sheet_name = f"Table {i + 1}"
             ws = wb.create_sheet(title=sheet_name)
             ws.views.sheetView[0].showGridLines = True
             
-            json_path = os.path.join(self.summary_dir, f"table{i + 1}.json")
+            table_json_path = os.path.join(self.summary_dir, "tables", f"table{i + 1}.json")
             csv_path = os.path.join(self.tables_dir, "csv", f"table{i + 1}.csv")
             
-            data = {}
-            if os.path.exists(json_path):
+            table_data = {}
+            if os.path.exists(table_json_path):
                 try:
-                    with open(json_path, 'r', encoding='utf-8') as jf:
-                        data = json.load(jf)
+                    with open(table_json_path, 'r', encoding='utf-8') as jf:
+                        table_data = json.load(jf)
                 except Exception as e:
-                    self._log_error(f"Error loading JSON {json_path}: {e}")
+                    self._log_error(f"Error loading table JSON {table_json_path}: {e}")
             
-            title_text = data.get("title", self.base_no_ext)
+            title_text = metadata.get("title", self.base_no_ext)
             ws.merge_cells("A1:G2")
             title_cell = ws["A1"]
             title_cell.value = title_text
@@ -293,19 +297,19 @@ class PDFProcessor:
                 for col in range(1, 8):
                     ws.cell(row=r, column=col).border = Border(bottom=thin_border_side)
             
-            authors_val = ", ".join(data.get("authors", [])) if isinstance(data.get("authors"), list) else data.get("authors", "")
+            authors_val = ", ".join(metadata.get("authors", [])) if isinstance(metadata.get("authors"), list) else metadata.get("authors", "")
             write_metadata_row(5, "Authors", authors_val)
-            write_metadata_row(6, "DOI", data.get("doi", ""))
-            write_metadata_row(7, "Temperature", data.get("temperature", ""))
-            write_metadata_row(8, "Pressure", data.get("pressure", ""))
-            chemicals_val = ", ".join(data.get("chemicals", [])) if isinstance(data.get("chemicals"), list) else data.get("chemicals", "")
+            write_metadata_row(6, "DOI", metadata.get("doi", ""))
+            write_metadata_row(7, "Temperature", table_data.get("temperature", ""))
+            write_metadata_row(8, "Pressure", table_data.get("pressure", ""))
+            chemicals_val = ", ".join(table_data.get("chemicals", [])) if isinstance(table_data.get("chemicals"), list) else table_data.get("chemicals", "")
             write_metadata_row(9, "Chemicals", chemicals_val)
             
-            desc_val = data.get("description", "")
+            desc_val = table_data.get("description", "")
             write_metadata_row(10, "Description", desc_val, is_description=True)
             ws.row_dimensions[10].height = 45
             
-            other_stats = data.get("other_statistics", [])
+            other_stats = table_data.get("other_statistics", [])
             stats_str = ""
             if isinstance(other_stats, list):
                 stats_str = ", ".join([f"{stat.get('name')}: {stat.get('value')}" for stat in other_stats if isinstance(stat, dict)])
@@ -503,10 +507,11 @@ class PDFProcessor:
                         
         # 3. Save summarisation JSONs if available
         if self.summarisation_data_list:
-            os.makedirs(self.summary_dir, exist_ok=True)
+            tables_summary_dir = os.path.join(self.summary_dir, "tables")
+            os.makedirs(tables_summary_dir, exist_ok=True)
             for i, sum_data in enumerate(self.summarisation_data_list):
                 if sum_data is not None:
-                    json_file_path = os.path.join(self.summary_dir, f"table{i + 1}.json")
+                    json_file_path = os.path.join(tables_summary_dir, f"table{i + 1}.json")
                     with open(json_file_path, 'w', encoding='utf-8') as jf:
                         json.dump(sum_data, jf, indent=2)
                         
