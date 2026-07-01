@@ -132,6 +132,22 @@ def summarise(pdf_path, output_dir, model):
     )
 
 @cli.command()
+@click.argument('pdf_path', type=click.Path(exists=True))
+@click.option('--output-dir', default="./", help="Directory where the output folder appears.")
+@click.option('--model', type=click.Choice(CHOICES), default=None, help="Model to use.")
+def metadata(pdf_path, output_dir, model):
+    """Extract paper metadata (title, authors, doi)."""
+    if model is None:
+        model = prompt_for_model()
+    selected_model = choices_map[model]
+    from chemstractor.commands.metadata import metadata_command
+    metadata_command(
+        pdf_path=pdf_path,
+        output_dir=output_dir,
+        model=selected_model
+    )
+
+@cli.command()
 @click.argument('output_dir', type=click.Path(exists=True))
 @click.argument('validation_dir', type=click.Path(exists=True))
 def validate(output_dir, validation_dir):

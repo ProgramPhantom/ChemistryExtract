@@ -8,7 +8,8 @@ import gc
 import time
 from chemstractor.lib.extractor import TableExtractor
 from chemstractor.lib.categorisation import categorise_table
-from chemstractor.lib.summariser import summarise_table_conditions, extract_paper_metadata
+from chemstractor.lib.summariser import summarise_table_conditions
+from chemstractor.lib.metadata import extract_paper_metadata
 from chemstractor.models import pricing_matrix
 
 
@@ -133,35 +134,44 @@ class PDFProcessor:
             "results": self.cat_results
         }
 
+    def extract_metadata(self):
+        """Extracts paper-level metadata and yields status events."""
+        if not self.extractor:
+            raise RuntimeError("Must call extract() before extracting metadata.")
+            
+        start_time = time.time()
+        yield {"status": "working", "message": "Extracting paper-level metadata..."}
+        
+        metadata_res = extract_paper_metadata(self.extractor.parsed_markdown, model=self.model)
+        self.metadata_res = metadata_res
+        
+        metadata_error = None if metadata_res.success else metadata_res.error
+        
+        elapsed_time = time.time() - start_time
+        yield {
+            "status": "complete",
+            "message": "Extracted paper-level metadata",
+            "elapsed_time": elapsed_time,
+            "success": metadata_res.success,
+            "error": metadata_error,
+            "usage_metadata": metadata_res.usage_metadata
+        }
+
     def summarise(self):
         """Summarises each table in-memory and yields status events."""
         if not self.extractor:
             raise RuntimeError("Must call extract() before summarising tables.")
             
         start_time = time.time()
-        yield {"status": "working", "message": "Extracting paper-level metadata..."}
+        yield {"status": "working", "message": "Summarising tables..."}
         
         self.sum_results = []
         self.summarisation_data_list = []
         
-        # Extract paper-level metadata
-        metadata_res = extract_paper_metadata(self.extractor.parsed_markdown, model=self.model)
-        self.metadata_res = metadata_res
-        
-        metadata_dict = {}
         metadata_error = None
-        if metadata_res.success:
-            metadata_dict = metadata_res.data.model_dump()
-        else:
-            metadata_error = metadata_res.error
+        if self.metadata_res and not self.metadata_res.success:
+            metadata_error = self.metadata_res.error
             
-        yield {
-            "status": "metadata_complete",
-            "success": metadata_res.success,
-            "error": metadata_error,
-            "usage_metadata": metadata_res.usage_metadata
-        }
-        
         for i in range(self.num_tables):
             table_name = f"table{i + 1}.txt"
             

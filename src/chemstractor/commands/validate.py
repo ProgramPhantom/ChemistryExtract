@@ -198,6 +198,9 @@ def validate_summarise(output_subfolder: str, validation_subfolder: str, parent:
             node.add(f"[red]✗[/red] {prop}: {sim_pct:.1f}% (Expected: {val_val}, Got: {out_val})")
 
 
+
+
+
 def run_validate(output_dir: str, validation_dir: str, subfolders: list[str], console: Console):
     """Coordinates the validation processes across all matching subfolders."""
     for sub in subfolders:
@@ -221,6 +224,9 @@ def run_validate_single(output_subfolder: str, validation_subfolder: str, name: 
     
     console.print(tree)
     console.print()
+
+
+
 
 
 def validate_command(output_dir: str, validation_dir: str):

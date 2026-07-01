@@ -10,6 +10,7 @@ from chemstractor.models import AllSupportedModels
 from chemstractor.commands.extract import run_extract
 from chemstractor.commands.categorise import run_categorise
 from chemstractor.commands.summarise import run_summarise
+from chemstractor.commands.metadata import run_metadata
 
 def run_process_single(
     pdf_path: str,
@@ -42,7 +43,10 @@ def run_process_single(
         if categorise_tables:
             run_categorise(processor, tree)
             
-        # 3. Summarise
+        # 3. Metadata
+        run_metadata(processor, tree)
+            
+        # 4. Summarise
         if summarise_tables:
             run_summarise(processor, tree)
             
