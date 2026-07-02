@@ -1,15 +1,4 @@
-import os  
-os.environ['ConEmuANSI'] = '1' # Stops blessed terminal probe. Might cause problems later!
-
 import sys
-if hasattr(sys.stdout, 'reconfigure'):
-    sys.stdout.reconfigure(encoding='utf-8')
-if hasattr(sys.stderr, 'reconfigure'):
-    sys.stderr.reconfigure(encoding='utf-8')
-if hasattr(sys.__stdout__, 'reconfigure'):
-    sys.__stdout__.reconfigure(encoding='utf-8')
-if hasattr(sys.__stderr__, 'reconfigure'):
-    sys.__stderr__.reconfigure(encoding='utf-8')
 import click
 from chemstractor.models import AllSupportedModels, ONLINE_MODELS, OFFLINE_MODELS
 
@@ -77,7 +66,6 @@ def process_all(pdf_dir, output_dir, model):
     if model is None:
         model = prompt_for_model()
     selected_model = choices_map[model]
-
 
     from chemstractor.commands.process_all import process_all_command
     process_all_command(
@@ -215,7 +203,3 @@ def report(process_output_dir, output):
         process_output_dir=process_output_dir,
         output=output
     )
-
-
-if __name__ == '__main__':
-    cli()
