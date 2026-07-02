@@ -36,8 +36,12 @@ def get_converter():
         from docling.datamodel.pipeline_options import ThreadedPdfPipelineOptions, RapidOcrOptions
         from docling.datamodel.base_models import InputFormat
         from docling.datamodel.accelerator_options import AcceleratorDevice, AcceleratorOptions
+        from docling.datamodel.settings import settings
         import onnxruntime as ort
         import torch
+
+        # Enable pipeline profiling timings
+        settings.debug.profile_pipeline_timings = True
 
         # Determine the best accelerator device dynamically
         if torch.cuda.is_available():
@@ -224,12 +228,15 @@ class TableExtractor:
             return
             
         from docling.datamodel.base_models import DocumentStream
+        import json
         
         converter = get_converter()
         
         # 1. Run conversion on raw input PDF to obtain context paragraphs
         self._raw_result = converter.convert(self.input_path)
         self.raw_markdown = self.clean_markdown(self._raw_result.document.export_to_markdown())
+        if hasattr(self._raw_result, "timings") and self._raw_result.timings:
+            self.log_stream.write(f"Raw PDF conversion timings:\n{json.dumps(self._raw_result.timings, indent=2)}\n")
         
         # 2. Redact the hyperlinked text in-memory
         self.clean_pdf()
@@ -239,6 +246,8 @@ class TableExtractor:
         stream = DocumentStream(name=f"clean_{filename}", stream=io.BytesIO(self.clean_pdf_bytes))
         self._parsed_result = converter.convert(stream)
         self.parsed_markdown = self.clean_markdown(self._parsed_result.document.export_to_markdown())
+        if hasattr(self._parsed_result, "timings") and self._parsed_result.timings:
+            self.log_stream.write(f"Clean PDF conversion timings:\n{json.dumps(self._parsed_result.timings, indent=2)}\n")
         
         self._is_parsed = True
     
