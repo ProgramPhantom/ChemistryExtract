@@ -12,7 +12,14 @@ conda activate env
 unset ROCR_VISIBLE_DEVICES
 
 export OLLAMA_HOST=0.0.0.0:11434        # This enables you to interact with the API remotely
-ollama serve
+ollama serve & 
 
+
+# 2. Wait a few seconds for the server to spin up and load the port
+sleep 10
+
+ollama pull llama3
 
 python3 src/chemstractor/main.py process-all
+
+pkill ollama
