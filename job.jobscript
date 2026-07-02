@@ -1,5 +1,4 @@
 #!/bin/bash --login
-#SBATCH -p serial     # (or --partition=) Run on the nodes dedicated to 1-core jobs
 #SBATCH -t 1-0        # Wallclock time limit. 4-0 is 4 days. Max permitted is 7-0.
 #SBATCH -p gpuA
 #SBATCH -G 1
@@ -10,7 +9,6 @@ module load apps/binapps/ollama/0.30.6
 
 conda activate env
 
-:: So ollama uses GPU
 unset ROCR_VISIBLE_DEVICES
 
 export OLLAMA_HOST=0.0.0.0:11434        # This enables you to interact with the API remotely
