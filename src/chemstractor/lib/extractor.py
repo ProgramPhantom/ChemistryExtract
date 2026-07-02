@@ -35,29 +35,53 @@ def get_converter():
         from docling.document_converter import DocumentConverter, PdfFormatOption
         from docling.datamodel.pipeline_options import ThreadedPdfPipelineOptions, RapidOcrOptions
         from docling.datamodel.base_models import InputFormat
+        from docling.datamodel.accelerator_options import AcceleratorDevice, AcceleratorOptions
         import onnxruntime as ort
         import torch
 
+        # Determine the best accelerator device dynamically
+        if torch.cuda.is_available():
+            device = AcceleratorDevice.CUDA
+        elif hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
+            device = AcceleratorDevice.MPS
+        else:
+            device = AcceleratorDevice.AUTO
+            
+        accelerator_options = AcceleratorOptions(device=device)
+
         # Define custom rapidocr parameters to ensure the execution providers are set correctly
         rapidocr_params = {}
+        ocr_backend = "onnxruntime"
         
         # 1. Enable DirectML if available on Windows
         if "DmlExecutionProvider" in ort.get_available_providers():
             rapidocr_params["EngineConfig.onnxruntime.use_dml"] = True
             
         # 2. Enable CUDA if available
-        if torch.cuda.is_available() and "CUDAExecutionProvider" in ort.get_available_providers():
-            rapidocr_params["EngineConfig.onnxruntime.use_cuda"] = True
+        if torch.cuda.is_available():
+            if "CUDAExecutionProvider" in ort.get_available_providers():
+                rapidocr_params["EngineConfig.onnxruntime.use_cuda"] = True
+            else:
+                # If CUDA is available but ONNX Runtime cannot use it (e.g. CPU-only ORT or mismatch),
+                # fall back to using the 'torch' backend for OCR to run on the GPU via PyTorch
+                ocr_backend = "torch"
 
         pipeline_options = ThreadedPdfPipelineOptions(
+            accelerator_options=accelerator_options,
             ocr_batch_size=64,
             layout_batch_size=64,
             table_batch_size=4
         )
-        pipeline_options.ocr_options = RapidOcrOptions(
-            backend="onnxruntime",
-            rapidocr_params=rapidocr_params
-        )
+        
+        if ocr_backend == "onnxruntime":
+            pipeline_options.ocr_options = RapidOcrOptions(
+                backend="onnxruntime",
+                rapidocr_params=rapidocr_params
+            )
+        else:
+            pipeline_options.ocr_options = RapidOcrOptions(
+                backend="torch"
+            )
 
         _converter = DocumentConverter(
             format_options={
