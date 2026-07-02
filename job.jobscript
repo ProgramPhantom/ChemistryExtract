@@ -1,0 +1,8 @@
+#!/bin/bash --login
+#SBATCH -p serial     # (or --partition=) Run on the nodes dedicated to 1-core jobs
+#SBATCH -t 4-0        # Wallclock time limit. 4-0 is 4 days. Max permitted is 7-0.
+
+module purge
+module load apps/binapps/conda/miniforge3/25.9.1
+
+conda activate env
