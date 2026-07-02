@@ -62,6 +62,7 @@ def process(pdf_path, output_dir, model):
         model=selected_model
     )
 
+
 @cli.command()
 @click.argument('pdf_dir', required=False)
 @click.argument('output_dir', required=False)
@@ -76,12 +77,15 @@ def process_all(pdf_dir, output_dir, model):
     if model is None:
         model = prompt_for_model()
     selected_model = choices_map[model]
+
+
     from chemstractor.commands.process_all import process_all_command
     process_all_command(
         pdf_dir=pdf_dir,
         output_parent_dir=output_dir,
         model=selected_model
     )
+
 
 @cli.command()
 @click.argument('pdf_path', type=click.Path(exists=True))
@@ -92,12 +96,14 @@ def extract(pdf_path, output_dir, model):
     if model is None:
         model = prompt_for_model()
     selected_model = choices_map[model]
+
     from chemstractor.commands.extract import extract_command
     extract_command(
         pdf_path=pdf_path,
         output_dir=output_dir,
         model=selected_model
     )
+
 
 @cli.command()
 @click.argument('pdf_path', type=click.Path(exists=True))
@@ -115,6 +121,7 @@ def categorise(pdf_path, output_dir, model):
         model=selected_model
     )
 
+
 @cli.command()
 @click.argument('pdf_path', type=click.Path(exists=True))
 @click.option('--output-dir', default="./", help="Directory where the output folder appears.")
@@ -130,6 +137,7 @@ def summarise(pdf_path, output_dir, model):
         output_dir=output_dir,
         model=selected_model
     )
+
 
 @cli.command()
 @click.argument('pdf_path', type=click.Path(exists=True))
@@ -147,6 +155,7 @@ def metadata(pdf_path, output_dir, model):
         model=selected_model
     )
 
+
 @cli.command()
 @click.argument('output_dir', type=click.Path(exists=True))
 @click.argument('validation_dir', type=click.Path(exists=True))
@@ -157,6 +166,7 @@ def validate(output_dir, validation_dir):
         output_dir=output_dir,
         validation_dir=validation_dir
     )
+
 
 @cli.command()
 @click.argument('outputs_dir', required=False)
@@ -194,6 +204,7 @@ def validate_all(outputs_dir, validation_dir):
         validation_dir=validation_dir
     )
 
+
 @cli.command()
 @click.argument('process_output_dir', type=click.Path(exists=True, file_okay=False, dir_okay=True))
 @click.option('--output', '-o', type=click.Path(), default=None, help="Output save location of the excel document.")
@@ -204,6 +215,7 @@ def report(process_output_dir, output):
         process_output_dir=process_output_dir,
         output=output
     )
+
 
 if __name__ == '__main__':
     cli()

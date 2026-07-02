@@ -73,11 +73,8 @@ def summarise_command(pdf_path: str, output_dir: str, model: AllSupportedModels 
     
     tree = Tree(f"[bold cyan]📄 {base_name}[/bold cyan]")
     
-    processor = PDFProcessor(
-        pdf_path=pdf_path,
-        output_dir=output_dir,
-        model=model
-    )
+    processor = PDFProcessor(model=model)
+    processor.load_pdf(pdf_path, output_dir)
     
     from chemstractor.commands.metadata import run_metadata
     with Live(tree, console=console, auto_refresh=True, refresh_per_second=12) as live:

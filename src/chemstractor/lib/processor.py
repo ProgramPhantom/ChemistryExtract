@@ -10,15 +10,50 @@ from chemstractor.lib.metadata import extract_paper_metadata
 from chemstractor.models import pricing_matrix
 
 
+class MetadataResult:
+    def __init__(self, success: bool, data: dict, error: str = None, usage_metadata: dict = None):
+        self.success = success
+        self.data = data
+        self.error = error
+        self.usage_metadata = usage_metadata
+
+
 class PDFProcessor:
-    def __init__(self, pdf_path: str, output_dir: str = ".", model: str = "gemini-2.5-flash"):
-        self.pdf_path = pdf_path
+    def __init__(self, model: str = "gemini-2.5-flash"):
         self.model = model
+        self.pdf_path = None
+        self.base_name = None
+        self.base_no_ext = None
         
+        self.output_dir = None
+        self.extract_dir = None
+        self.tables_dir = None
+        
+        self.clean_path = None
+        self.parsed_md_path = None
+        self.log_file_path = None
+        
+        self.categorisation_dir = None
+        self.summary_dir = None
+        self.summary_json_path = None
+        
+        # State
+        self.extractor = None
+        self.cat_data_list = []
+        self.summarisation_data_list = []
+        self.num_tables = 0
+        self.cat_results = []
+        self.sum_results = []
+        self.metadata_res = None
+        self.tables_csv_rows = []
+        self.command_outputs = {}
+
+    def load_pdf(self, pdf_path: str, output_dir: str = "."):
+        """Initializes paths and fields for processing a specific PDF."""
+        self.pdf_path = pdf_path
         self.base_name = os.path.basename(pdf_path)
         self.base_no_ext = os.path.splitext(self.base_name)[0]
         
-        # Output paths derived from output_dir
         self.output_dir = os.path.join(output_dir, self.base_no_ext)
         self.extract_dir = os.path.join(self.output_dir, "extract")
         self.tables_dir = os.path.join(self.extract_dir, "tables")
@@ -31,7 +66,6 @@ class PDFProcessor:
         self.summary_dir = os.path.join(self.output_dir, "summary")
         self.summary_json_path = os.path.join(self.summary_dir, "summary.json")
         
-        # State
         self.extractor = None
         self.cat_data_list = []
         self.summarisation_data_list = []
@@ -39,6 +73,118 @@ class PDFProcessor:
         self.cat_results = []
         self.sum_results = []
         self.metadata_res = None
+        self.tables_csv_rows = []
+        self.command_outputs = {}
+
+    def load_output(self, process_output_dir: str):
+        """Loads all present command outputs from a process output folder."""
+        self.output_dir = os.path.abspath(process_output_dir)
+        self.base_no_ext = os.path.basename(os.path.normpath(self.output_dir))
+        self.base_name = f"{self.base_no_ext}.pdf"
+        
+        self.extract_dir = os.path.join(self.output_dir, "extract")
+        self.tables_dir = os.path.join(self.extract_dir, "tables")
+        
+        self.clean_path = os.path.join(self.extract_dir, f"clean_{self.base_name}")
+        self.parsed_md_path = os.path.join(self.extract_dir, "output.md")
+        self.log_file_path = os.path.join(self.extract_dir, f"log_{self.base_name}.log")
+        
+        self.categorisation_dir = os.path.join(self.output_dir, "categorisation")
+        self.summary_dir = os.path.join(self.output_dir, "summary")
+        self.summary_json_path = os.path.join(self.summary_dir, "summary.json")
+        
+        # State initialization
+        self.extractor = None
+        self.cat_data_list = []
+        self.summarisation_data_list = []
+        self.num_tables = 0
+        self.cat_results = []
+        self.sum_results = []
+        self.metadata_res = None
+        self.tables_csv_rows = []
+        
+        # Storage for all present command outputs
+        self.command_outputs = {
+            "metadata": None,
+            "categorisation": [],
+            "summary_tables": [],
+            "tables_csv": [],
+            "tables_txt": []
+        }
+        
+        # 1. Load Metadata
+        if os.path.exists(self.summary_json_path):
+            try:
+                with open(self.summary_json_path, 'r', encoding='utf-8') as f:
+                    metadata = json.load(f)
+                    self.command_outputs["metadata"] = metadata
+                    self.metadata_res = MetadataResult(success=True, data=metadata)
+            except Exception as e:
+                self._log_error(f"Error loading metadata from {self.summary_json_path}: {e}")
+                
+        # 2. Scan and Gather Tables
+        csv_dir = os.path.join(self.tables_dir, "csv")
+        txt_dir = os.path.join(self.tables_dir, "txt")
+        
+        num_tables = 0
+        if os.path.exists(csv_dir):
+            while os.path.exists(os.path.join(csv_dir, f"table{num_tables + 1}.csv")):
+                num_tables += 1
+        elif os.path.exists(txt_dir):
+            while os.path.exists(os.path.join(txt_dir, f"table{num_tables + 1}.txt")):
+                num_tables += 1
+                
+        self.num_tables = num_tables
+        
+        # 3. Load all present tables data
+        for i in range(num_tables):
+            # Categorisation
+            cat_path = os.path.join(self.categorisation_dir, f"table{i + 1}.json")
+            cat_data = None
+            if os.path.exists(cat_path):
+                try:
+                    with open(cat_path, 'r', encoding='utf-8') as f:
+                        cat_data = json.load(f)
+                except Exception as e:
+                    self._log_error(f"Error loading categorisation JSON {cat_path}: {e}")
+            self.cat_data_list.append(cat_data)
+            self.command_outputs["categorisation"].append(cat_data)
+            
+            # Summarisation
+            sum_path = os.path.join(self.summary_dir, "tables", f"table{i + 1}.json")
+            sum_data = None
+            if os.path.exists(sum_path):
+                try:
+                    with open(sum_path, 'r', encoding='utf-8') as f:
+                        sum_data = json.load(f)
+                except Exception as e:
+                    self._log_error(f"Error loading summary JSON {sum_path}: {e}")
+            self.summarisation_data_list.append(sum_data)
+            self.command_outputs["summary_tables"].append(sum_data)
+            
+            # CSV Rows
+            csv_path = os.path.join(csv_dir, f"table{i + 1}.csv")
+            csv_rows = None
+            if os.path.exists(csv_path):
+                try:
+                    with open(csv_path, 'r', encoding='utf-8', newline='') as f:
+                        reader = csv.reader(f)
+                        csv_rows = list(reader)
+                except Exception as e:
+                    self._log_error(f"Error loading CSV {csv_path}: {e}")
+            self.tables_csv_rows.append(csv_rows)
+            self.command_outputs["tables_csv"].append(csv_rows)
+            
+            # Text tables
+            txt_path = os.path.join(txt_dir, f"table{i + 1}.txt")
+            txt_content = None
+            if os.path.exists(txt_path):
+                try:
+                    with open(txt_path, 'r', encoding='utf-8') as f:
+                        txt_content = f.read()
+                except Exception as e:
+                    self._log_error(f"Error loading text table {txt_path}: {e}")
+            self.command_outputs["tables_txt"].append(txt_content)
 
 
     def _log_error(self, message: str):
@@ -222,6 +368,7 @@ class PDFProcessor:
             "results": self.sum_results
         }
 
+
     def create_excel(self, dest_path: str = None) -> None:
         """Creates a beautifully formatted Excel document using the in-memory data of the processor."""
         from chemstractor.lib.report import create_excel
@@ -247,7 +394,9 @@ class PDFProcessor:
                 
             csv_rows = None
             csv_error = None
-            if self.extractor and self.extractor.tables_csv and i < len(self.extractor.tables_csv):
+            if self.tables_csv_rows and i < len(self.tables_csv_rows):
+                csv_rows = self.tables_csv_rows[i]
+            elif self.extractor and self.extractor.tables_csv and i < len(self.extractor.tables_csv):
                 csv_str = self.extractor.tables_csv[i]
                 if csv_str:
                     try:
@@ -275,7 +424,6 @@ class PDFProcessor:
             tables_data=tables_data,
             log_error_fn=self._log_error
         )
-
 
 
     def save_logs(self):

@@ -27,11 +27,8 @@ def run_process_single(
     timer = time.time()
     
     # Initialize PDFProcessor
-    processor = PDFProcessor(
-        pdf_path=pdf_path,
-        output_dir=output_dir,
-        model=model
-    )
+    processor = PDFProcessor(model=model)
+    processor.load_pdf(pdf_path, output_dir)
     
     tree = Tree(f"[bold cyan]📄 {processor.base_name}[/bold cyan]")
     
