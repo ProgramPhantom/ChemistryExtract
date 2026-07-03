@@ -203,3 +203,30 @@ def report(process_output_dir, output):
         process_output_dir=process_output_dir,
         output=output
     )
+
+
+@cli.command()
+@click.argument('process_output_dir', type=click.Path(exists=True, file_okay=False, dir_okay=True))
+@click.option('--model', type=click.Choice(CHOICES), default=None, help="Model to use.")
+def analyse(process_output_dir, model):
+    """Analyse a PDF process output folder (runs metadata, categorise, and summarise)."""
+    # 1. Prompt on output folder decision
+    prompt_msg = (
+        "Would you like to have the output of this command be the same as the input folder? "
+        "(Pre-existing process output might be overridden)"
+    )
+    same_folder = click.confirm(prompt_msg, default=True)
+
+    # 2. Prompt for model if not supplied
+    if model is None:
+        model = prompt_for_model()
+    selected_model = choices_map[model]
+
+    from chemstractor.commands.analyse import analyse_command
+    analyse_command(
+        process_output_dir=process_output_dir,
+        same_folder=same_folder,
+        model=selected_model
+    )
+
+

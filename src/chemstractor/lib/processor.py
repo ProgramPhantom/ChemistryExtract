@@ -112,7 +112,14 @@ class PDFProcessor:
             "tables_txt": []
         }
         
-        # 1. Load Metadata
+        # 1. Load Extract Data
+        if os.path.exists(self.extract_dir):
+            try:
+                self.load_extract_data()
+            except Exception as e:
+                self._log_error(f"Error loading extract data in load_output: {e}")
+        
+        # 2. Load Metadata
         if os.path.exists(self.summary_json_path):
             try:
                 with open(self.summary_json_path, 'r', encoding='utf-8') as f:
@@ -122,19 +129,20 @@ class PDFProcessor:
             except Exception as e:
                 self._log_error(f"Error loading metadata from {self.summary_json_path}: {e}")
                 
-        # 2. Scan and Gather Tables
+        # 3. Scan and Gather Tables
         csv_dir = os.path.join(self.tables_dir, "csv")
         txt_dir = os.path.join(self.tables_dir, "txt")
         
-        num_tables = 0
-        if os.path.exists(csv_dir):
-            while os.path.exists(os.path.join(csv_dir, f"table{num_tables + 1}.csv")):
-                num_tables += 1
-        elif os.path.exists(txt_dir):
-            while os.path.exists(os.path.join(txt_dir, f"table{num_tables + 1}.txt")):
-                num_tables += 1
-                
-        self.num_tables = num_tables
+        num_tables = self.num_tables
+        if num_tables == 0:
+            if os.path.exists(csv_dir):
+                while os.path.exists(os.path.join(csv_dir, f"table{num_tables + 1}.csv")):
+                    num_tables += 1
+            elif os.path.exists(txt_dir):
+                while os.path.exists(os.path.join(txt_dir, f"table{num_tables + 1}.txt")):
+                    num_tables += 1
+            self.num_tables = num_tables
+        
         
         # 3. Load all present tables data
         for i in range(num_tables):
@@ -187,6 +195,21 @@ class PDFProcessor:
             self.command_outputs["tables_txt"].append(txt_content)
 
 
+    def load_extract_data(self):
+        """Loads extract data from the filesystem into the TableExtractor."""
+        self.extractor = TableExtractor()
+        self.extractor.load_extract_data(self.extract_dir)
+        self.num_tables = len(self.extractor.tables_markdown)
+        
+        # Sync the paths in PDFProcessor with what was actually loaded
+        if self.extractor.clean_path:
+            self.clean_path = self.extractor.clean_path
+        if self.extractor.log_file_path:
+            self.log_file_path = self.extractor.log_file_path
+
+
+
+
     def _log_error(self, message: str):
         """Appends an error message to the log file."""
         try:
@@ -200,7 +223,10 @@ class PDFProcessor:
         start_time = time.time()
         yield {"status": "working", "message": "Extracting text & tables..."}
         
-        self.extractor = TableExtractor(self.pdf_path)
+        self.extractor = TableExtractor()
+        self.extractor.load_pdf(self.pdf_path)
+        self.extractor.parse_pdf()
+        self.extractor.extract_results()
         self.num_tables = len(self.extractor.tables_markdown)
 
         elapsed_time = time.time() - start_time

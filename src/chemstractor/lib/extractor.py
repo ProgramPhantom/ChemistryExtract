@@ -124,17 +124,11 @@ class TableExtractor:
     def logs(self) -> str:
         return self.log_stream.getvalue()
 
-    def __init__(self, input_path: str):
+    def __init__(self):
         self.log_stream = io.StringIO()
         self._is_capturing = False
-
-        if not os.path.exists(input_path):
-            raise FileNotFoundError(f"Input PDF path does not exist: {input_path}")
-        if not os.path.isfile(input_path):
-            raise ValueError(f"Input PDF path is not a file: {input_path}")
-            
-        self.input_path = os.path.abspath(input_path)
         
+        self.input_path = None
         self.clean_pdf_bytes = None
         self._raw_result = None
         self._parsed_result = None
@@ -143,11 +137,88 @@ class TableExtractor:
         self.tables_markdown = []
         self.tables_csv = []
         self._is_parsed = False
+        self.clean_path = None
+        self.log_file_path = None
+
+    def load_pdf(self, input_path: str):
+        if not os.path.exists(input_path):
+            raise FileNotFoundError(f"Input PDF path does not exist: {input_path}")
+        if not os.path.isfile(input_path):
+            raise ValueError(f"Input PDF path is not a file: {input_path}")
+            
+        self.input_path = os.path.abspath(input_path)
+        self.clean_pdf_bytes = None
+        self._raw_result = None
+        self._parsed_result = None
+        self.raw_markdown = None
+        self.parsed_markdown = None
+        self.tables_markdown = []
+        self.tables_csv = []
+        self._is_parsed = False
+        self.clean_path = None
+        self.log_file_path = None
+
+    def load_extract_data(self, extract_dir: str):
+        """Loads extract data from the filesystem into the extractor."""
+        if not os.path.exists(extract_dir):
+            raise FileNotFoundError(f"Extract directory does not exist: {extract_dir}")
+            
+        extract_dir = os.path.abspath(extract_dir)
         
-        # Parse PDF immediately upon instantiation
-        self.parse_pdf()
-        # Extract tables and CSV data immediately
-        self.extract_results()
+        # Load clean pdf bytes
+        self.clean_pdf_bytes = b""
+        clean_files = [f for f in os.listdir(extract_dir) if f.startswith("clean_") and f.endswith(".pdf")]
+        if clean_files:
+            self.clean_path = os.path.join(extract_dir, clean_files[0])
+            with open(self.clean_path, "rb") as f:
+                self.clean_pdf_bytes = f.read()
+                
+        # Load parsed markdown
+        self.parsed_markdown = ""
+        parsed_md_path = os.path.join(extract_dir, "output.md")
+        if os.path.exists(parsed_md_path):
+            with open(parsed_md_path, "r", encoding="utf-8") as f:
+                self.parsed_markdown = f.read()
+                
+        # Load logs
+        log_files = [f for f in os.listdir(extract_dir) if f.startswith("log_") and f.endswith(".log")]
+        if log_files:
+            self.log_file_path = os.path.join(extract_dir, log_files[0])
+            with open(self.log_file_path, "r", encoding="utf-8") as f:
+                logs_content = f.read()
+                self.log_stream = io.StringIO(logs_content)
+        else:
+            self.log_stream = io.StringIO()
+            
+        # Load tables markdown and tables csv
+        self.tables_markdown = []
+        tables_dir = os.path.join(extract_dir, "tables")
+        txt_dir = os.path.join(tables_dir, "txt")
+        if os.path.exists(txt_dir):
+            txt_files = [f for f in os.listdir(txt_dir) if f.startswith("table") and f.endswith(".txt")]
+            def get_num(filename):
+                match = re.search(r'\d+', filename)
+                return int(match.group()) if match else 0
+            txt_files.sort(key=get_num)
+            for file_name in txt_files:
+                file_path = os.path.join(txt_dir, file_name)
+                with open(file_path, "r", encoding="utf-8") as f:
+                    self.tables_markdown.append(f.read())
+                    
+        self.tables_csv = []
+        csv_dir = os.path.join(tables_dir, "csv")
+        if os.path.exists(csv_dir):
+            csv_files = [f for f in os.listdir(csv_dir) if f.startswith("table") and f.endswith(".csv")]
+            def get_num(filename):
+                match = re.search(r'\d+', filename)
+                return int(match.group()) if match else 0
+            csv_files.sort(key=get_num)
+            for file_name in csv_files:
+                file_path = os.path.join(csv_dir, file_name)
+                with open(file_path, "r", encoding="utf-8") as f:
+                    self.tables_csv.append(f.read())
+                    
+        self._is_parsed = True
 
     @contextmanager
     def _capture_logs(self):

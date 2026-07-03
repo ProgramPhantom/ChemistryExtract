@@ -86,10 +86,3 @@ def process_all_command(
     # Print the final summary table
     print_summary_table(console, summary_data)
     
-    # Run validation on the generated outputs if validation directory exists
-    validation_dir = "./tests/validation"
-    if not os.path.exists(validation_dir):
-        validation_dir = "tests/validation"
-    if os.path.exists(validation_dir):
-        from chemstractor.commands.validate import validate_command
-        validate_command(run_dir, validation_dir)
