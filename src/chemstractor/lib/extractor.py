@@ -173,12 +173,25 @@ class TableExtractor:
             with open(self.clean_path, "rb") as f:
                 self.clean_pdf_bytes = f.read()
                 
-        # Load parsed markdown
+        # Load parsed markdown (cleaned)
         self.parsed_markdown = ""
-        parsed_md_path = os.path.join(extract_dir, "output.md")
-        if os.path.exists(parsed_md_path):
-            with open(parsed_md_path, "r", encoding="utf-8") as f:
+        clean_md_path = os.path.join(extract_dir, "output_clean.md")
+        if os.path.exists(clean_md_path):
+            with open(clean_md_path, "r", encoding="utf-8") as f:
                 self.parsed_markdown = f.read()
+        else:
+            # Fallback to output.md for backward compatibility
+            parsed_md_path = os.path.join(extract_dir, "output.md")
+            if os.path.exists(parsed_md_path):
+                with open(parsed_md_path, "r", encoding="utf-8") as f:
+                    self.parsed_markdown = f.read()
+
+        # Load raw markdown (unclean)
+        self.raw_markdown = ""
+        raw_md_path = os.path.join(extract_dir, "output.md")
+        if os.path.exists(raw_md_path):
+            with open(raw_md_path, "r", encoding="utf-8") as f:
+                self.raw_markdown = f.read()
                 
         # Load logs
         log_files = [f for f in os.listdir(extract_dir) if f.startswith("log_") and f.endswith(".log")]

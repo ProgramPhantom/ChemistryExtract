@@ -42,7 +42,8 @@ When processing a PDF, Chemstractor generates a clean output directory structure
 └── 📂 [pdf_filename_without_extension]/
     ├── 📂 extract/
     │   ├── 📄 clean_[filename].pdf      # Copy of the original processed PDF
-    │   ├── 📄 output.md                 # Document content parsed into Markdown
+    │   ├── 📄 output.md                 # Unclean document content parsed into Markdown
+    │   ├── 📄 output_clean.md           # Cleaned document content parsed into Markdown
     │   ├── 📄 log_[filename].log        # Complete timing and parser logs
     │   └── 📂 tables/
     │       ├── 📊 table1.csv            # Raw table data in CSV format

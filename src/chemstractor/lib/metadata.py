@@ -39,8 +39,9 @@ def get_metadata_prompt(parsed_markdown: str) -> str:
     2. The names of the authors.
     3. The DOI (Digital Object Identifier) number of the paper.
     
-    If any of these fields cannot be found from the below input, provide the output "Not found" or an empty list if the output requires a list.
-        
+    If any of these fields cannot be found from the below input, provide the output "Not found" or 
+    an empty list if the output requires an output of type list. This list should be empty!
+
     Paper Content:
     {parsed_markdown[:20000]}
     """

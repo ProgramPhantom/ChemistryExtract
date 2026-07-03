@@ -51,7 +51,8 @@ def run_extract(processor: PDFProcessor, tree: Tree):
             ext_node.label = f"[green]✓[/green] Extracted text & tables [dim](completed in {elapsed_time:.2f}s)[/dim]"
             ext_node.add("Extracted text & tables in-memory")
             ext_node.add(f"Saved cleaned PDF to [yellow]{os.path.relpath(processor.clean_path)}[/yellow]")
-            ext_node.add(f"Saved parsed markdown to [yellow]{os.path.relpath(processor.parsed_md_path)}[/yellow]")
+            ext_node.add(f"Saved unclean markdown to [yellow]{os.path.relpath(processor.parsed_md_path)}[/yellow]")
+            ext_node.add(f"Saved cleaned markdown to [yellow]{os.path.relpath(processor.clean_md_path)}[/yellow]")
             ext_node.add(f"Saved {num_tables} tables (txt & csv) to [yellow]{os.path.relpath(processor.tables_dir)}[/yellow]")
             ext_node.add(f"Saved execution logs to [yellow]{os.path.relpath(processor.log_file_path)}[/yellow]")
 

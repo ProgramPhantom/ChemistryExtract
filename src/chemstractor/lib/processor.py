@@ -31,6 +31,7 @@ class PDFProcessor:
         
         self.clean_path = None
         self.parsed_md_path = None
+        self.clean_md_path = None
         self.log_file_path = None
         
         self.categorisation_dir = None
@@ -60,6 +61,7 @@ class PDFProcessor:
         
         self.clean_path = os.path.join(self.extract_dir, f"clean_{self.base_name}")
         self.parsed_md_path = os.path.join(self.extract_dir, "output.md")
+        self.clean_md_path = os.path.join(self.extract_dir, "output_clean.md")
         self.log_file_path = os.path.join(self.extract_dir, f"log_{self.base_name}.log")
         
         self.categorisation_dir = os.path.join(self.output_dir, "categorisation")
@@ -87,6 +89,7 @@ class PDFProcessor:
         
         self.clean_path = os.path.join(self.extract_dir, f"clean_{self.base_name}")
         self.parsed_md_path = os.path.join(self.extract_dir, "output.md")
+        self.clean_md_path = os.path.join(self.extract_dir, "output_clean.md")
         self.log_file_path = os.path.join(self.extract_dir, f"log_{self.base_name}.log")
         
         self.categorisation_dir = os.path.join(self.output_dir, "categorisation")
@@ -489,9 +492,13 @@ class PDFProcessor:
         if not self.extractor:
             raise RuntimeError("Must call extract() before saving outputs.")
             
-        # Save parsed markdown
-        with open(self.parsed_md_path, "w", encoding="utf-8") as parsed_file:
-            parsed_file.write(self.extractor.parsed_markdown)
+        # Save parsed markdown (cleaned)
+        with open(self.clean_md_path, "w", encoding="utf-8") as clean_file:
+            clean_file.write(self.extractor.parsed_markdown)
+            
+        # Save raw/unclean markdown
+        with open(self.parsed_md_path, "w", encoding="utf-8") as raw_file:
+            raw_file.write(self.extractor.raw_markdown or "")
             
         # Save text tables
         txt_dir = os.path.join(self.tables_dir, "txt")
