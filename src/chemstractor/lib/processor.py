@@ -315,7 +315,8 @@ class PDFProcessor:
         start_time = time.time()
         yield {"status": "working", "message": "Extracting paper-level metadata..."}
         
-        metadata_res = extract_paper_metadata(self.extractor.parsed_markdown, model=self.model)
+        input_markdown = self.extractor.raw_markdown or self.extractor.parsed_markdown
+        metadata_res = extract_paper_metadata(input_markdown, model=self.model)
         self.metadata_res = metadata_res
         
         metadata_error = None if metadata_res.success else metadata_res.error
