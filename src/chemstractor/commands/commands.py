@@ -230,3 +230,23 @@ def analyse(process_output_dir, model):
     )
 
 
+@cli.command()
+@click.argument('input_parent_dir', required=False)
+@click.argument('output_parent_dir', required=False)
+@click.option('--model', type=click.Choice(CHOICES), default=None, help="Model to use.")
+def analyse_all(input_parent_dir, output_parent_dir, model):
+    """Analyse all process output folders in a parent directory."""
+    if model is None:
+        model = prompt_for_model()
+    selected_model = choices_map[model]
+
+    from chemstractor.commands.analyse_all import analyse_all_command
+    analyse_all_command(
+        input_parent_dir=input_parent_dir,
+        output_parent_dir=output_parent_dir,
+        model=selected_model
+    )
+
+
+
+
