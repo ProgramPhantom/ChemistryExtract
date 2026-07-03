@@ -54,7 +54,10 @@ def process(pdf_path, output_dir, model, direct):
         )
         same_folder = click.confirm(prompt_msg, default=True)
 
-    from chemstractor.commands.process import process_command
+    from rich.console import Console
+    console = Console(file=sys.__stdout__)
+    with console.status("[bold green]Loading AI models and components...", spinner="dots"):
+        from chemstractor.commands.process import process_command
     process_command(
         pdf_path=pdf_path,
         output_dir=output_dir,
@@ -75,7 +78,10 @@ def process_all(pdf_dir, output_dir, model, direct):
         model = prompt_for_model()
     selected_model = choices_map[model]
 
-    from chemstractor.commands.process_all import process_all_command
+    from rich.console import Console
+    console = Console(file=sys.__stdout__)
+    with console.status("[bold green]Loading AI models and components...", spinner="dots"):
+        from chemstractor.commands.process_all import process_all_command
     process_all_command(
         pdf_dir=pdf_dir,
         output_parent_dir=output_dir,
@@ -94,7 +100,10 @@ def extract(pdf_path, output_dir, model):
         model = prompt_for_model()
     selected_model = choices_map[model]
 
-    from chemstractor.commands.extract import extract_command
+    from rich.console import Console
+    console = Console(file=sys.__stdout__)
+    with console.status("[bold green]Loading AI models and components...", spinner="dots"):
+        from chemstractor.commands.extract import extract_command
     extract_command(
         pdf_path=pdf_path,
         output_dir=output_dir,
@@ -121,7 +130,10 @@ def categorise(pdf_path, output_dir, model, direct):
         )
         same_folder = click.confirm(prompt_msg, default=True)
 
-    from chemstractor.commands.categorise import categorise_command
+    from rich.console import Console
+    console = Console(file=sys.__stdout__)
+    with console.status("[bold green]Loading AI models and components...", spinner="dots"):
+        from chemstractor.commands.categorise import categorise_command
     categorise_command(
         pdf_path=pdf_path,
         output_dir=output_dir,
@@ -150,7 +162,10 @@ def summarise(pdf_path, output_dir, model, direct):
         )
         same_folder = click.confirm(prompt_msg, default=True)
 
-    from chemstractor.commands.summarise import summarise_command
+    from rich.console import Console
+    console = Console(file=sys.__stdout__)
+    with console.status("[bold green]Loading AI models and components...", spinner="dots"):
+        from chemstractor.commands.summarise import summarise_command
     summarise_command(
         pdf_path=pdf_path,
         output_dir=output_dir,
@@ -179,7 +194,10 @@ def metadata(pdf_path, output_dir, model, direct):
         )
         same_folder = click.confirm(prompt_msg, default=True)
 
-    from chemstractor.commands.metadata import metadata_command
+    from rich.console import Console
+    console = Console(file=sys.__stdout__)
+    with console.status("[bold green]Loading AI models and components...", spinner="dots"):
+        from chemstractor.commands.metadata import metadata_command
     metadata_command(
         pdf_path=pdf_path,
         output_dir=output_dir,
