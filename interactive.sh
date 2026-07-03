@@ -12,13 +12,13 @@ pip install -r requirements.txt
 # 3. Setup and start Ollama in the background
 unset ROCR_VISIBLE_DEVICES
 export OLLAMA_HOST=0.0.0.0:11434
-ollama serve &
+ollama serve > ollama.log 2>&1 &
 
 echo "Waiting for Ollama server to spin up..."
 sleep 10
 
 # 4. Pull the model
-echo "Pulling llama3..."
-ollama pull llama3
+echo "Pulling llama3.1..."
+ollama pull llama3.1
 
 echo "Ollama initialization complete!"
