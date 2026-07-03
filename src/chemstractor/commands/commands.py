@@ -37,18 +37,30 @@ def cli():
 @click.argument('pdf_path', type=click.Path(exists=True))
 @click.argument('output_dir', required=False)
 @click.option('--model', type=click.Choice(CHOICES), default=None, help="Model to use.")
-def process(pdf_path, output_dir, model):
+@click.option('--direct', '-d', is_flag=True, help="Input is a process output folder rather than a PDF.")
+def process(pdf_path, output_dir, model, direct):
     """Process a single PDF file (extract, categorise, and summarise)."""
-    if output_dir is None:
+    if output_dir is None and not direct:
         output_dir = "."
     if model is None:
         model = prompt_for_model()
     selected_model = choices_map[model]
+    
+    same_folder = True
+    if direct:
+        prompt_msg = (
+            "Would you like to have the output of this command be the same as the input folder? "
+            "(Pre-existing process output might be overridden)"
+        )
+        same_folder = click.confirm(prompt_msg, default=True)
+
     from chemstractor.commands.process import process_command
     process_command(
         pdf_path=pdf_path,
         output_dir=output_dir,
-        model=selected_model
+        model=selected_model,
+        direct=direct,
+        same_folder=same_folder
     )
 
 
@@ -56,13 +68,9 @@ def process(pdf_path, output_dir, model):
 @click.argument('pdf_dir', required=False)
 @click.argument('output_dir', required=False)
 @click.option('--model', type=click.Choice(CHOICES), default=None, help="Model to use.")
-def process_all(pdf_dir, output_dir, model):
+@click.option('--direct', '-d', is_flag=True, help="Input is a directory of process output folders rather than PDFs.")
+def process_all(pdf_dir, output_dir, model, direct):
     """Process all PDF files in a directory."""
-    if pdf_dir is None:
-        pdf_dir = "./tests/material"
-    if output_dir is None:
-        output_dir = "./tests/runs"
-        
     if model is None:
         model = prompt_for_model()
     selected_model = choices_map[model]
@@ -71,7 +79,8 @@ def process_all(pdf_dir, output_dir, model):
     process_all_command(
         pdf_dir=pdf_dir,
         output_parent_dir=output_dir,
-        model=selected_model
+        model=selected_model,
+        direct=direct
     )
 
 
@@ -97,16 +106,28 @@ def extract(pdf_path, output_dir, model):
 @click.argument('pdf_path', type=click.Path(exists=True))
 @click.option('--output-dir', default="./", help="Directory where the output folder appears.")
 @click.option('--model', type=click.Choice(CHOICES), default=None, help="Model to use.")
-def categorise(pdf_path, output_dir, model):
+@click.option('--direct', '-d', is_flag=True, help="Input is a process output folder rather than a PDF.")
+def categorise(pdf_path, output_dir, model, direct):
     """Categorise tables extracted from a PDF."""
     if model is None:
         model = prompt_for_model()
     selected_model = choices_map[model]
+    
+    same_folder = True
+    if direct:
+        prompt_msg = (
+            "Would you like to have the output of this command be the same as the input folder? "
+            "(Pre-existing process output might be overridden)"
+        )
+        same_folder = click.confirm(prompt_msg, default=True)
+
     from chemstractor.commands.categorise import categorise_command
     categorise_command(
         pdf_path=pdf_path,
         output_dir=output_dir,
-        model=selected_model
+        model=selected_model,
+        direct=direct,
+        same_folder=same_folder
     )
 
 
@@ -114,16 +135,28 @@ def categorise(pdf_path, output_dir, model):
 @click.argument('pdf_path', type=click.Path(exists=True))
 @click.option('--output-dir', default="./", help="Directory where the output folder appears.")
 @click.option('--model', type=click.Choice(CHOICES), default=None, help="Model to use.")
-def summarise(pdf_path, output_dir, model):
+@click.option('--direct', '-d', is_flag=True, help="Input is a process output folder rather than a PDF.")
+def summarise(pdf_path, output_dir, model, direct):
     """Summarise tables and metadata extracted from a PDF."""
     if model is None:
         model = prompt_for_model()
     selected_model = choices_map[model]
+    
+    same_folder = True
+    if direct:
+        prompt_msg = (
+            "Would you like to have the output of this command be the same as the input folder? "
+            "(Pre-existing process output might be overridden)"
+        )
+        same_folder = click.confirm(prompt_msg, default=True)
+
     from chemstractor.commands.summarise import summarise_command
     summarise_command(
         pdf_path=pdf_path,
         output_dir=output_dir,
-        model=selected_model
+        model=selected_model,
+        direct=direct,
+        same_folder=same_folder
     )
 
 
@@ -131,16 +164,28 @@ def summarise(pdf_path, output_dir, model):
 @click.argument('pdf_path', type=click.Path(exists=True))
 @click.option('--output-dir', default="./", help="Directory where the output folder appears.")
 @click.option('--model', type=click.Choice(CHOICES), default=None, help="Model to use.")
-def metadata(pdf_path, output_dir, model):
+@click.option('--direct', '-d', is_flag=True, help="Input is a process output folder rather than a PDF.")
+def metadata(pdf_path, output_dir, model, direct):
     """Extract paper metadata (title, authors, doi)."""
     if model is None:
         model = prompt_for_model()
     selected_model = choices_map[model]
+    
+    same_folder = True
+    if direct:
+        prompt_msg = (
+            "Would you like to have the output of this command be the same as the input folder? "
+            "(Pre-existing process output might be overridden)"
+        )
+        same_folder = click.confirm(prompt_msg, default=True)
+
     from chemstractor.commands.metadata import metadata_command
     metadata_command(
         pdf_path=pdf_path,
         output_dir=output_dir,
-        model=selected_model
+        model=selected_model,
+        direct=direct,
+        same_folder=same_folder
     )
 
 
@@ -203,50 +248,5 @@ def report(process_output_dir, output):
         process_output_dir=process_output_dir,
         output=output
     )
-
-
-@cli.command()
-@click.argument('process_output_dir', type=click.Path(exists=True, file_okay=False, dir_okay=True))
-@click.option('--model', type=click.Choice(CHOICES), default=None, help="Model to use.")
-def analyse(process_output_dir, model):
-    """Analyse a PDF process output folder (runs metadata, categorise, and summarise)."""
-    # 1. Prompt on output folder decision
-    prompt_msg = (
-        "Would you like to have the output of this command be the same as the input folder? "
-        "(Pre-existing process output might be overridden)"
-    )
-    same_folder = click.confirm(prompt_msg, default=True)
-
-    # 2. Prompt for model if not supplied
-    if model is None:
-        model = prompt_for_model()
-    selected_model = choices_map[model]
-
-    from chemstractor.commands.analyse import analyse_command
-    analyse_command(
-        process_output_dir=process_output_dir,
-        same_folder=same_folder,
-        model=selected_model
-    )
-
-
-@cli.command()
-@click.argument('input_parent_dir', required=False)
-@click.argument('output_parent_dir', required=False)
-@click.option('--model', type=click.Choice(CHOICES), default=None, help="Model to use.")
-def analyse_all(input_parent_dir, output_parent_dir, model):
-    """Analyse all process output folders in a parent directory."""
-    if model is None:
-        model = prompt_for_model()
-    selected_model = choices_map[model]
-
-    from chemstractor.commands.analyse_all import analyse_all_command
-    analyse_all_command(
-        input_parent_dir=input_parent_dir,
-        output_parent_dir=output_parent_dir,
-        model=selected_model
-    )
-
-
 
 

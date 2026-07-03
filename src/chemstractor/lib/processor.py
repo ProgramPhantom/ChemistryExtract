@@ -549,8 +549,8 @@ class PDFProcessor:
                         
         self.save_summary_json()
 
-
     def cleanup(self):
         """Deload extractor instance and force garbage collection to release memory."""
         self.extractor = None
         gc.collect()
+

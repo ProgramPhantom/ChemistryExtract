@@ -49,40 +49,44 @@ def print_summary_table(console: Console, summary_data: list[dict]):
 def process_all_command(
     pdf_dir: str,
     output_parent_dir: str,
-    categorise_tables: bool = True,
-    summarise_tables: bool = True,
-    model: AllSupportedModels = "gemini-2.5-flash"
+    model: AllSupportedModels = "gemini-2.5-flash",
+    direct: bool = False
 ):
     console = Console(file=sys.__stdout__)
     
-    # Scan for PDF files in the material directory
-    pdf_pattern = os.path.join(pdf_dir, "*.pdf")
-    pdf_files = glob.glob(pdf_pattern)
+    # Use the middleware helper to resolve directories and prepare extracts
+    from chemstractor.commands.utils import prepare_batch_dirs
+    pdf_dir, run_dir, items = prepare_batch_dirs(pdf_dir, output_parent_dir, direct=direct)
     
-    if not pdf_files:
-        console.print(f"[bold red]Error: No PDF files found in {pdf_dir}[/bold red]")
-        return
-        
     console.print()
-    console.print(Rule(title=f"[bold magenta]PROCESSING {len(pdf_files)} FILES[/bold magenta]", style="magenta"))
+    label = "ANALYSING" if direct else "PROCESSING"
+    console.print(Rule(title=f"[bold magenta]{label} {len(items)} ITEMS[/bold magenta]", style="magenta"))
     console.print()
-    
-    # 1. Setup timestamped run directory
-    run_dir = setup_run_layout(output_parent_dir)
     
     summary_data = []
     
-    for pdf_path in pdf_files:
-        res = run_process_single(
-            pdf_path=pdf_path,
-            output_dir=run_dir,
-            categorise_tables=categorise_tables,
-            summarise_tables=summarise_tables,
-            model=model,
-            console=console
-        )
-        summary_data.append(res)
-        
+    if direct:
+        for dest_subdir_path in items:
+            res = run_process_single(
+                pdf_path=dest_subdir_path,
+                output_dir=dest_subdir_path,
+                model=model,
+                console=console,
+                direct=True,
+                same_folder=True
+            )
+            summary_data.append(res)
+    else:
+        for pdf_path in items:
+            res = run_process_single(
+                pdf_path=pdf_path,
+                output_dir=run_dir,
+                model=model,
+                console=console,
+                direct=False
+            )
+            summary_data.append(res)
+            
     # Print the final summary table
     print_summary_table(console, summary_data)
     

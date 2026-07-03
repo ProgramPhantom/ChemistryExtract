@@ -68,19 +68,36 @@ def run_summarise(processor: PDFProcessor, tree: Tree):
                         sum_node.add(f"{table_name}: [red]{status}[/red]")
 
 
-def summarise_command(pdf_path: str, output_dir: str, model: AllSupportedModels = "gemini-2.5-flash"):
+def summarise_command(
+    pdf_path: str,
+    output_dir: str,
+    model: AllSupportedModels = "gemini-2.5-flash",
+    direct: bool = False,
+    same_folder: bool = True
+):
     console = Console(file=sys.__stdout__)
-    base_name = os.path.basename(pdf_path)
     
-    tree = Tree(f"[bold cyan]📄 {base_name}[/bold cyan]")
+    # Initialize PDFProcessor using prepare_processor middleware
+    from chemstractor.commands.utils import prepare_processor
+    processor, output_dir = prepare_processor(
+        pdf_path_or_dir=pdf_path,
+        output_dir=output_dir,
+        model=model,
+        direct=direct,
+        same_folder=same_folder,
+        suffix="summarised"
+    )
     
-    processor = PDFProcessor(model=model)
-    processor.load_pdf(pdf_path, output_dir)
+    tree = Tree(f"[bold cyan]📄 {processor.base_name}[/bold cyan]")
     
     from chemstractor.commands.metadata import run_metadata
     timer = time.time()
     with Live(tree, console=console, auto_refresh=True, refresh_per_second=12) as live:
-        run_extract(processor, tree)
+        if not direct:
+            run_extract(processor, tree)
+        else:
+            tree.add("[green]✓[/green] Loaded pre-extracted text & tables from directory")
+            
         run_metadata(processor, tree)
         run_summarise(processor, tree)
         processor.save_all()

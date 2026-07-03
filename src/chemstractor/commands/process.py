@@ -15,10 +15,10 @@ from chemstractor.commands.metadata import run_metadata
 def run_process_single(
     pdf_path: str,
     output_dir: str,
-    categorise_tables: bool = True,
-    summarise_tables: bool = True,
     model: AllSupportedModels = "gemini-2.5-flash",
-    console: Console = None
+    console: Console = None,
+    direct: bool = False,
+    same_folder: bool = True
 ) -> dict:
     """Runs extraction, categorisation, and summarisation on a single PDF."""
     if console is None:
@@ -26,26 +26,34 @@ def run_process_single(
         
     timer = time.time()
     
-    # Initialize PDFProcessor
-    processor = PDFProcessor(model=model)
-    processor.load_pdf(pdf_path, output_dir)
+    # Initialize PDFProcessor using prepare_processor middleware
+    from chemstractor.commands.utils import prepare_processor
+    processor, output_dir = prepare_processor(
+        pdf_path_or_dir=pdf_path,
+        output_dir=output_dir,
+        model=model,
+        direct=direct,
+        same_folder=same_folder,
+        suffix="processed"
+    )
     
     tree = Tree(f"[bold cyan]📄 {processor.base_name}[/bold cyan]")
     
     with Live(tree, console=console, auto_refresh=True, refresh_per_second=12) as live:
         # 1. Extract
-        run_extract(processor, tree)
+        if not direct:
+            run_extract(processor, tree)
+        else:
+            tree.add("[green]✓[/green] Loaded pre-extracted text & tables from directory")
         
         # 2. Categorise
-        if categorise_tables:
-            run_categorise(processor, tree)
+        run_categorise(processor, tree)
             
         # 3. Metadata
         run_metadata(processor, tree)
             
         # 4. Summarise
-        if summarise_tables:
-            run_summarise(processor, tree)
+        run_summarise(processor, tree)
             
         processor.save_all()
         elapsed_time = time.time() - timer
@@ -56,7 +64,7 @@ def run_process_single(
     processor.cleanup()
     
     return {
-        "file": os.path.basename(pdf_path),
+        "file": os.path.basename(pdf_path) if not direct else os.path.basename(output_dir),
         "tables": num_tables,
         "time": elapsed_time
     }
@@ -64,16 +72,16 @@ def run_process_single(
 def process_command(
     pdf_path: str,
     output_dir: str,
-    categorise_tables: bool = True,
-    summarise_tables: bool = True,
-    model: AllSupportedModels = "gemini-2.5-flash"
+    model: AllSupportedModels = "gemini-2.5-flash",
+    direct: bool = False,
+    same_folder: bool = True
 ):
     console = Console(file=sys.__stdout__)
     run_process_single(
         pdf_path=pdf_path,
         output_dir=output_dir,
-        categorise_tables=categorise_tables,
-        summarise_tables=summarise_tables,
         model=model,
-        console=console
+        console=console,
+        direct=direct,
+        same_folder=same_folder
     )
