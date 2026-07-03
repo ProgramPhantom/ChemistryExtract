@@ -75,7 +75,7 @@ def prepare_batch_dirs(
         - Copies each valid subdirectory's 'extract' folder to the new timestamped folder.
         - Returns (pdf_dir, run_dir, list of subfolder paths inside the new run_dir).
     If direct is False:
-        - Resolves pdf_dir (default: ./tests/material).
+        - Resolves pdf_dir (default: ./tests/corpus).
         - Resolves output_parent_dir (default: ./tests/runs).
         - Setups a timestamped target directory inside output_parent_dir.
         - Returns (pdf_dir, run_dir, list of pdf file paths inside pdf_dir).
@@ -146,11 +146,11 @@ def prepare_batch_dirs(
 
     else:
         if pdf_dir is None:
-            pdf_dir = "./tests/material"
+            pdf_dir = "./tests/corpus"
         if output_parent_dir is None:
             output_parent_dir = "./tests/runs"
             
-        # Scan for PDF files in the material directory
+        # Scan for PDF files in the corpus directory
         pdf_pattern = os.path.join(pdf_dir, "*.pdf")
         pdf_files = glob.glob(pdf_pattern)
         
