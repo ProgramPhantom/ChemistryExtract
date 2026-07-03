@@ -27,6 +27,22 @@ def time_function(func):
     return wrapper
 
 
+def make_serializable(obj):
+    from enum import Enum
+    import dataclasses
+    if isinstance(obj, Enum):
+        return obj.value
+    if hasattr(obj, "model_dump") and callable(obj.model_dump):
+        return obj.model_dump()
+    if hasattr(obj, "dict") and callable(obj.dict):
+        return obj.dict()
+    if dataclasses.is_dataclass(obj):
+        return dataclasses.asdict(obj)
+    if hasattr(obj, "__dict__"):
+        return obj.__dict__
+    return str(obj)
+
+
 _converter = None
 
 def get_converter():
@@ -236,7 +252,7 @@ class TableExtractor:
         self._raw_result = converter.convert(self.input_path)
         self.raw_markdown = self.clean_markdown(self._raw_result.document.export_to_markdown())
         if hasattr(self._raw_result, "timings") and self._raw_result.timings:
-            self.log_stream.write(f"Raw PDF conversion timings:\n{json.dumps(self._raw_result.timings, indent=2)}\n")
+            self.log_stream.write(f"Raw PDF conversion timings:\n{json.dumps(self._raw_result.timings, default=make_serializable, indent=2)}\n")
         
         # 2. Redact the hyperlinked text in-memory
         self.clean_pdf()
@@ -247,7 +263,7 @@ class TableExtractor:
         self._parsed_result = converter.convert(stream)
         self.parsed_markdown = self.clean_markdown(self._parsed_result.document.export_to_markdown())
         if hasattr(self._parsed_result, "timings") and self._parsed_result.timings:
-            self.log_stream.write(f"Clean PDF conversion timings:\n{json.dumps(self._parsed_result.timings, indent=2)}\n")
+            self.log_stream.write(f"Clean PDF conversion timings:\n{json.dumps(self._parsed_result.timings, default=make_serializable, indent=2)}\n")
         
         self._is_parsed = True
     
