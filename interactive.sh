@@ -10,6 +10,8 @@ conda activate env
 pip install -r requirements.txt
 
 # 3. Setup and start Ollama in the background
+pkill ollama || true
+sleep 1
 unset ROCR_VISIBLE_DEVICES
 export OLLAMA_HOST=0.0.0.0:11434
 ollama serve > ollama.log 2>&1 &
