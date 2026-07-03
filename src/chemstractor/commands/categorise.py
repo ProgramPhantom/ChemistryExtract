@@ -1,5 +1,6 @@
 import sys
 import os
+import time
 from rich.console import Console
 from rich.tree import Tree
 from rich.spinner import Spinner
@@ -75,10 +76,13 @@ def categorise_command(pdf_path: str, output_dir: str, model: AllSupportedModels
     processor = PDFProcessor(model=model)
     processor.load_pdf(pdf_path, output_dir)
     
+    timer = time.time()
     with Live(tree, console=console, auto_refresh=True, refresh_per_second=12) as live:
         run_extract(processor, tree)
         run_categorise(processor, tree)
         processor.save_all()
+        elapsed_time = time.time() - timer
+        tree.add(f"Total time taken: [yellow]{elapsed_time:.2f}s[/yellow]")
         live.refresh()
         
     processor.cleanup()

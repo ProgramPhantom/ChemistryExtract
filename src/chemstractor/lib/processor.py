@@ -466,6 +466,14 @@ class PDFProcessor:
         with open(self.clean_path, "wb") as clean_file:
             clean_file.write(self.extractor.clean_pdf_bytes)
 
+    def save_pdf_copy(self):
+        """Saves a copy of the original processed PDF to the output directory."""
+        if not self.pdf_path or not os.path.exists(self.pdf_path):
+            return
+        dest = os.path.join(self.output_dir, self.base_name)
+        import shutil
+        shutil.copy2(self.pdf_path, dest)
+
     def save_summary_json(self):
         """Saves the paper metadata to the summary JSON file."""
         if self.metadata_res and self.metadata_res.success:
@@ -516,6 +524,7 @@ class PDFProcessor:
         
         # 1. Save extraction files
         self.save_cleaned_pdf()
+        self.save_pdf_copy()
         self.save_outputs()
         self.save_logs()
         

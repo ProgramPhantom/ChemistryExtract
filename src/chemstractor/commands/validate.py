@@ -2,6 +2,7 @@ import os
 import sys
 import glob
 import json
+import time
 from rich.console import Console
 from rich.rule import Rule
 from rich.tree import Tree
@@ -211,6 +212,7 @@ def run_validate(output_dir: str, validation_dir: str, subfolders: list[str], co
 
 def run_validate_single(output_subfolder: str, validation_subfolder: str, name: str, console: Console):
     """Validates a single PDF run folder against its correct validation data using a Tree."""
+    timer = time.time()
     tree = Tree(f"[bold green]Validating {name}[/bold green]")
     
     # 1. Validate extract
@@ -222,6 +224,8 @@ def run_validate_single(output_subfolder: str, validation_subfolder: str, name: 
     # 3. Validate summarise
     validate_summarise(output_subfolder, validation_subfolder, tree)
     
+    elapsed_time = time.time() - timer
+    tree.add(f"Total time taken: [yellow]{elapsed_time:.2f}s[/yellow]")
     console.print(tree)
     console.print()
 

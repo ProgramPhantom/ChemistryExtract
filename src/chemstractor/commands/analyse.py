@@ -44,9 +44,10 @@ def run_analyse_single(
             run_summarise(processor, tree)
             
         processor.save_all()
+        elapsed_time = time.time() - timer
+        tree.add(f"Total time taken: [yellow]{elapsed_time:.2f}s[/yellow]")
         live.refresh()
         
-    elapsed_time = time.time() - timer
     num_tables = processor.num_tables
     processor.cleanup()
     
