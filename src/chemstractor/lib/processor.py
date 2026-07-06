@@ -4,7 +4,7 @@ import csv
 import gc
 import time
 from chemstractor.lib.extractor import TableExtractor
-from chemstractor.lib.categorisation import categorise_table
+from chemstractor.lib.categoriser import categorise_table
 from chemstractor.lib.summariser import summarise_table_conditions
 from chemstractor.lib.metadata import extract_paper_metadata
 
