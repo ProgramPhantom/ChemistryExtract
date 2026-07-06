@@ -55,7 +55,13 @@ class TableCategoryResponse():
 
 
 
-def get_categorise_prompt(table_string: str) -> str:
+def get_categorise_prompt(table_string: str, title: str | None = None, abstract: str | None = None) -> str:
+    context_str = ""
+    if title:
+        context_str += f"\n    Paper Title: {title}"
+    if abstract:
+        context_str += f"\n    Paper Abstract: {abstract}"
+
     return f"""
     You are a chemistry data classifier. Analyze the following extracted table 
     and its surrounding context. Determine if it contains polymer chemical diffusion coefficient data.
@@ -65,14 +71,16 @@ def get_categorise_prompt(table_string: str) -> str:
     2. Check if the table specifically contains diffusion coefficients (look for headings/units indicating m^2 s^-1, cm^2/s, etc.).
     3. Check if these diffusion coefficients correspond to polymers (macromolecules, copolymers, etc.), even if some are small molecules.
     
+    {context_str}
+
     Table Data:
     {table_string}
     """
 
 
-def categorise_table(table_text: str) -> TableCategoryResponse:
+def categorise_table(table_text: str, title: str | None = None, abstract: str | None = None) -> TableCategoryResponse:
     ai = AI.get_instance()
-    prompt = get_categorise_prompt(table_text)
+    prompt = get_categorise_prompt(table_text, title=title, abstract=abstract)
     
     res = ai.prompt(
         prompt=prompt,

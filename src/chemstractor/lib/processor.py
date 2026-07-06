@@ -250,6 +250,19 @@ class PDFProcessor:
         self.cat_results = []
         self.cat_data_list = []
         
+        # Get title and abstract data if present. 
+        title = None
+        abstract = None
+        if self.metadata_res and self.metadata_res.success and self.metadata_res.data:
+            if hasattr(self.metadata_res.data, "model_dump"):
+                meta_dict = self.metadata_res.data.model_dump()
+            elif isinstance(self.metadata_res.data, dict):
+                meta_dict = self.metadata_res.data
+            else:
+                meta_dict = {}
+            title = meta_dict.get("title")
+            abstract = meta_dict.get("abstract")
+        
         for i in range(self.num_tables):
             table_name = f"table{i + 1}.txt"
             
@@ -261,7 +274,7 @@ class PDFProcessor:
             }
             
             table_text = self.extractor.tables_markdown[i]
-            res = categorise_table(table_text)
+            res = categorise_table(table_text, title=title, abstract=abstract)
             if res.success:
                 status = "Contains" if res.contains_diffusion else "Does NOT contain"
                 status_msg = f"{status} chemical diffusion coefficient data"
