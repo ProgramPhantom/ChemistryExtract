@@ -5,7 +5,7 @@ from chemstractor.AI import AI
 class TableFilter(BaseModel):
     contains_scientific_data: bool = Field(
         description=(
-            "True if the table or its context contains scientific data resulting from a physical chemistry "
+            "True if the table contains scientific data resulting from a physical chemistry "
             "experiment, such as a diffusion experiment (e.g., DOSY NMR, NMR, light scattering, etc.). "
             "False if the table does not contain experimental scientific measurements or outcomes."
         )

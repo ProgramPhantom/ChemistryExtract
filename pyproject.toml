@@ -12,6 +12,7 @@ dependencies = [
     "inquirer",
     "ollama",
     "openpyxl",
+    "pandas",
     "pydantic",
     "pymupdf",
     "python-dotenv",

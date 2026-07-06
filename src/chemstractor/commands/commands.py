@@ -279,3 +279,42 @@ def report(process_output_dir, output):
     )
 
 
+@cli.command()
+@click.argument('process_output_dir', type=click.Path(exists=True, file_okay=False, dir_okay=True))
+@click.option('--model', type=click.Choice(CHOICES), default=None, help="Model to use.")
+def clean(process_output_dir, model):
+    """Clean tables from a process output folder."""
+    if model is None:
+        model = prompt_for_model()
+    selected_model = choices_map[model]
+    AI.get_instance().set_selected_model(selected_model)
+
+    from rich.console import Console
+    console = Console(file=sys.__stdout__)
+    with console.status("[bold green]Loading AI models and components...", spinner="dots"):
+        from chemstractor.commands.clean import clean_command
+    clean_command(
+        process_output_dir=process_output_dir
+    )
+
+
+@cli.command()
+@click.argument('outputs_dir', required=False)
+@click.option('--model', type=click.Choice(CHOICES), default=None, help="Model to use.")
+def clean_all(outputs_dir, model):
+    """Clean all output folders in the given path."""
+    if model is None:
+        model = prompt_for_model()
+    selected_model = choices_map[model]
+    AI.get_instance().set_selected_model(selected_model)
+
+    from rich.console import Console
+    console = Console(file=sys.__stdout__)
+    with console.status("[bold green]Loading AI models and components...", spinner="dots"):
+        from chemstractor.commands.clean_all import clean_all_command
+    clean_all_command(
+        outputs_dir=outputs_dir
+    )
+
+
+
