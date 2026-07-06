@@ -1,6 +1,6 @@
 import sys
 import click
-from chemstractor.models import AllSupportedModels, ONLINE_MODELS, OFFLINE_MODELS
+from chemstractor.AI import AI, AllSupportedModels, ONLINE_MODELS, OFFLINE_MODELS
 
 # Create display mapping to append a cloud emoji to server (online) models
 choices_map = {}
@@ -45,6 +45,7 @@ def process(pdf_path, output_dir, model, direct):
     if model is None:
         model = prompt_for_model()
     selected_model = choices_map[model]
+    AI.get_instance().set_selected_model(selected_model)
     
     same_folder = True
     if direct:
@@ -77,6 +78,7 @@ def process_all(pdf_dir, output_dir, model, direct):
     if model is None:
         model = prompt_for_model()
     selected_model = choices_map[model]
+    AI.get_instance().set_selected_model(selected_model)
 
     from rich.console import Console
     console = Console(file=sys.__stdout__)
@@ -99,6 +101,7 @@ def extract(pdf_path, output_dir, model):
     if model is None:
         model = prompt_for_model()
     selected_model = choices_map[model]
+    AI.get_instance().set_selected_model(selected_model)
 
     from rich.console import Console
     console = Console(file=sys.__stdout__)
@@ -121,6 +124,7 @@ def categorise(pdf_path, output_dir, model, direct):
     if model is None:
         model = prompt_for_model()
     selected_model = choices_map[model]
+    AI.get_instance().set_selected_model(selected_model)
     
     same_folder = True
     if direct:
@@ -153,6 +157,7 @@ def summarise(pdf_path, output_dir, model, direct):
     if model is None:
         model = prompt_for_model()
     selected_model = choices_map[model]
+    AI.get_instance().set_selected_model(selected_model)
     
     same_folder = True
     if direct:
@@ -185,6 +190,7 @@ def metadata(pdf_path, output_dir, model, direct):
     if model is None:
         model = prompt_for_model()
     selected_model = choices_map[model]
+    AI.get_instance().set_selected_model(selected_model)
     
     same_folder = True
     if direct:

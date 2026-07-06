@@ -11,6 +11,9 @@ if hasattr(sys.__stdout__, 'reconfigure'):
 if hasattr(sys.__stderr__, 'reconfigure'):
     sys.__stderr__.reconfigure(encoding='utf-8')
 
+from chemstractor.AI import AI
+AI() # Instantiate the singleton
+
 from chemstractor.commands.commands import cli
 
 if __name__ == '__main__':

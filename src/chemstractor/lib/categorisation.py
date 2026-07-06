@@ -1,16 +1,5 @@
-from google import genai
-from google.genai import types
 from pydantic import BaseModel, Field
-from dotenv import load_dotenv
-import sys
-import ollama
-import json
-import os
-
-from chemstractor.models import AllSupportedModels, ONLINE_MODELS, OFFLINE_MODELS
-
-load_dotenv()
-API_KEY = os.getenv('API_KEY')
+from chemstractor.AI import AI
 
 
 class TableFilter(BaseModel):
@@ -81,101 +70,30 @@ def get_categorise_prompt(table_string: str) -> str:
     """
 
 
-def categorise_table(table_text: str, model: AllSupportedModels = "gemini") -> TableCategoryResponse:
-    if model == "gemini":
-        model = "gemini-2.5-flash"
-
-    if model in ONLINE_MODELS:
-        return categorise_table_gemini(table_text, model)
-    elif model in OFFLINE_MODELS:
-        return categorise_table_local(table_text, model)
-
-    return TableCategoryResponse(success=False, error="Invalid model", contains_diffusion=False)
-
-
-def categorise_table_local(table_string: str, model="llama3.1") -> TableCategoryResponse:
-    prompt = f"""
-    You are a chemistry data classifier. Analyze the following extracted table 
-    and its surrounding context. Determine if it contains polymer chemical diffusion coefficient data.
+def categorise_table(table_text: str) -> TableCategoryResponse:
+    ai = AI.get_instance()
+    prompt = get_categorise_prompt(table_text)
     
-    Follow this chain of thought to classify:
-    1. Check if the table or its context contains scientific data resulting from a diffusion experiment (such as DOSY NMR, light scattering, etc.).
-    2. Check if the table specifically contains diffusion coefficients (look for headings/units indicating m^2 s^-1, cm^2/s, etc.).
-    3. Check if these diffusion coefficients correspond to polymers (macromolecules, copolymers, etc.), even if some are small molecules.
+    res = ai.prompt(
+        prompt=prompt,
+        schema=TableFilter,
+    )
     
-    Table Data:
-    {table_string}
-    """
-    try:
-        response = ollama.chat(
-            model=model,
-            messages=[{'role': 'user', 'content': prompt}],
-            format=TableFilter.model_json_schema(),
-            options={'temperature': 0.0} 
-        )
-        raw_json_string = response['message']['content']
-        parsed_data = json.loads(raw_json_string)
-        contains_diff = (
-            parsed_data.get('contains_scientific_data', False) and
-            parsed_data.get('contains_diffusion_coeff', False) and
-            parsed_data.get('contains_polymer_diffusion_coeff', False)
-        )
-        return TableCategoryResponse(
-            success=True,
-            error="",
-            contains_diffusion=contains_diff,
-            contains_scientific_data=parsed_data.get('contains_scientific_data', False),
-            contains_diffusion_coeff=parsed_data.get('contains_diffusion_coeff', False),
-            contains_polymer_diffusion_coeff=parsed_data.get('contains_polymer_diffusion_coeff', False)
-        )
-    except Exception as e:
-        return TableCategoryResponse(success=False, error=str(e), contains_diffusion=False)
-
-
-def categorise_table_gemini(table_string: str, model: str = 'gemini-2.5-flash') -> TableCategoryResponse:
-    client = genai.Client(api_key=API_KEY)
-    prompt = get_categorise_prompt(table_string)
-    
-    try:
-        response = client.models.generate_content(
-            model=model,
-            contents=prompt,
-            config=types.GenerateContentConfig(
-                response_mime_type="application/json",
-                response_schema=TableFilter,
-                temperature=0.0, 
-            ),
-        )
-        parsed = response.parsed
+    if res.success:
+        parsed = res.data
         contains_diff = (
             parsed.contains_scientific_data and
             parsed.contains_diffusion_coeff and
             parsed.contains_polymer_diffusion_coeff
         )
-        usage = None
-        if hasattr(response, 'usage_metadata') and response.usage_metadata:
-            usage = {
-                "prompt_token_count": response.usage_metadata.prompt_token_count,
-                "candidates_token_count": response.usage_metadata.candidates_token_count,
-                "total_token_count": response.usage_metadata.total_token_count
-            }
-    except Exception as e:
-        return TableCategoryResponse(success=False, error=str(e), contains_diffusion=False)
-    
-    return TableCategoryResponse(
-        success=True,
-        error="",
-        contains_diffusion=contains_diff,
-        contains_scientific_data=parsed.contains_scientific_data,
-        contains_diffusion_coeff=parsed.contains_diffusion_coeff,
-        contains_polymer_diffusion_coeff=parsed.contains_polymer_diffusion_coeff,
-        usage_metadata=usage
-    )
-
-
-
-
-    
-if __name__ == '__main__':
-
-    print(API_KEY)
+        return TableCategoryResponse(
+            success=True,
+            error="",
+            contains_diffusion=contains_diff,
+            contains_scientific_data=parsed.contains_scientific_data,
+            contains_diffusion_coeff=parsed.contains_diffusion_coeff,
+            contains_polymer_diffusion_coeff=parsed.contains_polymer_diffusion_coeff,
+            usage_metadata=res.usage_metadata
+        )
+    else:
+        return TableCategoryResponse(success=False, error=res.error, contains_diffusion=False)

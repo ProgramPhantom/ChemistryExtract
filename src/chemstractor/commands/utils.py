@@ -26,7 +26,7 @@ def prepare_processor(
         - Instantiates PDFProcessor and loads it using load_pdf(pdf_path, output_dir).
     """
     console = Console(file=sys.__stdout__)
-    processor = PDFProcessor(model=model)
+    processor = PDFProcessor()
 
     if direct:
         process_output_dir = pdf_path_or_dir

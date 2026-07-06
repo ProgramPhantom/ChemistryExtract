@@ -5,8 +5,7 @@ from rich.console import Console
 from rich.tree import Tree
 from rich.live import Live
 
-from chemstractor.lib.processor import PDFProcessor
-from chemstractor.models import AllSupportedModels
+from chemstractor.AI import AllSupportedModels
 from chemstractor.commands.extract import run_extract
 from chemstractor.commands.categorise import run_categorise
 from chemstractor.commands.summarise import run_summarise

@@ -1,15 +1,5 @@
-from google import genai
-from google.genai import types
 from pydantic import BaseModel, Field
-from dotenv import load_dotenv
-import ollama
-import json
-import os
-
-from chemstractor.models import AllSupportedModels, ONLINE_MODELS, OFFLINE_MODELS
-
-load_dotenv()
-API_KEY = os.getenv('API_KEY')
+from chemstractor.AI import AI
 
 class PaperMetadata(BaseModel):
     title: str = Field(description="The main title of the academic paper (typically near the top). If not found, use 'Not Found'.")
@@ -30,7 +20,6 @@ class PaperMetadataResponse:
         self.usage_metadata = usage_metadata
 
 
-
 def get_metadata_prompt(parsed_markdown: str) -> str:
     return f"""
     You are an academic paper metadata extractor. Analyze the following parsed academic paper text (in Markdown format).
@@ -47,53 +36,16 @@ def get_metadata_prompt(parsed_markdown: str) -> str:
     """
 
 
-def extract_paper_metadata(parsed_markdown: str, model: AllSupportedModels = "gemini-2.5-flash") -> PaperMetadataResponse:
-    if model in ONLINE_MODELS:
-        return extract_paper_metadata_gemini(parsed_markdown, model)
-    elif model in OFFLINE_MODELS:
-        return extract_paper_metadata_local(parsed_markdown, model)
-
-    return PaperMetadataResponse(success=False, error="Invalid model")
-
-
-def extract_paper_metadata_local(parsed_markdown: str, model: OFFLINE_MODELS = "llama3.1") -> PaperMetadataResponse:
-    prompt = get_metadata_prompt(parsed_markdown)
-    try:
-        response = ollama.chat(
-            model=model,
-            messages=[{'role': 'user', 'content': prompt}],
-            format=PaperMetadata.model_json_schema(),
-            options={'temperature': 0.0}
-        )
-        raw_json_string = response['message']['content']
-        parsed_data = json.loads(raw_json_string)
-        data = PaperMetadata(**parsed_data)
-        return PaperMetadataResponse(success=True, error="", data=data)
-    except Exception as e:
-        return PaperMetadataResponse(success=False, error=str(e))
-
-
-def extract_paper_metadata_gemini(parsed_markdown: str, model: ONLINE_MODELS = 'gemini-2.5-flash') -> PaperMetadataResponse:
-    client = genai.Client(api_key=API_KEY)
+def extract_paper_metadata(parsed_markdown: str) -> PaperMetadataResponse:
+    ai = AI.get_instance()
     prompt = get_metadata_prompt(parsed_markdown)
     
-    try:
-        response = client.models.generate_content(
-            model=model,
-            contents=prompt,
-            config=types.GenerateContentConfig(
-                response_mime_type="application/json",
-                response_schema=PaperMetadata,
-                temperature=0.0,
-            ),
-        )
-        usage = None
-        if hasattr(response, 'usage_metadata') and response.usage_metadata:
-            usage = {
-                "prompt_token_count": response.usage_metadata.prompt_token_count,
-                "candidates_token_count": response.usage_metadata.candidates_token_count,
-                "total_token_count": response.usage_metadata.total_token_count
-            }
-        return PaperMetadataResponse(success=True, error="", data=response.parsed, usage_metadata=usage)
-    except Exception as e:
-        return PaperMetadataResponse(success=False, error=str(e))
+    res = ai.prompt(
+        prompt=prompt,
+        schema=PaperMetadata,
+    )
+    
+    if res.success:
+        return PaperMetadataResponse(success=True, error="", data=res.data, usage_metadata=res.usage_metadata)
+    else:
+        return PaperMetadataResponse(success=False, error=res.error)

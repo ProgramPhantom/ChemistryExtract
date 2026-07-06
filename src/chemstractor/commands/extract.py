@@ -7,7 +7,7 @@ from rich.spinner import Spinner
 from rich.live import Live
 
 from chemstractor.lib.processor import PDFProcessor
-from chemstractor.models import AllSupportedModels
+from chemstractor.AI import AllSupportedModels
 
 def get_hardware_acceleration_backends() -> list[str]:
     """Detects available hardware acceleration backends (CUDA, MPS, DirectML)."""
@@ -62,7 +62,7 @@ def extract_command(pdf_path: str, output_dir: str, model: AllSupportedModels = 
     
     tree = Tree(f"[bold cyan]📄 {base_name}[/bold cyan]")
     
-    processor = PDFProcessor(model=model)
+    processor = PDFProcessor()
     processor.load_pdf(pdf_path, output_dir)
     
     timer = time.time()

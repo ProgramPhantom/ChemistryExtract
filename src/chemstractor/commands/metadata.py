@@ -7,14 +7,14 @@ from rich.spinner import Spinner
 from rich.live import Live
 
 from chemstractor.lib.processor import PDFProcessor
-from chemstractor.models import AllSupportedModels, pricing_matrix
 from chemstractor.commands.extract import run_extract
+from chemstractor.AI import AI, AllSupportedModels, pricing_matrix
 
 
 def run_metadata(processor: PDFProcessor, tree: Tree):
     """Executes the metadata extraction process on the processor and updates the rich Tree with status/pricing."""
     meta_node = tree.add(Spinner("dots", text="[bold cyan]Extracting paper-level metadata...[/bold cyan]"))
-    model = processor.model
+    model = AI.get_instance().selected_model
 
     for event in processor.extract_metadata():
         if event["status"] == "working":

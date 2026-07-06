@@ -7,7 +7,6 @@ from chemstractor.lib.extractor import TableExtractor
 from chemstractor.lib.categorisation import categorise_table
 from chemstractor.lib.summariser import summarise_table_conditions
 from chemstractor.lib.metadata import extract_paper_metadata
-from chemstractor.models import pricing_matrix
 
 
 class MetadataResult:
@@ -19,8 +18,7 @@ class MetadataResult:
 
 
 class PDFProcessor:
-    def __init__(self, model: str = "gemini-2.5-flash"):
-        self.model = model
+    def __init__(self):
         self.pdf_path = None
         self.base_name = None
         self.base_no_ext = None
@@ -263,7 +261,7 @@ class PDFProcessor:
             }
             
             table_text = self.extractor.tables_markdown[i]
-            res = categorise_table(table_text, model=self.model)
+            res = categorise_table(table_text)
             if res.success:
                 status = "Contains" if res.contains_diffusion else "Does NOT contain"
                 status_msg = f"{status} chemical diffusion coefficient data"
@@ -316,7 +314,7 @@ class PDFProcessor:
         yield {"status": "working", "message": "Extracting paper-level metadata..."}
         
         input_markdown = self.extractor.raw_markdown or self.extractor.parsed_markdown
-        metadata_res = extract_paper_metadata(input_markdown, model=self.model)
+        metadata_res = extract_paper_metadata(input_markdown)
         self.metadata_res = metadata_res
         
         metadata_error = None if metadata_res.success else metadata_res.error
@@ -358,7 +356,7 @@ class PDFProcessor:
             }
             
             table_text = self.extractor.tables_markdown[i]
-            res = summarise_table_conditions(table_text, model=self.model)
+            res = summarise_table_conditions(table_text)
             
             if res.success:
                 # Store experimental conditions only

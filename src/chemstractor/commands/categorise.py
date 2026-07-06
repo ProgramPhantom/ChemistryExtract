@@ -7,13 +7,13 @@ from rich.spinner import Spinner
 from rich.live import Live
 
 from chemstractor.lib.processor import PDFProcessor
-from chemstractor.models import AllSupportedModels, pricing_matrix
 from chemstractor.commands.extract import run_extract
+from chemstractor.AI import AI, AllSupportedModels, pricing_matrix
 
 def run_categorise(processor: PDFProcessor, tree: Tree):
     """Executes the categorisation process on the processor and updates the rich Tree with status/pricing."""
     cat_node = tree.add(Spinner("dots", text="[bold cyan]Categorising extracted tables...[/bold cyan]"))
-    model = processor.model
+    model = AI.get_instance().selected_model
     for event in processor.categorise():
         if event["status"] == "working" or event["status"] == "table_start":
             cat_node.label = Spinner("dots", text=f"[bold cyan]{event['message']}[/bold cyan]")

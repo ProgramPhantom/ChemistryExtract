@@ -7,7 +7,7 @@ from rich.console import Console
 from rich.rule import Rule
 from rich.table import Table
 
-from chemstractor.models import AllSupportedModels
+from chemstractor.AI import AllSupportedModels
 from chemstractor.commands.process import run_process_single
 
 def setup_run_layout(output_parent_dir: str) -> str:
