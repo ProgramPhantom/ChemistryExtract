@@ -7,7 +7,6 @@ from rich.console import Console
 from rich.rule import Rule
 from rich.table import Table
 
-from chemstractor.AI import AllSupportedModels
 from chemstractor.commands.process import run_process_single
 
 def setup_run_layout(output_parent_dir: str) -> str:
@@ -49,7 +48,6 @@ def print_summary_table(console: Console, summary_data: list[dict]):
 def process_all_command(
     pdf_dir: str,
     output_parent_dir: str,
-    model: AllSupportedModels = "gemini-2.5-flash",
     direct: bool = False
 ):
     console = Console(file=sys.__stdout__)
@@ -70,7 +68,6 @@ def process_all_command(
             res = run_process_single(
                 pdf_path=dest_subdir_path,
                 output_dir=dest_subdir_path,
-                model=model,
                 console=console,
                 direct=True,
                 same_folder=True
@@ -81,7 +78,6 @@ def process_all_command(
             res = run_process_single(
                 pdf_path=pdf_path,
                 output_dir=run_dir,
-                model=model,
                 console=console,
                 direct=False
             )

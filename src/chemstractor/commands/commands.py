@@ -62,7 +62,6 @@ def process(pdf_path, output_dir, model, direct):
     process_command(
         pdf_path=pdf_path,
         output_dir=output_dir,
-        model=selected_model,
         direct=direct,
         same_folder=same_folder
     )
@@ -87,7 +86,6 @@ def process_all(pdf_dir, output_dir, model, direct):
     process_all_command(
         pdf_dir=pdf_dir,
         output_parent_dir=output_dir,
-        model=selected_model,
         direct=direct
     )
 
@@ -95,13 +93,8 @@ def process_all(pdf_dir, output_dir, model, direct):
 @cli.command()
 @click.argument('pdf_path', type=click.Path(exists=True))
 @click.option('--output-dir', default="./", help="Directory where the output folder appears.")
-@click.option('--model', type=click.Choice(CHOICES), default=None, help="Model to use.")
-def extract(pdf_path, output_dir, model):
+def extract(pdf_path, output_dir):
     """Extract text and tables from a PDF."""
-    if model is None:
-        model = prompt_for_model()
-    selected_model = choices_map[model]
-    AI.get_instance().set_selected_model(selected_model)
 
     from rich.console import Console
     console = Console(file=sys.__stdout__)
@@ -109,9 +102,24 @@ def extract(pdf_path, output_dir, model):
         from chemstractor.commands.extract import extract_command
     extract_command(
         pdf_path=pdf_path,
-        output_dir=output_dir,
-        model=selected_model
+        output_dir=output_dir
     )
+
+
+@cli.command()
+@click.argument('pdf_dir', required=False)
+@click.argument('output_dir', required=False)
+def extract_all(pdf_dir, output_dir):
+    """Extract text and tables from all PDFs in a directory."""
+    from rich.console import Console
+    console = Console(file=sys.__stdout__)
+    with console.status("[bold green]Loading AI models and components...", spinner="dots"):
+        from chemstractor.commands.extract_all import extract_all_command
+    extract_all_command(
+        pdf_dir=pdf_dir,
+        output_parent_dir=output_dir
+    )
+
 
 
 @cli.command()
@@ -141,7 +149,6 @@ def categorise(pdf_path, output_dir, model, direct):
     categorise_command(
         pdf_path=pdf_path,
         output_dir=output_dir,
-        model=selected_model,
         direct=direct,
         same_folder=same_folder
     )
@@ -174,7 +181,6 @@ def summarise(pdf_path, output_dir, model, direct):
     summarise_command(
         pdf_path=pdf_path,
         output_dir=output_dir,
-        model=selected_model,
         direct=direct,
         same_folder=same_folder
     )
@@ -207,7 +213,6 @@ def metadata(pdf_path, output_dir, model, direct):
     metadata_command(
         pdf_path=pdf_path,
         output_dir=output_dir,
-        model=selected_model,
         direct=direct,
         same_folder=same_folder
     )

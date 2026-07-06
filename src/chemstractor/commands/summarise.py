@@ -8,7 +8,7 @@ from rich.live import Live
 
 from chemstractor.lib.processor import PDFProcessor
 from chemstractor.commands.extract import run_extract
-from chemstractor.AI import AI, AllSupportedModels, pricing_matrix
+from chemstractor.AI import AI, pricing_matrix
 
 def run_summarise(processor: PDFProcessor, tree: Tree):
     """Executes the summarisation process on the processor and updates the rich Tree with status/pricing."""
@@ -71,7 +71,6 @@ def run_summarise(processor: PDFProcessor, tree: Tree):
 def summarise_command(
     pdf_path: str,
     output_dir: str,
-    model: AllSupportedModels = "gemini-2.5-flash",
     direct: bool = False,
     same_folder: bool = True
 ):
@@ -82,7 +81,6 @@ def summarise_command(
     processor, output_dir = prepare_processor(
         pdf_path_or_dir=pdf_path,
         output_dir=output_dir,
-        model=model,
         direct=direct,
         same_folder=same_folder,
         suffix="summarised"

@@ -10,7 +10,6 @@ from chemstractor.lib.processor import PDFProcessor
 def prepare_processor(
     pdf_path_or_dir: str,
     output_dir: str,
-    model: str,
     direct: bool = False,
     same_folder: bool = True,
     suffix: str = "processed"

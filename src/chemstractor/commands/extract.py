@@ -7,7 +7,6 @@ from rich.spinner import Spinner
 from rich.live import Live
 
 from chemstractor.lib.processor import PDFProcessor
-from chemstractor.AI import AllSupportedModels
 
 def get_hardware_acceleration_backends() -> list[str]:
     """Detects available hardware acceleration backends (CUDA, MPS, DirectML)."""
@@ -56,7 +55,7 @@ def run_extract(processor: PDFProcessor, tree: Tree):
             ext_node.add(f"Saved {num_tables} tables (txt & csv) to [yellow]{os.path.relpath(processor.tables_dir)}[/yellow]")
             ext_node.add(f"Saved execution logs to [yellow]{os.path.relpath(processor.log_file_path)}[/yellow]")
 
-def extract_command(pdf_path: str, output_dir: str, model: AllSupportedModels = "gemini-2.5-flash"):
+def extract_command(pdf_path: str, output_dir: str):
     console = Console(file=sys.__stdout__)
     base_name = os.path.basename(pdf_path)
     

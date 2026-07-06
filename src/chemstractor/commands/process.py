@@ -5,7 +5,6 @@ from rich.console import Console
 from rich.tree import Tree
 from rich.live import Live
 
-from chemstractor.AI import AllSupportedModels
 from chemstractor.commands.extract import run_extract
 from chemstractor.commands.categorise import run_categorise
 from chemstractor.commands.summarise import run_summarise
@@ -14,7 +13,6 @@ from chemstractor.commands.metadata import run_metadata
 def run_process_single(
     pdf_path: str,
     output_dir: str,
-    model: AllSupportedModels = "gemini-2.5-flash",
     console: Console = None,
     direct: bool = False,
     same_folder: bool = True
@@ -30,7 +28,6 @@ def run_process_single(
     processor, output_dir = prepare_processor(
         pdf_path_or_dir=pdf_path,
         output_dir=output_dir,
-        model=model,
         direct=direct,
         same_folder=same_folder,
         suffix="processed"
@@ -71,7 +68,6 @@ def run_process_single(
 def process_command(
     pdf_path: str,
     output_dir: str,
-    model: AllSupportedModels = "gemini-2.5-flash",
     direct: bool = False,
     same_folder: bool = True
 ):
@@ -79,7 +75,6 @@ def process_command(
     run_process_single(
         pdf_path=pdf_path,
         output_dir=output_dir,
-        model=model,
         console=console,
         direct=direct,
         same_folder=same_folder
