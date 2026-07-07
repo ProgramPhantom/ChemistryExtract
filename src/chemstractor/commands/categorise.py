@@ -59,10 +59,14 @@ def run_categorise(processor: PDFProcessor, tree: Tree):
                         tokens_str = f" [dim](tokens: {in_t} in, {out_t} out{cost_item_str})[/dim]"
                         
                     if success:
-                        if "Does NOT contain" in status:
+                        if status == "Uninteresting":
                             status_styled = f"[blue]{status}[/blue]"
-                        else:
+                        elif status in ["raw", "coeff"]:
                             status_styled = f"[bold green]{status}[/bold green]"
+                        elif status == "unsure":
+                            status_styled = f"[yellow]{status}[/yellow]"
+                        else:
+                            status_styled = f"[blue]{status}[/blue]"
                         cat_node.add(f"{table_name}: {status_styled}{tokens_str}")
                     else:
                         cat_node.add(f"{table_name}: [red]{status}[/red]")

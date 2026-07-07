@@ -276,8 +276,7 @@ class PDFProcessor:
             table_text = self.extractor.tables_markdown[i]
             res = categorise_table(table_text, title=title, abstract=abstract)
             if res.success:
-                status = "Contains" if res.contains_diffusion else "Does NOT contain"
-                status_msg = f"{status} chemical diffusion coefficient data"
+                status_msg = res.contains_diffusion_coeff if res.contains_diffusion else "Not flagged"
                 self.cat_results.append((table_name, True, status_msg, res.usage_metadata))
                 
                 categorisation_data = {

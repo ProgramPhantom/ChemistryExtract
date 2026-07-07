@@ -118,17 +118,19 @@ def create_excel(
                 cell.border = thick_bottom
             
             curr_row += 1
-            def format_bool(val):
+            def format_val(val):
                 if val is True:
                     return "Yes"
                 if val is False:
                     return "No"
+                if isinstance(val, str):
+                    return val
                 return ""
-            write_metadata_row(curr_row, "Contains Scientific Data", format_bool(cat_data.get("contains_scientific_data")))
+            write_metadata_row(curr_row, "Contains Scientific Data", format_val(cat_data.get("contains_scientific_data")))
             curr_row += 1
-            write_metadata_row(curr_row, "Contains Diffusion Coefficients", format_bool(cat_data.get("contains_diffusion_coeff")))
+            write_metadata_row(curr_row, "Contains Diffusion Coefficients", format_val(cat_data.get("contains_diffusion_coeff")))
             curr_row += 1
-            write_metadata_row(curr_row, "Contains Polymer Diffusion Coefficients", format_bool(cat_data.get("contains_polymer_diffusion_coeff")))
+            write_metadata_row(curr_row, "Contains Polymer Diffusion Coefficients", format_val(cat_data.get("contains_polymer_diffusion_coeff")))
             
             curr_row += 2 # gap + dynamic next section start
 
