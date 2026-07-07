@@ -77,6 +77,19 @@ class AI:
             raise ValueError(f"Unsupported model: {model}")
         self.selected_model = model
 
+    def preload_model(self):
+        """Preloads the selected model if it is an offline (local Ollama) model."""
+        if self.selected_model in self.OFFLINE_MODELS:
+            try:
+                ollama.generate(model=self.selected_model, prompt='')
+            except Exception as e:
+                raise RuntimeError(
+                    f"Failed to preload local Ollama model '{self.selected_model}'. "
+                    f"Please make sure Ollama is running and the model is pulled. "
+                    f"Error: {e}"
+                )
+
+
     def prompt(self, prompt: str, schema: type[BaseModel], model: AllSupportedModels = None, temperature: float = 0.0) -> AIPromptResult:
         """General prompt endpoint which routes requests to either Gemini or local Ollama depending on the model."""
         if model is None:

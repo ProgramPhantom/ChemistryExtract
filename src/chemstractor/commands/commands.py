@@ -57,7 +57,8 @@ def process(pdf_path, output_dir, model, direct):
 
     from rich.console import Console
     console = Console(file=sys.__stdout__)
-    with console.status("[bold green]Loading AI models and components...", spinner="dots"):
+    with console.status(f"[bold green]Loading AI model {selected_model} and components...", spinner="dots"):
+        AI.get_instance().preload_model()
         from chemstractor.commands.process import process_command
     process_command(
         pdf_path=pdf_path,
@@ -81,7 +82,8 @@ def process_all(pdf_dir, output_dir, model, direct):
 
     from rich.console import Console
     console = Console(file=sys.__stdout__)
-    with console.status("[bold green]Loading AI models and components...", spinner="dots"):
+    with console.status(f"[bold green]Loading AI model {selected_model} and components...", spinner="dots"):
+        AI.get_instance().preload_model()
         from chemstractor.commands.process_all import process_all_command
     process_all_command(
         pdf_dir=pdf_dir,
@@ -144,7 +146,8 @@ def categorise(pdf_path, output_dir, model, direct):
 
     from rich.console import Console
     console = Console(file=sys.__stdout__)
-    with console.status("[bold green]Loading AI models and components...", spinner="dots"):
+    with console.status(f"[bold green]Loading AI model {selected_model} and components...", spinner="dots"):
+        AI.get_instance().preload_model()
         from chemstractor.commands.categorise import categorise_command
     categorise_command(
         pdf_path=pdf_path,
@@ -176,7 +179,8 @@ def summarise(pdf_path, output_dir, model, direct):
 
     from rich.console import Console
     console = Console(file=sys.__stdout__)
-    with console.status("[bold green]Loading AI models and components...", spinner="dots"):
+    with console.status(f"[bold green]Loading AI model {selected_model} and components...", spinner="dots"):
+        AI.get_instance().preload_model()
         from chemstractor.commands.summarise import summarise_command
     summarise_command(
         pdf_path=pdf_path,
@@ -208,7 +212,8 @@ def metadata(pdf_path, output_dir, model, direct):
 
     from rich.console import Console
     console = Console(file=sys.__stdout__)
-    with console.status("[bold green]Loading AI models and components...", spinner="dots"):
+    with console.status(f"[bold green]Loading AI model {selected_model} and components...", spinner="dots"):
+        AI.get_instance().preload_model()
         from chemstractor.commands.metadata import metadata_command
     metadata_command(
         pdf_path=pdf_path,
@@ -291,7 +296,8 @@ def clean(process_output_dir, model):
 
     from rich.console import Console
     console = Console(file=sys.__stdout__)
-    with console.status("[bold green]Loading AI models and components...", spinner="dots"):
+    with console.status(f"[bold green]Loading AI model {selected_model} and components...", spinner="dots"):
+        AI.get_instance().preload_model()
         from chemstractor.commands.clean import clean_command
     clean_command(
         process_output_dir=process_output_dir
@@ -310,7 +316,8 @@ def clean_all(outputs_dir, model):
 
     from rich.console import Console
     console = Console(file=sys.__stdout__)
-    with console.status("[bold green]Loading AI models and components...", spinner="dots"):
+    with console.status(f"[bold green]Loading AI model {selected_model} and components...", spinner="dots"):
+        AI.get_instance().preload_model()
         from chemstractor.commands.clean_all import clean_all_command
     clean_all_command(
         outputs_dir=outputs_dir
