@@ -112,7 +112,7 @@ def prepare_batch_dirs(
 
         # Scan for subfolders containing an 'extract' folder with output.md
         subfolders = []
-        for name in os.listdir(pdf_dir):
+        for name in sorted(os.listdir(pdf_dir)):
             path = os.path.join(pdf_dir, name)
             if os.path.isdir(path):
                 extract_path = os.path.join(path, "extract")
@@ -151,7 +151,7 @@ def prepare_batch_dirs(
             
         # Scan for PDF files in the corpus directory
         pdf_pattern = os.path.join(pdf_dir, "*.pdf")
-        pdf_files = glob.glob(pdf_pattern)
+        pdf_files = sorted(glob.glob(pdf_pattern))
         
         if not pdf_files:
             console.print(f"[bold red]Error: No PDF files found in {pdf_dir}[/bold red]")

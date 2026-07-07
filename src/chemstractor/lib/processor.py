@@ -283,7 +283,7 @@ class PDFProcessor:
                     "contains_scientific_data": res.contains_scientific_data,
                     "contains_diffusion_coeff": res.contains_diffusion_coeff,
                     "contains_polymer_diffusion_coeff": res.contains_polymer_diffusion_coeff,
-                    "contains_diffusion": res.contains_diffusion
+                    "flagged": res.contains_diffusion
                 }
                 self.cat_data_list.append(categorisation_data)
                 

@@ -59,7 +59,7 @@ def run_categorise(processor: PDFProcessor, tree: Tree):
                         tokens_str = f" [dim](tokens: {in_t} in, {out_t} out{cost_item_str})[/dim]"
                         
                     if success:
-                        if status == "Uninteresting":
+                        if status == "Not flagged":
                             status_styled = f"[blue]{status}[/blue]"
                         elif status in ["raw", "coeff"]:
                             status_styled = f"[bold green]{status}[/bold green]"
