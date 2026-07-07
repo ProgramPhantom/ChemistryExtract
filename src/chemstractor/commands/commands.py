@@ -324,4 +324,62 @@ def clean_all(outputs_dir, model):
     )
 
 
+@cli.command()
+@click.argument('pdf_path', type=click.Path(exists=True))
+@click.argument('output_dir', required=False)
+@click.option('--model', type=click.Choice(CHOICES), default=None, help="Model to use.")
+@click.option('--direct', '-d', is_flag=True, help="Input is a process output folder rather than a PDF.")
+def interpret(pdf_path, output_dir, model, direct):
+    """Interpret coeff tables extracted from a PDF or process output folder."""
+    if model is None:
+        model = prompt_for_model()
+    selected_model = choices_map[model]
+    AI.get_instance().set_selected_model(selected_model)
+    
+    same_folder = True
+    if direct:
+        prompt_msg = (
+            "Would you like to have the output of this command be the same as the input folder? "
+            "(Pre-existing process output might be overridden)"
+        )
+        same_folder = click.confirm(prompt_msg, default=True)
+
+    from rich.console import Console
+    console = Console(file=sys.__stdout__)
+    with console.status(f"[bold green]Loading AI model {selected_model} and components...", spinner="dots"):
+        AI.get_instance().preload_model()
+        from chemstractor.commands.interpret import interpret_command
+    interpret_command(
+        pdf_path=pdf_path,
+        output_dir=output_dir,
+        direct=direct,
+        same_folder=same_folder
+    )
+
+
+@cli.command()
+@click.argument('pdf_dir', required=False)
+@click.argument('output_dir', required=False)
+@click.option('--model', type=click.Choice(CHOICES), default=None, help="Model to use.")
+@click.option('--direct', '-d', is_flag=True, help="Input is a directory of process output folders rather than PDFs.")
+def interpret_all(pdf_dir, output_dir, model, direct):
+    """Interpret all tables in a directory of PDFs or process output folders."""
+    if model is None:
+        model = prompt_for_model()
+    selected_model = choices_map[model]
+    AI.get_instance().set_selected_model(selected_model)
+
+    from rich.console import Console
+    console = Console(file=sys.__stdout__)
+    with console.status(f"[bold green]Loading AI model {selected_model} and components...", spinner="dots"):
+        AI.get_instance().preload_model()
+        from chemstractor.commands.interpret_all import interpret_all_command
+    interpret_all_command(
+        pdf_dir=pdf_dir,
+        output_parent_dir=output_dir,
+        direct=direct
+    )
+
+
+
 

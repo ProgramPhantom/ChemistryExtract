@@ -7,6 +7,7 @@ from chemstractor.lib.extractor import TableExtractor
 from chemstractor.lib.categoriser import categorise_table
 from chemstractor.lib.summariser import summarise_table_conditions
 from chemstractor.lib.metadata import extract_paper_metadata
+from chemstractor.lib.interpreter import interpret_table
 
 
 class MetadataResult:
@@ -31,10 +32,12 @@ class PDFProcessor:
         self.parsed_md_path = None
         self.clean_md_path = None
         self.log_file_path = None
-        
         self.categorisation_dir = None
         self.summary_dir = None
         self.summary_json_path = None
+        self.interpretation_dir = None
+        self.interpretation_data_list = []
+        self.interpret_results = []
         
         # State
         self.extractor = None
@@ -61,10 +64,12 @@ class PDFProcessor:
         self.parsed_md_path = os.path.join(self.extract_dir, "output.md")
         self.clean_md_path = os.path.join(self.extract_dir, "output_clean.md")
         self.log_file_path = os.path.join(self.extract_dir, f"log_{self.base_name}.log")
-        
         self.categorisation_dir = os.path.join(self.output_dir, "categorisation")
         self.summary_dir = os.path.join(self.output_dir, "summary")
         self.summary_json_path = os.path.join(self.summary_dir, "summary.json")
+        self.interpretation_dir = os.path.join(self.output_dir, "interpretation")
+        self.interpretation_data_list = []
+        self.interpret_results = []
         
         self.extractor = None
         self.cat_data_list = []
@@ -93,6 +98,9 @@ class PDFProcessor:
         self.categorisation_dir = os.path.join(self.output_dir, "categorisation")
         self.summary_dir = os.path.join(self.output_dir, "summary")
         self.summary_json_path = os.path.join(self.summary_dir, "summary.json")
+        self.interpretation_dir = os.path.join(self.output_dir, "interpretation")
+        self.interpretation_data_list = []
+        self.interpret_results = []
         
         # State initialization
         self.extractor = None
@@ -110,7 +118,8 @@ class PDFProcessor:
             "categorisation": [],
             "summary_tables": [],
             "tables_csv": [],
-            "tables_txt": []
+            "tables_txt": [],
+            "interpretation": []
         }
         
         # 1. Load Extract Data
@@ -194,6 +203,18 @@ class PDFProcessor:
                 except Exception as e:
                     self._log_error(f"Error loading text table {txt_path}: {e}")
             self.command_outputs["tables_txt"].append(txt_content)
+            
+            # Interpretation
+            interp_path = os.path.join(self.interpretation_dir, f"table{i + 1}.json")
+            interp_data = None
+            if os.path.exists(interp_path):
+                try:
+                    with open(interp_path, 'r', encoding='utf-8') as f:
+                        interp_data = json.load(f)
+                except Exception as e:
+                    self._log_error(f"Error loading interpretation JSON {interp_path}: {e}")
+            self.interpretation_data_list.append(interp_data)
+            self.command_outputs["interpretation"].append(interp_data)
 
 
     def load_extract_data(self):
@@ -408,6 +429,92 @@ class PDFProcessor:
             "results": self.sum_results
         }
 
+    def interpret(self):
+        """Interprets each table categorized as 'coeff' in-memory and yields status events."""
+        if not self.extractor:
+            raise RuntimeError("Must call extract() before interpreting tables.")
+            
+        start_time = time.time()
+        yield {"status": "working", "message": "Interpreting 'coeff' tables..."}
+        
+        self.interpret_results = []
+        self.interpretation_data_list = []
+        
+        title = None
+        abstract = None
+        if self.metadata_res and self.metadata_res.success and self.metadata_res.data:
+            if hasattr(self.metadata_res.data, "model_dump"):
+                meta_dict = self.metadata_res.data.model_dump()
+            elif isinstance(self.metadata_res.data, dict):
+                meta_dict = self.metadata_res.data
+            else:
+                meta_dict = {}
+            title = meta_dict.get("title")
+            abstract = meta_dict.get("abstract")
+            
+        for i in range(self.num_tables):
+            table_name = f"table{i + 1}.txt"
+            
+            # Check if this table has categorisation "coeff"
+            cat_data = self.cat_data_list[i] if i < len(self.cat_data_list) else None
+            is_coeff = cat_data and cat_data.get("contains_diffusion_coeff") == "coeff"
+            
+            if not is_coeff:
+                # Skip tables that are not "coeff"
+                self.interpret_results.append((table_name, True, "Skipped (not coeff)", None, []))
+                self.interpretation_data_list.append(None)
+                continue
+                
+            yield {
+                "status": "table_start",
+                "table_idx": i,
+                "table_name": table_name,
+                "message": f"Interpreting table {i + 1}/{self.num_tables}..."
+            }
+            
+            table_text = self.extractor.tables_markdown[i]
+            res = interpret_table(table_text, title=title, abstract=abstract)
+            
+            if res.success:
+                data_dict = res.data.model_dump()
+                data_dict["calculator_calls"] = res.calculator_calls
+                
+                self.interpretation_data_list.append(data_dict)
+                status_msg = "Successfully interpreted"
+                self.interpret_results.append((table_name, True, status_msg, res.usage_metadata, res.calculator_calls))
+                
+                yield {
+                    "status": "table_complete",
+                    "table_idx": i,
+                    "table_name": table_name,
+                    "success": True,
+                    "status_message": status_msg,
+                    "usage_metadata": res.usage_metadata,
+                    "calculator_calls": res.calculator_calls
+                }
+            else:
+                status_msg = f"Failed: {res.error}"
+                self.interpret_results.append((table_name, False, status_msg, None, res.calculator_calls))
+                self.interpretation_data_list.append(None)
+                
+                yield {
+                    "status": "table_complete",
+                    "table_idx": i,
+                    "table_name": table_name,
+                    "success": False,
+                    "status_message": status_msg,
+                    "usage_metadata": None,
+                    "calculator_calls": res.calculator_calls
+                }
+                
+        elapsed_time = time.time() - start_time
+        yield {
+            "status": "complete",
+            "message": "Interpreted coeff tables",
+            "elapsed_time": elapsed_time,
+            "results": self.interpret_results
+        }
+
 
     def create_excel(self, dest_path: str = None) -> None:
         """Creates a beautifully formatted Excel document using the in-memory data of the processor."""
@@ -564,6 +671,15 @@ class PDFProcessor:
                     json_file_path = os.path.join(tables_summary_dir, f"table{i + 1}.json")
                     with open(json_file_path, 'w', encoding='utf-8') as jf:
                         json.dump(sum_data, jf, indent=2)
+                        
+        # 4. Save interpretation JSONs if available
+        if self.interpretation_data_list:
+            os.makedirs(self.interpretation_dir, exist_ok=True)
+            for i, interp_data in enumerate(self.interpretation_data_list):
+                if interp_data is not None:
+                    json_file_path = os.path.join(self.interpretation_dir, f"table{i + 1}.json")
+                    with open(json_file_path, 'w', encoding='utf-8') as jf:
+                        json.dump(interp_data, jf, indent=2)
                         
         self.save_summary_json()
 
