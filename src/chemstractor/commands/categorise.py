@@ -45,7 +45,7 @@ def run_categorise(processor: PDFProcessor, tree: Tree):
             if not cat_results:
                 cat_node.add("[dim]No tables found to categorise[/dim]")
             else:
-                for item in cat_results:
+                for idx, item in enumerate(cat_results):
                     table_name, success, status, usage_metadata = item
                     tokens_str = ""
                     if usage_metadata:
@@ -60,7 +60,15 @@ def run_categorise(processor: PDFProcessor, tree: Tree):
                         
                     if success:
                         if status == "Not flagged":
-                            status_styled = f"[blue]{status}[/blue]"
+                            reasons = []
+                            cat_data = processor.cat_data_list[idx] if idx < len(processor.cat_data_list) else None
+                            if cat_data:
+                                if not cat_data.get("contains_scientific_data", False):
+                                    reasons.append("no experimental data")
+                                if not cat_data.get("contains_polymer_diffusion_coeff", False):
+                                    reasons.append("no polymers")
+                            reasons_str = f" ({', '.join(reasons)})" if reasons else ""
+                            status_styled = f"[blue]{status}{reasons_str}[/blue]"
                         elif status in ["raw", "coeff"]:
                             status_styled = f"[bold green]{status}[/bold green]"
                         elif status == "unsure":
