@@ -133,11 +133,8 @@ def prepare_batch_dirs(
             base_name = os.path.basename(src_subdir_path)
             dest_subdir_path = os.path.join(run_dir, base_name)
             
-            # Copy extract folder as-is
-            src_extract = os.path.join(src_subdir_path, "extract")
-            dest_extract = os.path.join(dest_subdir_path, "extract")
-            os.makedirs(dest_subdir_path, exist_ok=True)
-            shutil.copytree(src_extract, dest_extract)
+            # Copy the entire subdirectory recursively to preserve categorisation, summary, etc.
+            shutil.copytree(src_subdir_path, dest_subdir_path)
             
             target_dirs.append(dest_subdir_path)
             
