@@ -19,11 +19,17 @@ def run_interpret(processor: PDFProcessor, tree: Tree):
         interpret_node.label = "[yellow]⚠[/yellow] No extracted tables found to interpret."
         return
 
+    # Check if we have categorisation data loaded
+    categorised_count = sum(1 for c in processor.cat_data_list if c is not None)
+    if categorised_count == 0:
+        interpret_node.label = "[bold red]Error: No table categorisation files found. Please run the categorise command first.[/bold red]"
+        return
+
     # Check if we have categorisation data loaded and if any are coeff
     has_coeff = False
     for i in range(processor.num_tables):
         cat_data = processor.cat_data_list[i] if i < len(processor.cat_data_list) else None
-        if cat_data and cat_data.get("contains_diffusion_coeff") == "coeff":
+        if cat_data and cat_data.get("contains_diffusion_coeff") in ["coeff", True]:
             has_coeff = True
             break
             

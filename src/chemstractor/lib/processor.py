@@ -434,6 +434,11 @@ class PDFProcessor:
         if not self.extractor:
             raise RuntimeError("Must call extract() before interpreting tables.")
             
+        # Check if categorisation data is available
+        categorised_count = sum(1 for c in self.cat_data_list if c is not None)
+        if categorised_count == 0:
+            raise RuntimeError("No table categorisation files found. Please run categorise first.")
+            
         start_time = time.time()
         yield {"status": "working", "message": "Interpreting 'coeff' tables..."}
         
@@ -457,7 +462,7 @@ class PDFProcessor:
             
             # Check if this table has categorisation "coeff"
             cat_data = self.cat_data_list[i] if i < len(self.cat_data_list) else None
-            is_coeff = cat_data and cat_data.get("contains_diffusion_coeff") == "coeff"
+            is_coeff = cat_data and cat_data.get("contains_diffusion_coeff") in ["coeff", True]
             
             if not is_coeff:
                 # Skip tables that are not "coeff"
