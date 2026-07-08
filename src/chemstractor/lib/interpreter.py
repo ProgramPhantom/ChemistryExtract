@@ -88,21 +88,37 @@ class TableInterpretationResponse:
 
 def calculate_math(expression: str) -> float:
     """
-    Evaluates a mathematical expression and returns the result as a standard decimal string. 
+    Evaluates a mathematical expression and returns the result as a standard decimal string.
     Use this for ANY algebra, inversion, logarithms, or multiplication.
+    
+    Supported functions:
+    - log10(x) or lg(x): log base 10
+    - log(x): natural log (ln)
+    - exp(x): e^x
+    - sqrt(x): square root
+    - pow(x, y) or x**y: exponentiation
+    - Basic operators: +, -, *, /, parenthesis
+    
+    CRITICAL: The expression must contain ONLY numbers and operators/functions. 
+    Do NOT include variable names (such as 'c', 'K', 'a', 'v', or polymer names) in the expression. 
+    You must substitute the actual extracted raw numerical value into the expression.
+    For example:
+    - Correct: "10**-2.20882" or "10**2.20882"
+    - Incorrect: "10**c" or "lg(c)"
     """
     try:
         # Define allowed variables/functions from math module
         allowed_names = {
             k: v for k, v in math.__dict__.items() if not k.startswith("__")
         }
-        # Add basic functions
+        # Add basic functions and lg mapping
         allowed_names.update({
             'abs': abs,
             'float': float,
             'int': int,
             'pow': pow,
             'round': round,
+            'lg': math.log10,
         })
         # Evaluate safely
         val = float(eval(expression, {"__builtins__": None}, allowed_names))
@@ -193,7 +209,9 @@ def interpret_table(table_text: str, title: str | None = None, abstract: str | N
         mh_system_instruction = (
             "You are a precise chemistry data extractor. You must NEVER do math in your head. "
             "If any parameter is transformed or scaled in the table (e.g. log, ln, reciprocal, or a power of 10 multiplier like 10^-8), "
-            "you MUST call the calculate_math tool to compute the standard value, and you MUST store the returned result of the calculator tool call into the standard value field (e.g. K_value or a_value)."
+            "you MUST call the calculate_math tool to compute the standard value, and you MUST store the returned result of the calculator tool call into the standard value field (e.g. K_value or a_value).\n"
+            "CRITICAL: When calling calculate_math, formulate the mathematical expression using only raw numbers and mathematical functions (like log10, lg, ln, exp). "
+            "Do NOT include variable names (such as 'c', 'K', 'a', 'v') in the expression. You must substitute the actual raw numerical value into the expression."
         )
         res_mh = ai.prompt(
             prompt=mh_prompt,
@@ -222,7 +240,9 @@ def interpret_table(table_text: str, title: str | None = None, abstract: str | N
         flory_system_instruction = (
             "You are a precise chemistry data extractor. You must NEVER do math in your head. "
             "If any parameter is transformed or scaled in the table (e.g. log, ln, reciprocal, or a power of 10 multiplier like 10^-8), "
-            "you MUST call the calculate_math tool to compute the standard value, and you MUST store the returned result of the calculator tool call into the standard value field (e.g. v_value or c_value)."
+            "you MUST call the calculate_math tool to compute the standard value, and you MUST store the returned result of the calculator tool call into the standard value field (e.g. v_value or c_value).\n"
+            "CRITICAL: When calling calculate_math, formulate the mathematical expression using only raw numbers and mathematical functions (like log10, lg, ln, exp). "
+            "Do NOT include variable names (such as 'c', 'K', 'a', 'v') in the expression. You must substitute the actual raw numerical value into the expression."
         )
         res_flory = ai.prompt(
             prompt=flory_prompt,
