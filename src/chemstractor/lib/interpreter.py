@@ -30,7 +30,28 @@ class FloryEntry(BaseModel):
     c_value: float = Field(description="The standard, calculated/converted value of the constant c. If c_transformation is 'log', c_value = 10^raw_c_value. If 'ln', c_value = e^raw_c_value. If 'none', c_value = raw_c_value.")
 
 
-# 3. Define the wrapper schema for the ENTIRE TABLE
+# 3. Define the extraction schemas for the sequential runs
+class MarkHouwinkExtraction(BaseModel):
+    is_mark_houwink_data: bool = Field(
+        description="True if the table contains Mark-Houwink equation parameters (K and a). False otherwise."
+    )
+    mh_entries: List[MarkHouwinkEntry] = Field(
+        default=[],
+        description="A list containing one entry for EVERY valid Mark-Houwink row in the table. Do not skip any rows."
+    )
+
+
+class FloryExtraction(BaseModel):
+    is_flory_data: bool = Field(
+        description="True if the table contains Flory coefficient and constant parameters (v and c). False otherwise."
+    )
+    flory_entries: List[FloryEntry] = Field(
+        default=[],
+        description="A list containing one entry for EVERY valid Flory parameter row in the table. Do not skip any rows."
+    )
+
+
+# 4. Define the wrapper schema for the ENTIRE TABLE
 class TableExtraction(BaseModel):
     is_mark_houwink_data: bool = Field(
         description="True if the table contains Mark-Houwink equation parameters (K and a). False otherwise."
@@ -38,7 +59,7 @@ class TableExtraction(BaseModel):
     is_flory_data: bool = Field(
         description="True if the table contains Flory coefficient and constant parameters (v and c). False otherwise."
     )
-    entries: List[MarkHouwinkEntry] = Field(
+    mh_entries: List[MarkHouwinkEntry] = Field(
         default=[],
         description="A list containing one entry for EVERY valid Mark-Houwink row in the table. Do not skip any rows. Leave empty if the table does not contain Mark-Houwink parameters."
     )
@@ -87,37 +108,47 @@ def calculate_math(expression: str) -> float:
         return f"Error computing {expression}: {e}"
 
 
-def get_interpret_prompt(table_text: str, title: str | None = None, abstract: str | None = None, cat_data: dict | None = None) -> str:
+def get_mark_houwink_interpret_prompt(table_text: str, title: str | None = None, abstract: str | None = None) -> str:
     context_str = ""
     if title:
         context_str += f"\n    Paper Title: {title}"
     if abstract:
         context_str += f"\n    Paper Abstract: {abstract}"
         
-    extraction_target = []
-    if cat_data:
-        if cat_data.get("contains_mark_houwink_parameters", False):
-            extraction_target.append("Mark-Houwink parameters (K and a)")
-        if cat_data.get("contains_flory_parameters", False):
-            extraction_target.append("Flory parameters (coefficient v and constant c)")
-            
-    if not extraction_target:
-        extraction_target = ["Mark-Houwink parameters (K and a) and/or Flory parameters (coefficient v and constant c)"]
-        
-    target_str = " and ".join(extraction_target)
-
     return f"""
     You are a chemistry data converter. Analyze the following extracted table and its surrounding context.
-    Your task is to extract {target_str} for each row where applicable.
+    Your task is to extract Mark-Houwink equation parameters (K and a) for each row where applicable.
     
-    For Mark-Houwink entries (if extracting):
+    For Mark-Houwink entries:
     Extract the polymer name, solvent, temperature, and Mark-Houwink coefficients (K and a).
     
-    For Flory entries (if extracting):
+    If the K or a coefficients in the table are transformed (for example, if they are listed as log(K), ln(K), or 1/a, or reciprocal of a),
+    you MUST call the `calculate_math` tool to compute the standard/converted K and a values.
+    Do NOT do any math, logarithm, exponentiation, or reciprocal calculation in your head. Use the `calculate_math` tool!
+    
+    {context_str}
+    
+    Table Data:
+    {table_text}
+    """
+
+
+def get_flory_interpret_prompt(table_text: str, title: str | None = None, abstract: str | None = None) -> str:
+    context_str = ""
+    if title:
+        context_str += f"\n    Paper Title: {title}"
+    if abstract:
+        context_str += f"\n    Paper Abstract: {abstract}"
+        
+    return f"""
+    You are a chemistry data converter. Analyze the following extracted table and its surrounding context.
+    Your task is to extract Flory parameters (coefficient v and constant c) for each row where applicable.
+    
+    For Flory entries:
     Extract the polymer name, solvent, temperature, and Flory parameters (coefficient v and constant c).
     
-    If the coefficients/parameters in the table are transformed (for example, if they are listed as log(X), ln(X), 1/X, or reciprocal of X),
-    you MUST call the `calculate_math` tool to compute the standard/converted values.
+    If the coefficient v or constant c in the table are transformed (for example, if they are listed as log(c), ln(c), 1/v, or reciprocal of v),
+    you MUST call the `calculate_math` tool to compute the standard/converted v and c values.
     Do NOT do any math, logarithm, exponentiation, or reciprocal calculation in your head. Use the `calculate_math` tool!
     
     {context_str}
@@ -129,30 +160,104 @@ def get_interpret_prompt(table_text: str, title: str | None = None, abstract: st
 
 def interpret_table(table_text: str, title: str | None = None, abstract: str | None = None, cat_data: dict | None = None) -> TableInterpretationResponse:
     ai = AI.get_instance()
-    prompt = get_interpret_prompt(table_text, title=title, abstract=abstract, cat_data=cat_data)
-    system_instruction = (
-        "You are a precise chemistry data extractor. You must NEVER do math in your head. "
-        "If you need to invert a number, take a logarithm, exponentiate, or multiply to find the standard parameters, "
-        "you MUST use the calculate_math tool."
+    
+    # 1. Determine targets based on cat_data
+    extract_mh = False
+    extract_flory = False
+    if cat_data:
+        if cat_data.get("contains_mark_houwink_parameters", False):
+            extract_mh = True
+        if cat_data.get("contains_flory_parameters", False):
+            extract_flory = True
+            
+    # Fallback if neither is specified
+    if not extract_mh and not extract_flory:
+        extract_mh = True
+        extract_flory = True
+        
+    mh_res = None
+    flory_res = None
+    all_calculator_calls = []
+    total_usage_metadata = {
+        "prompt_token_count": 0,
+        "candidates_token_count": 0,
+        "total_token_count": 0
+    }
+    
+    # 2. Extract Mark-Houwink parameters
+    if extract_mh:
+        mh_prompt = get_mark_houwink_interpret_prompt(table_text, title=title, abstract=abstract)
+        mh_system_instruction = (
+            "You are a precise chemistry data extractor. You must NEVER do math in your head. "
+            "If you need to invert a number, take a logarithm, exponentiate, or multiply to find the standard Mark-Houwink parameters, "
+            "you MUST use the calculate_math tool."
+        )
+        res_mh = ai.prompt(
+            prompt=mh_prompt,
+            schema=MarkHouwinkExtraction,
+            tools=[calculate_math],
+            system_instruction=mh_system_instruction
+        )
+        if res_mh.success:
+            mh_res = res_mh.data
+            if res_mh.calculator_calls:
+                all_calculator_calls.extend(res_mh.calculator_calls)
+            if res_mh.usage_metadata:
+                for k, v in res_mh.usage_metadata.items():
+                    if k in total_usage_metadata:
+                        total_usage_metadata[k] += v
+        else:
+            return TableInterpretationResponse(
+                success=False,
+                error=f"Mark-Houwink extraction failed: {res_mh.error}",
+                calculator_calls=res_mh.calculator_calls
+            )
+            
+    # 3. Extract Flory parameters
+    if extract_flory:
+        flory_prompt = get_flory_interpret_prompt(table_text, title=title, abstract=abstract)
+        flory_system_instruction = (
+            "You are a precise chemistry data extractor. You must NEVER do math in your head. "
+            "If you need to invert a number, take a logarithm, exponentiate, or multiply to find the standard Flory parameters, "
+            "you MUST use the calculate_math tool."
+        )
+        res_flory = ai.prompt(
+            prompt=flory_prompt,
+            schema=FloryExtraction,
+            tools=[calculate_math],
+            system_instruction=flory_system_instruction
+        )
+        if res_flory.success:
+            flory_res = res_flory.data
+            if res_flory.calculator_calls:
+                all_calculator_calls.extend(res_flory.calculator_calls)
+            if res_flory.usage_metadata:
+                for k, v in res_flory.usage_metadata.items():
+                    if k in total_usage_metadata:
+                        total_usage_metadata[k] += v
+        else:
+            return TableInterpretationResponse(
+                success=False,
+                error=f"Flory extraction failed: {res_flory.error}",
+                calculator_calls=all_calculator_calls + (res_flory.calculator_calls or [])
+            )
+            
+    # 4. Merge results into TableExtraction
+    is_mh = mh_res.is_mark_houwink_data if mh_res else False
+    is_fl = flory_res.is_flory_data if flory_res else False
+    mh_entries = mh_res.mh_entries if mh_res else []
+    flory_entries = flory_res.flory_entries if flory_res else []
+    
+    merged_data = TableExtraction(
+        is_mark_houwink_data=is_mh,
+        is_flory_data=is_fl,
+        mh_entries=mh_entries,
+        flory_entries=flory_entries
     )
     
-    res = ai.prompt(
-        prompt=prompt,
-        schema=TableExtraction,
-        tools=[calculate_math],
-        system_instruction=system_instruction
+    return TableInterpretationResponse(
+        success=True,
+        data=merged_data,
+        usage_metadata=total_usage_metadata,
+        calculator_calls=all_calculator_calls
     )
-    
-    if res.success:
-        return TableInterpretationResponse(
-            success=True,
-            data=res.data,
-            usage_metadata=res.usage_metadata,
-            calculator_calls=res.calculator_calls
-        )
-    else:
-        return TableInterpretationResponse(
-            success=False,
-            error=res.error,
-            calculator_calls=res.calculator_calls
-        )
