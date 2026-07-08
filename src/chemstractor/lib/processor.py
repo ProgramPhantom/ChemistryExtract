@@ -297,14 +297,25 @@ class PDFProcessor:
             table_text = self.extractor.tables_markdown[i]
             res = categorise_table(table_text, title=title, abstract=abstract)
             if res.success:
-                status_msg = res.contains_diffusion_coeff if res.contains_diffusion else "Not flagged"
+                if res.flagged:
+                    flags = []
+                    if res.contains_raw_diffusion_data:
+                        flags.append("raw")
+                    if res.contains_mark_houwink_parameters:
+                        flags.append("mark_houwink")
+                    if res.contains_flory_parameters:
+                        flags.append("flory")
+                    status_msg = ", ".join(flags) if flags else "flagged"
+                else:
+                    status_msg = "Not flagged"
                 self.cat_results.append((table_name, True, status_msg, res.usage_metadata))
                 
                 categorisation_data = {
                     "contains_scientific_data": res.contains_scientific_data,
-                    "contains_diffusion_coeff": res.contains_diffusion_coeff,
-                    "contains_polymer_diffusion_coeff": res.contains_polymer_diffusion_coeff,
-                    "flagged": res.contains_diffusion
+                    "contains_raw_diffusion_data": res.contains_raw_diffusion_data,
+                    "contains_mark_houwink_parameters": res.contains_mark_houwink_parameters,
+                    "contains_flory_parameters": res.contains_flory_parameters,
+                    "contains_polymer_diffusion_coeff": res.contains_polymer_diffusion_coeff
                 }
                 self.cat_data_list.append(categorisation_data)
                 
@@ -462,7 +473,11 @@ class PDFProcessor:
             
             # Check if this table has categorisation "coeff"
             cat_data = self.cat_data_list[i] if i < len(self.cat_data_list) else None
-            is_coeff = cat_data and cat_data.get("contains_diffusion_coeff") in ["coeff", True]
+            is_coeff = cat_data and (
+                cat_data.get("contains_diffusion_coeff") in ["coeff", True] or
+                cat_data.get("contains_mark_houwink_parameters", False) or
+                cat_data.get("contains_flory_parameters", False)
+            )
             
             if not is_coeff:
                 # Skip tables that are not "coeff"

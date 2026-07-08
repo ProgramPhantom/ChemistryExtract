@@ -1,6 +1,7 @@
 {
-    "contains_scientific_data": true,
-    "contains_diffusion_coeff": "N/A",
-    "contains_polymer_diffusion_coeff": false,
-    "flagged": false
+  "contains_scientific_data": false,
+  "contains_raw_diffusion_data": false,
+  "contains_mark_houwink_parameters": false,
+  "contains_flory_parameters": false,
+  "contains_polymer_diffusion_coeff": false
 }

@@ -69,10 +69,10 @@ def run_categorise(processor: PDFProcessor, tree: Tree):
                                     reasons.append("no polymers")
                             reasons_str = f" ({', '.join(reasons)})" if reasons else ""
                             status_styled = f"[blue]{status}{reasons_str}[/blue]"
-                        elif status in ["raw", "coeff"]:
-                            status_styled = f"[bold green]{status}[/bold green]"
                         elif status == "unsure":
                             status_styled = f"[yellow]{status}[/yellow]"
+                        elif any(x in status for x in ["raw", "coeff", "mark_houwink", "flory"]):
+                            status_styled = f"[bold green]{status}[/bold green]"
                         else:
                             status_styled = f"[blue]{status}[/blue]"
                         cat_node.add(f"{table_name}: {status_styled}{tokens_str}")

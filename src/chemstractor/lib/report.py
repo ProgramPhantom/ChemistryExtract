@@ -128,8 +128,16 @@ def create_excel(
                 return ""
             write_metadata_row(curr_row, "Contains Scientific Data", format_val(cat_data.get("contains_scientific_data")))
             curr_row += 1
-            write_metadata_row(curr_row, "Contains Diffusion Coefficients", format_val(cat_data.get("contains_diffusion_coeff")))
-            curr_row += 1
+            if "contains_diffusion_coeff" in cat_data:
+                write_metadata_row(curr_row, "Contains Diffusion Coefficients", format_val(cat_data.get("contains_diffusion_coeff")))
+                curr_row += 1
+            else:
+                write_metadata_row(curr_row, "Contains Raw Diffusion Data", format_val(cat_data.get("contains_raw_diffusion_data")))
+                curr_row += 1
+                write_metadata_row(curr_row, "Contains Mark-Houwink Parameters", format_val(cat_data.get("contains_mark_houwink_parameters")))
+                curr_row += 1
+                write_metadata_row(curr_row, "Contains Flory Parameters", format_val(cat_data.get("contains_flory_parameters")))
+                curr_row += 1
             write_metadata_row(curr_row, "Contains Polymer Diffusion Coefficients", format_val(cat_data.get("contains_polymer_diffusion_coeff")))
             
             curr_row += 2 # gap + dynamic next section start

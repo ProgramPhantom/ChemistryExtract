@@ -29,12 +29,16 @@ def run_interpret(processor: PDFProcessor, tree: Tree):
     has_coeff = False
     for i in range(processor.num_tables):
         cat_data = processor.cat_data_list[i] if i < len(processor.cat_data_list) else None
-        if cat_data and cat_data.get("contains_diffusion_coeff") in ["coeff", True]:
+        if cat_data and (
+            cat_data.get("contains_diffusion_coeff") == "coeff" or
+            cat_data.get("contains_mark_houwink_parameters") is True or
+            cat_data.get("contains_flory_parameters") is True
+        ):
             has_coeff = True
             break
             
     if not has_coeff:
-        interpret_node.label = "[yellow]⚠[/yellow] No tables categorized as [bold green]coeff[/bold green] found. Skipping interpretation."
+        interpret_node.label = "[yellow]⚠[/yellow] No tables categorized as [bold green]coeff[/bold green] not found. Skipping interpretation."
         return
 
     for event in processor.interpret():
