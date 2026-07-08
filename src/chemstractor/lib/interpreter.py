@@ -1,5 +1,6 @@
 import math
 from typing import Optional, List
+from decimal import Decimal
 from pydantic import BaseModel, Field
 from chemstractor.AI import AI
 
@@ -86,7 +87,7 @@ class TableInterpretationResponse:
 
 def calculate_math(expression: str) -> float:
     """
-    Evaluates a mathematical expression and returns the result. 
+    Evaluates a mathematical expression and returns the result as a standard decimal string. 
     Use this for ANY algebra, inversion, logarithms, or multiplication.
     """
     try:
@@ -103,7 +104,8 @@ def calculate_math(expression: str) -> float:
             'round': round,
         })
         # Evaluate safely
-        return float(eval(expression, {"__builtins__": None}, allowed_names))
+        val = float(eval(expression, {"__builtins__": None}, allowed_names))
+        return f"{Decimal(str(val)).normalize():f}"
     except Exception as e:
         return f"Error computing {expression}: {e}"
 
