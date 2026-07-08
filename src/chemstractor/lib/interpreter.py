@@ -53,8 +53,8 @@ class FloryExtraction(BaseModel):
     )
 
 
-# 5. Class containing all interpreted data
-class TableExtraction:
+# 5. Class containing combined extraction data.
+class TableExtraction(BaseModel):
     is_mark_houwink_data: bool = Field(
         description="True if the table contains Mark-Houwink equation parameters (K and a, or equivalent notation). False otherwise."
     )
