@@ -31,7 +31,7 @@ class FloryEntry(BaseModel):
     c_value: float = Field(description="The standard, calculated/converted value of the constant c. If c_transformation is 'log', c_value = 10^raw_c_value. If 'ln', c_value = e^raw_c_value. If 'none', c_value = raw_c_value.")
 
 
-# 3. Define the extraction schemas for the sequential runs
+# 3. Define the extraction schema for Mark-Houwink parameters
 class MarkHouwinkExtraction(BaseModel):
     is_mark_houwink_data: bool = Field(
         description="True if the table contains Mark-Houwink equation parameters (K and a). False otherwise."
@@ -42,6 +42,7 @@ class MarkHouwinkExtraction(BaseModel):
     )
 
 
+# 4. Define the extraction schema for flory parameters
 class FloryExtraction(BaseModel):
     is_flory_data: bool = Field(
         description="True if the table contains Flory coefficient and constant parameters (v and c). False otherwise."
@@ -52,13 +53,13 @@ class FloryExtraction(BaseModel):
     )
 
 
-# 4. Define the wrapper schema for the ENTIRE TABLE
-class TableExtraction(BaseModel):
+# 5. Class containing all interpreted data
+class TableExtraction:
     is_mark_houwink_data: bool = Field(
-        description="True if the table contains Mark-Houwink equation parameters (K and a). False otherwise."
+        description="True if the table contains Mark-Houwink equation parameters (K and a, or equivalent notation). False otherwise."
     )
     is_flory_data: bool = Field(
-        description="True if the table contains Flory coefficient and constant parameters (v and c). False otherwise."
+        description="True if the table contains Flory coefficient and constant parameters (v and c, or equivalent notation). False otherwise."
     )
     mh_entries: List[MarkHouwinkEntry] = Field(
         default=[],
