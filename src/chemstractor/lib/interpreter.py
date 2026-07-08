@@ -4,7 +4,7 @@ from pydantic import BaseModel, Field
 from chemstractor.AI import AI
 
 
-# 1. Define the schema for a SINGLE equation/row
+# 1. Define the schema for a SINGLE equation/row (Mark-Houwink)
 class MarkHouwinkEntry(BaseModel):
     polymer_name: str = Field(description="The name or acronym of the polymer.")
     solvent: str = Field(description="The solvent used.")
@@ -17,13 +17,34 @@ class MarkHouwinkEntry(BaseModel):
     a_value: float = Field(description="The standard, calculated/converted value of the exponent a. If a_transformation is 'reciprocal', a_value = 1/raw_a_value. If 'none', it is raw_a_value.")
 
 
-# 2. Define the wrapper schema for the ENTIRE TABLE
+# 2. Define the schema for a SINGLE equation/row (Flory)
+class FloryEntry(BaseModel):
+    polymer_name: str = Field(description="The name or acronym of the polymer.")
+    solvent: str = Field(description="The solvent used.")
+    temperature_k: Optional[float] = Field(None, description="Temperature in Kelvin, if stated in the text or table.")
+    raw_v_value: float = Field(description="The raw number representing the Flory coefficient/exponent v (often represented as nu or v).")
+    v_transformation: str = Field(description="Transformation applied to v. Options: 'none', 'reciprocal', 'unknown'.")
+    v_value: float = Field(description="The standard, calculated/converted value of the coefficient v. If v_transformation is 'reciprocal', v_value = 1/raw_v_value. If 'none', it is raw_v_value.")
+    raw_c_value: float = Field(description="The raw number representing the Flory constant c (often represented as C or c).")
+    c_transformation: str = Field(description="Transformation applied to c. Options: 'none', 'log', 'ln', 'unknown'.")
+    c_value: float = Field(description="The standard, calculated/converted value of the constant c. If c_transformation is 'log', c_value = 10^raw_c_value. If 'ln', c_value = e^raw_c_value. If 'none', c_value = raw_c_value.")
+
+
+# 3. Define the wrapper schema for the ENTIRE TABLE
 class TableExtraction(BaseModel):
     is_mark_houwink_data: bool = Field(
-        description="True if the table contains Mark-Houwink equation parameters. False if it is raw data points or unrelated."
+        description="True if the table contains Mark-Houwink equation parameters (K and a). False otherwise."
+    )
+    is_flory_data: bool = Field(
+        description="True if the table contains Flory coefficient and constant parameters (v and c). False otherwise."
     )
     entries: List[MarkHouwinkEntry] = Field(
-        description="A list containing one entry for EVERY valid row in the table. Do not skip any rows."
+        default=[],
+        description="A list containing one entry for EVERY valid Mark-Houwink row in the table. Do not skip any rows. Leave empty if the table does not contain Mark-Houwink parameters."
+    )
+    flory_entries: List[FloryEntry] = Field(
+        default=[],
+        description="A list containing one entry for EVERY valid Flory parameter row in the table. Do not skip any rows. Leave empty if the table does not contain Flory parameters."
     )
 
 
@@ -66,19 +87,37 @@ def calculate_math(expression: str) -> float:
         return f"Error computing {expression}: {e}"
 
 
-def get_interpret_prompt(table_text: str, title: str | None = None, abstract: str | None = None) -> str:
+def get_interpret_prompt(table_text: str, title: str | None = None, abstract: str | None = None, cat_data: dict | None = None) -> str:
     context_str = ""
     if title:
         context_str += f"\n    Paper Title: {title}"
     if abstract:
         context_str += f"\n    Paper Abstract: {abstract}"
         
+    extraction_target = []
+    if cat_data:
+        if cat_data.get("contains_mark_houwink_parameters", False):
+            extraction_target.append("Mark-Houwink parameters (K and a)")
+        if cat_data.get("contains_flory_parameters", False):
+            extraction_target.append("Flory parameters (coefficient v and constant c)")
+            
+    if not extraction_target:
+        extraction_target = ["Mark-Houwink parameters (K and a) and/or Flory parameters (coefficient v and constant c)"]
+        
+    target_str = " and ".join(extraction_target)
+
     return f"""
     You are a chemistry data converter. Analyze the following extracted table and its surrounding context.
-    Your task is to extract the polymer name, solvent, temperature, and Mark-Houwink coefficients (K and a) for each row.
+    Your task is to extract {target_str} for each row where applicable.
     
-    If the K or a coefficients in the table are transformed (for example, if they are listed as log(K), ln(K), or 1/a, or reciprocal of a),
-    you MUST call the `calculate_math` tool to compute the standard/converted K and a values.
+    For Mark-Houwink entries (if extracting):
+    Extract the polymer name, solvent, temperature, and Mark-Houwink coefficients (K and a).
+    
+    For Flory entries (if extracting):
+    Extract the polymer name, solvent, temperature, and Flory parameters (coefficient v and constant c).
+    
+    If the coefficients/parameters in the table are transformed (for example, if they are listed as log(X), ln(X), 1/X, or reciprocal of X),
+    you MUST call the `calculate_math` tool to compute the standard/converted values.
     Do NOT do any math, logarithm, exponentiation, or reciprocal calculation in your head. Use the `calculate_math` tool!
     
     {context_str}
@@ -88,12 +127,12 @@ def get_interpret_prompt(table_text: str, title: str | None = None, abstract: st
     """
 
 
-def interpret_table(table_text: str, title: str | None = None, abstract: str | None = None) -> TableInterpretationResponse:
+def interpret_table(table_text: str, title: str | None = None, abstract: str | None = None, cat_data: dict | None = None) -> TableInterpretationResponse:
     ai = AI.get_instance()
-    prompt = get_interpret_prompt(table_text, title=title, abstract=abstract)
+    prompt = get_interpret_prompt(table_text, title=title, abstract=abstract, cat_data=cat_data)
     system_instruction = (
         "You are a precise chemistry data extractor. You must NEVER do math in your head. "
-        "If you need to invert a number, take a logarithm, exponentiate, or multiply to find the standard Mark-Houwink parameters, "
+        "If you need to invert a number, take a logarithm, exponentiate, or multiply to find the standard parameters, "
         "you MUST use the calculate_math tool."
     )
     

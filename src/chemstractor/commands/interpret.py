@@ -38,7 +38,7 @@ def run_interpret(processor: PDFProcessor, tree: Tree):
             break
             
     if not has_coeff:
-        interpret_node.label = "[yellow]⚠[/yellow] No tables categorized as [bold green]coeff[/bold green] not found. Skipping interpretation."
+        interpret_node.label = "[yellow]⚠[/yellow] No tables categorized as containing required parameters. Skipping interpretation."
         return
 
     for event in processor.interpret():

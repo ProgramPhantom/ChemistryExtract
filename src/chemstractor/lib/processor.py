@@ -493,7 +493,7 @@ class PDFProcessor:
             }
             
             table_text = self.extractor.tables_markdown[i]
-            res = interpret_table(table_text, title=title, abstract=abstract)
+            res = interpret_table(table_text, title=title, abstract=abstract, cat_data=cat_data)
             
             if res.success:
                 data_dict = res.data.model_dump()
