@@ -88,6 +88,7 @@ def get_converter():
 
         pipeline_options = ThreadedPdfPipelineOptions(
             accelerator_options=accelerator_options,
+            do_formula_enrichment=True,
             ocr_batch_size=64,
             layout_batch_size=64,
             table_batch_size=4
