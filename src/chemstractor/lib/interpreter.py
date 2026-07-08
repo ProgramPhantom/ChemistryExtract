@@ -11,11 +11,11 @@ class MarkHouwinkEntry(BaseModel):
     solvent: str = Field(description="The solvent used.")
     temperature_k: Optional[float] = Field(None, description="Temperature in Kelvin, if stated in the text or table.")
     raw_K_value: float = Field(description="The raw number representing the pre-exponential factor K.")
-    K_transformation: str = Field(description="Transformation applied to K. Options: 'none', 'log', 'ln', 'unknown'.")
-    K_value: float = Field(description="The standard, calculated/converted value of K in standard units (mL/g). If K_transformation is 'log', K_value = 10^raw_K_value. If 'ln', K_value = e^raw_K_value. If 'none', K_value = raw_K_value.")
+    K_transformation: str = Field(description="Transformation applied to K. E.g. 'none', 'log', 'ln', '10**-8', 'unknown', or any custom multiplier/scaling expression.")
+    K_value: float = Field(description="The standard, calculated/converted value of K in standard units (mL/g). If K is scaled or transformed in the table (e.g. log, ln, or multiplied by a factor of 10), you MUST call the calculate_math tool to compute the standard value and store that returned result here. If no transformation is applied, K_value = raw_K_value.")
     raw_a_value: float = Field(description="The raw number representing the scaling exponent a.")
-    a_transformation: str = Field(description="Transformation applied to a. Options: 'none', 'reciprocal', 'unknown'.")
-    a_value: float = Field(description="The standard, calculated/converted value of the exponent a. If a_transformation is 'reciprocal', a_value = 1/raw_a_value. If 'none', it is raw_a_value.")
+    a_transformation: str = Field(description="Transformation applied to a. E.g. 'none', 'reciprocal', 'unknown', or any custom scaling expression.")
+    a_value: float = Field(description="The standard, calculated/converted value of the exponent a. If a is scaled or transformed in the table (e.g. reciprocal 1/a), you MUST call the calculate_math tool to compute the standard value and store that returned result here. If no transformation is applied, a_value = raw_a_value.")
 
 
 # 2. Define the schema for a SINGLE equation/row (Flory)
@@ -24,11 +24,11 @@ class FloryEntry(BaseModel):
     solvent: str = Field(description="The solvent used.")
     temperature_k: Optional[float] = Field(None, description="Temperature in Kelvin, if stated in the text or table.")
     raw_v_value: float = Field(description="The raw number representing the Flory coefficient/exponent v (often represented as nu or v).")
-    v_transformation: str = Field(description="Transformation applied to v. Options: 'none', 'reciprocal', 'unknown'.")
-    v_value: float = Field(description="The standard, calculated/converted value of the coefficient v. If v_transformation is 'reciprocal', v_value = 1/raw_v_value. If 'none', it is raw_v_value.")
+    v_transformation: str = Field(description="Transformation applied to v. E.g. 'none', 'reciprocal', 'unknown', or any custom scaling expression.")
+    v_value: float = Field(description="The standard, calculated/converted value of the coefficient v. If v is scaled or transformed in the table, you MUST call the calculate_math tool to compute the standard value and store that returned result here. If no transformation is applied, v_value = raw_v_value.")
     raw_c_value: float = Field(description="The raw number representing the Flory constant c (often represented as C or c).")
-    c_transformation: str = Field(description="Transformation applied to c. Options: 'none', 'log', 'ln', 'unknown'.")
-    c_value: float = Field(description="The standard, calculated/converted value of the constant c. If c_transformation is 'log', c_value = 10^raw_c_value. If 'ln', c_value = e^raw_c_value. If 'none', c_value = raw_c_value.")
+    c_transformation: str = Field(description="Transformation applied to c. E.g. 'none', 'log', 'ln', '10**-8', 'unknown', or any custom multiplier/scaling expression.")
+    c_value: float = Field(description="The standard, calculated/converted value of the constant c. If c is scaled or transformed in the table (e.g. log, ln, or multiplied by a factor of 10), you MUST call the calculate_math tool to compute the standard value and store that returned result here. If no transformation is applied, c_value = raw_c_value.")
 
 
 # 3. Define the extraction schema for Mark-Houwink parameters
@@ -192,8 +192,8 @@ def interpret_table(table_text: str, title: str | None = None, abstract: str | N
         mh_prompt = get_mark_houwink_interpret_prompt(table_text, title=title, abstract=abstract)
         mh_system_instruction = (
             "You are a precise chemistry data extractor. You must NEVER do math in your head. "
-            "If you need to invert a number, take a logarithm, exponentiate, or multiply to find the standard Mark-Houwink parameters, "
-            "you MUST use the calculate_math tool."
+            "If any parameter is transformed or scaled in the table (e.g. log, ln, reciprocal, or a power of 10 multiplier like 10^-8), "
+            "you MUST call the calculate_math tool to compute the standard value, and you MUST store the returned result of the calculator tool call into the standard value field (e.g. K_value or a_value)."
         )
         res_mh = ai.prompt(
             prompt=mh_prompt,
@@ -221,8 +221,8 @@ def interpret_table(table_text: str, title: str | None = None, abstract: str | N
         flory_prompt = get_flory_interpret_prompt(table_text, title=title, abstract=abstract)
         flory_system_instruction = (
             "You are a precise chemistry data extractor. You must NEVER do math in your head. "
-            "If you need to invert a number, take a logarithm, exponentiate, or multiply to find the standard Flory parameters, "
-            "you MUST use the calculate_math tool."
+            "If any parameter is transformed or scaled in the table (e.g. log, ln, reciprocal, or a power of 10 multiplier like 10^-8), "
+            "you MUST call the calculate_math tool to compute the standard value, and you MUST store the returned result of the calculator tool call into the standard value field (e.g. v_value or c_value)."
         )
         res_flory = ai.prompt(
             prompt=flory_prompt,
