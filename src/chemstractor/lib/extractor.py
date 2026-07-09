@@ -49,7 +49,7 @@ def get_converter():
     global _converter
     if _converter is None:
         from docling.document_converter import DocumentConverter, PdfFormatOption
-        from docling.datamodel.pipeline_options import ThreadedPdfPipelineOptions, RapidOcrOptions
+        from docling.datamodel.pipeline_options import ThreadedPdfPipelineOptions, RapidOcrOptions, PdfPipelineOptions
         from docling.datamodel.base_models import InputFormat
         from docling.datamodel.accelerator_options import AcceleratorDevice, AcceleratorOptions
         from docling.datamodel.settings import settings
@@ -86,13 +86,26 @@ def get_converter():
                 # fall back to using the 'torch' backend for OCR to run on the GPU via PyTorch
                 ocr_backend = "torch"
 
-        pipeline_options = ThreadedPdfPipelineOptions(
-            accelerator_options=accelerator_options,
-            do_formula_enrichment=True,
-            ocr_batch_size=64,
-            layout_batch_size=64,
-            table_batch_size=4
-        )
+        if device not in (AcceleratorDevice.CUDA, AcceleratorDevice.MPS):
+            # On CPU, using single-threaded PdfPipelineOptions is much more memory-efficient and avoids Windows multiprocessing crashes/deadlocks
+            pipeline_options = PdfPipelineOptions(
+                accelerator_options=accelerator_options,
+                do_formula_enrichment=True,
+            )
+            # Force float32 precision for the formula model to avoid "addmm_impl_cpu_" Half precision error on CPU
+            for c in pipeline_options.code_formula_options.model_spec.engine_overrides.values():
+                if hasattr(c, "torch_dtype"):
+                    c.torch_dtype = "float32"
+                if hasattr(c, "extra_config") and isinstance(c.extra_config, dict):
+                    c.extra_config["torch_dtype"] = "float32"
+        else:
+            pipeline_options = ThreadedPdfPipelineOptions(
+                accelerator_options=accelerator_options,
+                do_formula_enrichment=True,
+                ocr_batch_size=64,
+                layout_batch_size=64,
+                table_batch_size=4
+            )
         
         if ocr_backend == "onnxruntime":
             pipeline_options.ocr_options = RapidOcrOptions(
