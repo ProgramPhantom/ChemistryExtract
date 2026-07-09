@@ -86,22 +86,34 @@ def get_converter():
                 # fall back to using the 'torch' backend for OCR to run on the GPU via PyTorch
                 ocr_backend = "torch"
 
+        # 3. Check system RAM to prevent OOM crash due to formula enrichment model
+        do_formula_enrichment = True
+        try:
+            import psutil
+            total_ram_gb = psutil.virtual_memory().total / (1024 ** 3)
+            if total_ram_gb < 16.0:
+                do_formula_enrichment = False
+                sys.stderr.write(f"System RAM is {total_ram_gb:.1f} GB (below 16 GB threshold). Disabling formula enrichment to prevent Out-Of-Memory crashes.\n")
+        except Exception as e:
+            sys.stderr.write(f"Could not check system RAM: {e}. Defaulting to enabling formula enrichment.\n")
+
         if device not in (AcceleratorDevice.CUDA, AcceleratorDevice.MPS):
             # On CPU, using single-threaded PdfPipelineOptions is much more memory-efficient and avoids Windows multiprocessing crashes/deadlocks
             pipeline_options = PdfPipelineOptions(
                 accelerator_options=accelerator_options,
-                do_formula_enrichment=True,
+                do_formula_enrichment=do_formula_enrichment,
             )
             # Force float32 precision for the formula model to avoid "addmm_impl_cpu_" Half precision error on CPU
-            for c in pipeline_options.code_formula_options.model_spec.engine_overrides.values():
-                if hasattr(c, "torch_dtype"):
-                    c.torch_dtype = "float32"
-                if hasattr(c, "extra_config") and isinstance(c.extra_config, dict):
-                    c.extra_config["torch_dtype"] = "float32"
+            if do_formula_enrichment:
+                for c in pipeline_options.code_formula_options.model_spec.engine_overrides.values():
+                    if hasattr(c, "torch_dtype"):
+                        c.torch_dtype = "float32"
+                    if hasattr(c, "extra_config") and isinstance(c.extra_config, dict):
+                        c.extra_config["torch_dtype"] = "float32"
         else:
             pipeline_options = ThreadedPdfPipelineOptions(
                 accelerator_options=accelerator_options,
-                do_formula_enrichment=True,
+                do_formula_enrichment=do_formula_enrichment,
                 ocr_batch_size=64,
                 layout_batch_size=64,
                 table_batch_size=4
@@ -254,15 +266,53 @@ class TableExtractor:
             return
             
         self._is_capturing = True
-        with redirect_stdout(self.log_stream), redirect_stderr(self.log_stream):
-            root_logger = logging.getLogger()
-            temp_handler = logging.StreamHandler(self.log_stream)
-            root_logger.addHandler(temp_handler)
+        
+        log_file = None
+        if self.log_file_path:
             try:
-                yield
-            finally:
-                root_logger.removeHandler(temp_handler)
-                self._is_capturing = False
+                os.makedirs(os.path.dirname(self.log_file_path), exist_ok=True)
+                log_file = open(self.log_file_path, "a", encoding="utf-8", buffering=1)
+            except Exception:
+                pass
+
+        class TeeStream:
+            def __init__(self, string_io, file):
+                self.string_io = string_io
+                self.file = file
+
+            def write(self, data):
+                self.string_io.write(data)
+                if self.file:
+                    self.file.write(data)
+                    self.file.flush()
+
+            def flush(self):
+                self.string_io.flush()
+                if self.file:
+                    self.file.flush()
+
+            def getvalue(self):
+                return self.string_io.getvalue()
+
+        active_stream = TeeStream(self.log_stream, log_file) if log_file else self.log_stream
+        
+        old_log_stream = self.log_stream
+        self.log_stream = active_stream
+        
+        try:
+            with redirect_stdout(active_stream), redirect_stderr(active_stream):
+                root_logger = logging.getLogger()
+                temp_handler = logging.StreamHandler(active_stream)
+                root_logger.addHandler(temp_handler)
+                try:
+                    yield
+                finally:
+                    root_logger.removeHandler(temp_handler)
+        finally:
+            self.log_stream = old_log_stream
+            if log_file:
+                log_file.close()
+            self._is_capturing = False
 
     def clean_pdf(self):
         self.redact_hyperlinked_text()

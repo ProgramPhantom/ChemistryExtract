@@ -245,11 +245,37 @@ class PDFProcessor:
         start_time = time.time()
         yield {"status": "working", "message": "Extracting text & tables..."}
         
-        self.extractor = TableExtractor()
-        self.extractor.load_pdf(self.pdf_path)
-        self.extractor.parse_pdf()
-        self.extractor.extract_results()
-        self.num_tables = len(self.extractor.tables_markdown)
+        try:
+            self.extractor = TableExtractor()
+            self.extractor.load_pdf(self.pdf_path)
+            self.extractor.log_file_path = self.log_file_path
+            self.extractor.parse_pdf()
+            self.extractor.extract_results()
+            self.num_tables = len(self.extractor.tables_markdown)
+        except MemoryError as e:
+            logs = self.extractor.logs if (self.extractor and hasattr(self.extractor, 'logs')) else ""
+            msg = (
+                "Extraction failed: Out of Memory (MemoryError). The system has run out of RAM during document processing. "
+                "Please close other applications to free up RAM, increase swap space, or use a system with more memory."
+            )
+            yield {
+                "status": "error",
+                "message": msg,
+                "error": e,
+                "logs": logs
+            }
+            raise e
+        except BaseException as e:
+            if isinstance(e, KeyboardInterrupt):
+                raise e
+            logs = self.extractor.logs if (self.extractor and hasattr(self.extractor, 'logs')) else ""
+            yield {
+                "status": "error",
+                "message": f"Extraction failed: {str(e)}",
+                "error": e,
+                "logs": logs
+            }
+            raise e
 
         elapsed_time = time.time() - start_time
         yield {

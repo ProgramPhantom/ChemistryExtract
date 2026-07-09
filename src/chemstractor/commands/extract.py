@@ -42,8 +42,26 @@ def run_extract(processor: PDFProcessor, tree: Tree):
     else:
         ext_node.add("Hardware Acceleration: [yellow]CPU[/yellow]")
 
+    # Check RAM size and display memory advisory warning
+    try:
+        import psutil
+        total_ram_gb = psutil.virtual_memory().total / (1024 ** 3)
+        if total_ram_gb < 16.0:
+            ext_node.add(f"System RAM: [yellow]{total_ram_gb:.1f} GB (Below 16 GB threshold. Formula enrichment disabled)[/yellow]")
+            if total_ram_gb < 12.0:
+                ext_node.add("[bold yellow]⚠ Warning: Low system RAM. If execution crashes silently, check background programs.[/bold yellow]")
+    except ImportError:
+        pass
+
     for event in processor.extract():
-        if event["status"] == "complete":
+        if event["status"] == "error":
+            ext_node.label = f"[red]✗[/red] Extraction failed: {event['message']}"
+            if event.get("logs"):
+                from rich.console import Console
+                console = Console(file=sys.__stdout__)
+                console.print(f"\n[bold red]Extractor logs for {processor.base_name} before crash:[/bold red]")
+                console.print(event["logs"])
+        elif event["status"] == "complete":
             elapsed_time = event["elapsed_time"]
             num_tables = event["num_tables"]
             
