@@ -362,22 +362,34 @@ class TableExtractor:
                 
                 # Grab paragraphs before the table (often the caption or introduction)
                 preceding_paragraphs = []
-                for j in range(1, num_context_paragraphs + 1):
-                    if i - j >= 0:
-                        prev_block = blocks[i - j].strip()
-                        if prev_block:
+                count = 0
+                j = i - 1
+                while j >= 0 and count < num_context_paragraphs:
+                    prev_block = blocks[j].strip()
+                    if prev_block:
+                        if '|---' in prev_block or '| ---' in prev_block:
+                            preceding_paragraphs.insert(0, "[table omitted]")
+                        else:
                             preceding_paragraphs.insert(0, prev_block)
+                            count += 1
+                    j -= 1
                 if preceding_paragraphs:
                     preceding_text = "\n\n".join(preceding_paragraphs)
                     preceding_str = f"**[Preceding Paragraphs]**\n{preceding_text}"
                 
                 # Grab paragraphs after the table (often table footnotes or continuation)
                 succeeding_paragraphs = []
-                for j in range(1, num_context_paragraphs + 1):
-                    if i + j < len(blocks):
-                        next_block = blocks[i + j].strip()
-                        if next_block:
+                count = 0
+                j = i + 1
+                while j < len(blocks) and count < num_context_paragraphs:
+                    next_block = blocks[j].strip()
+                    if next_block:
+                        if '|---' in next_block or '| ---' in next_block:
+                            succeeding_paragraphs.append("[table omitted]")
+                        else:
                             succeeding_paragraphs.append(next_block)
+                            count += 1
+                    j += 1
                 if succeeding_paragraphs:
                     succeeding_text = "\n\n".join(succeeding_paragraphs)
                     succeeding_str = f"**[Succeeding Paragraphs]**\n{succeeding_text}"
