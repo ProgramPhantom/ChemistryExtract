@@ -3,6 +3,7 @@ import sys
 import re
 import os
 import io
+import json
 import logging
 from functools import wraps
 from contextlib import redirect_stdout, redirect_stderr, contextmanager
@@ -162,6 +163,7 @@ class TableExtractor:
         self.parsed_markdown = None
         self.tables_markdown = []
         self.tables_csv = []
+        self.formulae = []
         self._is_parsed = False
         self.clean_path = None
         self.log_file_path = None
@@ -256,6 +258,16 @@ class TableExtractor:
                 file_path = os.path.join(csv_dir, file_name)
                 with open(file_path, "r", encoding="utf-8") as f:
                     self.tables_csv.append(f.read())
+                    
+        # Load formulae
+        self.formulae = []
+        formulae_path = os.path.join(extract_dir, "formulae.json")
+        if os.path.exists(formulae_path):
+            try:
+                with open(formulae_path, "r", encoding="utf-8") as f:
+                    self.formulae = json.load(f)
+            except Exception:
+                pass
                     
         self._is_parsed = True
 
@@ -424,6 +436,13 @@ class TableExtractor:
         self.parsed_markdown = self.clean_markdown(self._parsed_result.document.export_to_markdown())
         if hasattr(self._parsed_result, "timings") and self._parsed_result.timings:
             self.log_stream.write(f"Clean PDF conversion timings:\n{json.dumps(self._parsed_result.timings, default=make_serializable, indent=2)}\n")
+        
+        # Populate formulae list
+        self.formulae = []
+        if self._parsed_result and hasattr(self._parsed_result, "document"):
+            for item, level in self._parsed_result.document.iterate_items():
+                if hasattr(item, "label") and item.label == "FORMULA":
+                    self.formulae.append(item.text)
         
         self._is_parsed = True
     

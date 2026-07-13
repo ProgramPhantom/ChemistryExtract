@@ -519,7 +519,8 @@ class PDFProcessor:
             }
             
             table_text = self.extractor.tables_markdown[i]
-            res = interpret_table(table_text, title=title, abstract=abstract, cat_data=cat_data)
+            formulae = self.extractor.formulae if hasattr(self.extractor, 'formulae') else []
+            res = interpret_table(table_text, title=title, abstract=abstract, cat_data=cat_data, formulae=formulae)
             
             if res.success:
                 data_dict = res.data.model_dump()
@@ -679,6 +680,14 @@ class PDFProcessor:
             csv_file_path = os.path.join(csv_dir, f"table{i + 1}.csv")
             with open(csv_file_path, "w", encoding="utf-8") as csv_file:
                 csv_file.write(csv_str)
+                
+        # Save formulae json
+        formulae_path = os.path.join(self.extract_dir, "formulae.json")
+        try:
+            with open(formulae_path, "w", encoding="utf-8") as f:
+                json.dump(self.extractor.formulae, f, indent=2)
+        except Exception as e:
+            self._log_error(f"Error saving formulae JSON {formulae_path}: {e}")
                 
         # Save paper metadata summary if available
         self.save_summary_json()

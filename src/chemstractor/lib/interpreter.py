@@ -127,12 +127,14 @@ def calculate_math(expression: str) -> float:
         return f"Error computing {expression}: {e}"
 
 
-def get_mark_houwink_interpret_prompt(table_text: str, title: str | None = None, abstract: str | None = None) -> str:
+def get_mark_houwink_interpret_prompt(table_text: str, title: str | None = None, abstract: str | None = None, formulae: List[str] | None = None) -> str:
     context_str = ""
     if title:
         context_str += f"\n    Paper Title: {title}"
     if abstract:
         context_str += f"\n    Paper Abstract: {abstract}"
+    if formulae:
+        context_str += "\n    Extracted Mathematical Formulae:\n" + "\n".join(f"    - {formula}" for formula in formulae)
         
     return f"""
     You are a chemistry data converter. Analyze the following extracted table and its surrounding context.
@@ -152,12 +154,14 @@ def get_mark_houwink_interpret_prompt(table_text: str, title: str | None = None,
     """
 
 
-def get_flory_interpret_prompt(table_text: str, title: str | None = None, abstract: str | None = None) -> str:
+def get_flory_interpret_prompt(table_text: str, title: str | None = None, abstract: str | None = None, formulae: List[str] | None = None) -> str:
     context_str = ""
     if title:
         context_str += f"\n    Paper Title: {title}"
     if abstract:
         context_str += f"\n    Paper Abstract: {abstract}"
+    if formulae:
+        context_str += "\n    Extracted Mathematical Formulae:\n" + "\n".join(f"    - {formula}" for formula in formulae)
         
     return f"""
     You are a chemistry data converter. Analyze the following extracted table and its surrounding context.
@@ -177,7 +181,7 @@ def get_flory_interpret_prompt(table_text: str, title: str | None = None, abstra
     """
 
 
-def interpret_table(table_text: str, title: str | None = None, abstract: str | None = None, cat_data: dict | None = None) -> TableInterpretationResponse:
+def interpret_table(table_text: str, title: str | None = None, abstract: str | None = None, cat_data: dict | None = None, formulae: List[str] | None = None) -> TableInterpretationResponse:
     ai = AI.get_instance()
     
     # 1. Determine targets based on cat_data
@@ -205,7 +209,7 @@ def interpret_table(table_text: str, title: str | None = None, abstract: str | N
     
     # 2. Extract Mark-Houwink parameters
     if extract_mh:
-        mh_prompt = get_mark_houwink_interpret_prompt(table_text, title=title, abstract=abstract)
+        mh_prompt = get_mark_houwink_interpret_prompt(table_text, title=title, abstract=abstract, formulae=formulae)
         mh_system_instruction = (
             "You are a precise chemistry data extractor. You must NEVER do math in your head. "
             "If any parameter is transformed or scaled in the table (e.g. log, ln, reciprocal, or a power of 10 multiplier like 10^-8), "
@@ -236,7 +240,7 @@ def interpret_table(table_text: str, title: str | None = None, abstract: str | N
             
     # 3. Extract Flory parameters
     if extract_flory:
-        flory_prompt = get_flory_interpret_prompt(table_text, title=title, abstract=abstract)
+        flory_prompt = get_flory_interpret_prompt(table_text, title=title, abstract=abstract, formulae=formulae)
         flory_system_instruction = (
             "You are a precise chemistry data extractor. You must NEVER do math in your head. "
             "If any parameter is transformed or scaled in the table (e.g. log, ln, reciprocal, or a power of 10 multiplier like 10^-8), "
