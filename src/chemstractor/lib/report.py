@@ -4,6 +4,7 @@ import openpyxl
 from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
 from openpyxl.utils import get_column_letter
 from openpyxl.chart import LineChart, Reference
+from openpyxl.drawing.line import LineProperties
 
 def create_excel(
     dest_path: str,
@@ -169,7 +170,7 @@ def create_excel(
                 
             start_table_row = curr_row + 1
             
-            # Helper columns for plot data: Columns 5 to 9 (E to I)
+            # Helper columns for plot data: Columns 5 to 7 (E to G)
             helper_header_font = Font(name=font_family, size=9, bold=True, color="7F7F7F")
             helper_val_font = Font(name=font_family, size=9, italic=True, color="7F7F7F")
             
@@ -177,7 +178,7 @@ def create_excel(
             ws.cell(row=start_table_row - 1, column=5).alignment = left_align
             ws.cell(row=start_table_row - 1, column=5).border = data_border
             
-            for col_idx, log_m_val in enumerate([3, 4, 5, 6]):
+            for col_idx, log_m_val in enumerate([3, 6]):
                 c = 6 + col_idx
                 cell = ws.cell(row=start_table_row - 1, column=c, value=log_m_val)
                 cell.font = helper_header_font
@@ -212,10 +213,10 @@ def create_excel(
                 s_cell.alignment = left_align
                 s_cell.border = data_border
                 
-                # Calculated points columns F to I
-                for col_idx in range(4):
+                # Calculated points columns F and G
+                for col_idx in range(2):
                     c = 6 + col_idx
-                    log_m_val = 3 + col_idx
+                    log_m_val = 3 if col_idx == 0 else 6
                     # log(D) = c_value - v_value * log(M)
                     f_cell = ws.cell(row=r, column=c, value=f"=C{r}-D{r}*{log_m_val}")
                     f_cell.font = helper_val_font
@@ -233,13 +234,33 @@ def create_excel(
                 chart.y_axis.title = "log(D / m² s⁻¹)"
                 chart.x_axis.title = "log(M / g mol⁻¹)"
                 
-                # Data: columns E to I (5 to 9), rows start_table_row - 1 to end_table_row
-                data_ref = Reference(ws, min_col=5, max_col=9, min_row=start_table_row - 1, max_row=end_table_row)
-                # Categories: columns F to I (6 to 9), row start_table_row - 1
-                cats_ref = Reference(ws, min_col=6, max_col=9, min_row=start_table_row - 1, max_row=start_table_row - 1)
+                # Data: columns E to G (5 to 7), rows start_table_row to end_table_row
+                # (Notice min_row starts at start_table_row, NOT start_table_row - 1)
+                data_ref = Reference(ws, min_col=5, max_col=7, min_row=start_table_row, max_row=end_table_row)
+                # Categories: columns F to G (6 to 7), row start_table_row - 1
+                cats_ref = Reference(ws, min_col=6, max_col=7, min_row=start_table_row - 1, max_row=start_table_row - 1)
                 
                 chart.add_data(data_ref, titles_from_data=True, from_rows=True)
                 chart.set_categories(cats_ref)
+                
+                # Set a distinct color spectrum for each series
+                colors = [
+                    "1F497D",  # Dark Blue
+                    "C0504D",  # Crimson
+                    "9BBB59",  # Sage/Olive
+                    "8064A2",  # Muted Purple
+                    "F79646",  # Soft Orange
+                    "4BACC6",  # Muted Teal
+                    "E26B0A",  # Coral
+                    "7030A0",  # Royal Violet
+                    "00B0F0",  # Sky Blue
+                    "B65708",  # Burnt Orange
+                    "4F81BD",  # Medium Blue
+                    "5F497A",  # Dark Purple
+                ]
+                for s_idx, series in enumerate(chart.series):
+                    color = colors[s_idx % len(colors)]
+                    series.graphicalProperties.line = LineProperties(solidFill=color)
                 
                 # Position the chart on the right side of the sheet
                 ws.add_chart(chart, "K4")
