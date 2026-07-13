@@ -3,6 +3,7 @@ import sys
 import openpyxl
 from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
 from openpyxl.utils import get_column_letter
+from openpyxl.chart import LineChart, Reference
 
 def create_excel(
     dest_path: str,
@@ -108,9 +109,12 @@ def create_excel(
             stats_str = ", ".join([f"{k}: {v}" for k, v in other_stats.items()])
         write_metadata_row(11, "Other Stats", stats_str)
 
+        section_rows = {1, 2, 4, 10}
+
         curr_row = 13
         if cat_data:
             ws.cell(row=curr_row, column=1, value="TABLE CATEGORISATION").font = section_font
+            section_rows.add(curr_row)
             ws.merge_cells(start_row=curr_row, start_column=1, end_row=curr_row, end_column=7)
             for col in range(1, 8):
                 cell = ws.cell(row=curr_row, column=col)
@@ -142,8 +146,111 @@ def create_excel(
             
             curr_row += 2 # gap + dynamic next section start
 
+        # Interpretation Data (Flory Parameters & Plot)
+        interpretation = t_data.get("interpretation") or {}
+        flory_entries = interpretation.get("flory_entries", [])
+        if flory_entries:
+            ws.cell(row=curr_row, column=1, value="FLORY PARAMETERS (INTERPRETATION)").font = section_font
+            section_rows.add(curr_row)
+            ws.merge_cells(start_row=curr_row, start_column=1, end_row=curr_row, end_column=7)
+            for col in range(1, 8):
+                cell = ws.cell(row=curr_row, column=col)
+                cell.fill = section_fill
+                cell.border = thick_bottom
+                
+            curr_row += 1
+            headers = ["Polymer", "Solvent", "c_value (log Constant)", "v_value (Scaling Exponent)"]
+            for idx, h in enumerate(headers):
+                cell = ws.cell(row=curr_row, column=idx + 1, value=h)
+                cell.font = table_header_font
+                cell.fill = table_header_fill
+                cell.alignment = table_header_align
+                cell.border = data_border
+                
+            start_table_row = curr_row + 1
+            
+            # Helper columns for plot data: Columns 5 to 9 (E to I)
+            helper_header_font = Font(name=font_family, size=9, bold=True, color="7F7F7F")
+            helper_val_font = Font(name=font_family, size=9, italic=True, color="7F7F7F")
+            
+            ws.cell(row=start_table_row - 1, column=5, value="Series").font = helper_header_font
+            ws.cell(row=start_table_row - 1, column=5).alignment = left_align
+            ws.cell(row=start_table_row - 1, column=5).border = data_border
+            
+            for col_idx, log_m_val in enumerate([3, 4, 5, 6]):
+                c = 6 + col_idx
+                cell = ws.cell(row=start_table_row - 1, column=c, value=log_m_val)
+                cell.font = helper_header_font
+                cell.alignment = right_align
+                cell.border = data_border
+                
+            # Write entry rows
+            for idx, entry in enumerate(flory_entries):
+                r = start_table_row + idx
+                
+                # Main columns (A to D)
+                ws.cell(row=r, column=1, value=entry.get("polymer_name")).font = val_font
+                ws.cell(row=r, column=1).alignment = left_align
+                ws.cell(row=r, column=1).border = data_border
+                
+                ws.cell(row=r, column=2, value=entry.get("solvent")).font = val_font
+                ws.cell(row=r, column=2).alignment = left_align
+                ws.cell(row=r, column=2).border = data_border
+                
+                ws.cell(row=r, column=3, value=entry.get("c_value")).font = val_font
+                ws.cell(row=r, column=3).alignment = right_align
+                ws.cell(row=r, column=3).border = data_border
+                
+                ws.cell(row=r, column=4, value=entry.get("v_value")).font = val_font
+                ws.cell(row=r, column=4).alignment = right_align
+                ws.cell(row=r, column=4).border = data_border
+                
+                # Series name (E)
+                series_name = f"{entry.get('polymer_name')} in {entry.get('solvent')}"
+                s_cell = ws.cell(row=r, column=5, value=series_name)
+                s_cell.font = helper_val_font
+                s_cell.alignment = left_align
+                s_cell.border = data_border
+                
+                # Calculated points columns F to I
+                for col_idx in range(4):
+                    c = 6 + col_idx
+                    log_m_val = 3 + col_idx
+                    # log(D) = c_value - v_value * log(M)
+                    f_cell = ws.cell(row=r, column=c, value=f"=C{r}-D{r}*{log_m_val}")
+                    f_cell.font = helper_val_font
+                    f_cell.alignment = right_align
+                    f_cell.border = data_border
+                    
+            end_table_row = start_table_row + len(flory_entries) - 1
+            curr_row = end_table_row + 1
+            
+            # Create Line Chart
+            try:
+                chart = LineChart()
+                chart.title = "Flory Calibration Curves (log-log Plot)"
+                chart.style = 13
+                chart.y_axis.title = "log(D / m² s⁻¹)"
+                chart.x_axis.title = "log(M / g mol⁻¹)"
+                
+                # Data: columns E to I (5 to 9), rows start_table_row - 1 to end_table_row
+                data_ref = Reference(ws, min_col=5, max_col=9, min_row=start_table_row - 1, max_row=end_table_row)
+                # Categories: columns F to I (6 to 9), row start_table_row - 1
+                cats_ref = Reference(ws, min_col=6, max_col=9, min_row=start_table_row - 1, max_row=start_table_row - 1)
+                
+                chart.add_data(data_ref, titles_from_data=True, from_rows=True)
+                chart.set_categories(cats_ref)
+                
+                # Position the chart on the right side of the sheet
+                ws.add_chart(chart, "K4")
+            except Exception as e:
+                log_error(f"Error creating openpyxl chart: {e}")
+                
+            curr_row += 2 # gap
+
         start_row = curr_row
         ws.cell(row=start_row, column=1, value="EXTRACTED TABLE DATA").font = section_font
+        section_rows.add(start_row)
         ws.merge_cells(start_row=start_row, start_column=1, end_row=start_row, end_column=7)
         for col in range(1, 8):
             cell = ws.cell(row=start_row, column=col)
@@ -193,18 +300,17 @@ def create_excel(
         else:
             ws.cell(row=csv_start_row, column=1, value="CSV data file not found.").font = val_font
 
-        excluded_rows = {1, 2, 4, 10, start_row}
-        if cat_data:
-            excluded_rows.add(13)
-
         for col in ws.columns:
             max_len = 0
             col_letter = get_column_letter(col[0].column)
             for cell in col:
-                if cell.row in excluded_rows:
+                if cell.row in section_rows:
                     continue
                 if cell.value:
-                    max_len = max(max_len, len(str(cell.value)))
+                    val_str = str(cell.value)
+                    # Ignore formula cells starting with '=' from column width auto-fitting
+                    if not val_str.startswith("="):
+                        max_len = max(max_len, len(val_str))
             ws.column_dimensions[col_letter].width = min(max(max_len + 3, 12), 40)
 
     try:

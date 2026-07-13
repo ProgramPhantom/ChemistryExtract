@@ -599,11 +599,16 @@ class PDFProcessor:
                     except Exception as e:
                         csv_error = str(e)
                         
+            interp_data = None
+            if self.interpretation_data_list and i < len(self.interpretation_data_list):
+                interp_data = self.interpretation_data_list[i] or {}
+
             tables_data.append({
                 "table_data": table_data,
                 "cat_data": cat_data,
                 "csv_rows": csv_rows,
-                "csv_error": csv_error
+                "csv_error": csv_error,
+                "interpretation": interp_data
             })
             
         # 3. Resolve destination path
