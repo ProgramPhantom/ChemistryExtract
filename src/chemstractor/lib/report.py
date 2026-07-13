@@ -5,7 +5,6 @@ from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
 from openpyxl.utils import get_column_letter
 from openpyxl.chart import LineChart, Reference
 from openpyxl.drawing.line import LineProperties
-from openpyxl.chart.layout import Layout, ManualLayout
 
 def create_excel(
     dest_path: str,
@@ -253,21 +252,14 @@ def create_excel(
                 if y_vals:
                     min_y = min(y_vals)
                     max_y = max(y_vals)
-                    # Add 0.5 padding on each side and format to 2 decimal places
-                    chart.y_axis.scaling.min = float(f"{min_y - 0.5:.2f}")
-                    chart.y_axis.scaling.max = float(f"{max_y + 0.5:.2f}")
+                    # Use a tight 0.1 padding on each side for the vertical scale
+                    chart.y_axis.scaling.min = float(f"{min_y - 0.1:.2f}")
+                    chart.y_axis.scaling.max = float(f"{max_y + 0.1:.2f}")
                 
-                # Adjust plot area to give the title more space
-                chart.plot_area.layout = Layout(
-                    manualLayout=ManualLayout(
-                        xMode="edge",
-                        yMode="edge",
-                        x=0.15,
-                        y=0.20,  # Lower the top of the plot area
-                        w=0.75,
-                        h=0.70
-                    )
-                )
+                # Set chart dimensions to give labels and titles plenty of space to prevent clipping.
+                # We let Excel use its automatic layout engine to dynamically place titles/legends.
+                chart.width = 18
+                chart.height = 12
 
                 # Data: columns E to G (5 to 7), rows start_table_row to end_table_row
                 # (Notice min_row starts at start_table_row, NOT start_table_row - 1)
