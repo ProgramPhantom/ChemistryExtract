@@ -23,12 +23,12 @@ class FloryEntry(BaseModel):
     polymer_name: str = Field(description="The name or acronym of the polymer.")
     solvent: str = Field(description="The solvent used.")
     temperature_k: Optional[float] = Field(None, description="Temperature in Kelvin, if stated in the text or table.")
-    raw_v_value: float = Field(description="The raw nominal value representing the Flory scaling exponent / molar mass dependency parameter (often represented as v, nu, a, b, or alpha in different equation forms). Do not include any uncertainty/ranges (like ±0.02) in this number.")
+    raw_v_value: float = Field(description="The raw value representing the Flory scaling exponent / molar mass dependency parameter (often represented as v, nu, a, b, or alpha in different equation forms). Do not include any uncertainty/ranges (like ±0.02) in this number.")
     v_transformation: str = Field(description="Transformation applied to v. E.g. 'none', 'reciprocal', 'unknown', or any custom scaling expression.")
     v_value: float = Field(description="The standard, calculated/converted value of the coefficient v. If v is scaled or transformed in the table, you MUST call the calculate_math tool to compute the standard value and store that returned result here. If no transformation is applied, v_value = raw_v_value.")
-    raw_c_value: float = Field(description="The raw nominal value representing the Flory constant / pre-exponential factor (often represented as c, C, b', K, or A in different equation forms). Do not include any uncertainty/ranges (like ±0.02) in this number.")
-    c_transformation: str = Field(description="Transformation applied to c. E.g. 'none', 'log', 'ln', '10**-8', 'unknown', or any custom multiplier/scaling expression.")
-    c_value: float = Field(description="The standard, calculated/converted value of the constant c. If c is scaled or transformed in the table (e.g. log, ln, or multiplied by a factor of 10), you MUST call the calculate_math tool to compute the standard value and store that returned result here. If no transformation is applied, c_value = raw_c_value.")
+    raw_c_value: float = Field(description="The raw value of the constant representing the Flory constant / pre-exponential factor (often represented as c, C, b', K, or A in different equation forms) as written in the table, before log conversion or error correction. Do not include any uncertainty/ranges (like ±0.02) in this number.")
+    c_transformation: str = Field(description="Transformation applied to c. E.g. 'none', 'log', 'ln', or any custom scaling/exponent expression.")
+    c_value: float = Field(description="The log-form (base-10 logarithm) value of the Flory constant. If the constant in the table is already in log form (e.g. under a log(b') or lg(c) header), store the corrected log value here (fixing omitted minus signs if any). If the constant is in linear form, convert it to its base-10 log value and store that here.")
 
 
 # 3. Define the extraction schema for Mark-Houwink parameters
@@ -174,19 +174,23 @@ def get_flory_interpret_prompt(table_text: str, title: str | None = None, abstra
     where:
     - "v" (or nu, alpha, a, b, V, or a_D) is the Flory coefficient / scaling exponent representing the Molar Mass Dependency. It typically lies between 0.33 (spherical particles/highly branched) and 1.0 (rigid rods), and is most commonly around 0.40 to 0.60 for linear polymers in solution.
     - The pre-exponential factor (e.g., A, c, b', K, or D_0) is the Flory constant. It represents the intercept of the relation in logarithmic space:
-      log(D) = log(b') - v * log(M)   OR   log(D * eta) = log(c) - v * log(M)
+      log(D) = log(b') - v * log(M)
     
     ### Deduction & Extraction Guidelines:
     1. **Analyze Context & Formulas**: Look at the Paper Title, Abstract, and Extracted Mathematical Formulae. Identify the specific equation form used by the authors for diffusion calibration (e.g., whether they use uncorrected constants like b' or viscosity-corrected constants like c).
     2. **Deduce Column Meanings**:
        - Do not strictly look for columns named exactly "c" or "v". Instead, use chemical reasoning to map the columns based on the equation's role.
-       - **Exponent Column (Molar Mass Dependency 'v')**: Identify the column representing the exponent or slope. Look for headers like `v`, `V`, `nu`, `a`, `b`, `alpha`, `exponent`, or `slope`. The values are typically dimensionless and lie in the range 0.35 to 0.70, or -7 to -8 when in log form.
-       - **Constant Column (Flory Constant 'c')**: Identify the column representing the pre-exponential factor or intercept. Look for headers like `lg(c...)`, `lg(b'...)`, `log(c)`, `log(b')`, `c`, `b'`, `K`, or `A`. If the table contains both uncorrected (e.g., b') and viscosity-corrected (e.g., c) constants, extract the UNCORRECTED constant.
+       - **Exponent Column (Molar Mass Dependency 'v')**: Identify the column representing the exponent or slope. Look for headers like `v`, `V`, `nu`, `a`, `b`, `alpha`, `exponent`, or `slope`. The values are typically dimensionless and lie in the range 0.35 to 0.70.
+       - **Constant Column (Flory Constant 'c')**: Identify the column representing the pre-exponential factor or intercept. Look for headers like `lg(c...)`, `lg(b'...)`, `log(c)`, `log(b')`, `c`, `b'`, `K`, or `A`. If the table contains both uncorrected (e.g., b') and viscosity-corrected (e.g., c) constants, extract the UNCORRECTED constant (representing b' or similar).
     3. **Uncertainty/Range Handling**: If a cell contains a value with uncertainty (e.g., "7.94 ± 0.02" or "0.49 ± 0.02"), extract ONLY the nominal/base value (e.g., "7.94" or "0.49") as the raw value. Do not include the uncertainty symbol or the range.
-    4. **Transformation & Calculations**:
-       - Note if the constant or exponent in the table has been transformed (e.g., listed in logarithmic form like `lg(c/m^2/s)` or `log(b')`).
-       - If a transformation exists (e.g., a value of -8.15 under a `lg(c)` column), you MUST use the `calculate_math` tool to compute the standard value (e.g., 10**8.15 = 141253754.4).
-       - Record the raw value, the transformation applied, and the calculated standard value.
+    4. **Transformation & Calculations to Log Form**:
+       - We require the final output `c_value` to be in **log form (base-10 logarithm)** for log-log plotting.
+       - **If the constant column is already in log form** (e.g. `lg(b')`, `lg(c)`, `log(b')`, or `log(c)`): Leave the value in its log form (e.g., -7.70). Do NOT exponentiate it back to linear form.
+       - **If the constant column is in linear/normal form** (e.g. `c` or `b'`): Convert the linear value to its base-10 log form.
+    5. **Sanity Check & Error Correction (Omitted Minus Signs)**:
+       - Since the table text is parsed from PDFs, characters (especially minus signs `-`) are sometimes omitted or corrupted during parsing.
+       - The log of the polymer diffusion constant (e.g., log10(b') or log10(c)) is expected to be a negative number, typically between `-8` and `-7` (for diffusion in standard SI units m^2/s).
+       - If you read a positive constant value (e.g., `7.70`, `8`, or `7.94`) under a log-constant column (like `lg(b')`), this is clearly a parsing error where the minus sign was omitted. You **MUST** correct this by adding a minus sign (e.g. `7.70` becomes `-7.70`, `7.94` becomes `-7.94`).
 
     {context_str}
     
@@ -257,8 +261,9 @@ def interpret_table(table_text: str, title: str | None = None, abstract: str | N
         flory_prompt = get_flory_interpret_prompt(table_text, title=title, abstract=abstract, formulae=formulae)
         flory_system_instruction = (
             "You are a precise chemistry data extractor. You must NEVER do math in your head. "
-            "If any parameter is transformed or scaled in the table (e.g. log, ln, reciprocal, or a power of 10 multiplier like 10^-8), "
-            "you MUST call the calculate_math tool to compute the standard value, and you MUST store the returned result of the calculator tool call into the standard value field (e.g. v_value or c_value).\n"
+            "For the exponent/v value, if it is scaled or transformed, you MUST call calculate_math to compute the standard value. "
+            "For the constant/c value, we require it in log form (base-10 logarithm). If the constant is already in log form (e.g. lg(b') or log(c)), keep it as is (fixing any omitted minus signs so it is negative, e.g. 7.70 becomes -7.70). "
+            "If the constant is in linear/normal form, convert it to its base-10 log form"
             "CRITICAL: When calling calculate_math, formulate the mathematical expression using only raw numbers and mathematical functions (like log10, lg, ln, exp). "
             "Do NOT include variable names (such as 'c', 'K', 'a', 'v') in the expression. You must substitute the actual raw numerical value into the expression."
         )
