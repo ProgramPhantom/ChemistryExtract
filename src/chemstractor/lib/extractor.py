@@ -441,8 +441,12 @@ class TableExtractor:
         self.formulae = []
         if self._parsed_result and hasattr(self._parsed_result, "document"):
             for item, level in self._parsed_result.document.iterate_items():
-                if hasattr(item, "label") and item.label == "FORMULA":
-                    self.formulae.append(item.text)
+                if type(item).__name__ == "FormulaItem":
+                    formula_text = (getattr(item, "text", "") or "").strip()
+                    if not formula_text:
+                        formula_text = (getattr(item, "orig", "") or "").strip()
+                    if formula_text:
+                        self.formulae.append(formula_text)
         
         self._is_parsed = True
     
