@@ -167,6 +167,8 @@ def get_flory_interpret_prompt(table_text: str, title: str | None = None, abstra
     You are a chemistry data converter. Analyze the following extracted table and its surrounding context.
     Your task is to extract Flory parameters (coefficient v and constant c) for each row where applicable.
     
+    CRITICAL: Try to find a formula of the form "D = cM^{{-v}}" (or equivalent notation) in the paper text/context to determine the meaning of the column titles and to correctly select the constant c and Flory coefficient v.
+    
     For Flory entries:
     Extract the polymer name, solvent, temperature, and Flory parameters (coefficient v and constant c).
     
