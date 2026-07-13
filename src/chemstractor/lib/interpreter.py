@@ -23,10 +23,10 @@ class FloryEntry(BaseModel):
     polymer_name: str = Field(description="The name or acronym of the polymer.")
     solvent: str = Field(description="The solvent used.")
     temperature_k: Optional[float] = Field(None, description="Temperature in Kelvin, if stated in the text or table.")
-    raw_v_value: float = Field(description="The raw number representing the Flory coefficient/exponent v (often represented as nu or v).")
+    raw_v_value: float = Field(description="The raw nominal value representing the Flory scaling exponent / molar mass dependency parameter (often represented as v, nu, a, b, or alpha in different equation forms). Do not include any uncertainty/ranges (like ±0.02) in this number.")
     v_transformation: str = Field(description="Transformation applied to v. E.g. 'none', 'reciprocal', 'unknown', or any custom scaling expression.")
     v_value: float = Field(description="The standard, calculated/converted value of the coefficient v. If v is scaled or transformed in the table, you MUST call the calculate_math tool to compute the standard value and store that returned result here. If no transformation is applied, v_value = raw_v_value.")
-    raw_c_value: float = Field(description="The raw number representing the Flory constant c (often represented as C or c).")
+    raw_c_value: float = Field(description="The raw nominal value representing the Flory constant / pre-exponential factor (often represented as c, C, b', K, or A in different equation forms). Do not include any uncertainty/ranges (like ±0.02) in this number.")
     c_transformation: str = Field(description="Transformation applied to c. E.g. 'none', 'log', 'ln', '10**-8', 'unknown', or any custom multiplier/scaling expression.")
     c_value: float = Field(description="The standard, calculated/converted value of the constant c. If c is scaled or transformed in the table (e.g. log, ln, or multiplied by a factor of 10), you MUST call the calculate_math tool to compute the standard value and store that returned result here. If no transformation is applied, c_value = raw_c_value.")
 
@@ -164,18 +164,30 @@ def get_flory_interpret_prompt(table_text: str, title: str | None = None, abstra
         context_str += "\n    Extracted Mathematical Formulae:\n" + "\n".join(f"    - {formula}" for formula in formulae)
         
     return f"""
-    You are a chemistry data converter. Analyze the following extracted table and its surrounding context.
-    Your task is to extract Flory parameters (coefficient v and constant c) for each row where applicable.
+    You are an expert chemistry data converter and reasoning engine. Your task is to analyze the following table and its surrounding context, deduce which columns represent the polymer diffusion scaling parameters, and extract them.
+
+    ### Chemical & Physical Context:
+    We are looking for polymer/solvent diffusion calibration parameters. In physical chemistry, the diffusion coefficient (D) of a polymer depends on its molecular weight (or molar mass, M) according to a scaling relationship (power-law):
     
-    CRITICAL: Try to find a formula of the form "D = cM^{{-v}}" (or equivalent notation) in the paper text/context to determine the meaning of the column titles and to correctly select the constant c and Flory coefficient v.
+    D = A * M^(-v)
     
-    For Flory entries:
-    Extract the polymer name, solvent, temperature, and Flory parameters (coefficient v and constant c).
+    where:
+    - "v" (or nu, alpha, a, b, V, or a_D) is the Flory coefficient / scaling exponent representing the Molar Mass Dependency. It typically lies between 0.33 (spherical particles/highly branched) and 1.0 (rigid rods), and is most commonly around 0.40 to 0.60 for linear polymers in solution.
+    - The pre-exponential factor (e.g., A, c, b', K, or D_0) is the Flory constant. It represents the intercept of the relation in logarithmic space:
+      log(D) = log(b') - v * log(M)   OR   log(D * eta) = log(c) - v * log(M)
     
-    If the coefficient v or constant c in the table are transformed (for example, if they are listed as log(c), ln(c), 1/v, or reciprocal of v),
-    you MUST call the `calculate_math` tool to compute the standard/converted v and c values.
-    Do NOT do any math, logarithm, exponentiation, or reciprocal calculation in your head. Use the `calculate_math` tool!
-    
+    ### Deduction & Extraction Guidelines:
+    1. **Analyze Context & Formulas**: Look at the Paper Title, Abstract, and Extracted Mathematical Formulae. Identify the specific equation form used by the authors for diffusion calibration (e.g., whether they use uncorrected constants like b' or viscosity-corrected constants like c).
+    2. **Deduce Column Meanings**:
+       - Do not strictly look for columns named exactly "c" or "v". Instead, use chemical reasoning to map the columns based on the equation's role.
+       - **Exponent Column (Molar Mass Dependency 'v')**: Identify the column representing the exponent or slope. Look for headers like `v`, `V`, `nu`, `a`, `b`, `alpha`, `exponent`, or `slope`. The values are typically dimensionless and lie in the range 0.35 to 0.70, or -7 to -8 when in log form.
+       - **Constant Column (Flory Constant 'c')**: Identify the column representing the pre-exponential factor or intercept. Look for headers like `lg(c...)`, `lg(b'...)`, `log(c)`, `log(b')`, `c`, `b'`, `K`, or `A`. If the table contains both uncorrected (e.g., b') and viscosity-corrected (e.g., c) constants, extract the UNCORRECTED constant.
+    3. **Uncertainty/Range Handling**: If a cell contains a value with uncertainty (e.g., "7.94 ± 0.02" or "0.49 ± 0.02"), extract ONLY the nominal/base value (e.g., "7.94" or "0.49") as the raw value. Do not include the uncertainty symbol or the range.
+    4. **Transformation & Calculations**:
+       - Note if the constant or exponent in the table has been transformed (e.g., listed in logarithmic form like `lg(c/m^2/s)` or `log(b')`).
+       - If a transformation exists (e.g., a value of -8.15 under a `lg(c)` column), you MUST use the `calculate_math` tool to compute the standard value (e.g., 10**8.15 = 141253754.4).
+       - Record the raw value, the transformation applied, and the calculated standard value.
+
     {context_str}
     
     Table Data:
