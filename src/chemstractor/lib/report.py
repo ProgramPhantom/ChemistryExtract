@@ -5,6 +5,7 @@ from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
 from openpyxl.utils import get_column_letter
 from openpyxl.chart import LineChart, Reference
 from openpyxl.drawing.line import LineProperties
+from openpyxl.chart.layout import Layout, ManualLayout
 
 def create_excel(
     dest_path: str,
@@ -231,9 +232,43 @@ def create_excel(
                 chart = LineChart()
                 chart.title = "Flory Calibration Curves (log-log Plot)"
                 chart.style = 13
-                chart.y_axis.title = "log(D / m² s⁻¹)"
-                chart.x_axis.title = "log(M / g mol⁻¹)"
                 
+                # Configure axes and labels visibility
+                chart.x_axis.title = "log(M / g mol⁻¹)"
+                chart.y_axis.title = "log(D / m² s⁻¹)"
+                chart.x_axis.delete = False
+                chart.y_axis.delete = False
+                chart.x_axis.tickLblPos = "low"
+                chart.y_axis.tickLblPos = "nextTo"
+                
+                # Automatically fit Y-axis scale based on data
+                y_vals = []
+                for entry in flory_entries:
+                    c_val = entry.get("c_value")
+                    v_val = entry.get("v_value")
+                    if c_val is not None and v_val is not None:
+                        y_vals.append(c_val - v_val * 3)
+                        y_vals.append(c_val - v_val * 6)
+                
+                if y_vals:
+                    min_y = min(y_vals)
+                    max_y = max(y_vals)
+                    # Add 0.5 padding on each side and format to 2 decimal places
+                    chart.y_axis.scaling.min = float(f"{min_y - 0.5:.2f}")
+                    chart.y_axis.scaling.max = float(f"{max_y + 0.5:.2f}")
+                
+                # Adjust plot area to give the title more space
+                chart.plot_area.layout = Layout(
+                    manualLayout=ManualLayout(
+                        xMode="edge",
+                        yMode="edge",
+                        x=0.15,
+                        y=0.20,  # Lower the top of the plot area
+                        w=0.75,
+                        h=0.70
+                    )
+                )
+
                 # Data: columns E to G (5 to 7), rows start_table_row to end_table_row
                 # (Notice min_row starts at start_table_row, NOT start_table_row - 1)
                 data_ref = Reference(ws, min_col=5, max_col=7, min_row=start_table_row, max_row=end_table_row)
@@ -270,7 +305,7 @@ def create_excel(
             curr_row += 2 # gap
 
         start_row = curr_row
-        ws.cell(row=start_row, column=1, value="EXTRACTED TABLE DATA").font = section_font
+        ws.cell(row=start_row, column=1, value="EXTRACTED RAW TABLE DATA").font = section_font
         section_rows.add(start_row)
         ws.merge_cells(start_row=start_row, start_column=1, end_row=start_row, end_column=7)
         for col in range(1, 8):
@@ -315,7 +350,7 @@ def create_excel(
                             cell.alignment = right_align
                         else:
                             cell.alignment = left_align
-                    active_row_idx += 1
+                active_row_idx += 1
         elif csv_error is not None:
             ws.cell(row=csv_start_row, column=1, value=f"Error loading CSV data: {csv_error}").font = val_font
         else:
