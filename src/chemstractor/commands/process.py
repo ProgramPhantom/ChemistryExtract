@@ -15,7 +15,9 @@ def run_process_single(
     output_dir: str,
     console: Console = None,
     direct: bool = False,
-    same_folder: bool = True
+    same_folder: bool = True,
+    interpret: bool = False,
+    report: bool = False
 ) -> dict:
     """Runs extraction, categorisation, and summarisation on a single PDF."""
     if console is None:
@@ -51,6 +53,11 @@ def run_process_single(
         # 4. Summarise
         run_summarise(processor, tree)
             
+        # 5. Interpret (if flag is present)
+        if interpret:
+            from chemstractor.commands.interpret import run_interpret
+            run_interpret(processor, tree)
+            
         processor.save_all()
         elapsed_time = time.time() - timer
         tree.add(f"Total time taken: [yellow]{elapsed_time:.2f}s[/yellow]")
@@ -58,6 +65,10 @@ def run_process_single(
         
     num_tables = processor.num_tables
     processor.cleanup()
+    
+    if report:
+        from chemstractor.commands.report import report_command
+        report_command(process_output_dir=processor.output_dir)
     
     return {
         "file": os.path.basename(pdf_path) if not direct else os.path.basename(output_dir),
@@ -69,7 +80,9 @@ def process_command(
     pdf_path: str,
     output_dir: str,
     direct: bool = False,
-    same_folder: bool = True
+    same_folder: bool = True,
+    interpret: bool = False,
+    report: bool = False
 ):
     console = Console(file=sys.__stdout__)
     run_process_single(
@@ -77,5 +90,7 @@ def process_command(
         output_dir=output_dir,
         console=console,
         direct=direct,
-        same_folder=same_folder
+        same_folder=same_folder,
+        interpret=interpret,
+        report=report
     )

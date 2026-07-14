@@ -48,7 +48,9 @@ def print_summary_table(console: Console, summary_data: list[dict]):
 def process_all_command(
     pdf_dir: str,
     output_parent_dir: str,
-    direct: bool = False
+    direct: bool = False,
+    interpret: bool = False,
+    report: bool = False
 ):
     console = Console(file=sys.__stdout__)
     
@@ -70,7 +72,9 @@ def process_all_command(
                 output_dir=dest_subdir_path,
                 console=console,
                 direct=True,
-                same_folder=True
+                same_folder=True,
+                interpret=interpret,
+                report=report
             )
             summary_data.append(res)
     else:
@@ -79,7 +83,9 @@ def process_all_command(
                 pdf_path=pdf_path,
                 output_dir=run_dir,
                 console=console,
-                direct=False
+                direct=False,
+                interpret=interpret,
+                report=report
             )
             summary_data.append(res)
             

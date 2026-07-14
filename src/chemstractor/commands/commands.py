@@ -38,7 +38,9 @@ def cli():
 @click.argument('output_dir', required=False)
 @click.option('--model', type=click.Choice(CHOICES), default=None, help="Model to use.")
 @click.option('--direct', '-d', is_flag=True, help="Input is a process output folder rather than a PDF.")
-def process(pdf_path, output_dir, model, direct):
+@click.option('--interpret', '-i', is_flag=True, help="Interpret coeff tables.")
+@click.option('--report', '-r', is_flag=True, help="Generate report after process completes.")
+def process(pdf_path, output_dir, model, direct, interpret, report):
     """Process a single PDF file (extract, categorise, and summarise)."""
     if output_dir is None and not direct:
         output_dir = "."
@@ -64,7 +66,9 @@ def process(pdf_path, output_dir, model, direct):
         pdf_path=pdf_path,
         output_dir=output_dir,
         direct=direct,
-        same_folder=same_folder
+        same_folder=same_folder,
+        interpret=interpret,
+        report=report
     )
 
 
@@ -73,7 +77,9 @@ def process(pdf_path, output_dir, model, direct):
 @click.argument('output_dir', required=False)
 @click.option('--model', type=click.Choice(CHOICES), default=None, help="Model to use.")
 @click.option('--direct', '-d', is_flag=True, help="Input is a directory of process output folders rather than PDFs.")
-def process_all(pdf_dir, output_dir, model, direct):
+@click.option('--interpret', '-i', is_flag=True, help="Interpret coeff tables.")
+@click.option('--report', '-r', is_flag=True, help="Generate report after process completes.")
+def process_all(pdf_dir, output_dir, model, direct, interpret, report):
     """Process all PDF files in a directory."""
     if model is None:
         model = prompt_for_model()
@@ -88,7 +94,9 @@ def process_all(pdf_dir, output_dir, model, direct):
     process_all_command(
         pdf_dir=pdf_dir,
         output_parent_dir=output_dir,
-        direct=direct
+        direct=direct,
+        interpret=interpret,
+        report=report
     )
 
 
