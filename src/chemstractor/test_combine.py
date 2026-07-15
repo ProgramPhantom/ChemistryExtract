@@ -1,0 +1,187 @@
+import os
+import shutil
+import json
+import unittest
+from unittest.mock import MagicMock, patch
+# Add src to sys.path so we can import chemstractor
+import sys
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
+from chemstractor.commands.combine import combine_command
+from chemstractor.lib.processor import PDFProcessor
+from chemstractor.AI import AI, AIPromptResult
+class TestCombinePipeline(unittest.TestCase):
+    def setUp(self):
+        self.test_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), 'runs/mock_combine_run'))
+        if os.path.exists(self.test_dir):
+            shutil.rmtree(self.test_dir)
+        os.makedirs(self.test_dir)
+        
+        # Paper 1
+        self.paper1_dir = os.path.join(self.test_dir, 'test_paper1')
+        os.makedirs(os.path.join(self.paper1_dir, 'interpretation'))
+        os.makedirs(os.path.join(self.paper1_dir, 'extract'))
+        
+        # Write dummy output.md to satisfy prepare_processor checks
+        with open(os.path.join(self.paper1_dir, 'extract/output.md'), 'w') as f:
+            f.write("# Dummy Paper 1")
+            
+        table1_data = {
+            "is_mark_houwink_data": True,
+            "is_flory_data": False,
+            "mh_entries": [
+                {
+                    "polymer_name": "PMMA",
+                    "solvent": "T0luene",
+                    "temperature_k": 298.15,
+                    "raw_K_value": 0.012,
+                    "K_transformation": "none",
+                    "K_value": 0.012,
+                    "raw_a_value": 0.7,
+                    "a_transformation": "none",
+                    "a_value": 0.7
+                }
+            ],
+            "flory_entries": []
+        }
+        with open(os.path.join(self.paper1_dir, 'interpretation/table1.json'), 'w') as f:
+            json.dump(table1_data, f)
+        # Paper 2
+        self.paper2_dir = os.path.join(self.test_dir, 'test_paper2')
+        os.makedirs(os.path.join(self.paper2_dir, 'interpretation'))
+        os.makedirs(os.path.join(self.paper2_dir, 'extract'))
+        
+        with open(os.path.join(self.paper2_dir, 'extract/output.md'), 'w') as f:
+            f.write("# Dummy Paper 2")
+            
+        table2_data = {
+            "is_mark_houwink_data": False,
+            "is_flory_data": True,
+            "mh_entries": [],
+            "flory_entries": [
+                {
+                    "polymer_name": "Poly(methyl methacrylate)",
+                    "solvent": "toluene",
+                    "temperature_k": 298.15,
+                    "raw_v_value": 0.48,
+                    "v_transformation": "none",
+                    "v_value": 0.48,
+                    "raw_c_value": -7.72,
+                    "c_transformation": "none",
+                    "c_value": -7.72
+                },
+                {
+                    "polymer_name": "NoiseData",
+                    "solvent": "12345",
+                    "temperature_k": 298.15,
+                    "raw_v_value": 0.5,
+                    "v_transformation": "none",
+                    "v_value": 0.5,
+                    "raw_c_value": -7.5,
+                    "c_transformation": "none",
+                    "c_value": -7.5
+                }
+            ]
+        }
+        with open(os.path.join(self.paper2_dir, 'interpretation/table1.json'), 'w') as f:
+            json.dump(table2_data, f)
+    def tearDown(self):
+        if os.path.exists(self.test_dir):
+            shutil.rmtree(self.test_dir)
+    @patch('chemstractor.AI.AI.prompt')
+    def test_combine_command(self, mock_prompt):
+        # We need mock_prompt to handle calls to match/generate:
+        # Prompt 1 (generate PMMA): returns clean_name = "poly(methyl methacrylate)"
+        # Prompt 2 (generate T0luene): returns clean_name = "toluene"
+        # Prompt 3 (generate NoiseData): returns clean_name = "N/A"
+        # Prompt 4 (generate 12345): returns clean_name = "N/A"
+        
+        # Let's create a list of responses based on the prompt contents
+        def side_effect(prompt, schema, **kwargs):
+            from pydantic import BaseModel
+            
+            prompt_str = str(prompt)
+            # Check if it's the selection (matching) step or generation step
+            # Selection prompt contains "Canonical Options:"
+            if "Canonical Options" in prompt_str:
+                # Mock selection result (simulate not found)
+                class MatchResult(BaseModel):
+                    match: str
+                return AIPromptResult(success=True, data=MatchResult(match="not found"))
+            else:
+                # Generation prompt
+                class GenResult(BaseModel):
+                    clean_name: str
+                
+                if "PMMA" in prompt_str:
+                    return AIPromptResult(success=True, data=GenResult(clean_name="poly(methyl methacrylate)"))
+                elif "T0luene" in prompt_str:
+                    return AIPromptResult(success=True, data=GenResult(clean_name="toluene"))
+                elif "NoiseData" in prompt_str:
+                    return AIPromptResult(success=True, data=GenResult(clean_name="N/A"))
+                elif "12345" in prompt_str:
+                    return AIPromptResult(success=True, data=GenResult(clean_name="N/A"))
+                else:
+                    return AIPromptResult(success=True, data=GenResult(clean_name="N/A"))
+                    
+        mock_prompt.side_effect = side_effect
+        
+        cache_path = os.path.join(self.test_dir, 'chemical_cache.json')
+        output_prefix = os.path.join(self.test_dir, 'combined_output')
+        
+        # Run command
+        combine_command(
+            input_dir=self.test_dir,
+            output_path=output_prefix,
+            cache_path=cache_path
+        )
+        
+        # Assert files were created
+        self.assertTrue(os.path.exists(cache_path))
+        self.assertTrue(os.path.exists(output_prefix + '.json'))
+        self.assertTrue(os.path.exists(output_prefix + '.xlsx'))
+        
+        # Validate Cache contents
+        with open(cache_path, 'r', encoding='utf-8') as f:
+            cache = json.load(f)
+            self.assertEqual(cache.get("PMMA"), "poly(methyl methacrylate)")
+            self.assertEqual(cache.get("T0luene"), "toluene")
+            # Failures (N/A) shouldn't be added to cache or should map to N/A?
+            # In our pipeline:
+            # if new_name == "N/A": don't save to cache
+            self.assertNotIn("NoiseData", cache)
+            self.assertNotIn("12345", cache)
+            
+        # Validate Combined JSON contents
+        with open(output_prefix + '.json', 'r', encoding='utf-8') as f:
+            combined = json.load(f)
+            
+            # Check Mark-Houwink
+            mh = combined.get("mark_houwink_entries", [])
+            self.assertEqual(len(mh), 1)
+            self.assertEqual(mh[0]["polymer_name"], "poly(methyl methacrylate)")
+            self.assertEqual(mh[0]["polymer_name_original"], "PMMA")
+            self.assertEqual(mh[0]["solvent"], "toluene")
+            self.assertEqual(mh[0]["solvent_original"], "T0luene")
+            
+            # Check Flory
+            flory = combined.get("flory_entries", [])
+            self.assertEqual(len(flory), 2)
+            # The first one is Poly(methyl methacrylate) which should resolve to poly(methyl methacrylate)
+            self.assertEqual(flory[0]["polymer_name"], "poly(methyl methacrylate)")
+            self.assertEqual(flory[0]["solvent"], "toluene")
+            
+            # The second is NoiseData which failed
+            self.assertEqual(flory[1]["polymer_name"], "NoiseData")  # remains original raw name on failure
+            self.assertEqual(flory[1]["solvent"], "12345")
+            
+            # Check Failures
+            fails = combined.get("failures", [])
+            self.assertEqual(len(fails), 2)
+            fields = [x["field"] for x in fails]
+            values = [x["value"] for x in fails]
+            self.assertIn("polymer_name", fields)
+            self.assertIn("solvent", fields)
+            self.assertIn("NoiseData", values)
+            self.assertIn("12345", values)
+if __name__ == '__main__':
+    unittest.main()
