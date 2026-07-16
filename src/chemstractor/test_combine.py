@@ -158,10 +158,10 @@ class TestCombinePipeline(unittest.TestCase):
         combine_prefix = os.path.join(output_prefix, 'combined_data')
         self.assertTrue(os.path.exists(combine_prefix + '.json'))
         self.assertTrue(os.path.exists(combine_prefix + '.xlsx'))
-        self.assertTrue(os.path.exists(combine_prefix + '_flory_aggregated.pkl'))
-        self.assertTrue(os.path.exists(combine_prefix + '_flory_aggregated.csv'))
-        self.assertTrue(os.path.exists(combine_prefix + '_mh_aggregated.pkl'))
-        self.assertTrue(os.path.exists(combine_prefix + '_mh_aggregated.csv'))
+        self.assertTrue(os.path.exists(combine_prefix + '_flory_database.pkl'))
+        self.assertTrue(os.path.exists(combine_prefix + '_flory_database.csv'))
+        self.assertTrue(os.path.exists(combine_prefix + '_mh_database.pkl'))
+        self.assertTrue(os.path.exists(combine_prefix + '_mh_database.csv'))
         
         # Validate Cache contents
         with open(cache_path, 'r', encoding='utf-8') as f:
@@ -217,27 +217,53 @@ class TestCombinePipeline(unittest.TestCase):
         self.assertIn("Mark-Houwink", sheet_names)
         self.assertIn("Flory", sheet_names)
         self.assertIn("Failures", sheet_names)
-        self.assertIn("Aggregated Flory", sheet_names)
-        self.assertIn("Aggregated Mark-Houwink", sheet_names)
+        self.assertNotIn("Aggregated Flory", sheet_names)
+        self.assertNotIn("Aggregated Mark-Houwink", sheet_names)
 
-        # Validate Aggregated Databases (Pandas DataFrames)
+        # Verify summary tables on sheets
+        ws_mh = wb["Mark-Houwink"]
+        self.assertEqual(ws_mh.cell(row=1, column=14).value, "Solvent")
+        self.assertEqual(ws_mh.cell(row=2, column=14).value, "toluene")
+        self.assertEqual(ws_mh.cell(row=2, column=15).value, "poly(methyl methacrylate)")
+        self.assertEqual(ws_mh.cell(row=2, column=16).value, 1)
+
+        ws_flory = wb["Flory"]
+        self.assertEqual(ws_flory.cell(row=1, column=14).value, "Solvent")
+        self.assertEqual(ws_flory.cell(row=2, column=14).value, "toluene")
+        self.assertEqual(ws_flory.cell(row=2, column=15).value, "poly(methyl methacrylate)")
+        self.assertEqual(ws_flory.cell(row=2, column=16).value, 1)
+
+        # Verify computed helper rows
+        self.assertEqual(ws_flory.cell(row=2, column=18).value, "poly(methyl methacrylate) in toluene (test_paper2)")
+        self.assertEqual(ws_flory.cell(row=2, column=19).value, "=H2-J2*3")
+        self.assertEqual(ws_flory.cell(row=2, column=20).value, "=H2-J2*6")
+
+        self.assertEqual(ws_mh.cell(row=2, column=18).value, "poly(methyl methacrylate) in toluene (test_paper1)")
+        self.assertEqual(ws_mh.cell(row=2, column=19).value, "=LOG10(H2)+J2*3")
+        self.assertEqual(ws_mh.cell(row=2, column=20).value, "=LOG10(H2)+J2*6")
+
+        # Verify LineCharts are present in both sheets
+        self.assertEqual(len(ws_mh._charts), 1)
+        self.assertEqual(len(ws_flory._charts), 1)
+
+        # Validate Databases (Pandas DataFrames are flat)
         import pandas as pd
         
         # 1. Flory
-        df_flory = pd.read_pickle(combine_prefix + '_flory_aggregated.pkl')
+        df_flory = pd.read_pickle(combine_prefix + '_flory_database.pkl')
         self.assertEqual(len(df_flory), 1)
         self.assertEqual(df_flory.iloc[0]["solvent"], "toluene")
         self.assertEqual(df_flory.iloc[0]["polymer"], "poly(methyl methacrylate)")
-        self.assertEqual(df_flory.iloc[0]["c_values"], [-7.72])
-        self.assertEqual(df_flory.iloc[0]["v_values"], [0.48])
+        self.assertEqual(df_flory.iloc[0]["c_value"], -7.72)
+        self.assertEqual(df_flory.iloc[0]["v_value"], 0.48)
 
         # 2. Mark-Houwink
-        df_mh = pd.read_pickle(combine_prefix + '_mh_aggregated.pkl')
+        df_mh = pd.read_pickle(combine_prefix + '_mh_database.pkl')
         self.assertEqual(len(df_mh), 1)
         self.assertEqual(df_mh.iloc[0]["solvent"], "toluene")
         self.assertEqual(df_mh.iloc[0]["polymer"], "poly(methyl methacrylate)")
-        self.assertEqual(df_mh.iloc[0]["K_values"], [0.012])
-        self.assertEqual(df_mh.iloc[0]["a_values"], [0.7])
+        self.assertEqual(df_mh.iloc[0]["K_value"], 0.012)
+        self.assertEqual(df_mh.iloc[0]["a_value"], 0.7)
         
 if __name__ == '__main__':
     unittest.main()
