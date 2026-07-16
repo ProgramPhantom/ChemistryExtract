@@ -220,27 +220,29 @@ class TestCombinePipeline(unittest.TestCase):
         self.assertNotIn("Aggregated Flory", sheet_names)
         self.assertNotIn("Aggregated Mark-Houwink", sheet_names)
 
-        # Verify summary tables on sheets
+        # Verify summary tables on sheets (starts at Column P / 16)
         ws_mh = wb["Mark-Houwink"]
-        self.assertEqual(ws_mh.cell(row=1, column=14).value, "Solvent")
-        self.assertEqual(ws_mh.cell(row=2, column=14).value, "toluene")
-        self.assertEqual(ws_mh.cell(row=2, column=15).value, "poly(methyl methacrylate)")
-        self.assertEqual(ws_mh.cell(row=2, column=16).value, 1)
+        self.assertEqual(ws_mh.cell(row=1, column=16).value, "Solvent")
+        self.assertEqual(ws_mh.cell(row=2, column=16).value, "toluene")
+        self.assertEqual(ws_mh.cell(row=2, column=17).value, "poly(methyl methacrylate)")
+        self.assertEqual(ws_mh.cell(row=2, column=18).value, 1)
 
         ws_flory = wb["Flory"]
-        self.assertEqual(ws_flory.cell(row=1, column=14).value, "Solvent")
-        self.assertEqual(ws_flory.cell(row=2, column=14).value, "toluene")
-        self.assertEqual(ws_flory.cell(row=2, column=15).value, "poly(methyl methacrylate)")
-        self.assertEqual(ws_flory.cell(row=2, column=16).value, 1)
+        self.assertEqual(ws_flory.cell(row=1, column=16).value, "Solvent")
+        self.assertEqual(ws_flory.cell(row=2, column=16).value, "toluene")
+        self.assertEqual(ws_flory.cell(row=2, column=17).value, "poly(methyl methacrylate)")
+        self.assertEqual(ws_flory.cell(row=2, column=18).value, 1)
 
-        # Verify computed helper rows
-        self.assertEqual(ws_flory.cell(row=2, column=18).value, "poly(methyl methacrylate) in toluene (test_paper2)")
-        self.assertEqual(ws_flory.cell(row=2, column=19).value, "=H2-J2*3")
-        self.assertEqual(ws_flory.cell(row=2, column=20).value, "=H2-J2*6")
+        # Verify computed plot points in columns M (13) and N (14)
+        self.assertEqual(ws_flory.cell(row=1, column=13).value, 3)
+        self.assertEqual(ws_flory.cell(row=1, column=14).value, 6)
+        self.assertEqual(ws_flory.cell(row=2, column=13).value, "=H2-J2*3")
+        self.assertEqual(ws_flory.cell(row=2, column=14).value, "=H2-J2*6")
 
-        self.assertEqual(ws_mh.cell(row=2, column=18).value, "poly(methyl methacrylate) in toluene (test_paper1)")
-        self.assertEqual(ws_mh.cell(row=2, column=19).value, "=LOG10(H2)+J2*3")
-        self.assertEqual(ws_mh.cell(row=2, column=20).value, "=LOG10(H2)+J2*6")
+        self.assertEqual(ws_mh.cell(row=1, column=13).value, 3)
+        self.assertEqual(ws_mh.cell(row=1, column=14).value, 6)
+        self.assertEqual(ws_mh.cell(row=2, column=13).value, "=LOG10(H2)+J2*3")
+        self.assertEqual(ws_mh.cell(row=2, column=14).value, "=LOG10(H2)+J2*6")
 
         # Verify LineCharts are present in both sheets
         self.assertEqual(len(ws_mh._charts), 1)

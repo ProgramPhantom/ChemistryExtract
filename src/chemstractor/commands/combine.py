@@ -34,6 +34,8 @@ from chemstractor.lib.processor import PDFProcessor
 from chemstractor.AI import AI, pricing_matrix
 from chemstractor.lib.combiner import gather_and_homogenise
 
+from openpyxl.chart import LineChart, Reference, Series
+
 def create_combined_excel(dest_path: str, combined_data: dict) -> None:
     """Generates a nicely formatted combined Excel report containing sheets for Mark-Houwink, Flory, and Failures."""
     wb = openpyxl.Workbook()
@@ -71,26 +73,18 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
         cell.alignment = table_header_align
         cell.border = data_border
         
+    # Append computed plot points headers to the main table
+    for val, col in [(3, 13), (6, 14)]:
+        cell = ws_mh.cell(row=1, column=col, value=val)
+        cell.font = table_header_font
+        cell.fill = table_header_fill
+        cell.alignment = table_header_align
+        cell.border = data_border
+        
     mh_entries = combined_data.get("mark_houwink_entries", [])
     
     # Track unique polymer-solvent pairs and counts for Mark-Houwink summary
     mh_counts = {}
-    
-    # Write helper column headers
-    ws_mh.cell(row=1, column=18, value="Series").font = table_header_font
-    ws_mh.cell(row=1, column=18).fill = table_header_fill
-    ws_mh.cell(row=1, column=18).alignment = table_header_align
-    ws_mh.cell(row=1, column=18).border = data_border
-    
-    ws_mh.cell(row=1, column=19, value=3).font = table_header_font
-    ws_mh.cell(row=1, column=19).fill = table_header_fill
-    ws_mh.cell(row=1, column=19).alignment = table_header_align
-    ws_mh.cell(row=1, column=19).border = data_border
-    
-    ws_mh.cell(row=1, column=20, value=6).font = table_header_font
-    ws_mh.cell(row=1, column=20).fill = table_header_fill
-    ws_mh.cell(row=1, column=20).alignment = table_header_align
-    ws_mh.cell(row=1, column=20).border = data_border
     
     for row_idx, entry in enumerate(mh_entries):
         r = row_idx + 2
@@ -116,63 +110,52 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
         ws_mh.cell(row=r, column=11, value=entry.get("a_transformation", "")).font = val_font
         ws_mh.cell(row=r, column=12, value=entry.get("failed_fields", "None")).font = val_font
         
-        for c in [1, 2, 3, 4, 5, 6, 9, 11, 12]:
-            ws_mh.cell(row=r, column=c).alignment = left_align
-            ws_mh.cell(row=r, column=c).border = data_border
-        for c in [7, 8, 10]:
-            ws_mh.cell(row=r, column=c).alignment = right_align
-            ws_mh.cell(row=r, column=c).border = data_border
-            
-        # If not failed, write helper columns for plotting
+        # Write computed curve formula into columns M and N if not failed
         has_failed = entry.get("failed_fields", "None") != "None" or entry.get("polymer_name") == "N/A" or entry.get("solvent") == "N/A"
         if k_val is not None and k_val > 0 and a_val is not None and not has_failed:
-            series_name = f"{entry.get('polymer_name')} in {entry.get('solvent')} ({entry.get('source_paper')})"
-            ws_mh.cell(row=r, column=18, value=series_name).font = val_font
-            ws_mh.cell(row=r, column=18).alignment = left_align
-            ws_mh.cell(row=r, column=18).border = data_border
-            
-            # log10([eta]) = log10(K) + a * log10(M)
-            ws_mh.cell(row=r, column=19, value=f"=LOG10(H{r})+J{r}*3").font = val_font
-            ws_mh.cell(row=r, column=19).alignment = right_align
-            ws_mh.cell(row=r, column=19).border = data_border
-            
-            ws_mh.cell(row=r, column=20, value=f"=LOG10(H{r})+J{r}*6").font = val_font
-            ws_mh.cell(row=r, column=20).alignment = right_align
-            ws_mh.cell(row=r, column=20).border = data_border
+            ws_mh.cell(row=r, column=13, value=f"=LOG10(H{r})+J{r}*3").font = val_font
+            ws_mh.cell(row=r, column=14, value=f"=LOG10(H{r})+J{r}*6").font = val_font
             
             # Update counts for summary
             pair = (entry.get("solvent"), entry.get("polymer_name"))
             mh_counts[pair] = mh_counts.get(pair, 0) + 1
             
-    # Write Mark-Houwink Summary Table starting at Column N (14)
-    ws_mh.cell(row=1, column=14, value="Solvent").font = table_header_font
-    ws_mh.cell(row=1, column=14).fill = table_header_fill
-    ws_mh.cell(row=1, column=14).alignment = table_header_align
-    ws_mh.cell(row=1, column=14).border = data_border
-    
-    ws_mh.cell(row=1, column=15, value="Polymer").font = table_header_font
-    ws_mh.cell(row=1, column=15).fill = table_header_fill
-    ws_mh.cell(row=1, column=15).alignment = table_header_align
-    ws_mh.cell(row=1, column=15).border = data_border
-    
-    ws_mh.cell(row=1, column=16, value="Count").font = table_header_font
+        for c in [1, 2, 3, 4, 5, 6, 9, 11, 12]:
+            ws_mh.cell(row=r, column=c).alignment = left_align
+            ws_mh.cell(row=r, column=c).border = data_border
+        for c in [7, 8, 10, 13, 14]:
+            ws_mh.cell(row=r, column=c).alignment = right_align
+            ws_mh.cell(row=r, column=c).border = data_border
+            
+    # Write Mark-Houwink Summary Table starting at Column P (16)
+    ws_mh.cell(row=1, column=16, value="Solvent").font = table_header_font
     ws_mh.cell(row=1, column=16).fill = table_header_fill
     ws_mh.cell(row=1, column=16).alignment = table_header_align
     ws_mh.cell(row=1, column=16).border = data_border
     
+    ws_mh.cell(row=1, column=17, value="Polymer").font = table_header_font
+    ws_mh.cell(row=1, column=17).fill = table_header_fill
+    ws_mh.cell(row=1, column=17).alignment = table_header_align
+    ws_mh.cell(row=1, column=17).border = data_border
+    
+    ws_mh.cell(row=1, column=18, value="Count").font = table_header_font
+    ws_mh.cell(row=1, column=18).fill = table_header_fill
+    ws_mh.cell(row=1, column=18).alignment = table_header_align
+    ws_mh.cell(row=1, column=18).border = data_border
+    
     for summary_idx, (pair, count) in enumerate(sorted(mh_counts.items())):
         sr = summary_idx + 2
-        ws_mh.cell(row=sr, column=14, value=pair[0]).font = val_font
-        ws_mh.cell(row=sr, column=14).alignment = left_align
-        ws_mh.cell(row=sr, column=14).border = data_border
-        
-        ws_mh.cell(row=sr, column=15, value=pair[1]).font = val_font
-        ws_mh.cell(row=sr, column=15).alignment = left_align
-        ws_mh.cell(row=sr, column=15).border = data_border
-        
-        ws_mh.cell(row=sr, column=16, value=count).font = val_font
-        ws_mh.cell(row=sr, column=16).alignment = right_align
+        ws_mh.cell(row=sr, column=16, value=pair[0]).font = val_font
+        ws_mh.cell(row=sr, column=16).alignment = left_align
         ws_mh.cell(row=sr, column=16).border = data_border
+        
+        ws_mh.cell(row=sr, column=17, value=pair[1]).font = val_font
+        ws_mh.cell(row=sr, column=17).alignment = left_align
+        ws_mh.cell(row=sr, column=17).border = data_border
+        
+        ws_mh.cell(row=sr, column=18, value=count).font = val_font
+        ws_mh.cell(row=sr, column=18).alignment = right_align
+        ws_mh.cell(row=sr, column=18).border = data_border
         
     # Generate and embed Mark-Houwink Line Chart
     if mh_entries:
@@ -206,10 +189,18 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
             chart_mh.width = 18
             chart_mh.height = 12
             
-            data_ref = Reference(ws_mh, min_col=18, max_col=20, min_row=2, max_row=len(mh_entries) + 1)
-            cats_ref = Reference(ws_mh, min_col=19, max_col=20, min_row=1, max_row=1)
-            
-            chart_mh.add_data(data_ref, titles_from_data=True, from_rows=True)
+            # Append non-failed entries as separate series with clean polymer/solvent titles
+            for row_idx, entry in enumerate(mh_entries):
+                r = row_idx + 2
+                K_val = entry.get("K_value")
+                a_val = entry.get("a_value")
+                has_failed = entry.get("failed_fields", "None") != "None" or entry.get("polymer_name") == "N/A" or entry.get("solvent") == "N/A"
+                if K_val is not None and K_val > 0 and a_val is not None and not has_failed:
+                    series_ref = Reference(ws_mh, min_col=13, max_col=14, min_row=r, max_row=r)
+                    series = Series(series_ref, title=f"{entry.get('polymer_name')} in {entry.get('solvent')}")
+                    chart_mh.append(series)
+                    
+            cats_ref = Reference(ws_mh, min_col=13, max_col=14, min_row=1, max_row=1)
             chart_mh.set_categories(cats_ref)
             
             # Colors rotation
@@ -218,7 +209,7 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
                 color = colors[s_idx % len(colors)]
                 series.graphicalProperties.line = openpyxl.drawing.line.LineProperties(solidFill=color)
                 
-            ws_mh.add_chart(chart_mh, "V4")
+            ws_mh.add_chart(chart_mh, "T4")
         except Exception as e:
             pass
 
@@ -246,26 +237,18 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
         cell.alignment = table_header_align
         cell.border = data_border
         
+    # Append computed plot points headers to the main table
+    for val, col in [(3, 13), (6, 14)]:
+        cell = ws_flory.cell(row=1, column=col, value=val)
+        cell.font = table_header_font
+        cell.fill = table_header_fill
+        cell.alignment = table_header_align
+        cell.border = data_border
+        
     flory_entries = combined_data.get("flory_entries", [])
     
     # Track unique polymer-solvent pairs and counts for Flory summary
     flory_counts = {}
-    
-    # Write helper column headers
-    ws_flory.cell(row=1, column=18, value="Series").font = table_header_font
-    ws_flory.cell(row=1, column=18).fill = table_header_fill
-    ws_flory.cell(row=1, column=18).alignment = table_header_align
-    ws_flory.cell(row=1, column=18).border = data_border
-    
-    ws_flory.cell(row=1, column=19, value=3).font = table_header_font
-    ws_flory.cell(row=1, column=19).fill = table_header_fill
-    ws_flory.cell(row=1, column=19).alignment = table_header_align
-    ws_flory.cell(row=1, column=19).border = data_border
-    
-    ws_flory.cell(row=1, column=20, value=6).font = table_header_font
-    ws_flory.cell(row=1, column=20).fill = table_header_fill
-    ws_flory.cell(row=1, column=20).alignment = table_header_align
-    ws_flory.cell(row=1, column=20).border = data_border
     
     for row_idx, entry in enumerate(flory_entries):
         r = row_idx + 2
@@ -290,63 +273,52 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
         ws_flory.cell(row=r, column=11, value=entry.get("v_transformation", "")).font = val_font
         ws_flory.cell(row=r, column=12, value=entry.get("failed_fields", "None")).font = val_font
         
-        for c in [1, 2, 3, 4, 5, 6, 9, 11, 12]:
-            ws_flory.cell(row=r, column=c).alignment = left_align
-            ws_flory.cell(row=r, column=c).border = data_border
-        for c in [7, 8, 10]:
-            ws_flory.cell(row=r, column=c).alignment = right_align
-            ws_flory.cell(row=r, column=c).border = data_border
-            
-        # If not failed, write helper columns for plotting
+        # Write computed curve formula into columns M and N if not failed
         has_failed = entry.get("failed_fields", "None") != "None" or entry.get("polymer_name") == "N/A" or entry.get("solvent") == "N/A"
         if c_val is not None and v_val is not None and not has_failed:
-            series_name = f"{entry.get('polymer_name')} in {entry.get('solvent')} ({entry.get('source_paper')})"
-            ws_flory.cell(row=r, column=18, value=series_name).font = val_font
-            ws_flory.cell(row=r, column=18).alignment = left_align
-            ws_flory.cell(row=r, column=18).border = data_border
-            
-            # log(D) = c_value - v_value * log_M
-            ws_flory.cell(row=r, column=19, value=f"=H{r}-J{r}*3").font = val_font
-            ws_flory.cell(row=r, column=19).alignment = right_align
-            ws_flory.cell(row=r, column=19).border = data_border
-            
-            ws_flory.cell(row=r, column=20, value=f"=H{r}-J{r}*6").font = val_font
-            ws_flory.cell(row=r, column=20).alignment = right_align
-            ws_flory.cell(row=r, column=20).border = data_border
+            ws_flory.cell(row=r, column=13, value=f"=H{r}-J{r}*3").font = val_font
+            ws_flory.cell(row=r, column=14, value=f"=H{r}-J{r}*6").font = val_font
             
             # Update counts for summary
             pair = (entry.get("solvent"), entry.get("polymer_name"))
             flory_counts[pair] = flory_counts.get(pair, 0) + 1
             
-    # Write Flory Summary Table starting at Column N (14)
-    ws_flory.cell(row=1, column=14, value="Solvent").font = table_header_font
-    ws_flory.cell(row=1, column=14).fill = table_header_fill
-    ws_flory.cell(row=1, column=14).alignment = table_header_align
-    ws_flory.cell(row=1, column=14).border = data_border
-    
-    ws_flory.cell(row=1, column=15, value="Polymer").font = table_header_font
-    ws_flory.cell(row=1, column=15).fill = table_header_fill
-    ws_flory.cell(row=1, column=15).alignment = table_header_align
-    ws_flory.cell(row=1, column=15).border = data_border
-    
-    ws_flory.cell(row=1, column=16, value="Count").font = table_header_font
+        for c in [1, 2, 3, 4, 5, 6, 9, 11, 12]:
+            ws_flory.cell(row=r, column=c).alignment = left_align
+            ws_flory.cell(row=r, column=c).border = data_border
+        for c in [7, 8, 10, 13, 14]:
+            ws_flory.cell(row=r, column=c).alignment = right_align
+            ws_flory.cell(row=r, column=c).border = data_border
+            
+    # Write Flory Summary Table starting at Column P (16)
+    ws_flory.cell(row=1, column=16, value="Solvent").font = table_header_font
     ws_flory.cell(row=1, column=16).fill = table_header_fill
     ws_flory.cell(row=1, column=16).alignment = table_header_align
     ws_flory.cell(row=1, column=16).border = data_border
     
+    ws_flory.cell(row=1, column=17, value="Polymer").font = table_header_font
+    ws_flory.cell(row=1, column=17).fill = table_header_fill
+    ws_flory.cell(row=1, column=17).alignment = table_header_align
+    ws_flory.cell(row=1, column=17).border = data_border
+    
+    ws_flory.cell(row=1, column=18, value="Count").font = table_header_font
+    ws_flory.cell(row=1, column=18).fill = table_header_fill
+    ws_flory.cell(row=1, column=18).alignment = table_header_align
+    ws_flory.cell(row=1, column=18).border = data_border
+    
     for summary_idx, (pair, count) in enumerate(sorted(flory_counts.items())):
         sr = summary_idx + 2
-        ws_flory.cell(row=sr, column=14, value=pair[0]).font = val_font
-        ws_flory.cell(row=sr, column=14).alignment = left_align
-        ws_flory.cell(row=sr, column=14).border = data_border
-        
-        ws_flory.cell(row=sr, column=15, value=pair[1]).font = val_font
-        ws_flory.cell(row=sr, column=15).alignment = left_align
-        ws_flory.cell(row=sr, column=15).border = data_border
-        
-        ws_flory.cell(row=sr, column=16, value=count).font = val_font
-        ws_flory.cell(row=sr, column=16).alignment = right_align
+        ws_flory.cell(row=sr, column=16, value=pair[0]).font = val_font
+        ws_flory.cell(row=sr, column=16).alignment = left_align
         ws_flory.cell(row=sr, column=16).border = data_border
+        
+        ws_flory.cell(row=sr, column=17, value=pair[1]).font = val_font
+        ws_flory.cell(row=sr, column=17).alignment = left_align
+        ws_flory.cell(row=sr, column=17).border = data_border
+        
+        ws_flory.cell(row=sr, column=18, value=count).font = val_font
+        ws_flory.cell(row=sr, column=18).alignment = right_align
+        ws_flory.cell(row=sr, column=18).border = data_border
         
     # Generate and embed Flory Line Chart
     if flory_entries:
@@ -379,10 +351,18 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
             chart_flory.width = 18
             chart_flory.height = 12
             
-            data_ref = Reference(ws_flory, min_col=18, max_col=20, min_row=2, max_row=len(flory_entries) + 1)
-            cats_ref = Reference(ws_flory, min_col=19, max_col=20, min_row=1, max_row=1)
-            
-            chart_flory.add_data(data_ref, titles_from_data=True, from_rows=True)
+            # Append non-failed entries as separate series with clean polymer/solvent titles
+            for row_idx, entry in enumerate(flory_entries):
+                r = row_idx + 2
+                c_val = entry.get("c_value")
+                v_val = entry.get("v_value")
+                has_failed = entry.get("failed_fields", "None") != "None" or entry.get("polymer_name") == "N/A" or entry.get("solvent") == "N/A"
+                if c_val is not None and v_val is not None and not has_failed:
+                    series_ref = Reference(ws_flory, min_col=13, max_col=14, min_row=r, max_row=r)
+                    series = Series(series_ref, title=f"{entry.get('polymer_name')} in {entry.get('solvent')}")
+                    chart_flory.append(series)
+                    
+            cats_ref = Reference(ws_flory, min_col=13, max_col=14, min_row=1, max_row=1)
             chart_flory.set_categories(cats_ref)
             
             # Colors rotation
@@ -391,7 +371,7 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
                 color = colors[s_idx % len(colors)]
                 series.graphicalProperties.line = openpyxl.drawing.line.LineProperties(solidFill=color)
                 
-            ws_flory.add_chart(chart_flory, "V4")
+            ws_flory.add_chart(chart_flory, "T4")
         except Exception as e:
             pass
             
