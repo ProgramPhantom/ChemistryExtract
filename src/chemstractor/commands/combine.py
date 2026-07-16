@@ -3,6 +3,7 @@ import sys
 import json
 import time
 import openpyxl
+import pandas as pd
 from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
 from openpyxl.utils import get_column_letter
 from rich.console import Console
@@ -14,7 +15,7 @@ from chemstractor.lib.processor import PDFProcessor
 from chemstractor.AI import AI, pricing_matrix
 from chemstractor.lib.combiner import gather_and_homogenise
 
-def create_combined_excel(dest_path: str, combined_data: dict) -> None:
+def create_combined_excel(dest_path: str, combined_data: dict, df_flory_agg: pd.DataFrame = None, df_mh_agg: pd.DataFrame = None) -> None:
     """Generates a nicely formatted combined Excel report containing sheets for Mark-Houwink, Flory, and Failures."""
     wb = openpyxl.Workbook()
     if "Sheet" in wb.sheetnames:
@@ -41,7 +42,7 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
     headers_mh = [
         "Source Paper", "Table", "Polymer (Original)", "Polymer (Clean)", 
         "Solvent (Original)", "Solvent (Clean)", "Temperature (K)", 
-        "K Value (mL/g)", "K Transformation", "a Value", "a Transformation"
+        "K Value (mL/g)", "K Transformation", "a Value", "a Transformation", "Failed Field"
     ]
     
     for col_idx, h in enumerate(headers_mh):
@@ -74,8 +75,9 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
         ws_mh.cell(row=r, column=10, value=float(a_val) if a_val is not None else None).font = val_font
         
         ws_mh.cell(row=r, column=11, value=entry.get("a_transformation", "")).font = val_font
+        ws_mh.cell(row=r, column=12, value=entry.get("failed_fields", "None")).font = val_font
         
-        for c in [1, 2, 3, 4, 5, 6, 9, 11]:
+        for c in [1, 2, 3, 4, 5, 6, 9, 11, 12]:
             ws_mh.cell(row=r, column=c).alignment = left_align
             ws_mh.cell(row=r, column=c).border = data_border
         for c in [7, 8, 10]:
@@ -96,7 +98,7 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
     headers_flory = [
         "Source Paper", "Table", "Polymer (Original)", "Polymer (Clean)", 
         "Solvent (Original)", "Solvent (Clean)", "Temperature (K)", 
-        "c Value (log Constant)", "c Transformation", "v Value (Scaling Exponent)", "v Transformation"
+        "c Value (log Constant)", "c Transformation", "v Value (Scaling Exponent)", "v Transformation", "Failed Field"
     ]
     
     for col_idx, h in enumerate(headers_flory):
@@ -128,8 +130,9 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
         ws_flory.cell(row=r, column=10, value=float(v_val) if v_val is not None else None).font = val_font
         
         ws_flory.cell(row=r, column=11, value=entry.get("v_transformation", "")).font = val_font
+        ws_flory.cell(row=r, column=12, value=entry.get("failed_fields", "None")).font = val_font
         
-        for c in [1, 2, 3, 4, 5, 6, 9, 11]:
+        for c in [1, 2, 3, 4, 5, 6, 9, 11, 12]:
             ws_flory.cell(row=r, column=c).alignment = left_align
             ws_flory.cell(row=r, column=c).border = data_border
         for c in [7, 8, 10]:
@@ -174,6 +177,76 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
         max_len = max(len(v) for v in vals) if vals else 10
         col_letter = get_column_letter(col[0].column)
         ws_fail.column_dimensions[col_letter].width = max(max_len + 3, 12)
+
+    # 4. Aggregated Flory Sheet
+    if df_flory_agg is not None:
+        ws_agg_flory = wb.create_sheet(title="Aggregated Flory")
+        ws_agg_flory.views.sheetView[0].showGridLines = True
+        
+        headers_agg_flory = ["Solvent", "Polymer", "c Values", "v Values"]
+        for col_idx, h in enumerate(headers_agg_flory):
+            cell = ws_agg_flory.cell(row=1, column=col_idx + 1, value=h)
+            cell.font = table_header_font
+            cell.fill = table_header_fill
+            cell.alignment = table_header_align
+            cell.border = data_border
+            
+        for row_idx, row in df_flory_agg.iterrows():
+            r = row_idx + 2
+            ws_agg_flory.cell(row=r, column=1, value=row["solvent"]).font = val_font
+            ws_agg_flory.cell(row=r, column=2, value=row["polymer"]).font = val_font
+            
+            c_str = ", ".join(str(x) for x in row["c_values"])
+            v_str = ", ".join(str(x) for x in row["v_values"])
+            
+            ws_agg_flory.cell(row=r, column=3, value=f"[{c_str}]").font = val_font
+            ws_agg_flory.cell(row=r, column=4, value=f"[{v_str}]").font = val_font
+            
+            for c in range(1, 5):
+                ws_agg_flory.cell(row=r, column=c).alignment = left_align
+                ws_agg_flory.cell(row=r, column=c).border = data_border
+                
+        # Auto-adjust column width for agg flory
+        for col in ws_agg_flory.columns:
+            vals = [str(cell.value or '') for cell in col]
+            max_len = max(len(v) for v in vals) if vals else 10
+            col_letter = get_column_letter(col[0].column)
+            ws_agg_flory.column_dimensions[col_letter].width = max(max_len + 3, 12)
+            
+    # 5. Aggregated Mark-Houwink Sheet
+    if df_mh_agg is not None:
+        ws_agg_mh = wb.create_sheet(title="Aggregated Mark-Houwink")
+        ws_agg_mh.views.sheetView[0].showGridLines = True
+        
+        headers_agg_mh = ["Solvent", "Polymer", "K Values", "a Values"]
+        for col_idx, h in enumerate(headers_agg_mh):
+            cell = ws_agg_mh.cell(row=1, column=col_idx + 1, value=h)
+            cell.font = table_header_font
+            cell.fill = table_header_fill
+            cell.alignment = table_header_align
+            cell.border = data_border
+            
+        for row_idx, row in df_mh_agg.iterrows():
+            r = row_idx + 2
+            ws_agg_mh.cell(row=r, column=1, value=row["solvent"]).font = val_font
+            ws_agg_mh.cell(row=r, column=2, value=row["polymer"]).font = val_font
+            
+            K_str = ", ".join(str(x) for x in row["K_values"])
+            a_str = ", ".join(str(x) for x in row["a_values"])
+            
+            ws_agg_mh.cell(row=r, column=3, value=f"[{K_str}]").font = val_font
+            ws_agg_mh.cell(row=r, column=4, value=f"[{a_str}]").font = val_font
+            
+            for c in range(1, 5):
+                ws_agg_mh.cell(row=r, column=c).alignment = left_align
+                ws_agg_mh.cell(row=r, column=c).border = data_border
+                
+        # Auto-adjust column width for agg mh
+        for col in ws_agg_mh.columns:
+            vals = [str(cell.value or '') for cell in col]
+            max_len = max(len(v) for v in vals) if vals else 10
+            col_letter = get_column_letter(col[0].column)
+            ws_agg_mh.column_dimensions[col_letter].width = max(max_len + 3, 12)
 
     wb.save(dest_path)
 
@@ -260,6 +333,67 @@ def combine_command(input_dir: str, output_path: str = None, cache_path: str = N
         
     elapsed = time.time() - start_time
     
+    # Build pandas dataframes and aggregate values
+    # 1. Flory aggregation (exclude failures)
+    flory_entries = results.get("flory_entries", [])
+    valid_flory = []
+    for entry in flory_entries:
+        if entry.get("failed_fields") and entry["failed_fields"] != "None":
+            continue
+        poly = entry.get("polymer_name")
+        solv = entry.get("solvent")
+        if not poly or poly == "N/A" or not solv or solv == "N/A":
+            continue
+        valid_flory.append(entry)
+        
+    records_flory = []
+    for entry in valid_flory:
+        records_flory.append({
+            "solvent": entry.get("solvent"),
+            "polymer": entry.get("polymer_name"),
+            "c_value": entry.get("c_value"),
+            "v_value": entry.get("v_value")
+        })
+    df_flory = pd.DataFrame(records_flory)
+    if not df_flory.empty:
+        df_flory_agg = df_flory.groupby(["solvent", "polymer"]).agg({
+            "c_value": list,
+            "v_value": list
+        }).reset_index()
+        df_flory_agg.rename(columns={"c_value": "c_values", "v_value": "v_values"}, inplace=True)
+    else:
+        df_flory_agg = pd.DataFrame(columns=["solvent", "polymer", "c_values", "v_values"])
+        
+    # 2. Mark-Houwink aggregation (exclude failures)
+    mh_entries = results.get("mark_houwink_entries", [])
+    valid_mh = []
+    for entry in mh_entries:
+        if entry.get("failed_fields") and entry["failed_fields"] != "None":
+            continue
+        poly = entry.get("polymer_name")
+        solv = entry.get("solvent")
+        if not poly or poly == "N/A" or not solv or solv == "N/A":
+            continue
+        valid_mh.append(entry)
+        
+    records_mh = []
+    for entry in valid_mh:
+        records_mh.append({
+            "solvent": entry.get("solvent"),
+            "polymer": entry.get("polymer_name"),
+            "K_value": entry.get("K_value"),
+            "a_value": entry.get("a_value")
+        })
+    df_mh = pd.DataFrame(records_mh)
+    if not df_mh.empty:
+        df_mh_agg = df_mh.groupby(["solvent", "polymer"]).agg({
+            "K_value": list,
+            "a_value": list
+        }).reset_index()
+        df_mh_agg.rename(columns={"K_value": "K_values", "a_value": "a_values"}, inplace=True)
+    else:
+        df_mh_agg = pd.DataFrame(columns=["solvent", "polymer", "K_values", "a_values"])
+    
     # 5. Write outputs
     try:
         # Create output folders if they do not exist
@@ -270,7 +404,13 @@ def combine_command(input_dir: str, output_path: str = None, cache_path: str = N
         with open(json_out, 'w', encoding='utf-8') as jf:
             json.dump(results, jf, indent=2, ensure_ascii=False)
             
-        create_combined_excel(xlsx_out, results)
+        # Save aggregated pandas databases
+        df_flory_agg.to_pickle(f"{output_prefix}_flory_aggregated.pkl")
+        df_flory_agg.to_csv(f"{output_prefix}_flory_aggregated.csv", index=False)
+        df_mh_agg.to_pickle(f"{output_prefix}_mh_aggregated.pkl")
+        df_mh_agg.to_csv(f"{output_prefix}_mh_aggregated.csv", index=False)
+            
+        create_combined_excel(xlsx_out, results, df_flory_agg, df_mh_agg)
         
     except Exception as e:
         console.print(f"[bold red]Error saving outputs: {e}[/bold red]")
@@ -281,6 +421,8 @@ def combine_command(input_dir: str, output_path: str = None, cache_path: str = N
     console.print(f"[bold green]✓[/bold green] Combining process completed in [yellow]{elapsed:.2f}s[/yellow].")
     console.print(f"JSON data saved to: [cyan]{json_out}[/cyan]")
     console.print(f"Excel report saved to: [cyan]{xlsx_out}[/cyan]")
+    console.print(f"Aggregated Flory database: [cyan]{output_prefix}_flory_aggregated.pkl / .csv[/cyan]")
+    console.print(f"Aggregated Mark-Houwink database: [cyan]{output_prefix}_mh_aggregated.pkl / .csv[/cyan]")
     console.print()
     
     # Statistics Table

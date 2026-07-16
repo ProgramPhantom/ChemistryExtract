@@ -5,6 +5,14 @@ import unittest
 from unittest.mock import MagicMock, patch
 # Add src to sys.path so we can import chemstractor
 import sys
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8')
+if hasattr(sys.stderr, 'reconfigure'):
+    sys.stderr.reconfigure(encoding='utf-8')
+if hasattr(sys.__stdout__, 'reconfigure'):
+    sys.__stdout__.reconfigure(encoding='utf-8')
+if hasattr(sys.__stderr__, 'reconfigure'):
+    sys.__stderr__.reconfigure(encoding='utf-8')
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
 from chemstractor.commands.combine import combine_command
 from chemstractor.lib.processor import PDFProcessor
@@ -19,11 +27,16 @@ class TestCombinePipeline(unittest.TestCase):
         # Paper 1
         self.paper1_dir = os.path.join(self.test_dir, 'test_paper1')
         os.makedirs(os.path.join(self.paper1_dir, 'interpretation'))
-        os.makedirs(os.path.join(self.paper1_dir, 'extract'))
+        os.makedirs(os.path.join(self.paper1_dir, 'extract/tables/txt'))
+        os.makedirs(os.path.join(self.paper1_dir, 'extract/tables/csv'))
         
         # Write dummy output.md to satisfy prepare_processor checks
         with open(os.path.join(self.paper1_dir, 'extract/output.md'), 'w') as f:
             f.write("# Dummy Paper 1")
+        with open(os.path.join(self.paper1_dir, 'extract/tables/txt/table1.txt'), 'w') as f:
+            f.write("Dummy Table 1")
+        with open(os.path.join(self.paper1_dir, 'extract/tables/csv/table1.csv'), 'w') as f:
+            f.write("a,b\n1,2")
             
         table1_data = {
             "is_mark_houwink_data": True,
@@ -48,10 +61,15 @@ class TestCombinePipeline(unittest.TestCase):
         # Paper 2
         self.paper2_dir = os.path.join(self.test_dir, 'test_paper2')
         os.makedirs(os.path.join(self.paper2_dir, 'interpretation'))
-        os.makedirs(os.path.join(self.paper2_dir, 'extract'))
+        os.makedirs(os.path.join(self.paper2_dir, 'extract/tables/txt'))
+        os.makedirs(os.path.join(self.paper2_dir, 'extract/tables/csv'))
         
         with open(os.path.join(self.paper2_dir, 'extract/output.md'), 'w') as f:
             f.write("# Dummy Paper 2")
+        with open(os.path.join(self.paper2_dir, 'extract/tables/txt/table1.txt'), 'w') as f:
+            f.write("Dummy Table 1")
+        with open(os.path.join(self.paper2_dir, 'extract/tables/csv/table1.csv'), 'w') as f:
+            f.write("a,b\n1,2")
             
         table2_data = {
             "is_mark_houwink_data": False,
@@ -112,13 +130,13 @@ class TestCombinePipeline(unittest.TestCase):
                 class GenResult(BaseModel):
                     clean_name: str
                 
-                if "PMMA" in prompt_str:
+                if "Raw chemical name: 'PMMA'" in prompt_str:
                     return AIPromptResult(success=True, data=GenResult(clean_name="poly(methyl methacrylate)"))
-                elif "T0luene" in prompt_str:
+                elif "Raw chemical name: 'T0luene'" in prompt_str:
                     return AIPromptResult(success=True, data=GenResult(clean_name="toluene"))
-                elif "NoiseData" in prompt_str:
+                elif "Raw chemical name: 'NoiseData'" in prompt_str:
                     return AIPromptResult(success=True, data=GenResult(clean_name="N/A"))
-                elif "12345" in prompt_str:
+                elif "Raw chemical name: '12345'" in prompt_str:
                     return AIPromptResult(success=True, data=GenResult(clean_name="N/A"))
                 else:
                     return AIPromptResult(success=True, data=GenResult(clean_name="N/A"))
@@ -137,8 +155,13 @@ class TestCombinePipeline(unittest.TestCase):
         
         # Assert files were created
         self.assertTrue(os.path.exists(cache_path))
-        self.assertTrue(os.path.exists(output_prefix + '.json'))
-        self.assertTrue(os.path.exists(output_prefix + '.xlsx'))
+        combine_prefix = os.path.join(output_prefix, 'combined_data')
+        self.assertTrue(os.path.exists(combine_prefix + '.json'))
+        self.assertTrue(os.path.exists(combine_prefix + '.xlsx'))
+        self.assertTrue(os.path.exists(combine_prefix + '_flory_aggregated.pkl'))
+        self.assertTrue(os.path.exists(combine_prefix + '_flory_aggregated.csv'))
+        self.assertTrue(os.path.exists(combine_prefix + '_mh_aggregated.pkl'))
+        self.assertTrue(os.path.exists(combine_prefix + '_mh_aggregated.csv'))
         
         # Validate Cache contents
         with open(cache_path, 'r', encoding='utf-8') as f:
@@ -152,7 +175,7 @@ class TestCombinePipeline(unittest.TestCase):
             self.assertNotIn("12345", cache)
             
         # Validate Combined JSON contents
-        with open(output_prefix + '.json', 'r', encoding='utf-8') as f:
+        with open(combine_prefix + '.json', 'r', encoding='utf-8') as f:
             combined = json.load(f)
             
             # Check Mark-Houwink
@@ -162,6 +185,7 @@ class TestCombinePipeline(unittest.TestCase):
             self.assertEqual(mh[0]["polymer_name_original"], "PMMA")
             self.assertEqual(mh[0]["solvent"], "toluene")
             self.assertEqual(mh[0]["solvent_original"], "T0luene")
+            self.assertEqual(mh[0]["failed_fields"], "None")
             
             # Check Flory
             flory = combined.get("flory_entries", [])
@@ -169,10 +193,12 @@ class TestCombinePipeline(unittest.TestCase):
             # The first one is Poly(methyl methacrylate) which should resolve to poly(methyl methacrylate)
             self.assertEqual(flory[0]["polymer_name"], "poly(methyl methacrylate)")
             self.assertEqual(flory[0]["solvent"], "toluene")
+            self.assertEqual(flory[0]["failed_fields"], "None")
             
             # The second is NoiseData which failed
             self.assertEqual(flory[1]["polymer_name"], "NoiseData")  # remains original raw name on failure
             self.assertEqual(flory[1]["solvent"], "12345")
+            self.assertEqual(flory[1]["failed_fields"], "polymer_name, solvent")
             
             # Check Failures
             fails = combined.get("failures", [])
@@ -183,5 +209,35 @@ class TestCombinePipeline(unittest.TestCase):
             self.assertIn("solvent", fields)
             self.assertIn("NoiseData", values)
             self.assertIn("12345", values)
+
+        # Validate Excel sheet names and basic content
+        import openpyxl
+        wb = openpyxl.load_workbook(combine_prefix + '.xlsx')
+        sheet_names = wb.sheetnames
+        self.assertIn("Mark-Houwink", sheet_names)
+        self.assertIn("Flory", sheet_names)
+        self.assertIn("Failures", sheet_names)
+        self.assertIn("Aggregated Flory", sheet_names)
+        self.assertIn("Aggregated Mark-Houwink", sheet_names)
+
+        # Validate Aggregated Databases (Pandas DataFrames)
+        import pandas as pd
+        
+        # 1. Flory
+        df_flory = pd.read_pickle(combine_prefix + '_flory_aggregated.pkl')
+        self.assertEqual(len(df_flory), 1)
+        self.assertEqual(df_flory.iloc[0]["solvent"], "toluene")
+        self.assertEqual(df_flory.iloc[0]["polymer"], "poly(methyl methacrylate)")
+        self.assertEqual(df_flory.iloc[0]["c_values"], [-7.72])
+        self.assertEqual(df_flory.iloc[0]["v_values"], [0.48])
+
+        # 2. Mark-Houwink
+        df_mh = pd.read_pickle(combine_prefix + '_mh_aggregated.pkl')
+        self.assertEqual(len(df_mh), 1)
+        self.assertEqual(df_mh.iloc[0]["solvent"], "toluene")
+        self.assertEqual(df_mh.iloc[0]["polymer"], "poly(methyl methacrylate)")
+        self.assertEqual(df_mh.iloc[0]["K_values"], [0.012])
+        self.assertEqual(df_mh.iloc[0]["a_values"], [0.7])
+        
 if __name__ == '__main__':
     unittest.main()

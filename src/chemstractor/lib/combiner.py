@@ -224,7 +224,9 @@ def gather_and_homogenise(processors: list[PDFProcessor], cache_path: str, ai_in
                 poly_clean, poly_source, poly_fail_reason = homogenise_and_track(
                     polymer_raw, cache, ai_instance, stats
                 )
+                failed_fields = []
                 if poly_fail_reason:
+                    failed_fields.append("polymer_name")
                     failures.append({
                         "source_paper": paper_name,
                         "table": table_name,
@@ -237,6 +239,7 @@ def gather_and_homogenise(processors: list[PDFProcessor], cache_path: str, ai_in
                     solvent_raw, cache, ai_instance, stats
                 )
                 if solv_fail_reason:
+                    failed_fields.append("solvent")
                     failures.append({
                         "source_paper": paper_name,
                         "table": table_name,
@@ -253,6 +256,7 @@ def gather_and_homogenise(processors: list[PDFProcessor], cache_path: str, ai_in
                 clean_entry["solvent"] = solv_clean
                 clean_entry["source_paper"] = paper_name
                 clean_entry["table_name"] = table_name
+                clean_entry["failed_fields"] = ", ".join(failed_fields) if failed_fields else "None"
 
                 mh_results.append(clean_entry)
 
@@ -265,7 +269,9 @@ def gather_and_homogenise(processors: list[PDFProcessor], cache_path: str, ai_in
                 poly_clean, poly_source, poly_fail_reason = homogenise_and_track(
                     polymer_raw, cache, ai_instance, stats
                 )
+                failed_fields = []
                 if poly_fail_reason:
+                    failed_fields.append("polymer_name")
                     failures.append({
                         "source_paper": paper_name,
                         "table": table_name,
@@ -278,6 +284,7 @@ def gather_and_homogenise(processors: list[PDFProcessor], cache_path: str, ai_in
                     solvent_raw, cache, ai_instance, stats
                 )
                 if solv_fail_reason:
+                    failed_fields.append("solvent")
                     failures.append({
                         "source_paper": paper_name,
                         "table": table_name,
@@ -294,6 +301,7 @@ def gather_and_homogenise(processors: list[PDFProcessor], cache_path: str, ai_in
                 clean_entry["solvent"] = solv_clean
                 clean_entry["source_paper"] = paper_name
                 clean_entry["table_name"] = table_name
+                clean_entry["failed_fields"] = ", ".join(failed_fields) if failed_fields else "None"
 
                 flory_results.append(clean_entry)
 
