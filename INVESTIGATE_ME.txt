@@ -4,3 +4,17 @@ https://github.com/sciknoworg
 
 
 https://ask.orkg.org/
+
+
+Similar projects:
+https://chemrxiv.org/doi/full/10.26434/chemrxiv-2025-l296q-v2
+https://github.com/hasan-sayeed/KnowMat2
+
+
+https://pubs.aip.org/avs/jva/article/44/3/032413/3388514/Designing-an-agentic-AI-workflow-for-structured
+https://github.com/sciknoworg/scikgextract
+
+
+https://pubs.acs.org/doi/10.1021/acs.jcim.6c00374
+https://github.com/arwalkerlab/LoA-Stable
+
