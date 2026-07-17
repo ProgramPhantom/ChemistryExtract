@@ -2,6 +2,7 @@
 #SBATCH -t 1-0        # Wallclock time limit. 4-0 is 4 days. Max permitted is 7-0.
 #SBATCH -p gpuA
 #SBATCH -G 1
+#SBATCH -c 4       # CPUS
 
 module purge
 module load apps/binapps/conda/miniforge3/25.9.1
