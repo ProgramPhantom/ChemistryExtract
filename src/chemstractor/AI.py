@@ -50,7 +50,7 @@ class AI:
     pricing_matrix = pricing_matrix
     ONLINE_MODELS = ONLINE_MODELS
     OFFLINE_MODELS = OFFLINE_MODELS
-    DEFAULT_MODEL = "gemini-2.5-flash"
+    DEFAULT_MODEL = "gemma4:31b"
     
     _instance = None
     

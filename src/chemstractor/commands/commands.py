@@ -6,27 +6,71 @@ from chemstractor.AI import AI, AllSupportedModels, ONLINE_MODELS, OFFLINE_MODEL
 choices_map = {}
 for m in ONLINE_MODELS:
     choices_map[f"☁️  {m}"] = m
+    choices_map[m] = m
 for m in OFFLINE_MODELS:
     choices_map[m] = m
 
-CHOICES = list(choices_map.keys())
+CHOICES = [f"☁️  {m}" for m in ONLINE_MODELS] + OFFLINE_MODELS
+CLEAN_CHOICES = ONLINE_MODELS + OFFLINE_MODELS
 
 def prompt_for_model():
     """Prompts the user to select a model using inquirer."""
-    import inquirer
-    questions = [
-        inquirer.List(
-            'model',
-            message="Select model",
-            choices=CHOICES,
-            default=CHOICES[0]
-        )
-    ]
-    answers = inquirer.prompt(questions)
-    if answers is None:
-        click.echo("Cancelled.")
-        sys.exit(0)
-    return answers['model']
+    if not sys.stdin.isatty():
+        return AI.DEFAULT_MODEL
+    try:
+        import inquirer
+        questions = [
+            inquirer.List(
+                'model',
+                message="Select model",
+                choices=CHOICES,
+                default=CHOICES[0]
+            )
+        ]
+        answers = inquirer.prompt(questions)
+        if answers is None:
+            click.echo("Cancelled.")
+            sys.exit(0)
+        return answers['model']
+    except Exception as e:
+        click.echo(f"Warning: Failed to prompt for model interactively ({e}). Defaulting to '{AI.DEFAULT_MODEL}'.")
+        return AI.DEFAULT_MODEL
+
+def prompt_for_corpus():
+    """Resolves the corpus directory. Prompts the user interactively or defaults to 'medium' when non-interactive."""
+    import os
+    corpus_root = "./tests/corpus"
+    if not os.path.exists(corpus_root):
+        corpus_root = "tests/corpus"
+        
+    if os.path.exists(corpus_root) and os.path.isdir(corpus_root):
+        subfolders = [
+            d for d in os.listdir(corpus_root)
+            if os.path.isdir(os.path.join(corpus_root, d))
+        ]
+        if subfolders:
+            default_sub = "medium" if "medium" in subfolders else subfolders[0]
+            if not sys.stdin.isatty():
+                return os.path.join(corpus_root, default_sub)
+            try:
+                import inquirer
+                questions = [
+                    inquirer.List(
+                        'corpus',
+                        message="Select corpus",
+                        choices=subfolders,
+                        default=default_sub
+                    )
+                ]
+                answers = inquirer.prompt(questions)
+                if answers is None:
+                    click.echo("Cancelled.")
+                    sys.exit(0)
+                return os.path.join(corpus_root, answers['corpus'])
+            except Exception as e:
+                click.echo(f"Warning: Failed to prompt for corpus interactively ({e}). Defaulting to '{default_sub}'.")
+                return os.path.join(corpus_root, default_sub)
+    return None
 
 @click.group()
 def cli():
@@ -36,7 +80,7 @@ def cli():
 @cli.command()
 @click.argument('pdf_path', type=click.Path(exists=True))
 @click.argument('output_dir', required=False)
-@click.option('--model', type=click.Choice(CHOICES), default=None, help="Model to use.")
+@click.option('--model', type=click.Choice(CLEAN_CHOICES), default=None, help="Model to use.")
 @click.option('--direct', '-d', is_flag=True, help="Input is a process output folder rather than a PDF.")
 @click.option('--interpret', '-i', is_flag=True, help="Interpret coeff tables.")
 @click.option('--report', '-r', is_flag=True, help="Generate report after process completes.")
@@ -62,7 +106,10 @@ def process(pdf_path, output_dir, model, direct, interpret, report, metadata, su
             "Would you like to have the output of this command be the same as the input folder? "
             "(Pre-existing process output might be overridden)"
         )
-        same_folder = click.confirm(prompt_msg, default=True)
+        if sys.stdin.isatty():
+            same_folder = click.confirm(prompt_msg, default=True)
+        else:
+            same_folder = True
 
     from rich.console import Console
     console = Console(file=sys.__stdout__)
@@ -84,7 +131,7 @@ def process(pdf_path, output_dir, model, direct, interpret, report, metadata, su
 @cli.command()
 @click.argument('pdf_dir', required=False)
 @click.argument('output_dir', required=False)
-@click.option('--model', type=click.Choice(CHOICES), default=None, help="Model to use.")
+@click.option('--model', type=click.Choice(CLEAN_CHOICES), default=None, help="Model to use.")
 @click.option('--direct', '-d', is_flag=True, help="Input is a directory of process output folders rather than PDFs.")
 @click.option('--interpret', '-i', is_flag=True, help="Interpret coeff tables.")
 @click.option('--report', '-r', is_flag=True, help="Generate report after process completes.")
@@ -99,6 +146,8 @@ def process_all(pdf_dir, output_dir, model, direct, interpret, report, combine, 
         summarise = True
         interpret = True
         combine = True
+    if not direct and pdf_dir is None:
+        pdf_dir = prompt_for_corpus()
     if model is None:
         model = prompt_for_model()
     selected_model = choices_map[model]
@@ -156,7 +205,7 @@ def extract_all(pdf_dir, output_dir):
 @cli.command()
 @click.argument('pdf_path', type=click.Path(exists=True))
 @click.option('--output-dir', default="./", help="Directory where the output folder appears.")
-@click.option('--model', type=click.Choice(CHOICES), default=None, help="Model to use.")
+@click.option('--model', type=click.Choice(CLEAN_CHOICES), default=None, help="Model to use.")
 @click.option('--direct', '-d', is_flag=True, help="Input is a process output folder rather than a PDF.")
 def categorise(pdf_path, output_dir, model, direct):
     """Categorise tables extracted from a PDF."""
@@ -171,7 +220,10 @@ def categorise(pdf_path, output_dir, model, direct):
             "Would you like to have the output of this command be the same as the input folder? "
             "(Pre-existing process output might be overridden)"
         )
-        same_folder = click.confirm(prompt_msg, default=True)
+        if sys.stdin.isatty():
+            same_folder = click.confirm(prompt_msg, default=True)
+        else:
+            same_folder = True
 
     from rich.console import Console
     console = Console(file=sys.__stdout__)
@@ -189,7 +241,7 @@ def categorise(pdf_path, output_dir, model, direct):
 @cli.command()
 @click.argument('pdf_path', type=click.Path(exists=True))
 @click.option('--output-dir', default="./", help="Directory where the output folder appears.")
-@click.option('--model', type=click.Choice(CHOICES), default=None, help="Model to use.")
+@click.option('--model', type=click.Choice(CLEAN_CHOICES), default=None, help="Model to use.")
 @click.option('--direct', '-d', is_flag=True, help="Input is a process output folder rather than a PDF.")
 def summarise(pdf_path, output_dir, model, direct):
     """Summarise tables and metadata extracted from a PDF."""
@@ -204,7 +256,10 @@ def summarise(pdf_path, output_dir, model, direct):
             "Would you like to have the output of this command be the same as the input folder? "
             "(Pre-existing process output might be overridden)"
         )
-        same_folder = click.confirm(prompt_msg, default=True)
+        if sys.stdin.isatty():
+            same_folder = click.confirm(prompt_msg, default=True)
+        else:
+            same_folder = True
 
     from rich.console import Console
     console = Console(file=sys.__stdout__)
@@ -222,7 +277,7 @@ def summarise(pdf_path, output_dir, model, direct):
 @cli.command()
 @click.argument('pdf_path', type=click.Path(exists=True))
 @click.option('--output-dir', default="./", help="Directory where the output folder appears.")
-@click.option('--model', type=click.Choice(CHOICES), default=None, help="Model to use.")
+@click.option('--model', type=click.Choice(CLEAN_CHOICES), default=None, help="Model to use.")
 @click.option('--direct', '-d', is_flag=True, help="Input is a process output folder rather than a PDF.")
 def metadata(pdf_path, output_dir, model, direct):
     """Extract paper metadata (title, authors, doi)."""
@@ -237,7 +292,10 @@ def metadata(pdf_path, output_dir, model, direct):
             "Would you like to have the output of this command be the same as the input folder? "
             "(Pre-existing process output might be overridden)"
         )
-        same_folder = click.confirm(prompt_msg, default=True)
+        if sys.stdin.isatty():
+            same_folder = click.confirm(prompt_msg, default=True)
+        else:
+            same_folder = True
 
     from rich.console import Console
     console = Console(file=sys.__stdout__)
@@ -315,7 +373,7 @@ def report(process_output_dir, output):
 
 @cli.command()
 @click.argument('process_output_dir', type=click.Path(exists=True, file_okay=False, dir_okay=True))
-@click.option('--model', type=click.Choice(CHOICES), default=None, help="Model to use.")
+@click.option('--model', type=click.Choice(CLEAN_CHOICES), default=None, help="Model to use.")
 def clean(process_output_dir, model):
     """Clean tables from a process output folder."""
     if model is None:
@@ -335,7 +393,7 @@ def clean(process_output_dir, model):
 
 @cli.command()
 @click.argument('outputs_dir', required=False)
-@click.option('--model', type=click.Choice(CHOICES), default=None, help="Model to use.")
+@click.option('--model', type=click.Choice(CLEAN_CHOICES), default=None, help="Model to use.")
 def clean_all(outputs_dir, model):
     """Clean all output folders in the given path."""
     if model is None:
@@ -356,7 +414,7 @@ def clean_all(outputs_dir, model):
 @cli.command()
 @click.argument('pdf_path', type=click.Path(exists=True))
 @click.argument('output_dir', required=False)
-@click.option('--model', type=click.Choice(CHOICES), default=None, help="Model to use.")
+@click.option('--model', type=click.Choice(CLEAN_CHOICES), default=None, help="Model to use.")
 @click.option('--direct', '-d', is_flag=True, help="Input is a process output folder rather than a PDF.")
 def interpret(pdf_path, output_dir, model, direct):
     """Interpret coeff tables extracted from a PDF or process output folder."""
@@ -371,7 +429,10 @@ def interpret(pdf_path, output_dir, model, direct):
             "Would you like to have the output of this command be the same as the input folder? "
             "(Pre-existing process output might be overridden)"
         )
-        same_folder = click.confirm(prompt_msg, default=True)
+        if sys.stdin.isatty():
+            same_folder = click.confirm(prompt_msg, default=True)
+        else:
+            same_folder = True
 
     from rich.console import Console
     console = Console(file=sys.__stdout__)
@@ -389,7 +450,7 @@ def interpret(pdf_path, output_dir, model, direct):
 @cli.command()
 @click.argument('pdf_dir', required=False)
 @click.argument('output_dir', required=False)
-@click.option('--model', type=click.Choice(CHOICES), default=None, help="Model to use.")
+@click.option('--model', type=click.Choice(CLEAN_CHOICES), default=None, help="Model to use.")
 @click.option('--direct', '-d', is_flag=True, help="Input is a directory of process output folders rather than PDFs.")
 def interpret_all(pdf_dir, output_dir, model, direct):
     """Interpret all tables in a directory of PDFs or process output folders."""
@@ -413,7 +474,7 @@ def interpret_all(pdf_dir, output_dir, model, direct):
 @cli.command()
 @click.argument('input_dir', type=click.Path(exists=True, file_okay=False, dir_okay=True))
 @click.option('--output', '-o', type=click.Path(), default=None, help="Output save location of the combined Excel/JSON document.")
-@click.option('--model', type=click.Choice(CHOICES), default=None, help="Model to use.")
+@click.option('--model', type=click.Choice(CLEAN_CHOICES), default=None, help="Model to use.")
 @click.option('--cache-path', type=click.Path(), default=None, help="Path to the chemical cache JSON file.")
 def combine(input_dir, output, model, cache_path):
     """Combine and homogenise interpreted chemistry data from multiple papers."""

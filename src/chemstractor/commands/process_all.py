@@ -57,30 +57,7 @@ def process_all_command(
 ):
     console = Console(file=sys.__stdout__)
     
-    if not direct and pdf_dir is None:
-        corpus_root = "./tests/corpus"
-        if not os.path.exists(corpus_root):
-            corpus_root = "tests/corpus"
-        if os.path.exists(corpus_root) and os.path.isdir(corpus_root):
-            subfolders = [
-                d for d in os.listdir(corpus_root)
-                if os.path.isdir(os.path.join(corpus_root, d))
-            ]
-            if subfolders:
-                import inquirer
-                questions = [
-                    inquirer.List(
-                        'corpus',
-                        message="Select corpus",
-                        choices=subfolders,
-                        default=subfolders[0]
-                    )
-                ]
-                answers = inquirer.prompt(questions)
-                if answers is None:
-                    console.print("[red]Cancelled.[/red]")
-                    sys.exit(0)
-                pdf_dir = os.path.join(corpus_root, answers['corpus'])
+
 
     # Use the middleware helper to resolve directories and prepare extracts
     from chemstractor.commands.utils import prepare_batch_dirs
