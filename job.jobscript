@@ -18,7 +18,7 @@ ollama serve &
 # 2. Wait a few seconds for the server to spin up and load the port
 sleep 10
 
-ollama pull llama3
+ollama pull gemma4:31b
 
 python3 src/chemstractor/main.py process-all
 
