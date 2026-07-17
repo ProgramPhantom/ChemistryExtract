@@ -335,9 +335,41 @@ class TableExtractor:
         for page in doc:
             # get_links() returns a list of dictionaries representing all clickable areas
             links = page.get_links()
+            
+            # Retrieve image locations with their bounding boxes to avoid redacting image links
+            try:
+                image_infos = page.get_image_info(rects=True)
+                image_rects = [fitz.Rect(img["bbox"]) for img in image_infos if "bbox" in img]
+            except Exception:
+                image_rects = []
+
             for link in links:
                 # link["from"] contains the exact bounding box (fitz.Rect) of the hyperlink
                 link_rect = link["from"]
+                
+                # 1. Check if the link rectangle size is over a threshold.
+                # Standard text links are generally narrow and small.
+                # Anything taller than 25 points is likely a table/image element.
+                is_large_rect = (link_rect.height > 25) and (link_rect.width > 25)
+                
+                # 2. Check if the hyperlink box overlaps significantly with any raster image.
+                is_image_overlap = False
+                link_area = link_rect.width * link_rect.height
+                for img_rect in image_rects:
+                    # Calculate overlapping intersection rectangle manually for compatibility
+                    ix0 = max(link_rect.x0, img_rect.x0)
+                    iy0 = max(link_rect.y0, img_rect.y0)
+                    ix1 = min(link_rect.x1, img_rect.x1)
+                    iy1 = min(link_rect.y1, img_rect.y1)
+                    if ix1 > ix0 and iy1 > iy0:
+                        intersection_area = (ix1 - ix0) * (iy1 - iy0)
+                        if link_area > 0 and (intersection_area / link_area) > 0.5:
+                            is_image_overlap = True
+                            break
+                
+                if is_large_rect or is_image_overlap:
+                    continue  # Keep the link (do not redact)
+
                 # Add a redaction annotation over this specific box, filled with white
                 page.add_redact_annot(link_rect, fill=(1, 1, 1))
             # Apply the redactions, physically wiping the text under the boxes
