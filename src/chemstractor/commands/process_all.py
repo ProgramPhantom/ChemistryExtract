@@ -50,10 +50,38 @@ def process_all_command(
     output_parent_dir: str,
     direct: bool = False,
     interpret: bool = False,
-    report: bool = False
+    report: bool = False,
+    combine: bool = False,
+    metadata: bool = False,
+    summarise: bool = False
 ):
     console = Console(file=sys.__stdout__)
     
+    if not direct and pdf_dir is None:
+        corpus_root = "./tests/corpus"
+        if not os.path.exists(corpus_root):
+            corpus_root = "tests/corpus"
+        if os.path.exists(corpus_root) and os.path.isdir(corpus_root):
+            subfolders = [
+                d for d in os.listdir(corpus_root)
+                if os.path.isdir(os.path.join(corpus_root, d))
+            ]
+            if subfolders:
+                import inquirer
+                questions = [
+                    inquirer.List(
+                        'corpus',
+                        message="Select corpus",
+                        choices=subfolders,
+                        default=subfolders[0]
+                    )
+                ]
+                answers = inquirer.prompt(questions)
+                if answers is None:
+                    console.print("[red]Cancelled.[/red]")
+                    sys.exit(0)
+                pdf_dir = os.path.join(corpus_root, answers['corpus'])
+
     # Use the middleware helper to resolve directories and prepare extracts
     from chemstractor.commands.utils import prepare_batch_dirs
     pdf_dir, run_dir, items = prepare_batch_dirs(pdf_dir, output_parent_dir, direct=direct)
@@ -74,7 +102,9 @@ def process_all_command(
                 direct=True,
                 same_folder=True,
                 interpret=interpret,
-                report=report
+                report=report,
+                metadata=metadata,
+                summarise=summarise
             )
             summary_data.append(res)
     else:
@@ -85,10 +115,16 @@ def process_all_command(
                 console=console,
                 direct=False,
                 interpret=interpret,
-                report=report
+                report=report,
+                metadata=metadata,
+                summarise=summarise
             )
             summary_data.append(res)
             
     # Print the final summary table
     print_summary_table(console, summary_data)
+
+    if combine:
+        from chemstractor.commands.combine import combine_command
+        combine_command(input_dir=run_dir)
     

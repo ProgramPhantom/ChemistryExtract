@@ -17,7 +17,9 @@ def run_process_single(
     direct: bool = False,
     same_folder: bool = True,
     interpret: bool = False,
-    report: bool = False
+    report: bool = False,
+    metadata: bool = False,
+    summarise: bool = False
 ) -> dict:
     """Runs extraction, categorisation, and summarisation on a single PDF."""
     if console is None:
@@ -48,10 +50,12 @@ def run_process_single(
         run_categorise(processor, tree)
             
         # 3. Metadata
-        run_metadata(processor, tree)
+        if metadata:
+            run_metadata(processor, tree)
             
         # 4. Summarise
-        run_summarise(processor, tree)
+        if summarise:
+            run_summarise(processor, tree)
             
         # 5. Interpret (if flag is present)
         if interpret:
@@ -82,7 +86,9 @@ def process_command(
     direct: bool = False,
     same_folder: bool = True,
     interpret: bool = False,
-    report: bool = False
+    report: bool = False,
+    metadata: bool = False,
+    summarise: bool = False
 ):
     console = Console(file=sys.__stdout__)
     run_process_single(
@@ -92,5 +98,7 @@ def process_command(
         direct=direct,
         same_folder=same_folder,
         interpret=interpret,
-        report=report
+        report=report,
+        metadata=metadata,
+        summarise=summarise
     )

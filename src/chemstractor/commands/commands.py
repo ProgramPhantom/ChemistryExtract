@@ -40,8 +40,15 @@ def cli():
 @click.option('--direct', '-d', is_flag=True, help="Input is a process output folder rather than a PDF.")
 @click.option('--interpret', '-i', is_flag=True, help="Interpret coeff tables.")
 @click.option('--report', '-r', is_flag=True, help="Generate report after process completes.")
-def process(pdf_path, output_dir, model, direct, interpret, report):
+@click.option('--metadata', '-m', is_flag=True, help="Extract paper metadata.")
+@click.option('--summarise', '-s', is_flag=True, help="Summarise table conditions.")
+@click.option('--all', '-a', is_flag=True, help="Run all stages (metadata, summarise, interpret).")
+def process(pdf_path, output_dir, model, direct, interpret, report, metadata, summarise, all):
     """Process a single PDF file (extract, categorise, and summarise)."""
+    if all:
+        metadata = True
+        summarise = True
+        interpret = True
     if output_dir is None and not direct:
         output_dir = "."
     if model is None:
@@ -68,7 +75,9 @@ def process(pdf_path, output_dir, model, direct, interpret, report):
         direct=direct,
         same_folder=same_folder,
         interpret=interpret,
-        report=report
+        report=report,
+        metadata=metadata,
+        summarise=summarise
     )
 
 
@@ -79,8 +88,17 @@ def process(pdf_path, output_dir, model, direct, interpret, report):
 @click.option('--direct', '-d', is_flag=True, help="Input is a directory of process output folders rather than PDFs.")
 @click.option('--interpret', '-i', is_flag=True, help="Interpret coeff tables.")
 @click.option('--report', '-r', is_flag=True, help="Generate report after process completes.")
-def process_all(pdf_dir, output_dir, model, direct, interpret, report):
+@click.option('--combine', '-c', is_flag=True, help="Run combine process after processing completes.")
+@click.option('--metadata', '-m', is_flag=True, help="Extract paper metadata.")
+@click.option('--summarise', '-s', is_flag=True, help="Summarise table conditions.")
+@click.option('--all', '-a', is_flag=True, help="Run all stages (metadata, summarise, interpret, combine).")
+def process_all(pdf_dir, output_dir, model, direct, interpret, report, combine, metadata, summarise, all):
     """Process all PDF files in a directory."""
+    if all:
+        metadata = True
+        summarise = True
+        interpret = True
+        combine = True
     if model is None:
         model = prompt_for_model()
     selected_model = choices_map[model]
@@ -96,7 +114,10 @@ def process_all(pdf_dir, output_dir, model, direct, interpret, report):
         output_parent_dir=output_dir,
         direct=direct,
         interpret=interpret,
-        report=report
+        report=report,
+        combine=combine,
+        metadata=metadata,
+        summarise=summarise
     )
 
 
