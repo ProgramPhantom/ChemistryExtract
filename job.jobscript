@@ -21,6 +21,8 @@ sleep 10
 
 ollama pull gemma4:31b
 
+sleep 100
+
 python3 src/chemstractor/main.py process-all --all ./tests/corpus/large/ --model gemma4:31b
 
 pkill ollama
