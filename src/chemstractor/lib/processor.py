@@ -253,6 +253,7 @@ class PDFProcessor:
             self.extractor.extract_results()
             self.num_tables = len(self.extractor.tables_markdown)
         except MemoryError as e:
+            self._log_error(f"Error in extract (MemoryError): {e}")
             logs = self.extractor.logs if (self.extractor and hasattr(self.extractor, 'logs')) else ""
             msg = (
                 "Extraction failed: Out of Memory (MemoryError). The system has run out of RAM during document processing. "
@@ -264,10 +265,11 @@ class PDFProcessor:
                 "error": e,
                 "logs": logs
             }
-            raise e
+            return
         except BaseException as e:
-            if isinstance(e, KeyboardInterrupt):
+            if isinstance(e, (KeyboardInterrupt, SystemExit)):
                 raise e
+            self._log_error(f"Error in extract: {e}")
             logs = self.extractor.logs if (self.extractor and hasattr(self.extractor, 'logs')) else ""
             yield {
                 "status": "error",
@@ -275,7 +277,7 @@ class PDFProcessor:
                 "error": e,
                 "logs": logs
             }
-            raise e
+            return
 
         elapsed_time = time.time() - start_time
         yield {
@@ -285,11 +287,18 @@ class PDFProcessor:
             "num_tables": self.num_tables
         }
 
+
     
     def categorise(self):
         """Categorises each table in-memory and yields status events."""
         if not self.extractor:
-            raise RuntimeError("Must call extract() before categorising tables.")
+            yield {
+                "status": "complete",
+                "message": "Categorisation skipped: extraction failed or was not run.",
+                "elapsed_time": 0.0,
+                "results": []
+            }
+            return
             
         start_time = time.time()
         yield {"status": "working", "message": "Categorising extracted tables..."}
@@ -310,62 +319,75 @@ class PDFProcessor:
             title = meta_dict.get("title")
             abstract = meta_dict.get("abstract")
         
-        for i in range(self.num_tables):
-            table_name = f"table{i + 1}.txt"
-            
-            yield {
-                "status": "table_start",
-                "table_idx": i,
-                "table_name": table_name,
-                "message": f"Categorising table {i + 1}/{self.num_tables}..."
-            }
-            
-            table_text = self.extractor.tables_markdown[i]
-            res = categorise_table(table_text, title=title, abstract=abstract)
-            if res.success:
-                if res.flagged:
-                    flags = []
-                    if res.contains_raw_diffusion_data:
-                        flags.append("raw")
-                    if res.contains_mark_houwink_parameters:
-                        flags.append("mark_houwink")
-                    if res.contains_flory_parameters:
-                        flags.append("flory")
-                    status_msg = ", ".join(flags) if flags else "flagged"
+        try:
+            for i in range(self.num_tables):
+                table_name = f"table{i + 1}.txt"
+                
+                yield {
+                    "status": "table_start",
+                    "table_idx": i,
+                    "table_name": table_name,
+                    "message": f"Categorising table {i + 1}/{self.num_tables}..."
+                }
+                
+                table_text = self.extractor.tables_markdown[i]
+                res = categorise_table(table_text, title=title, abstract=abstract)
+                if res.success:
+                    if res.flagged:
+                        flags = []
+                        if res.contains_raw_diffusion_data:
+                            flags.append("raw")
+                        if res.contains_mark_houwink_parameters:
+                            flags.append("mark_houwink")
+                        if res.contains_flory_parameters:
+                            flags.append("flory")
+                        status_msg = ", ".join(flags) if flags else "flagged"
+                    else:
+                        status_msg = "Not flagged"
+                    self.cat_results.append((table_name, True, status_msg, res.usage_metadata))
+                    
+                    categorisation_data = {
+                        "contains_scientific_data": res.contains_scientific_data,
+                        "contains_raw_diffusion_data": res.contains_raw_diffusion_data,
+                        "contains_mark_houwink_parameters": res.contains_mark_houwink_parameters,
+                        "contains_flory_parameters": res.contains_flory_parameters,
+                        "contains_polymer_diffusion_coeff": res.contains_polymer_diffusion_coeff
+                    }
+                    self.cat_data_list.append(categorisation_data)
+                    
+                    yield {
+                        "status": "table_complete",
+                        "table_idx": i,
+                        "table_name": table_name,
+                        "success": True,
+                        "status_message": status_msg,
+                        "usage_metadata": res.usage_metadata
+                    }
                 else:
-                    status_msg = "Not flagged"
-                self.cat_results.append((table_name, True, status_msg, res.usage_metadata))
-                
-                categorisation_data = {
-                    "contains_scientific_data": res.contains_scientific_data,
-                    "contains_raw_diffusion_data": res.contains_raw_diffusion_data,
-                    "contains_mark_houwink_parameters": res.contains_mark_houwink_parameters,
-                    "contains_flory_parameters": res.contains_flory_parameters,
-                    "contains_polymer_diffusion_coeff": res.contains_polymer_diffusion_coeff
-                }
-                self.cat_data_list.append(categorisation_data)
-                
-                yield {
-                    "status": "table_complete",
-                    "table_idx": i,
-                    "table_name": table_name,
-                    "success": True,
-                    "status_message": status_msg,
-                    "usage_metadata": res.usage_metadata
-                }
-            else:
-                status_msg = f"Failed: {res.error}"
-                self.cat_results.append((table_name, False, status_msg, None))
-                self.cat_data_list.append(None)
-                yield {
-                    "status": "table_complete",
-                    "table_idx": i,
-                    "table_name": table_name,
-                    "success": False,
-                    "status_message": status_msg,
-                    "usage_metadata": None
-                }
-                
+                    status_msg = f"Failed: {res.error}"
+                    self.cat_results.append((table_name, False, status_msg, None))
+                    self.cat_data_list.append(None)
+                    yield {
+                        "status": "table_complete",
+                        "table_idx": i,
+                        "table_name": table_name,
+                        "success": False,
+                        "status_message": status_msg,
+                        "usage_metadata": None
+                    }
+        except BaseException as e:
+            if isinstance(e, (KeyboardInterrupt, SystemExit)):
+                raise e
+            self._log_error(f"Error in categorise: {e}")
+            elapsed_time = time.time() - start_time
+            yield {
+                "status": "complete",
+                "message": f"Categorisation failed: {str(e)}",
+                "elapsed_time": elapsed_time,
+                "results": self.cat_results
+            }
+            return
+
         elapsed_time = time.time() - start_time
         yield {
             "status": "complete",
@@ -378,32 +400,61 @@ class PDFProcessor:
     def extract_metadata(self):
         """Extracts paper-level metadata and yields status events."""
         if not self.extractor:
-            raise RuntimeError("Must call extract() before extracting metadata.")
+            yield {
+                "status": "complete",
+                "message": "Metadata extraction skipped: extraction failed or was not run.",
+                "elapsed_time": 0.0,
+                "success": False,
+                "error": "extraction failed",
+                "usage_metadata": None
+            }
+            return
             
         start_time = time.time()
         yield {"status": "working", "message": "Extracting paper-level metadata..."}
         
-        input_markdown = self.extractor.raw_markdown or self.extractor.parsed_markdown
-        metadata_res = extract_paper_metadata(input_markdown)
-        self.metadata_res = metadata_res
-        
-        metadata_error = None if metadata_res.success else metadata_res.error
-        
-        elapsed_time = time.time() - start_time
-        yield {
-            "status": "complete",
-            "message": "Extracted paper-level metadata",
-            "elapsed_time": elapsed_time,
-            "success": metadata_res.success,
-            "error": metadata_error,
-            "usage_metadata": metadata_res.usage_metadata
-        }
+        try:
+            input_markdown = self.extractor.raw_markdown or self.extractor.parsed_markdown
+            metadata_res = extract_paper_metadata(input_markdown)
+            self.metadata_res = metadata_res
+            
+            metadata_error = None if metadata_res.success else metadata_res.error
+            
+            elapsed_time = time.time() - start_time
+            yield {
+                "status": "complete",
+                "message": "Extracted paper-level metadata",
+                "elapsed_time": elapsed_time,
+                "success": metadata_res.success,
+                "error": metadata_error,
+                "usage_metadata": metadata_res.usage_metadata
+            }
+        except BaseException as e:
+            if isinstance(e, (KeyboardInterrupt, SystemExit)):
+                raise e
+            self._log_error(f"Error in extract_metadata: {e}")
+            elapsed_time = time.time() - start_time
+            self.metadata_res = MetadataResult(success=False, data={}, error=str(e))
+            yield {
+                "status": "complete",
+                "message": f"Paper metadata extraction failed: {str(e)}",
+                "elapsed_time": elapsed_time,
+                "success": False,
+                "error": str(e),
+                "usage_metadata": None
+            }
 
 
     def summarise(self):
         """Summarises each table in-memory and yields status events."""
         if not self.extractor:
-            raise RuntimeError("Must call extract() before summarising tables.")
+            yield {
+                "status": "complete",
+                "message": "Summarisation skipped: extraction failed or was not run.",
+                "elapsed_time": 0.0,
+                "results": []
+            }
+            return
             
         start_time = time.time()
         yield {"status": "working", "message": "Summarising tables..."}
@@ -415,48 +466,61 @@ class PDFProcessor:
         if self.metadata_res and not self.metadata_res.success:
             metadata_error = self.metadata_res.error
             
-        for i in range(self.num_tables):
-            table_name = f"table{i + 1}.txt"
-            
+        try:
+            for i in range(self.num_tables):
+                table_name = f"table{i + 1}.txt"
+                
+                yield {
+                    "status": "table_start",
+                    "table_idx": i,
+                    "table_name": table_name,
+                    "message": f"Summarising table {i + 1}/{self.num_tables}..."
+                }
+                
+                table_text = self.extractor.tables_markdown[i]
+                res = summarise_table_conditions(table_text)
+                
+                if res.success:
+                    # Store experimental conditions only
+                    self.summarisation_data_list.append(res.data.model_dump())
+                    
+                    status_msg = "Successfully summarised"
+                    if metadata_error:
+                        status_msg += f" (metadata extraction failed: {metadata_error})"
+                    self.sum_results.append((table_name, True, status_msg, res.usage_metadata))
+                    
+                    yield {
+                        "status": "table_complete",
+                        "table_idx": i,
+                        "table_name": table_name,
+                        "success": True,
+                        "status_message": status_msg,
+                        "usage_metadata": res.usage_metadata
+                    }
+                else:
+                    status_msg = f"Failed: {res.error}"
+                    self.sum_results.append((table_name, False, status_msg, None))
+                    self.summarisation_data_list.append(None)
+                    yield {
+                        "status": "table_complete",
+                        "table_idx": i,
+                        "table_name": table_name,
+                        "success": False,
+                        "status_message": status_msg,
+                        "usage_metadata": None
+                    }
+        except BaseException as e:
+            if isinstance(e, (KeyboardInterrupt, SystemExit)):
+                raise e
+            self._log_error(f"Error in summarise: {e}")
+            elapsed_time = time.time() - start_time
             yield {
-                "status": "table_start",
-                "table_idx": i,
-                "table_name": table_name,
-                "message": f"Summarising table {i + 1}/{self.num_tables}..."
+                "status": "complete",
+                "message": f"Summarisation failed: {str(e)}",
+                "elapsed_time": elapsed_time,
+                "results": self.sum_results
             }
-            
-            table_text = self.extractor.tables_markdown[i]
-            res = summarise_table_conditions(table_text)
-            
-            if res.success:
-                # Store experimental conditions only
-                self.summarisation_data_list.append(res.data.model_dump())
-                
-                status_msg = "Successfully summarised"
-                if metadata_error:
-                    status_msg += f" (metadata extraction failed: {metadata_error})"
-                self.sum_results.append((table_name, True, status_msg, res.usage_metadata))
-                
-                yield {
-                    "status": "table_complete",
-                    "table_idx": i,
-                    "table_name": table_name,
-                    "success": True,
-                    "status_message": status_msg,
-                    "usage_metadata": res.usage_metadata
-                }
-            else:
-                status_msg = f"Failed: {res.error}"
-                self.sum_results.append((table_name, False, status_msg, None))
-                self.summarisation_data_list.append(None)
-                yield {
-                    "status": "table_complete",
-                    "table_idx": i,
-                    "table_name": table_name,
-                    "success": False,
-                    "status_message": status_msg,
-                    "usage_metadata": None
-                }
+            return
                 
         elapsed_time = time.time() - start_time
         yield {
@@ -469,12 +533,24 @@ class PDFProcessor:
     def interpret(self):
         """Interprets each table categorized as 'coeff' in-memory and yields status events."""
         if not self.extractor:
-            raise RuntimeError("Must call extract() before interpreting tables.")
+            yield {
+                "status": "complete",
+                "message": "Interpretation skipped: extraction failed or was not run.",
+                "elapsed_time": 0.0,
+                "results": []
+            }
+            return
             
         # Check if categorisation data is available
         categorised_count = sum(1 for c in self.cat_data_list if c is not None)
         if categorised_count == 0:
-            raise RuntimeError("No table categorisation files found. Please run categorise first.")
+            yield {
+                "status": "complete",
+                "message": "Interpretation skipped: no table categorisation data found.",
+                "elapsed_time": 0.0,
+                "results": []
+            }
+            return
             
         start_time = time.time()
         yield {"status": "working", "message": "Interpreting 'coeff' tables..."}
@@ -494,65 +570,78 @@ class PDFProcessor:
             title = meta_dict.get("title")
             abstract = meta_dict.get("abstract")
             
-        for i in range(self.num_tables):
-            table_name = f"table{i + 1}.txt"
-            
-            # Check if this table has categorisation "coeff"
-            cat_data = self.cat_data_list[i] if i < len(self.cat_data_list) else None
-            is_coeff = cat_data and (
-                cat_data.get("contains_diffusion_coeff") in ["coeff", True] or
-                cat_data.get("contains_mark_houwink_parameters", False) or
-                cat_data.get("contains_flory_parameters", False)
-            )
-            
-            if not is_coeff:
-                # Skip tables that are not "coeff"
-                self.interpret_results.append((table_name, True, "Skipped (not coeff)", None, []))
-                self.interpretation_data_list.append(None)
-                continue
+        try:
+            for i in range(self.num_tables):
+                table_name = f"table{i + 1}.txt"
                 
+                # Check if this table has categorisation "coeff"
+                cat_data = self.cat_data_list[i] if i < len(self.cat_data_list) else None
+                is_coeff = cat_data and (
+                    cat_data.get("contains_diffusion_coeff") in ["coeff", True] or
+                    cat_data.get("contains_mark_houwink_parameters", False) or
+                    cat_data.get("contains_flory_parameters", False)
+                )
+                
+                if not is_coeff:
+                    # Skip tables that are not "coeff"
+                    self.interpret_results.append((table_name, True, "Skipped (not coeff)", None, []))
+                    self.interpretation_data_list.append(None)
+                    continue
+                    
+                yield {
+                    "status": "table_start",
+                    "table_idx": i,
+                    "table_name": table_name,
+                    "message": f"Interpreting table {i + 1}/{self.num_tables}..."
+                }
+                
+                table_text = self.extractor.tables_markdown[i]
+                formulae = self.extractor.formulae if hasattr(self.extractor, 'formulae') else []
+                res = interpret_table(table_text, title=title, abstract=abstract, cat_data=cat_data, formulae=formulae)
+                
+                if res.success:
+                    data_dict = res.data.model_dump()
+                    data_dict["calculator_calls"] = res.calculator_calls
+                    
+                    self.interpretation_data_list.append(data_dict)
+                    status_msg = "Successfully interpreted"
+                    self.interpret_results.append((table_name, True, status_msg, res.usage_metadata, res.calculator_calls))
+                    
+                    yield {
+                        "status": "table_complete",
+                        "table_idx": i,
+                        "table_name": table_name,
+                        "success": True,
+                        "status_message": status_msg,
+                        "usage_metadata": res.usage_metadata,
+                        "calculator_calls": res.calculator_calls
+                    }
+                else:
+                    status_msg = f"Failed: {res.error}"
+                    self.interpret_results.append((table_name, False, status_msg, None, res.calculator_calls))
+                    self.interpretation_data_list.append(None)
+                    
+                    yield {
+                        "status": "table_complete",
+                        "table_idx": i,
+                        "table_name": table_name,
+                        "success": False,
+                        "status_message": status_msg,
+                        "usage_metadata": None,
+                        "calculator_calls": res.calculator_calls
+                    }
+        except BaseException as e:
+            if isinstance(e, (KeyboardInterrupt, SystemExit)):
+                raise e
+            self._log_error(f"Error in interpret: {e}")
+            elapsed_time = time.time() - start_time
             yield {
-                "status": "table_start",
-                "table_idx": i,
-                "table_name": table_name,
-                "message": f"Interpreting table {i + 1}/{self.num_tables}..."
+                "status": "complete",
+                "message": f"Interpretation failed: {str(e)}",
+                "elapsed_time": elapsed_time,
+                "results": self.interpret_results
             }
-            
-            table_text = self.extractor.tables_markdown[i]
-            formulae = self.extractor.formulae if hasattr(self.extractor, 'formulae') else []
-            res = interpret_table(table_text, title=title, abstract=abstract, cat_data=cat_data, formulae=formulae)
-            
-            if res.success:
-                data_dict = res.data.model_dump()
-                data_dict["calculator_calls"] = res.calculator_calls
-                
-                self.interpretation_data_list.append(data_dict)
-                status_msg = "Successfully interpreted"
-                self.interpret_results.append((table_name, True, status_msg, res.usage_metadata, res.calculator_calls))
-                
-                yield {
-                    "status": "table_complete",
-                    "table_idx": i,
-                    "table_name": table_name,
-                    "success": True,
-                    "status_message": status_msg,
-                    "usage_metadata": res.usage_metadata,
-                    "calculator_calls": res.calculator_calls
-                }
-            else:
-                status_msg = f"Failed: {res.error}"
-                self.interpret_results.append((table_name, False, status_msg, None, res.calculator_calls))
-                self.interpretation_data_list.append(None)
-                
-                yield {
-                    "status": "table_complete",
-                    "table_idx": i,
-                    "table_name": table_name,
-                    "success": False,
-                    "status_message": status_msg,
-                    "usage_metadata": None,
-                    "calculator_calls": res.calculator_calls
-                }
+            return
                 
         elapsed_time = time.time() - start_time
         yield {
@@ -700,48 +789,54 @@ class PDFProcessor:
     def save_all(self):
         """Saves all relevant content in-memory to the output folder structure."""
         if not self.extractor:
-            raise RuntimeError("Must call extract() before saving.")
+            self._log_error("save_all skipped: no extractor available (extraction failed or was not run).")
+            return
         
-        # Create output directories
-        os.makedirs(self.output_dir, exist_ok=True)
-        os.makedirs(self.extract_dir, exist_ok=True)
-        os.makedirs(self.tables_dir, exist_ok=True)
-        
-        # 1. Save extraction files
-        self.save_cleaned_pdf()
-        self.save_pdf_copy()
-        self.save_outputs()
-        self.save_logs()
-        
-        # 2. Save categorisation JSONs if available
-        if self.cat_data_list:
-            os.makedirs(self.categorisation_dir, exist_ok=True)
-            for i, cat_data in enumerate(self.cat_data_list):
-                if cat_data is not None:
-                    json_file_path = os.path.join(self.categorisation_dir, f"table{i + 1}.json")
-                    with open(json_file_path, 'w', encoding='utf-8') as jf:
-                        json.dump(cat_data, jf, indent=2)
-                        
-        # 3. Save summarisation JSONs if available
-        if self.summarisation_data_list:
-            tables_summary_dir = os.path.join(self.summary_dir, "tables")
-            os.makedirs(tables_summary_dir, exist_ok=True)
-            for i, sum_data in enumerate(self.summarisation_data_list):
-                if sum_data is not None:
-                    json_file_path = os.path.join(tables_summary_dir, f"table{i + 1}.json")
-                    with open(json_file_path, 'w', encoding='utf-8') as jf:
-                        json.dump(sum_data, jf, indent=2)
-                        
-        # 4. Save interpretation JSONs if available
-        if self.interpretation_data_list:
-            os.makedirs(self.interpretation_dir, exist_ok=True)
-            for i, interp_data in enumerate(self.interpretation_data_list):
-                if interp_data is not None:
-                    json_file_path = os.path.join(self.interpretation_dir, f"table{i + 1}.json")
-                    with open(json_file_path, 'w', encoding='utf-8') as jf:
-                        json.dump(interp_data, jf, indent=2)
-                        
-        self.save_summary_json()
+        try:
+            # Create output directories
+            os.makedirs(self.output_dir, exist_ok=True)
+            os.makedirs(self.extract_dir, exist_ok=True)
+            os.makedirs(self.tables_dir, exist_ok=True)
+            
+            # 1. Save extraction files
+            self.save_cleaned_pdf()
+            self.save_pdf_copy()
+            self.save_outputs()
+            self.save_logs()
+            
+            # 2. Save categorisation JSONs if available
+            if self.cat_data_list:
+                os.makedirs(self.categorisation_dir, exist_ok=True)
+                for i, cat_data in enumerate(self.cat_data_list):
+                    if cat_data is not None:
+                        json_file_path = os.path.join(self.categorisation_dir, f"table{i + 1}.json")
+                        with open(json_file_path, 'w', encoding='utf-8') as jf:
+                            json.dump(cat_data, jf, indent=2)
+                            
+            # 3. Save summarisation JSONs if available
+            if self.summarisation_data_list:
+                tables_summary_dir = os.path.join(self.summary_dir, "tables")
+                os.makedirs(tables_summary_dir, exist_ok=True)
+                for i, sum_data in enumerate(self.summarisation_data_list):
+                    if sum_data is not None:
+                        json_file_path = os.path.join(tables_summary_dir, f"table{i + 1}.json")
+                        with open(json_file_path, 'w', encoding='utf-8') as jf:
+                            json.dump(sum_data, jf, indent=2)
+                            
+            # 4. Save interpretation JSONs if available
+            if self.interpretation_data_list:
+                os.makedirs(self.interpretation_dir, exist_ok=True)
+                for i, interp_data in enumerate(self.interpretation_data_list):
+                    if interp_data is not None:
+                        json_file_path = os.path.join(self.interpretation_dir, f"table{i + 1}.json")
+                        with open(json_file_path, 'w', encoding='utf-8') as jf:
+                            json.dump(interp_data, jf, indent=2)
+                            
+            self.save_summary_json()
+        except BaseException as e:
+            if isinstance(e, (KeyboardInterrupt, SystemExit)):
+                raise e
+            self._log_error(f"Error in save_all: {e}")
 
     def cleanup(self):
         """Deload extractor instance and force garbage collection to release memory."""

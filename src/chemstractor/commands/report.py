@@ -9,11 +9,11 @@ def report_command(process_output_dir: str, output: str = None) -> None:
     
     if not os.path.exists(process_output_dir):
         console.print(f"[bold red]Error: Process output directory '{process_output_dir}' does not exist.[/bold red]")
-        sys.exit(1)
+        return
         
     if not os.path.isdir(process_output_dir):
         console.print(f"[bold red]Error: '{process_output_dir}' is not a directory.[/bold red]")
-        sys.exit(1)
+        return
 
     try:
         processor = PDFProcessor()
@@ -21,7 +21,7 @@ def report_command(process_output_dir: str, output: str = None) -> None:
         
         if processor.num_tables == 0:
             console.print(f"[bold red]Error: No table data found in '{process_output_dir}'.[/bold red]")
-            sys.exit(1)
+            return
             
         # Resolve destination path
         if output is None:
@@ -43,5 +43,6 @@ def report_command(process_output_dir: str, output: str = None) -> None:
         console.print(f"[bold green]✓[/bold green] Excel report successfully created at: [cyan]{dest_path}[/cyan]")
     except Exception as e:
         console.print(f"[bold red]Error: Failed to create Excel report: {e}[/bold red]")
-        sys.exit(1)
+        return
+
 
