@@ -192,10 +192,11 @@ def homogenise_and_track(raw_name: str, cache: dict, ai_instance, stats: dict) -
         return raw_name, "fail", f"Unexpected error during name homogenisation: {str(e)}"
 
 
-def gather_and_homogenise(processors: list[PDFProcessor], cache_path: str, ai_instance) -> dict:
+def gather_and_homogenise(processors: list[PDFProcessor], cache_path: str, ai_instance):
     """
     Processes all loaded PDFProcessor instances, extracts polymer and solvent names from their interpretation
     data, homogenises them using the 4-stage pipeline, updates the cache, and aggregates the results.
+    Yields progress dictionary events during execution.
     """
     cache = load_cache(cache_path)
 
@@ -211,12 +212,31 @@ def gather_and_homogenise(processors: list[PDFProcessor], cache_path: str, ai_in
         "failed": 0
     }
 
-    for proc in processors:
+    total_papers = len(processors)
+
+    for idx, proc in enumerate(processors):
         paper_name = proc.base_no_ext
+        yield {
+            "status": "paper_start",
+            "paper_idx": idx,
+            "paper_name": paper_name,
+            "total_papers": total_papers
+        }
 
         # Check if interpretation results are present
         if not proc.interpretation_flory_data_list and not proc.interpretation_mh_data_list:
+            yield {
+                "status": "paper_complete",
+                "paper_idx": idx,
+                "paper_name": paper_name,
+                "total_papers": total_papers,
+                "mh_count": 0,
+                "flory_count": 0
+            }
             continue
+
+        paper_mh_count = 0
+        paper_flory_count = 0
 
         try:
             num_tables = max(len(proc.interpretation_flory_data_list), len(proc.interpretation_mh_data_list))
@@ -269,6 +289,7 @@ def gather_and_homogenise(processors: list[PDFProcessor], cache_path: str, ai_in
                         clean_entry["failed_fields"] = ", ".join(failed_fields) if failed_fields else "None"
 
                         mh_results.append(clean_entry)
+                        paper_mh_count += 1
 
                 # Process Flory entries
                 flory_data = proc.interpretation_flory_data_list[i] if i < len(proc.interpretation_flory_data_list) else None
@@ -316,6 +337,7 @@ def gather_and_homogenise(processors: list[PDFProcessor], cache_path: str, ai_in
                         clean_entry["failed_fields"] = ", ".join(failed_fields) if failed_fields else "None"
 
                         flory_results.append(clean_entry)
+                        paper_flory_count += 1
         except BaseException as e:
             if isinstance(e, (KeyboardInterrupt, SystemExit)):
                 raise e
@@ -327,12 +349,24 @@ def gather_and_homogenise(processors: list[PDFProcessor], cache_path: str, ai_in
                 "reason": f"Unexpected error during homogenisation: {str(e)}"
             })
 
+        yield {
+            "status": "paper_complete",
+            "paper_idx": idx,
+            "paper_name": paper_name,
+            "total_papers": total_papers,
+            "mh_count": paper_mh_count,
+            "flory_count": paper_flory_count
+        }
 
     save_cache(cache_path, cache)
 
-    return {
+    results = {
         "mark_houwink_entries": mh_results,
         "flory_entries": flory_results,
         "failures": failures,
         "stats": stats
+    }
+    yield {
+        "status": "complete",
+        "results": results
     }

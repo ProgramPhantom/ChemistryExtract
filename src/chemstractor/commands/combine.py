@@ -29,6 +29,9 @@ from rich.console import Console
 from rich.table import Table
 from rich.rule import Rule
 from rich.live import Live
+from rich.progress import Progress, SpinnerColumn, BarColumn, TextColumn, TaskProgressColumn, TimeElapsedColumn, MofNCompleteColumn
+from rich.tree import Tree
+from rich.console import Group
 
 from chemstractor.lib.processor import PDFProcessor
 from chemstractor.AI import AI, pricing_matrix
@@ -497,10 +500,41 @@ def combine_command(input_dir: str, output_path: str = None, cache_path: str = N
     start_time = time.time()
     ai_instance = AI.get_instance()
     selected_model = ai_instance.selected_model
+
     
-    with console.status(f"[bold cyan]Running chemical name homogenisation using {selected_model}...[/bold cyan]", spinner="dots"):
-        results = gather_and_homogenise(processors, cache_path, ai_instance)
-        
+    combine_tree = Tree(f"[bold magenta]Homogenising Chemical Names using {selected_model}[/bold magenta]")
+    progress = Progress(
+        SpinnerColumn(),
+        TextColumn("[bold cyan]{task.description}[/bold cyan]"),
+        BarColumn(),
+        TaskProgressColumn(),
+        MofNCompleteColumn(),
+        TimeElapsedColumn(),
+        console=console
+    )
+    task_id = progress.add_task("Homogenising papers...", total=len(processors))
+    group = Group(progress, combine_tree)
+    
+    results = None
+    with Live(group, console=console, auto_refresh=True, refresh_per_second=12):
+        for event in gather_and_homogenise(processors, cache_path, ai_instance):
+            status = event.get("status")
+            if status == "paper_start":
+                paper_name = event["paper_name"]
+                progress.update(task_id, description=f"Homogenising [cyan]{paper_name}[/cyan]...")
+            elif status == "paper_complete":
+                paper_name = event["paper_name"]
+                mh_cnt = event.get("mh_count", 0)
+                flory_cnt = event.get("flory_count", 0)
+                combine_tree.add(
+                    f"[green]✓[/green] [bold]{paper_name}[/bold] "
+                    f"[dim]({flory_cnt} Flory, {mh_cnt} Mark-Houwink)[/dim]"
+                )
+                progress.advance(task_id)
+            elif status == "complete":
+                results = event["results"]
+                progress.update(task_id, description="[bold green]Homogenisation complete![/bold green]")
+                
     elapsed = time.time() - start_time
     
     # Build flat (unaggregated) pandas dataframes and export
