@@ -14,6 +14,9 @@ https://github.com/hasan-sayeed/KnowMat2
 https://pubs.aip.org/avs/jva/article/44/3/032413/3388514/Designing-an-agentic-AI-workflow-for-structured
 https://github.com/sciknoworg/scikgextract
 
+"espectively, emphasizing that LLMs can achieve competitive performance even in specialized domains, though domain adaptation still remains a challenge."
+"These studies demonstrate the effectiveness of LLMs in extracting structured information from various data sources. However, despite their strong contextual understanding and generative capabilities, LLMs often suffer from hallucination and lack of mechanisms for validation. These limitations have motivated the emergence of agent-based workflows, which combine LLMs with different rule-based tools (such as structure validators, normalization utilities, etc.) to ensure factual accuracy, consistency, and reliability. Agentic systems extend the core functionality of LLMs by enabling them to dynamically use these tools, thereby producing more verifiable and trustworthy outputs."
+
 
 https://pubs.acs.org/doi/10.1021/acs.jcim.6c00374
 https://github.com/arwalkerlab/LoA-Stable
