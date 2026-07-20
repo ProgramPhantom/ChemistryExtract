@@ -36,6 +36,7 @@ from chemstractor.lib.combiner import gather_and_homogenise
 
 from openpyxl.chart import LineChart, Reference, Series
 
+
 def create_combined_excel(dest_path: str, combined_data: dict) -> None:
     """Generates a nicely formatted combined Excel report containing sheets for Mark-Houwink, Flory, and Failures."""
     wb = openpyxl.Workbook()
@@ -415,6 +416,7 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
         ws_fail.column_dimensions[col_letter].width = max(max_len + 3, 12)
 
     wb.save(dest_path)
+
 
 def combine_command(input_dir: str, output_path: str = None, cache_path: str = None) -> None:
     """Executes the combine & homogenisation process across all process output folders in input_dir."""

@@ -149,7 +149,8 @@ def process(pdf_path, output_dir, model, direct, interpret, report, metadata, su
 @click.option('--flory', '-f', is_flag=True, default=False, help="Interpret Flory parameters.")
 @click.option('--mark-houwink', '-m', is_flag=True, default=False, help="Interpret Mark-Houwink parameters.")
 @click.option('--fast', is_flag=True, help="Run in fast mode (skips summary/metadata, interprets Flory only, runs combine).")
-def process_all(pdf_dir, output_dir, model, direct, interpret, report, combine, metadata, summarise, all, flory, mark_houwink, fast):
+@click.option('--cache-path', type=click.Path(), default=None, help="Path to the chemical cache JSON file.")
+def process_all(pdf_dir, output_dir, model, direct, interpret, report, combine, metadata, summarise, all, flory, mark_houwink, fast, cache_path):
     """Process all PDF files in a directory."""
     if fast:
         metadata = False
@@ -190,7 +191,8 @@ def process_all(pdf_dir, output_dir, model, direct, interpret, report, combine, 
         metadata=metadata,
         summarise=summarise,
         flory=flory,
-        mark_houwink=mark_houwink
+        mark_houwink=mark_houwink,
+        cache_path=cache_path
     )
 
 

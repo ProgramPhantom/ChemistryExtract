@@ -18,6 +18,7 @@ def load_cache(cache_path: str) -> dict:
         pass
     return {}
 
+
 def save_cache(cache_path: str, cache: dict) -> None:
     """Saves the chemical cache to a JSON file."""
     if not cache_path:
@@ -31,6 +32,7 @@ def save_cache(cache_path: str, cache: dict) -> None:
             json.dump(cache, f, indent=2, ensure_ascii=False)
     except Exception:
         pass
+
 
 def find_fuzzy_match(dirty_name: str, cache: dict, threshold: float = 0.9) -> str | None:
     """

@@ -55,7 +55,8 @@ def process_all_command(
     metadata: bool = False,
     summarise: bool = False,
     flory: bool = True,
-    mark_houwink: bool = False
+    mark_houwink: bool = False,
+    cache_path: str = None
 ):
     console = Console(file=sys.__stdout__)
     
@@ -109,5 +110,5 @@ def process_all_command(
 
     if combine:
         from chemstractor.commands.combine import combine_command
-        combine_command(input_dir=run_dir)
+        combine_command(input_dir=run_dir, cache_path=cache_path)
     
