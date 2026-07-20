@@ -214,6 +214,8 @@ def gather_and_homogenise(processors: list[PDFProcessor], cache_path: str, ai_in
 
     total_papers = len(processors)
 
+    papers_summary = []
+
     for idx, proc in enumerate(processors):
         paper_name = proc.base_no_ext
         yield {
@@ -225,6 +227,24 @@ def gather_and_homogenise(processors: list[PDFProcessor], cache_path: str, ai_in
 
         # Check if interpretation results are present
         if not proc.interpretation_flory_data_list and not proc.interpretation_mh_data_list:
+            title = "N/A"
+            if getattr(proc, 'metadata_res', None) and proc.metadata_res.success and proc.metadata_res.data:
+                title = proc.metadata_res.data.get("title") or "N/A"
+            elif proc.command_outputs and proc.command_outputs.get("metadata"):
+                meta_dict = proc.command_outputs["metadata"]
+                if isinstance(meta_dict, dict):
+                    title = meta_dict.get("title") or "N/A"
+
+            papers_summary.append({
+                "source_paper": paper_name,
+                "title": title,
+                "total_tables": proc.num_tables or len(proc.cat_data_list),
+                "selected_tables": 0,
+                "flory_count": 0,
+                "mh_count": 0,
+                "failed_count": 0
+            })
+
             yield {
                 "status": "paper_complete",
                 "paper_idx": idx,
@@ -349,6 +369,33 @@ def gather_and_homogenise(processors: list[PDFProcessor], cache_path: str, ai_in
                 "reason": f"Unexpected error during homogenisation: {str(e)}"
             })
 
+        title = "N/A"
+        if getattr(proc, 'metadata_res', None) and proc.metadata_res.success and proc.metadata_res.data:
+            title = proc.metadata_res.data.get("title") or "N/A"
+        elif proc.command_outputs and proc.command_outputs.get("metadata"):
+            meta_dict = proc.command_outputs["metadata"]
+            if isinstance(meta_dict, dict):
+                title = meta_dict.get("title") or "N/A"
+
+        total_tables = proc.num_tables or len(proc.cat_data_list)
+        selected_tables = sum(
+            1 for c in proc.cat_data_list if c and (c.get("contains_mark_houwink_parameters") or c.get("contains_flory_parameters"))
+        )
+        if selected_tables == 0:
+            selected_tables = max(len(proc.interpretation_flory_data_list), len(proc.interpretation_mh_data_list))
+
+        paper_failed_count = sum(1 for f in failures if f.get("source_paper") == paper_name)
+
+        papers_summary.append({
+            "source_paper": paper_name,
+            "title": title,
+            "total_tables": total_tables,
+            "selected_tables": selected_tables,
+            "flory_count": paper_flory_count,
+            "mh_count": paper_mh_count,
+            "failed_count": paper_failed_count
+        })
+
         yield {
             "status": "paper_complete",
             "paper_idx": idx,
@@ -364,7 +411,8 @@ def gather_and_homogenise(processors: list[PDFProcessor], cache_path: str, ai_in
         "mark_houwink_entries": mh_results,
         "flory_entries": flory_results,
         "failures": failures,
-        "stats": stats
+        "stats": stats,
+        "papers_summary": papers_summary
     }
     yield {
         "status": "complete",

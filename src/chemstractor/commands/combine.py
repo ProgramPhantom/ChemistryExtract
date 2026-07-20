@@ -41,7 +41,7 @@ from openpyxl.chart import LineChart, Reference, Series
 
 
 def create_combined_excel(dest_path: str, combined_data: dict) -> None:
-    """Generates a nicely formatted combined Excel report containing sheets for Mark-Houwink, Flory, and Failures."""
+    """Generates a nicely formatted combined Excel report containing Summary, Papers, Polymers, Flory, Mark-Houwink, and Failures sheets."""
     wb = openpyxl.Workbook()
     if "Sheet" in wb.sheetnames:
         wb.remove(wb["Sheet"])
@@ -53,178 +53,237 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
     table_header_fill = PatternFill(start_color="366092", end_color="366092", fill_type="solid")
     table_header_align = Alignment(horizontal="center", vertical="center", wrap_text=True)
     
+    section_title_font = Font(name=font_family, size=11, bold=True, color="1F497D")
     val_font = Font(name=font_family, size=10, color="000000")
     thin_border_side = Side(border_style="thin", color="D9D9D9")
     data_border = Border(left=thin_border_side, right=thin_border_side, top=thin_border_side, bottom=thin_border_side)
     
+    fail_row_fill = PatternFill(start_color="FCE4D6", end_color="FCE4D6", fill_type="solid")
+    
     left_align = Alignment(horizontal="left", vertical="center")
     right_align = Alignment(horizontal="right", vertical="center")
+    center_align = Alignment(horizontal="center", vertical="center")
     
-    # 1. Mark-Houwink Sheet
-    ws_mh = wb.create_sheet(title="Mark-Houwink")
-    ws_mh.views.sheetView[0].showGridLines = True
-    
-    headers_mh = [
-        "Source Paper", "Table", "Polymer (Original)", "Polymer (Clean)", 
-        "Solvent (Original)", "Solvent (Clean)", "Temperature (K)", 
-        "K Value (mL/g)", "K Transformation", "a Value", "a Transformation", "Failed Field"
-    ]
-    
-    for col_idx, h in enumerate(headers_mh):
-        cell = ws_mh.cell(row=1, column=col_idx + 1, value=h)
-        cell.font = table_header_font
-        cell.fill = table_header_fill
-        cell.alignment = table_header_align
-        cell.border = data_border
-        
-    # Append computed plot points headers to the main table
-    for val, col in [(3, 13), (6, 14)]:
-        cell = ws_mh.cell(row=1, column=col, value=val)
-        cell.font = table_header_font
-        cell.fill = table_header_fill
-        cell.alignment = table_header_align
-        cell.border = data_border
-        
+    flory_entries = combined_data.get("flory_entries", [])
     mh_entries = combined_data.get("mark_houwink_entries", [])
+    failures = combined_data.get("failures", [])
+    papers_summary = combined_data.get("papers_summary", [])
     
-    # Track unique polymer-solvent pairs and counts for Mark-Houwink summary
-    mh_counts = {}
-    
-    for row_idx, entry in enumerate(mh_entries):
-        r = row_idx + 2
-        ws_mh.cell(row=r, column=1, value=entry.get("source_paper", "")).font = val_font
-        ws_mh.cell(row=r, column=2, value=entry.get("table_name", "")).font = val_font
-        ws_mh.cell(row=r, column=3, value=entry.get("polymer_name_original", "")).font = val_font
-        ws_mh.cell(row=r, column=4, value=entry.get("polymer_name", "")).font = val_font
-        ws_mh.cell(row=r, column=5, value=entry.get("solvent_original", "")).font = val_font
-        ws_mh.cell(row=r, column=6, value=entry.get("solvent", "")).font = val_font
-        
-        # Numeric values check
-        temp = entry.get("temperature_k")
-        ws_mh.cell(row=r, column=7, value=float(temp) if temp is not None else None).font = val_font
-        
-        k_val = entry.get("K_value")
-        ws_mh.cell(row=r, column=8, value=float(k_val) if k_val is not None else None).font = val_font
-        
-        ws_mh.cell(row=r, column=9, value=entry.get("K_transformation", "")).font = val_font
-        
-        a_val = entry.get("a_value")
-        ws_mh.cell(row=r, column=10, value=float(a_val) if a_val is not None else None).font = val_font
-        
-        ws_mh.cell(row=r, column=11, value=entry.get("a_transformation", "")).font = val_font
-        ws_mh.cell(row=r, column=12, value=entry.get("failed_fields", "None")).font = val_font
-        
-        # Write computed curve formula into columns M and N if not failed
-        has_failed = entry.get("failed_fields", "None") != "None" or entry.get("polymer_name") == "N/A" or entry.get("solvent") == "N/A"
-        if k_val is not None and k_val > 0 and a_val is not None and not has_failed:
-            ws_mh.cell(row=r, column=13, value=f"=LOG10(H{r})+J{r}*3").font = val_font
-            ws_mh.cell(row=r, column=14, value=f"=LOG10(H{r})+J{r}*6").font = val_font
-            
-            # Update counts for summary
-            pair = (entry.get("solvent"), entry.get("polymer_name"))
-            mh_counts[pair] = mh_counts.get(pair, 0) + 1
-            
-        for c in [1, 2, 3, 4, 5, 6, 9, 11, 12]:
-            ws_mh.cell(row=r, column=c).alignment = left_align
-            ws_mh.cell(row=r, column=c).border = data_border
-        for c in [7, 8, 10, 13, 14]:
-            ws_mh.cell(row=r, column=c).alignment = right_align
-            ws_mh.cell(row=r, column=c).border = data_border
-            
-    # Write Mark-Houwink Summary Table starting at Column P (16)
-    ws_mh.cell(row=1, column=16, value="Solvent").font = table_header_font
-    ws_mh.cell(row=1, column=16).fill = table_header_fill
-    ws_mh.cell(row=1, column=16).alignment = table_header_align
-    ws_mh.cell(row=1, column=16).border = data_border
-    
-    ws_mh.cell(row=1, column=17, value="Polymer").font = table_header_font
-    ws_mh.cell(row=1, column=17).fill = table_header_fill
-    ws_mh.cell(row=1, column=17).alignment = table_header_align
-    ws_mh.cell(row=1, column=17).border = data_border
-    
-    ws_mh.cell(row=1, column=18, value="Count").font = table_header_font
-    ws_mh.cell(row=1, column=18).fill = table_header_fill
-    ws_mh.cell(row=1, column=18).alignment = table_header_align
-    ws_mh.cell(row=1, column=18).border = data_border
-    
-    for summary_idx, (pair, count) in enumerate(sorted(mh_counts.items())):
-        sr = summary_idx + 2
-        ws_mh.cell(row=sr, column=16, value=pair[0]).font = val_font
-        ws_mh.cell(row=sr, column=16).alignment = left_align
-        ws_mh.cell(row=sr, column=16).border = data_border
-        
-        ws_mh.cell(row=sr, column=17, value=pair[1]).font = val_font
-        ws_mh.cell(row=sr, column=17).alignment = left_align
-        ws_mh.cell(row=sr, column=17).border = data_border
-        
-        ws_mh.cell(row=sr, column=18, value=count).font = val_font
-        ws_mh.cell(row=sr, column=18).alignment = right_align
-        ws_mh.cell(row=sr, column=18).border = data_border
-        
-    # Generate and embed Mark-Houwink Line Chart
-    if mh_entries:
-        try:
-            chart_mh = LineChart()
-            chart_mh.title = "Mark-Houwink Calibration Curves (log-log Plot)"
-            chart_mh.style = 13
-            chart_mh.x_axis.title = "log(M / g mol⁻¹)"
-            chart_mh.y_axis.title = "log([eta] / mL g⁻¹)"
-            chart_mh.x_axis.delete = False
-            chart_mh.y_axis.delete = False
-            chart_mh.x_axis.tickLblPos = "low"
-            chart_mh.y_axis.tickLblPos = "nextTo"
-            
-            # Calculate Y-axis limits dynamically in python
-            y_vals = []
-            for entry in mh_entries:
-                K_val = entry.get("K_value")
-                a_val = entry.get("a_value")
-                has_failed = entry.get("failed_fields", "None") != "None" or entry.get("polymer_name") == "N/A" or entry.get("solvent") == "N/A"
-                if K_val is not None and K_val > 0 and a_val is not None and not has_failed:
-                    log_K = math.log10(K_val)
-                    y_vals.append(log_K + a_val * 3)
-                    y_vals.append(log_K + a_val * 6)
-            if y_vals:
-                min_y = min(y_vals)
-                max_y = max(y_vals)
-                chart_mh.y_axis.scaling.min = float(f"{min_y - 0.5:.2f}")
-                chart_mh.y_axis.scaling.max = float(f"{max_y + 0.5:.2f}")
-                
-            chart_mh.width = 18
-            chart_mh.height = 12
-            
-            # Append non-failed entries as separate series with clean polymer/solvent titles
-            for row_idx, entry in enumerate(mh_entries):
-                r = row_idx + 2
-                K_val = entry.get("K_value")
-                a_val = entry.get("a_value")
-                has_failed = entry.get("failed_fields", "None") != "None" or entry.get("polymer_name") == "N/A" or entry.get("solvent") == "N/A"
-                if K_val is not None and K_val > 0 and a_val is not None and not has_failed:
-                    series_ref = Reference(ws_mh, min_col=13, max_col=14, min_row=r, max_row=r)
-                    series = Series(series_ref, title=f"{entry.get('polymer_name')} in {entry.get('solvent')}")
-                    chart_mh.append(series)
-                    
-            cats_ref = Reference(ws_mh, min_col=13, max_col=14, min_row=1, max_row=1)
-            chart_mh.set_categories(cats_ref)
-            
-            # Colors rotation
-            colors = ["1F497D", "C0504D", "9BBB59", "8064A2", "F79646", "4BACC6", "E26B0A", "7030A0", "00B0F0"]
-            for s_idx, series in enumerate(chart_mh.series):
-                color = colors[s_idx % len(colors)]
-                series.graphicalProperties.line = openpyxl.drawing.line.LineProperties(solidFill=color)
-                
-            ws_mh.add_chart(chart_mh, "T4")
-        except Exception as e:
-            pass
+    # Pre-calculate failure stats for Summary sheet
+    failure_reasons_count = {}
+    total_mh_failed = 0
+    for entry in mh_entries:
+        ff = entry.get("failed_fields", "None")
+        poly = entry.get("polymer_name", "")
+        solv = entry.get("solvent", "")
+        if ff != "None" or poly == "N/A" or solv == "N/A":
+            total_mh_failed += 1
+            reason_str = ff if ff != "None" else "Unresolved chemical name (N/A)"
+            failure_reasons_count[reason_str] = failure_reasons_count.get(reason_str, 0) + 1
 
-    # Auto-adjust column width for mh
-    for col in ws_mh.columns:
+    total_flory_failed = 0
+    for entry in flory_entries:
+        ff = entry.get("failed_fields", "None")
+        poly = entry.get("polymer_name", "")
+        solv = entry.get("solvent", "")
+        if ff != "None" or poly == "N/A" or solv == "N/A":
+            total_flory_failed += 1
+            reason_str = ff if ff != "None" else "Unresolved chemical name (N/A)"
+            failure_reasons_count[reason_str] = failure_reasons_count.get(reason_str, 0) + 1
+
+    for fail in failures:
+        r_str = fail.get("reason", "Unknown failure")
+        failure_reasons_count[r_str] = failure_reasons_count.get(r_str, 0) + 1
+
+    total_collected = len(flory_entries) + len(mh_entries)
+    total_failures_all = total_flory_failed + total_mh_failed + len(failures)
+
+    # ---------------------------------------------------------
+    # 1. Summary Sheet
+    # ---------------------------------------------------------
+    ws_sum = wb.create_sheet(title="Summary")
+    ws_sum.views.sheetView[0].showGridLines = True
+
+    ws_sum.cell(row=1, column=1, value="Extraction & Homogenisation Statistics").font = section_title_font
+    
+    headers_sum_kpi = ["Metric", "Value"]
+    for c_idx, h in enumerate(headers_sum_kpi):
+        cell = ws_sum.cell(row=2, column=c_idx + 1, value=h)
+        cell.font = table_header_font
+        cell.fill = table_header_fill
+        cell.alignment = table_header_align
+        cell.border = data_border
+
+    success_rate = ((total_collected - total_failures_all) / total_collected * 100) if total_collected > 0 else 0.0
+
+    kpis = [
+        ("Total Data Points Collected", total_collected),
+        ("Flory Data Points", len(flory_entries)),
+        ("Mark-Houwink Data Points", len(mh_entries)),
+        ("Total Failures / Issues", total_failures_all),
+        ("Success Rate (%)", f"{success_rate:.1f}%")
+    ]
+
+    for r_idx, (m, v) in enumerate(kpis):
+        r = r_idx + 3
+        c1 = ws_sum.cell(row=r, column=1, value=m)
+        c1.font = val_font
+        c1.alignment = left_align
+        c1.border = data_border
+        
+        c2 = ws_sum.cell(row=r, column=2, value=v)
+        c2.font = val_font
+        c2.alignment = right_align
+        c2.border = data_border
+
+    # Failure Reasons breakdown table
+    ws_sum.cell(row=10, column=1, value="Failure Reasons Breakdown").font = section_title_font
+
+    headers_sum_fail = ["Failure Reason / Field", "Count"]
+    for c_idx, h in enumerate(headers_sum_fail):
+        cell = ws_sum.cell(row=11, column=c_idx + 1, value=h)
+        cell.font = table_header_font
+        cell.fill = table_header_fill
+        cell.alignment = table_header_align
+        cell.border = data_border
+
+    if failure_reasons_count:
+        sorted_reasons = sorted(failure_reasons_count.items(), key=lambda x: x[1], reverse=True)
+        for r_idx, (reason, count) in enumerate(sorted_reasons):
+            r = r_idx + 12
+            c1 = ws_sum.cell(row=r, column=1, value=reason)
+            c1.font = val_font
+            c1.alignment = left_align
+            c1.border = data_border
+
+            c2 = ws_sum.cell(row=r, column=2, value=count)
+            c2.font = val_font
+            c2.alignment = right_align
+            c2.border = data_border
+    else:
+        c1 = ws_sum.cell(row=12, column=1, value="None (All extractions succeeded)")
+        c1.font = val_font
+        c1.alignment = left_align
+        c1.border = data_border
+        c2 = ws_sum.cell(row=12, column=2, value=0)
+        c2.font = val_font
+        c2.alignment = right_align
+        c2.border = data_border
+
+    for col in ws_sum.columns:
         vals = [str(cell.value or '') for cell in col]
         max_len = max(len(v) for v in vals) if vals else 10
         col_letter = get_column_letter(col[0].column)
-        ws_mh.column_dimensions[col_letter].width = max(max_len + 3, 12)
-        
-    # 2. Flory Sheet
+        ws_sum.column_dimensions[col_letter].width = max(max_len + 4, 15)
+
+    # ---------------------------------------------------------
+    # 2. Papers Sheet
+    # ---------------------------------------------------------
+    ws_papers = wb.create_sheet(title="Papers")
+    ws_papers.views.sheetView[0].showGridLines = True
+
+    headers_papers = [
+        "Source Paper", "Paper Title", "Total Tables", "Selected Tables", 
+        "Flory Data Points", "Mark-Houwink Data Points", "Failed Data Points"
+    ]
+    for col_idx, h in enumerate(headers_papers):
+        cell = ws_papers.cell(row=1, column=col_idx + 1, value=h)
+        cell.font = table_header_font
+        cell.fill = table_header_fill
+        cell.alignment = table_header_align
+        cell.border = data_border
+
+    for row_idx, p_info in enumerate(papers_summary):
+        r = row_idx + 2
+        ws_papers.cell(row=r, column=1, value=p_info.get("source_paper", "")).font = val_font
+        ws_papers.cell(row=r, column=2, value=p_info.get("title", "N/A")).font = val_font
+        ws_papers.cell(row=r, column=3, value=p_info.get("total_tables", 0)).font = val_font
+        ws_papers.cell(row=r, column=4, value=p_info.get("selected_tables", 0)).font = val_font
+        ws_papers.cell(row=r, column=5, value=p_info.get("flory_count", 0)).font = val_font
+        ws_papers.cell(row=r, column=6, value=p_info.get("mh_count", 0)).font = val_font
+        ws_papers.cell(row=r, column=7, value=p_info.get("failed_count", 0)).font = val_font
+
+        for c in [1, 2]:
+            ws_papers.cell(row=r, column=c).alignment = left_align
+            ws_papers.cell(row=r, column=c).border = data_border
+        for c in range(3, 8):
+            ws_papers.cell(row=r, column=c).alignment = right_align
+            ws_papers.cell(row=r, column=c).border = data_border
+
+    for col in ws_papers.columns:
+        vals = [str(cell.value or '') for cell in col]
+        max_len = max(len(v) for v in vals) if vals else 10
+        col_letter = get_column_letter(col[0].column)
+        ws_papers.column_dimensions[col_letter].width = max(max_len + 3, 14)
+
+    # ---------------------------------------------------------
+    # 3. Polymers Sheet (Polymer-centric Flory data)
+    # ---------------------------------------------------------
+    ws_poly = wb.create_sheet(title="Polymers")
+    ws_poly.views.sheetView[0].showGridLines = True
+
+    headers_poly = [
+        "Polymer (Clean)", "Solvent (Clean)", "c Value (log Constant)", "c Transformation", 
+        "v Value (Scaling Exponent)", "v Transformation", "Temperature (K)", "Source Paper", "Table", "Failed Field"
+    ]
+    for col_idx, h in enumerate(headers_poly):
+        cell = ws_poly.cell(row=1, column=col_idx + 1, value=h)
+        cell.font = table_header_font
+        cell.fill = table_header_fill
+        cell.alignment = table_header_align
+        cell.border = data_border
+
+    # Sort Flory entries polymer-centric
+    sorted_flory_poly = sorted(
+        flory_entries, 
+        key=lambda x: (
+            (x.get("polymer_name") or "").lower() if x.get("polymer_name") != "N/A" else "zzz",
+            (x.get("solvent") or "").lower() if x.get("solvent") != "N/A" else "zzz"
+        )
+    )
+
+    for row_idx, entry in enumerate(sorted_flory_poly):
+        r = row_idx + 2
+        ws_poly.cell(row=r, column=1, value=entry.get("polymer_name", "")).font = val_font
+        ws_poly.cell(row=r, column=2, value=entry.get("solvent", "")).font = val_font
+
+        c_val = entry.get("c_value")
+        ws_poly.cell(row=r, column=3, value=float(c_val) if c_val is not None else None).font = val_font
+        ws_poly.cell(row=r, column=4, value=entry.get("c_transformation", "")).font = val_font
+
+        v_val = entry.get("v_value")
+        ws_poly.cell(row=r, column=5, value=float(v_val) if v_val is not None else None).font = val_font
+        ws_poly.cell(row=r, column=6, value=entry.get("v_transformation", "")).font = val_font
+
+        temp = entry.get("temperature_k")
+        ws_poly.cell(row=r, column=7, value=float(temp) if temp is not None else None).font = val_font
+
+        ws_poly.cell(row=r, column=8, value=entry.get("source_paper", "")).font = val_font
+        ws_poly.cell(row=r, column=9, value=entry.get("table_name", "")).font = val_font
+        ws_poly.cell(row=r, column=10, value=entry.get("failed_fields", "None")).font = val_font
+
+        has_failed = entry.get("failed_fields", "None") != "None" or entry.get("polymer_name") == "N/A" or entry.get("solvent") == "N/A"
+
+        for c in [1, 2, 4, 6, 8, 9, 10]:
+            ws_poly.cell(row=r, column=c).alignment = left_align
+            ws_poly.cell(row=r, column=c).border = data_border
+            if has_failed:
+                ws_poly.cell(row=r, column=c).fill = fail_row_fill
+        for c in [3, 5, 7]:
+            ws_poly.cell(row=r, column=c).alignment = right_align
+            ws_poly.cell(row=r, column=c).border = data_border
+            if has_failed:
+                ws_poly.cell(row=r, column=c).fill = fail_row_fill
+
+    for col in ws_poly.columns:
+        vals = [str(cell.value or '') for cell in col]
+        max_len = max(len(v) for v in vals) if vals else 10
+        col_letter = get_column_letter(col[0].column)
+        ws_poly.column_dimensions[col_letter].width = max(max_len + 3, 12)
+
+    # ---------------------------------------------------------
+    # 4. Flory Sheet
+    # ---------------------------------------------------------
     ws_flory = wb.create_sheet(title="Flory")
     ws_flory.views.sheetView[0].showGridLines = True
     
@@ -241,7 +300,6 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
         cell.alignment = table_header_align
         cell.border = data_border
         
-    # Append computed plot points headers to the main table
     for val, col in [(3, 13), (6, 14)]:
         cell = ws_flory.cell(row=1, column=col, value=val)
         cell.font = table_header_font
@@ -249,9 +307,6 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
         cell.alignment = table_header_align
         cell.border = data_border
         
-    flory_entries = combined_data.get("flory_entries", [])
-    
-    # Track unique polymer-solvent pairs and counts for Flory summary
     flory_counts = {}
     
     for row_idx, entry in enumerate(flory_entries):
@@ -277,22 +332,26 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
         ws_flory.cell(row=r, column=11, value=entry.get("v_transformation", "")).font = val_font
         ws_flory.cell(row=r, column=12, value=entry.get("failed_fields", "None")).font = val_font
         
-        # Write computed curve formula into columns M and N if not failed
         has_failed = entry.get("failed_fields", "None") != "None" or entry.get("polymer_name") == "N/A" or entry.get("solvent") == "N/A"
         if c_val is not None and v_val is not None and not has_failed:
             ws_flory.cell(row=r, column=13, value=f"=H{r}-J{r}*3").font = val_font
             ws_flory.cell(row=r, column=14, value=f"=H{r}-J{r}*6").font = val_font
             
-            # Update counts for summary
             pair = (entry.get("solvent"), entry.get("polymer_name"))
             flory_counts[pair] = flory_counts.get(pair, 0) + 1
             
         for c in [1, 2, 3, 4, 5, 6, 9, 11, 12]:
-            ws_flory.cell(row=r, column=c).alignment = left_align
-            ws_flory.cell(row=r, column=c).border = data_border
+            cell = ws_flory.cell(row=r, column=c)
+            cell.alignment = left_align
+            cell.border = data_border
+            if has_failed:
+                cell.fill = fail_row_fill
         for c in [7, 8, 10, 13, 14]:
-            ws_flory.cell(row=r, column=c).alignment = right_align
-            ws_flory.cell(row=r, column=c).border = data_border
+            cell = ws_flory.cell(row=r, column=c)
+            cell.alignment = right_align
+            cell.border = data_border
+            if has_failed:
+                cell.fill = fail_row_fill
             
     # Write Flory Summary Table starting at Column P (16)
     ws_flory.cell(row=1, column=16, value="Solvent").font = table_header_font
@@ -337,7 +396,6 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
             chart_flory.x_axis.tickLblPos = "low"
             chart_flory.y_axis.tickLblPos = "nextTo"
             
-            # Calculate Y-axis limits dynamically in python
             y_vals = []
             for entry in flory_entries:
                 c_val = entry.get("c_value")
@@ -355,7 +413,6 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
             chart_flory.width = 18
             chart_flory.height = 12
             
-            # Append non-failed entries as separate series with clean polymer/solvent titles
             for row_idx, entry in enumerate(flory_entries):
                 r = row_idx + 2
                 c_val = entry.get("c_value")
@@ -369,24 +426,185 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
             cats_ref = Reference(ws_flory, min_col=13, max_col=14, min_row=1, max_row=1)
             chart_flory.set_categories(cats_ref)
             
-            # Colors rotation
             colors = ["1F497D", "C0504D", "9BBB59", "8064A2", "F79646", "4BACC6", "E26B0A", "7030A0", "00B0F0"]
             for s_idx, series in enumerate(chart_flory.series):
                 color = colors[s_idx % len(colors)]
                 series.graphicalProperties.line = openpyxl.drawing.line.LineProperties(solidFill=color)
                 
             ws_flory.add_chart(chart_flory, "T4")
-        except Exception as e:
+        except Exception:
             pass
             
-    # Auto-adjust column width for flory
     for col in ws_flory.columns:
         vals = [str(cell.value or '') for cell in col]
         max_len = max(len(v) for v in vals) if vals else 10
         col_letter = get_column_letter(col[0].column)
         ws_flory.column_dimensions[col_letter].width = max(max_len + 3, 12)
 
-    # 3. Failures Sheet
+    # ---------------------------------------------------------
+    # 5. Mark-Houwink Sheet
+    # ---------------------------------------------------------
+    ws_mh = wb.create_sheet(title="Mark-Houwink")
+    ws_mh.views.sheetView[0].showGridLines = True
+    
+    headers_mh = [
+        "Source Paper", "Table", "Polymer (Original)", "Polymer (Clean)", 
+        "Solvent (Original)", "Solvent (Clean)", "Temperature (K)", 
+        "K Value (mL/g)", "K Transformation", "a Value", "a Transformation", "Failed Field"
+    ]
+    
+    for col_idx, h in enumerate(headers_mh):
+        cell = ws_mh.cell(row=1, column=col_idx + 1, value=h)
+        cell.font = table_header_font
+        cell.fill = table_header_fill
+        cell.alignment = table_header_align
+        cell.border = data_border
+        
+    for val, col in [(3, 13), (6, 14)]:
+        cell = ws_mh.cell(row=1, column=col, value=val)
+        cell.font = table_header_font
+        cell.fill = table_header_fill
+        cell.alignment = table_header_align
+        cell.border = data_border
+        
+    mh_counts = {}
+    
+    for row_idx, entry in enumerate(mh_entries):
+        r = row_idx + 2
+        ws_mh.cell(row=r, column=1, value=entry.get("source_paper", "")).font = val_font
+        ws_mh.cell(row=r, column=2, value=entry.get("table_name", "")).font = val_font
+        ws_mh.cell(row=r, column=3, value=entry.get("polymer_name_original", "")).font = val_font
+        ws_mh.cell(row=r, column=4, value=entry.get("polymer_name", "")).font = val_font
+        ws_mh.cell(row=r, column=5, value=entry.get("solvent_original", "")).font = val_font
+        ws_mh.cell(row=r, column=6, value=entry.get("solvent", "")).font = val_font
+        
+        temp = entry.get("temperature_k")
+        ws_mh.cell(row=r, column=7, value=float(temp) if temp is not None else None).font = val_font
+        
+        k_val = entry.get("K_value")
+        ws_mh.cell(row=r, column=8, value=float(k_val) if k_val is not None else None).font = val_font
+        
+        ws_mh.cell(row=r, column=9, value=entry.get("K_transformation", "")).font = val_font
+        
+        a_val = entry.get("a_value")
+        ws_mh.cell(row=r, column=10, value=float(a_val) if a_val is not None else None).font = val_font
+        
+        ws_mh.cell(row=r, column=11, value=entry.get("a_transformation", "")).font = val_font
+        ws_mh.cell(row=r, column=12, value=entry.get("failed_fields", "None")).font = val_font
+        
+        has_failed = entry.get("failed_fields", "None") != "None" or entry.get("polymer_name") == "N/A" or entry.get("solvent") == "N/A"
+        if k_val is not None and k_val > 0 and a_val is not None and not has_failed:
+            ws_mh.cell(row=r, column=13, value=f"=LOG10(H{r})+J{r}*3").font = val_font
+            ws_mh.cell(row=r, column=14, value=f"=LOG10(H{r})+J{r}*6").font = val_font
+            
+            pair = (entry.get("solvent"), entry.get("polymer_name"))
+            mh_counts[pair] = mh_counts.get(pair, 0) + 1
+            
+        for c in [1, 2, 3, 4, 5, 6, 9, 11, 12]:
+            cell = ws_mh.cell(row=r, column=c)
+            cell.alignment = left_align
+            cell.border = data_border
+            if has_failed:
+                cell.fill = fail_row_fill
+        for c in [7, 8, 10, 13, 14]:
+            cell = ws_mh.cell(row=r, column=c)
+            cell.alignment = right_align
+            cell.border = data_border
+            if has_failed:
+                cell.fill = fail_row_fill
+            
+    # Write Mark-Houwink Summary Table starting at Column P (16)
+    ws_mh.cell(row=1, column=16, value="Solvent").font = table_header_font
+    ws_mh.cell(row=1, column=16).fill = table_header_fill
+    ws_mh.cell(row=1, column=16).alignment = table_header_align
+    ws_mh.cell(row=1, column=16).border = data_border
+    
+    ws_mh.cell(row=1, column=17, value="Polymer").font = table_header_font
+    ws_mh.cell(row=1, column=17).fill = table_header_fill
+    ws_mh.cell(row=1, column=17).alignment = table_header_align
+    ws_mh.cell(row=1, column=17).border = data_border
+    
+    ws_mh.cell(row=1, column=18, value="Count").font = table_header_font
+    ws_mh.cell(row=1, column=18).fill = table_header_fill
+    ws_mh.cell(row=1, column=18).alignment = table_header_align
+    ws_mh.cell(row=1, column=18).border = data_border
+    
+    for summary_idx, (pair, count) in enumerate(sorted(mh_counts.items())):
+        sr = summary_idx + 2
+        ws_mh.cell(row=sr, column=16, value=pair[0]).font = val_font
+        ws_mh.cell(row=sr, column=16).alignment = left_align
+        ws_mh.cell(row=sr, column=16).border = data_border
+        
+        ws_mh.cell(row=sr, column=17, value=pair[1]).font = val_font
+        ws_mh.cell(row=sr, column=17).alignment = left_align
+        ws_mh.cell(row=sr, column=17).border = data_border
+        
+        ws_mh.cell(row=sr, column=18, value=count).font = val_font
+        ws_mh.cell(row=sr, column=18).alignment = right_align
+        ws_mh.cell(row=sr, column=18).border = data_border
+        
+    # Generate and embed Mark-Houwink Line Chart
+    if mh_entries:
+        try:
+            chart_mh = LineChart()
+            chart_mh.title = "Mark-Houwink Calibration Curves (log-log Plot)"
+            chart_mh.style = 13
+            chart_mh.x_axis.title = "log(M / g mol⁻¹)"
+            chart_mh.y_axis.title = "log([eta] / mL g⁻¹)"
+            chart_mh.x_axis.delete = False
+            chart_mh.y_axis.delete = False
+            chart_mh.x_axis.tickLblPos = "low"
+            chart_mh.y_axis.tickLblPos = "nextTo"
+            
+            y_vals = []
+            for entry in mh_entries:
+                K_val = entry.get("K_value")
+                a_val = entry.get("a_value")
+                has_failed = entry.get("failed_fields", "None") != "None" or entry.get("polymer_name") == "N/A" or entry.get("solvent") == "N/A"
+                if K_val is not None and K_val > 0 and a_val is not None and not has_failed:
+                    log_K = math.log10(K_val)
+                    y_vals.append(log_K + a_val * 3)
+                    y_vals.append(log_K + a_val * 6)
+            if y_vals:
+                min_y = min(y_vals)
+                max_y = max(y_vals)
+                chart_mh.y_axis.scaling.min = float(f"{min_y - 0.5:.2f}")
+                chart_mh.y_axis.scaling.max = float(f"{max_y + 0.5:.2f}")
+                
+            chart_mh.width = 18
+            chart_mh.height = 12
+            
+            for row_idx, entry in enumerate(mh_entries):
+                r = row_idx + 2
+                K_val = entry.get("K_value")
+                a_val = entry.get("a_value")
+                has_failed = entry.get("failed_fields", "None") != "None" or entry.get("polymer_name") == "N/A" or entry.get("solvent") == "N/A"
+                if K_val is not None and K_val > 0 and a_val is not None and not has_failed:
+                    series_ref = Reference(ws_mh, min_col=13, max_col=14, min_row=r, max_row=r)
+                    series = Series(series_ref, title=f"{entry.get('polymer_name')} in {entry.get('solvent')}")
+                    chart_mh.append(series)
+                    
+            cats_ref = Reference(ws_mh, min_col=13, max_col=14, min_row=1, max_row=1)
+            chart_mh.set_categories(cats_ref)
+            
+            colors = ["1F497D", "C0504D", "9BBB59", "8064A2", "F79646", "4BACC6", "E26B0A", "7030A0", "00B0F0"]
+            for s_idx, series in enumerate(chart_mh.series):
+                color = colors[s_idx % len(colors)]
+                series.graphicalProperties.line = openpyxl.drawing.line.LineProperties(solidFill=color)
+                
+            ws_mh.add_chart(chart_mh, "T4")
+        except Exception:
+            pass
+
+    for col in ws_mh.columns:
+        vals = [str(cell.value or '') for cell in col]
+        max_len = max(len(v) for v in vals) if vals else 10
+        col_letter = get_column_letter(col[0].column)
+        ws_mh.column_dimensions[col_letter].width = max(max_len + 3, 12)
+
+    # ---------------------------------------------------------
+    # 6. Failures Sheet
+    # ---------------------------------------------------------
     ws_fail = wb.create_sheet(title="Failures")
     ws_fail.views.sheetView[0].showGridLines = True
     
@@ -398,7 +616,6 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
         cell.alignment = table_header_align
         cell.border = data_border
         
-    failures = combined_data.get("failures", [])
     for row_idx, entry in enumerate(failures):
         r = row_idx + 2
         ws_fail.cell(row=r, column=1, value=entry.get("source_paper", "")).font = val_font
@@ -408,10 +625,11 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
         ws_fail.cell(row=r, column=5, value=entry.get("reason", "")).font = val_font
         
         for c in range(1, 6):
-            ws_fail.cell(row=r, column=c).alignment = left_align
-            ws_fail.cell(row=r, column=c).border = data_border
+            cell = ws_fail.cell(row=r, column=c)
+            cell.alignment = left_align
+            cell.border = data_border
+            cell.fill = fail_row_fill
             
-    # Auto-adjust column width for fail
     for col in ws_fail.columns:
         vals = [str(cell.value or '') for cell in col]
         max_len = max(len(v) for v in vals) if vals else 10
