@@ -148,16 +148,26 @@ def process(pdf_path, output_dir, model, direct, interpret, report, metadata, su
 @click.option('--all', '-a', is_flag=True, help="Run all stages (metadata, summarise, interpret, combine).")
 @click.option('--flory', '-f', is_flag=True, default=False, help="Interpret Flory parameters.")
 @click.option('--mark-houwink', '-m', is_flag=True, default=False, help="Interpret Mark-Houwink parameters.")
-def process_all(pdf_dir, output_dir, model, direct, interpret, report, combine, metadata, summarise, all, flory, mark_houwink):
+@click.option('--fast', is_flag=True, help="Run in fast mode (skips summary/metadata, interprets Flory only, runs combine).")
+def process_all(pdf_dir, output_dir, model, direct, interpret, report, combine, metadata, summarise, all, flory, mark_houwink, fast):
     """Process all PDF files in a directory."""
-    if all:
-        metadata = True
-        summarise = True
+    if fast:
+        metadata = False
+        summarise = False
         interpret = True
-        combine = True
-    if not flory and not mark_houwink:
         flory = True
         mark_houwink = False
+        combine = True
+    else:
+        if all:
+            metadata = True
+            summarise = True
+            interpret = True
+            combine = True
+        if not flory and not mark_houwink:
+            flory = True
+            mark_houwink = False
+
     if not direct and pdf_dir is None:
         pdf_dir = prompt_for_corpus()
     if model is None:
