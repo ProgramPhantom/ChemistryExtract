@@ -1,9 +1,0 @@
-{
-  "description": "Self-diffusion coefficients and related parameters for various dextran polymers of different molecular weights (M, lMn) in a solvent.",
-  "temperature": "Not applicable",
-  "pressure": "Not applicable",
-  "chemicals": [
-    "dextran"
-  ],
-  "other_statistics": []
-}

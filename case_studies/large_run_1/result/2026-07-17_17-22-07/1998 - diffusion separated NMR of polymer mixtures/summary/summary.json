@@ -1,9 +1,0 @@
-{
-  "title": "Diffusion-Separated Nuclear Magnetic Resonance Spectroscopy of Polymer Mixtures",
-  "authors": [
-    "Alexej Jerschow",
-    "Norbert Mu\u00fcller"
-  ],
-  "doi": "Not found",
-  "abstract": "The potential of diffusion-ordered 2D NMR spectroscopy (DOSY) for the analysis of solutions of polymer mixtures and polymers with complex molecular mass distributions is investigated. Diffusion coefficient labeling in NMR is generally achieved by stepwise ramping up of the amplitudes of pairs of pulsed field gradients (PFGs). After Fourier transformation in the acquisition dimension and an inverse Laplace transform (ILT) with respect to the square of the gradient strength, 2D spectra are obtained that show the chemical shift along one dimension and the translational diffusion coefficient along the other. Since polymers may have broad, nonsymmetric or complex (bi- and multimodal) molecular weight distributions (MWDs), the diffusion coefficient distribution should follow the main features of the MWD. However, the calculation of the diffusion coefficient distribution involves a numerically unstable data inversion (ILT), which limits the resolution in the diffusion dimension. The applications of DOSY NMR techniques to the study of polymer blends and for the determination of MWDs of polymers with PFG NMR are assessed. DOSY spectra recorded from industrial polypropylene and polystyrene samples and mixtures are shown and interpreted to illustrate the features of this technique."
-}

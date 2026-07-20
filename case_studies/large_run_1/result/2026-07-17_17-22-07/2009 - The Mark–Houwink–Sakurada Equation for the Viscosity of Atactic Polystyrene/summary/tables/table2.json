@@ -1,9 +1,0 @@
-{
-  "description": "Calculation of the slope of the Mark-Houwink relation (log[\u03b7] vs log M) at various molecular weights for benzene",
-  "temperature": "Not specified",
-  "pressure": "Not applicable",
-  "chemicals": [
-    "benzene"
-  ],
-  "other_statistics": []
-}

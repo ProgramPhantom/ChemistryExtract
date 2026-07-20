@@ -1,9 +1,0 @@
-{
-  "description": "Average molar masses and dispersity determined from a PFGSTE-NMR experiment for anionically synthesized PS123k using various methods (SEC, monoexponential fit, biexponential fit, log-normal distribution, and inverse Laplace transformation).",
-  "temperature": "Not applicable",
-  "pressure": "Not applicable",
-  "chemicals": [
-    "PS123k"
-  ],
-  "other_statistics": []
-}

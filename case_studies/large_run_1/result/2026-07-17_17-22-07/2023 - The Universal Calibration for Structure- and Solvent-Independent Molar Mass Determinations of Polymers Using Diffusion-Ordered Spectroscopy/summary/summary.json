@@ -1,9 +1,0 @@
-{
-  "title": "The Universal Calibration for Structure- and Solvent-Independent Molar Mass Determinations of Polymers Using Diffusion-Ordered Spectroscopy",
-  "authors": [
-    "Wolf Hiller",
-    "Bastian Grabe"
-  ],
-  "doi": "Not found",
-  "abstract": "It will be shown how diffusion-ordered spectroscopy (DOSY) can produce a universal calibration of molar mass dependences of polymers compared to size exclusion chromatography (SEC) or recently published DOSY methods. Whereas SEC can deliver only structure-independent universal calibrations for a particular solvent, DOSY was used for creating solvent-independent calibrations for a certain polymer. Now, we can demonstrate a universal calibration method that generates both a structureand solvent-independent molar mass calibration. Only one mathematical function describes the structure- and solvent-independent calibrations for DOSY by implementing the Mark -Houwink approach. The derived equation is tested on polystyrene (PS), poly(ethylene oxide), and poly(methyl methacrylate) of different molar masses and in Supporting Information\n\ndifferent solvents. Altogether, 94 diffusion coefficients representing 16 molar mass calibrations of the diffusion coefficients in 10 different solvents could be perfectly matched to one universal calibration function with an average deviation of just 2.5%. It was also found that the Mark -Houwink parameters calculated by DOSY are very close to the SEC data. In any case, this new approach is a very useful tool for the determination of molar masses and new Mark -Houwink parameters via DOSY."
-}

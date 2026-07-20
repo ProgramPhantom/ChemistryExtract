@@ -1,9 +1,0 @@
-{
-  "description": "Total Weight Average Molecular Weight (MwT) values for PEOb-PS copolymers calculated using prolate and oblate ellipsoidal hydrodynamic models based on PGSE measurements.",
-  "temperature": "Not applicable",
-  "pressure": "Not applicable",
-  "chemicals": [
-    "PEOb-PS copolymers"
-  ],
-  "other_statistics": []
-}

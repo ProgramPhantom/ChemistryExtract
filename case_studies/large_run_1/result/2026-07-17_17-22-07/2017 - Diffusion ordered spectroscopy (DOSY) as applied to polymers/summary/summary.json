@@ -1,8 +1,0 @@
-{
-  "title": "Di ff usion ordered spectroscopy (DOSY) as applied to polymers",
-  "authors": [
-    "Patrick Groves"
-  ],
-  "doi": "10.1039/c7py01577a",
-  "abstract": "Di ff usion ordered spectroscopy (DOSY) is a well established NMR method that reports di ff usion coe ffi cients for individual resonances in NMR spectra. DOSY is primarily used to analyse mixtures of small molecules and the oligomeric state of biomolecules. DOSY has also been used to analyse polymers and investigate micellization properties but di ff erent acquisition and processing parameters are recommended for polymers. In particular, the molecular weight dispersion of polymers and micelles are at odds with the physical limits of DOSY. Con fi dence in the quality of published DOSY data is lowered when critical parameters are poorly optimized or not reported. This tutorial provides a ' top ten ' of DOSY parameters, an explanation of their source and importance, as well as suggested starting parameters and optimization for polymer/micelle samples. By following these guidelines, DOSY can emerge from being an occasional method to con fi rm data obtained from other experimental techniques, to one that provides strong physical evidence in its own right as the originators of DOSY intended."
-}

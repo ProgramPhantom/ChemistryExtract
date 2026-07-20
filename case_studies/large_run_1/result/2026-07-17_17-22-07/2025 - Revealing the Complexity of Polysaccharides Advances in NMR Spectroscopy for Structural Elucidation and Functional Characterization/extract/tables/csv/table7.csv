@@ -1,6 +1,0 @@
-,Polysaccharide Type,Structural Features,Recommended Techniques,Rationale
-0,"Linear homopolysaccharides (e.g., cellulose)","Simple repeats, rigid chains",Solution: 1D 13 C NMR; solid: CP/MAS,1D NMRconfirms composition; CP/MAS distinguishes crystalline domains
-1,"Branched heteropoly- saccharides (e.g., pectin)","Complex side chains, acidic groups",HSQC (linkages)+HMBC (sequence) + NOESY (conformation),Multidimensional approach needed for branching and charge effects
-2,Microbial EPS,"High heterogeneity, modified groups (e.g., sulfation)",HSQC/TOCSY + DOSY; solid: DNP-NMR (low-abundance),Combination addresses structural diversity; DNP enhances sensitivity
-3,Food matrix polysaccharides,"Multi-component, dynamic interactions",DOSY + 1 HNMR metabolomics; Solid: HETCOR,DOSY separates components; HETCOR reveals hydration/ protein interactions
-4,Biofilm polysaccharides,"Semi-rigid, environment-sensitive",Solution: NOESY; solid: DNP-NMR + 1 H-detection,DNP solves sensitivity issues; NOESY elucidates biofilm formation

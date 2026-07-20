@@ -1,9 +1,0 @@
-[
-  "D = \\frac { k T } { 6 \\pi \\eta R _ { H } } & & \\frac { \\ r a l t } { ( 1 ) } & & \\frac { \\ r a l t } { \\ s o l v a r { v } } & & \\frac { \\ r a l t } { ( 1 ) } & & \\frac { \\ r a l t } { \\ s o l v a r { v } }",
-  "D = A M ^ { \\alpha } & & ( 2 ) & \\quad \\text {line} a",
-  "\\log D = \\alpha \\log M + \\log A & & ( 3 ) & \\stackrel { ( 3 ) } { \\ p o l y }",
-  "e ^ { M \\approx ( C / D ) ^ { d _ { f } } }",
-  "\\begin{array} { c c c } d & & \\\\ & \\log D = - \\, \\frac { 1 } { d _ { f } } & \\log M + \\log C \\\\ & & \\\\ \\end{array}",
-  "R _ { H } = ( 3 M / 4 \\pi \\rho N _ { A } ) ^ { 1 / 3 }",
-  "\\begin{array} { c c c } & & \\log D = - \\frac { 1 } { 3 } \\log M + \\frac { 1 } { 3 } \\log \\rho - \\log \\eta - \\frac { 1 } { 3 } \\log \\frac { 1 6 2 \\pi ^ { 2 } } { k ^ { 3 } T ^ { 3 } N _ { A } } \\\\ & & \\\\ \\end{array} \\\\"
-]

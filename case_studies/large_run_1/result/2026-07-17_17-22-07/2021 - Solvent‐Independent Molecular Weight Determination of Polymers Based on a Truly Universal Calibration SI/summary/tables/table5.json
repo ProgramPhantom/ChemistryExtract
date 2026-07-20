@@ -1,9 +1,0 @@
-{
-  "description": "Average calibration curve for poly(styrene)",
-  "temperature": "Not applicable",
-  "pressure": "Not applicable",
-  "chemicals": [
-    "poly(styrene)"
-  ],
-  "other_statistics": []
-}

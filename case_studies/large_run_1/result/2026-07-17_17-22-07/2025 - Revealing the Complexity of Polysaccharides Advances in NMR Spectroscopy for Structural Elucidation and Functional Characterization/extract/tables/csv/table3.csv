@@ -1,4 +1,0 @@
-,Technique,Advantages,Limitations,Typical Applications
-0,HSQC,1 H- 13 C direct correlation; ideal for glycosidic bond identification and monosaccharide composition,Lower sensitivity for low-abundance samples,"Primary structure determination (branching patterns, anomeric configurations)"
-1,HMBC,Detects 1 H- 13 C long-range couplings (2-4 bonds); reveals cross-glycosidic linkages,Weak signal intensity; requires longer acquisition time; challenging for overlapping signals,"Sequence determination in complex polysaccharides (e.g., bacterial O-antigens)"
-2,NOESY,Provides spatial proximity information (<5 Å); reveals conformation and intermolecular interactions,Sensitive to molecular motion; difficult to quantify,"Conformational studies (e.g., food gels, biofilms)"

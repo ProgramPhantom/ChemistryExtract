@@ -1,5 +1,0 @@
-,unit,range,num. LVs,R 2 cal.,R 2 val.,RMSEC,RMSEV,RE (%)
-0,M w,1884 - 7405 Da,4,0.92,0.69,454 Da,837 Da,15
-1,M n,664 - 1052 Da,4,0.93,0.74,32 Da,64 Da,16
-2,PDI,2.50 - 7.23,4,0.93,0.72,0.34,0.64,14
-3,a Relative error RE = RMSEV/range.,a Relative error RE = RMSEV/range.,,,,,,
