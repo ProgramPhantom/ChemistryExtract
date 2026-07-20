@@ -1,0 +1,14 @@
+{
+  "title": "Molecular Weight Determination of Block Copolymers by Pulsed Gradient Spin Echo NMR",
+  "authors": [
+    "Caroline Barre re",
+    "Michae \u00a0 l Mazarin",
+    "Re \u00a0 mi Giordanengo",
+    "Trang N. T. Phan",
+    "Andre \u00a0 The \u00a0 vand",
+    "Ste \u00a0 phane Viel",
+    "Laurence Charles"
+  ],
+  "doi": "Not found",
+  "abstract": "Matrix-assisted laser desorption/ionization (MALDI) timeof-flight (TOF) mass spectrometry (MS) is the technique of choice to achieve molecular weight data for synthetic polymers. Because the success of a MALDI-MS analysis critically depends on a proper matrix and cation selection, which in turn relates closely to the polymer chemical nature and size, prior estimation of the polymer size range strongly helps in rationalizing MALDI sample preparation. We recently showed how pulsed gradient spin echo (PGSE) nuclear magnetic resonance could be used as an advantageous alternative to size exclusion chromatography, to rationalize MALDI sample preparation and confidently interpret MALDI mass spectra for homopolymers. Our aim here is to extend this methodology to the demanding case of amphiphilic block copolymers, for which obtaining prior estimates on the Mw values appears as an even more stringent prerequisite. Specifically, by studying poly(ethylene oxide) polystyrene block copolymers of distinct molecular weights and relative block weight fractions, we show how PGSE data can be used to derive the block Mw values. In contrast to homopolymers, such determination requires not only properly recorded calibration curves for each of the polymers constituting the block copolymers but also an appropriate hydrodynamic model to correctly interpret the diffusion data."
+}

@@ -1,0 +1,13 @@
+{
+  "description": "Characterization of poly(L-lactide) (PLA) samples to establish the analytical dependence of the diffusion coefficient (D) on mass-averaged molar mass (Mw).",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "poly(L-lactide) (PLA)",
+    "Sn(2-ethylhexanoate)2",
+    "Sn(Oct)2",
+    "benzyl alcohol (BzOH)",
+    "benzene-d6"
+  ],
+  "other_statistics": []
+}

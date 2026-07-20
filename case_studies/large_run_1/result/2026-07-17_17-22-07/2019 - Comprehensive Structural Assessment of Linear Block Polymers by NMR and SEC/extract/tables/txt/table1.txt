@@ -1,0 +1,28 @@
+-------------- TABLE 1 EXTRACTION --------------
+**[Preceding Paragraphs]**
+Figure 3. SEC curves of S-S/MA (two-step method) in THF/FA. S/ MA prepolymer is shown in black. S-S/MA block copolymer is shown with UV detection (270 nm) in blue and DRI detection in red. The curves are normalized such that each represents equally the same total polymer weight. Resolved, discrete M w values from the DECRA analysis of the step 2 material in THF -d 8/FA are shown as vertical lines with heights proportional to component concentrations (from Table 1).
+
+<!-- image -->
+
+to increase molecular weight in the reaction is indicative of a failed synthesis, but further materials characterization may be obtained. The di ff erences between the two materials are better highlighted in the UV detection curve that exhibits an enhanced signal at the lower molecular weight region (log M &lt; 4). Again, the di ff erence between UV detection and DRI detection is indicative of higher S content. Because only S was added in the second step, we deduce from the SEC that low molecular weight S homopolymer formed. The structure of the low molecular weight material is con fi rmed by 1 HPGSE NMR. DECRA results in Figure 4 reveal a resolved low molecular weight component composed primarily of S. The corresponding calculated M w values of the two components line up well with the SEC in Figure 3. These results clearly indicate a failure to create the S block.
+
+Table 1. Molecular Weight Data Obtained by SEC and NMR for the Polymers in Various Solvents
+
+**[Table Data]**
+|         | SEC    | SEC   | SEC     | PGSE NMR with DECRA analysis   | PGSE NMR with DECRA analysis   | PGSE NMR with DECRA analysis   | PGSE NMR with DECRA analysis   |
+|---------|--------|-------|---------|--------------------------------|--------------------------------|--------------------------------|--------------------------------|
+| polymer |        | M w   | solvent | M w (component concentration)  | M w (component concentration)  | M w (component concentration)  | solvent                        |
+| S-AM    | step 1 | 4100  | THF     | 3200 2800                      |                                |                                | THF- d 8 CD 2 Cl 2             |
+|         | step 2 | 31000 | THF     | 2800 (0.31) 3100 (0.32)        | 8700 (0.33) 9200 (0.37)        | 52000 (0.36) 59000 (0.32)      | THF- d 8 CD 2 Cl 2             |
+| S-S/MA  | step 1 | 27000 | THF/FA  | 31000 26000                    |                                |                                | THF- d 8 /FA acetone- d 6      |
+|         | step 2 | 24000 | THF/FA  | 5000 (0.16) 4200 (0.17)        | 38000 (0.84) 33000 (0.83)      |                                | THF- d 8 /FA acetone- d 6      |
+| S-S/MA  | step 1 | 52000 | THF/FA  | 23000 (0.37) 19000 (0.48)      | 66000 (0.63) 53000 (0.52)      |                                | THF- d 8 /FA acetone- d 6      |
+
+**[Succeeding Paragraphs]**
+Figure 4. DECRA analysis of S-S/MA (two-step method) in acetone -d 6. Two components are resolved and scaled individually. Aromatic integral estimates are shown below each component spectra. Component 1 is primarily the low molecular weight S homopolymer where very little MA is observed. Component 2 is primarily the S/MA material from Step 1. The solvent resonances are ignored in the analysis.
+
+<!-- image -->
+
+The results for the one-step approach are shown in Figures 5 and 6. The SEC overlay of the two detection methods shows no evidence of compositional heterogeneity with molecular
+
+Figure 5. SEC curves of S-S/MA (one-step method) in THF/FA. SS/MA block copolymer is shown with UV detection (270 nm) in blue and DRI detection in red. The curves are normalized such that each represents the total polymer weight. Resolved, discrete M w values from the DECRA analysis of the material in THF -d 8/FA are shown as vertical lines with heights proportional to component concentrations (from Table 1).

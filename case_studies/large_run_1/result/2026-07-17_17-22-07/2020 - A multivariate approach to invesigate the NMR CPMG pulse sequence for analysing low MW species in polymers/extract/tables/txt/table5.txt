@@ -1,0 +1,55 @@
+-------------- TABLE 5 EXTRACTION --------------
+**[Preceding Paragraphs]**
+It is interesting to compare the effect of the T 2 filter on PEG and PS with the same MW. Figure 7 shows contour plots for both PEG and PS with an MW of 40 kDa, highlighting the influence of echo time and n on the percentage of polymer signal left. From this comparison, it can be inferred that a quite long relaxation filter is required for suppressing the signals belonging to PEG (top right region of Figure 7a), but even in this case, there is at least 60% of polymer left in the 1 H NMR spectrum. On the contrary, for PS, almost all combinations of echo time and repetitions deliver a minimum of 40% reduction in polymer signal, and a much better reduction can easily be achieved by choosing several combinations for the filter.
+
+This difference in response between PEG and PS could be explained by considering the different flexibility of the two polymer chains. PEG is more flexible than PS, and this characteristic influences the viscosity of the solution and hence the relaxation properties as already seen. Solutions of polymers with more rigid molecular chains are expected to have higher viscosity than those with more flexible ones. Accordingly, the graphs reported in Figure 7 show that for PEG, a longer echo time in combination with a large number of repetitions (longer T 2 filter) are required to obtain a reduction in signals, which is in any case not so efficient as for PS. This result indicates that the relaxation filter can be used not only for facilitating the analysis of small molecules but also for having more information on the polymer flexibility and consequently on its possible applications, demonstrating once again the importance of relaxation measurements in polymer characterisation.
+
+Analogously to the PEG case, SNR was measured for DMT and TMB resonances; only the SNR for H3 protons of TMB is reported in Table 5. It is important to underline that in all the measurements performed by applying the T 2 filter, the SNR ratio detected was much higher than 10 (Table S8), which is conventionally indicated as the limit of quantification (LOQ), [33] thus indicating that the detection and quantification of impurities could be performed even when their concentration is 50 times less than what was used for DMT and TMB in these experiments. This means that it is possible to quantify low MW compounds present in polymers in a concentration up to Abbreviations: DMT, dimethyl terephthalate; MW, molecular weight; PS, polystyrene; SNR, signal-to-noise ratio; TMB, 1,3,5-trimethoxybenzene.
+
+TABLE 5 Responses for PS samples
+
+**[Table Data]**
+|       | Factors   | Factors    | Factors   | Factors   | Factors   | Responses           | Responses               | Responses               | Responses                   |
+|-------|-----------|------------|-----------|-----------|-----------|---------------------|-------------------------|-------------------------|-----------------------------|
+| Run # | d1 (s)    | τ E ( μ s) | n         | MWPS(Da)  | PS wt%    | SNR H3 (decrease %) | PS area (signal left %) | PS area (signal left %) | DMT/TMB ratio (variation %) |
+| Run # | d1 (s)    | τ E ( μ s) | n         | MWPS(Da)  | PS wt%    | SNR H3 (decrease %) | Arom                    | Aliph                   | DMT/TMB ratio (variation %) |
+| 1     | 2         | 100        | 120       | 629,500   | 5         | 58.5                | 96.6                    | 73.5                    | - 3.2                       |
+| 2     | 8         | 150        | 120       | 68,900    | 10        | 22.2                | 90.2                    | 61.7                    | 1.2                         |
+| 3     | 10        | 300        | 520       | 68,900    | 7.5       | 34.0                | 45.4                    | 5.3                     | 1.2                         |
+| 4     | 20        | 100        | 320       | 30,300    | 7.5       | 13.3                | 85.0                    | 46.8                    | 2.0                         |
+| 5     | 2         | 400        | 320       | 220,500   | 7.5       | 43.3                | 51.0                    | 6.7                     | 4.3                         |
+| 6     | 20        | 400        | 120       | 220,500   | 7.5       | 40.1                | 78.8                    | 31.4                    | - 1.3                       |
+| 7     | 15        | 200        | 620       | 220,500   | 10        | 55.7                | 48.4                    | 5.8                     | 20.2                        |
+| 8     | 10        | 350        | 320       | 629,500   | 7.5       | 37.5                | 53.9                    | 6.6                     | - 1.6                       |
+| 9     | 2         | 550        | 620       | 629,500   | 5         | 70.1                | 20.1                    | 1.4                     | - 6.4                       |
+| 10    | 20        | 600        | 320       | 30,300    | 10        | 46.5                | 38.3                    | 3.8                     | - 8.1                       |
+| 11    | 10        | 640        | 520       | 220,500   | 7.5       | 55.0                | 18.3                    | 1.3                     | - 20.0                      |
+| 12    | 10        | 200        | 420       | 220,500   | 5         | 44.3                | 64.2                    | 17.4                    | 2.7                         |
+| 13    | 20        | 640        | 320       | 629,500   | 5         | 66.4                | 35.7                    | 3.0                     | - 5.0                       |
+| 14    | 10        | 200        | 420       | 220,500   | 5         | 44.2                | 64.0                    | 17.3                    | 2.4                         |
+| 15    | 20        | 400        | 120       | 220,500   | 7.5       | 35.8                | 77.3                    | 30.7                    | - 0.6                       |
+| 16    | 8         | 640        | 120       | 30,300    | 5         | 33.7                | 70.2                    | 24.3                    | 1.3                         |
+| 17    | 20        | 100        | 220       | 629,500   | 10        | 42.7                | 86.1                    | 43.6                    | - 5.2                       |
+| 18    | 20        | 450        | 620       | 30,300    | 5         | 47.2                | 28.6                    | 2.6                     | 1.1                         |
+| 19    | 2         | 100        | 620       | 30,300    | 7.5       | 17.8                | 73.1                    | 24.7                    | 8.0                         |
+| 20    | 2         | 100        | 520       | 629,500   | 10        | 31.6                | 68.2                    | 16.0                    | 4.3                         |
+| 21    | 20        | 100        | 620       | 629,500   | 5         | 46.3                | 71.2                    | 20.6                    | - 4.8                       |
+| 22    | 20        | 600        | 620       | 629,500   | 10        | 64.4                | 11.4                    | 1.2                     | - 34.5                      |
+| 23    | 10        | 640        | 520       | 220,500   | 7.5       | 49.9                | 18.4                    | 1.4                     | - 18.8                      |
+| 24    | 20        | 100        | 620       | 220,500   | 5         | 40.8                | 71.4                    | 22.5                    | - 4.0                       |
+| 25    | 15        | 640        | 220       | 68,900    | 7.5       | 40.3                | 47.6                    | 6.6                     | - 4.2                       |
+| 26    | 10        | 350        | 320       | 629,500   | 7.5       | 37.0                | 53.4                    | 6.0                     | - 0.2                       |
+| 27    | 2         | 400        | 320       | 220,500   | 7.5       | 40.2                | 50.9                    | 6.4                     | 3.7                         |
+| 28    | 10        | 250        | 520       | 629,500   | 5         | 23.1                | 50.6                    | 7.1                     | 1.8                         |
+| 29    | 2         | 550        | 620       | 30,300    | 10        | 38.3                | 19.0                    | 1.3                     | - 4.1                       |
+| 30    | 2         | 640        | 120       | 629,500   | 10        | 41.8                | 59.9                    | 10.5                    | 4.0                         |
+| 31    | 2         | 100        | 120       | 30,300    | 5         | 31.0                | 95.1                    | 75.9                    | 6.6                         |
+
+**[Succeeding Paragraphs]**
+20 mg/kg. This trend has been observed both for PEG and PS measurements.
+
+ANOVA analysis on the SNR (Table S9) indicates that its decrease mainly depends on polymer MW (as already seen in PEG experiments) and echo time: those two factors are the only two main factors that are statistically significant ( p value &lt; 0.05). A minor loss in SNR will likely be obtained by using low values of echo time in combination with a low value of repetitions for cases when MW is lower than 120 kDa. It is worth to note that with a lower polymer MW, a longer relaxation filter is recommended ( τ E = 400 μ s, n = 320).
+
+The variation in the DMT/TMB ratio, that is, the possibility of quantifying the small molecules after applying the relaxation filter, was kept within the reasonable boundaries of less than 5% in most of the experiments. The largest deviations (i.e., &gt;10%) in quantification were observed in the experiments where a long total echo time (&gt;600 ms) was used for analysing the highest MW samples (220,500 and 629,500 Da, runs 11, 22 and 23 with exception of run 7, which applied a shorter total echo time and is not considered further in the analysis due to its strongly deviating result). For these high MW polymers, very different dynamics are expected compared with the small molecules present; therefore, it is in general not necessary to increase the application of the filter to this extent. A total echo time &lt; 300 ms guarantees an error in quantification lower than 5%.
+
+FIGURE 6 Contour plots of PS data: percentage of polymer signal left after the application of T 2 filter for (a and b) the aliphatic and (c and d) the aromatic regions; depending on τ E and MW according to the fitted response model for (a and c) n = 120, (b) n = 420 and (d) n = 620. MW, molecular weight; PS, polystyrene

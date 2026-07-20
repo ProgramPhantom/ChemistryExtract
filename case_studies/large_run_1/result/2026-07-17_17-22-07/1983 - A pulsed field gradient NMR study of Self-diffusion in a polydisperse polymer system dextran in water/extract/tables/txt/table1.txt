@@ -1,0 +1,30 @@
+-------------- TABLE 1 EXTRACTION --------------
+**[Preceding Paragraphs]**
+In the infinite dilution limit the self-diffusion coefficient of  a random coil polymer may be used to define the dynamic radius R D   in terms of the Stokes-Einstein  expression
+
+$$D _ { 0 } = k _ { \mathbb { B } } T / 6 \pi \eta _ { 0 } R _ { \mathbb { D } }$$
+
+where vo is  the solvent  viscosity. In consequence it is expected that Do should scale as -
+
+$$D _ { 0 } \sim N ^ { - \eta _ { 0 } }$$
+
+**[Table Data]**
+|                |             | M, lMn   | M, lMn   |                  |            |
+|----------------|-------------|----------|----------|------------------|------------|
+| dextran        | M,, daltons | direct   | GPC      | lO"D,, mas-]     | kf, m3kg-' |
+| Pharmacia T10  | 10500       | 2.1      | 3.1      | 8.3(2)a 13.3 (gj | 0.026(2)   |
+| Pharmacia T40  | 40100       | 1.22     | 1.35     | 5.4 (2)          | 0.032(1)   |
+| Pharmacia T7 0 | 75800       | 1.64     | 1.60     | 4.0(4)           | 0.038(3)   |
+| Sigma 170      | 170 000     |          | 1.25     | 2.4 (2j          | 0.042 (2j  |
+| Pharmacia T500 | 461 000     | 2.54     | 1.50     | 1.35 (8)         | 0.038 (2)  |
+| Pharmacia F104 | 19100       | 1.10     |          | 8.3( 4 ) '       |            |
+| Pharmacia F108 | 153700      | 1.51     |          | 2.4( 2 ) '       |            |
+
+**[Succeeding Paragraphs]**
+Observed limit as c + 0. Extrapolated from higher c values. ' Reference 20.
+
+A dilute regime of finite concentration is said to exist when the polymer  coils  are on average separated.  In such a regime polymer-polymer  interactions occur both by occasional  collision  and, more  importantly, via  backflow effects in the solvent.  In consequence the self-diffusion coefficient, D,, is reduced below the infinite dilution limit and in its most simple formthis reduction is expressed by expanding the friction coefficient as a power series in the polymer mass/volume  concentration, c, so that
+
+$$D _ { s } ^ { - 1 } = D _ { 0 } ^ { - 1 } ( 1 + k _ { f } c . . ) & & ( 8 ) & & \stackrel { \dots } { \underset { a n } { \underset { i } { \underset { s } { \sim } } } }$$
+
+We have  previously  observed2 that the term  linear  in concentration  appears  to be  sufficient  to describe  the friction coefficient concentration dependence almost up to c*, the concentration above which entanglement occurs.

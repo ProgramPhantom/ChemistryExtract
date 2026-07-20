@@ -1,0 +1,144 @@
+{
+  "is_mark_houwink_data": true,
+  "is_flory_data": false,
+  "mh_entries": [
+    {
+      "polymer_name": "atactic polystyrene",
+      "solvent": "Dichloroethane",
+      "temperature_k": 295.15,
+      "raw_K_value": 0.21,
+      "K_transformation": "10^-3 mL/g",
+      "K_value": 0.00021,
+      "raw_a_value": 0.66,
+      "a_transformation": "none",
+      "a_value": 0.66
+    },
+    {
+      "polymer_name": "atactic polystyrene",
+      "solvent": "Dichloroethane",
+      "temperature_k": 308.15,
+      "raw_K_value": 14.3,
+      "K_transformation": "10^-3 mL/g",
+      "K_value": 0.0143,
+      "raw_a_value": 0.69,
+      "a_transformation": "none",
+      "a_value": 0.69
+    },
+    {
+      "polymer_name": "atactic polystyrene",
+      "solvent": "Chloroform",
+      "temperature_k": 298.15,
+      "raw_K_value": 7.16,
+      "K_transformation": "10^-3 mL/g",
+      "K_value": 0.00716,
+      "raw_a_value": 0.76,
+      "a_transformation": "none",
+      "a_value": 0.76
+    },
+    {
+      "polymer_name": "atactic polystyrene",
+      "solvent": "Chloroform",
+      "temperature_k": 298.15,
+      "raw_K_value": 11.2,
+      "K_transformation": "10^-3 mL/g",
+      "K_value": 0.0112,
+      "raw_a_value": 0.73,
+      "a_transformation": "none",
+      "a_value": 0.73
+    },
+    {
+      "polymer_name": "atactic polystyrene",
+      "solvent": "solvent",
+      "temperature_k": 307.15,
+      "raw_K_value": 15.0,
+      "K_transformation": "10^-3 mL/g",
+      "K_value": 0.015,
+      "raw_a_value": 0.694,
+      "a_transformation": "none",
+      "a_value": 0.694
+    },
+    {
+      "polymer_name": "atactic polystyrene",
+      "solvent": "N,N-dimethylformamide",
+      "temperature_k": 298.15,
+      "raw_K_value": 31.8,
+      "K_transformation": "10^-3 mL/g",
+      "K_value": 0.0318,
+      "raw_a_value": 0.603,
+      "a_transformation": "none",
+      "a_value": 0.603
+    },
+    {
+      "polymer_name": "atactic polystyrene",
+      "solvent": "Ethyl benzene",
+      "temperature_k": 298.15,
+      "raw_K_value": 17.6,
+      "K_transformation": "10^-3 mL/g",
+      "K_value": 0.0176,
+      "raw_a_value": 0.68,
+      "a_transformation": "none",
+      "a_value": 0.68
+    },
+    {
+      "polymer_name": "atactic polystyrene",
+      "solvent": "N-methyl pyrrolidone",
+      "temperature_k": 358.15,
+      "raw_K_value": 12.0,
+      "K_transformation": "10^-3 mL/g",
+      "K_value": 0.012,
+      "raw_a_value": 0.72,
+      "a_transformation": "none",
+      "a_value": 0.72
+    },
+    {
+      "polymer_name": "atactic polystyrene",
+      "solvent": "Tetrachloroethane",
+      "temperature_k": 323.15,
+      "raw_K_value": 11.5,
+      "K_transformation": "10^-3 mL/g",
+      "K_value": 0.0115,
+      "raw_a_value": 0.73,
+      "a_transformation": "none",
+      "a_value": 0.73
+    }
+  ],
+  "flory_entries": [],
+  "calculator_calls": [
+    {
+      "expression": "0.21 * 10**-3",
+      "result": "0.00021"
+    },
+    {
+      "expression": "14.3 * 10**-3",
+      "result": "0.0143"
+    },
+    {
+      "expression": "7.16 * 10**-3",
+      "result": "0.0071600000000000006"
+    },
+    {
+      "expression": "11.2 * 10**-3",
+      "result": "0.0112"
+    },
+    {
+      "expression": "15 * 10**-3",
+      "result": "0.015"
+    },
+    {
+      "expression": "31.8 * 10**-3",
+      "result": "0.0318"
+    },
+    {
+      "expression": "17.6 * 10**-3",
+      "result": "0.0176"
+    },
+    {
+      "expression": "12 * 10**-3",
+      "result": "0.012"
+    },
+    {
+      "expression": "11.5 * 10**-3",
+      "result": "0.0115"
+    }
+  ]
+}

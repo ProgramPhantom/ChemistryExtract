@@ -1,0 +1,38 @@
+-------------- TABLE 1 EXTRACTION --------------
+**[Preceding Paragraphs]**
+## 3.1. Carbohydrate content and monosaccharide composition of the β -glucans samples
+
+The carbohydrate content, as well as the monosaccharide composition of LMN and YBGS were determined, and the results are presented in Table 1.
+
+Data from PEA2 -SP , a β -glucan fraction isolated from Pleurotus eryngii , (de Carvalho et al., 2024) were included in Table 1 for comparison. The carbohydrate content of all samples was &gt; 90 %. The monosaccharide composition showed that glucose was the major component in all fractions, ranging from 87 to 99 mol%.
+
+Table 1 Carbohydrate content, monosaccharide composition and methylation analysis of the β -glucans samples.
+
+**[Table Data]**
+| Analyses                                | LMN    | YBGS   | PEA2-SP   |
+|-----------------------------------------|--------|--------|-----------|
+| Carbohydr. content (w/w%)               | 96 ± 4 | 96 ± 4 | 90 ± 4    |
+| Monosaccharide composition (w/w%)       |        |        |           |
+| Fuc                                     | 2      | n.d.   | n.d.      |
+| Xyl                                     | < 1    | n.d.   | 1         |
+| Man                                     | n.d.   | 1      | 4         |
+| Gal                                     | < 1    | n.d.   | 5         |
+| Glc                                     | 97     | 99     | 87        |
+| GlcA                                    | n.d.   | n.d.   | 2         |
+| GalA                                    | n.d.   | n.d.   | 1         |
+| Methylation analysis ( % out of total ) |        |        |           |
+| Glc p -(1 →                             | 9      | 7      | 15        |
+| → 3)-Glc p -(1 →                        | 82     | 76     | 20        |
+| → 3,6)-Glc p -(1 →                      | 7      | 5      | 12        |
+| → 6)-Glc p -(1 →                        | 2      | 11     | 34        |
+| → 4)-Glc p -(1 →                        | n.d.   | n.d.   | 9         |
+| → 4,6)-Glc p -(1 →                      | n.d.   | n.d.   | 1         |
+
+**[Succeeding Paragraphs]**
+a de Carvalho et al., 2024, included for comparison. n.d. = not detected.
+
+## 3.2. Mw distribution of the β -glucans samples
+
+The M w, Đ and recovery from SEC column obtained for LMN and YBGS are presented in Table 2 and the elution profile in Fig. S1. LMN showed a homogeneous profile with M w of 5 kDa ( Đ 1.002). Differently, YBGS showed three different peaks, with Đ values of each peak varying from 1.1 to 1.5, indicating that this fraction was highly heterogeneous regarding the M w distribution. The main peak was constituted of a pool of polysaccharides with an estimated M w of 8 kDa. In addition, populations of polysaccharides of M w 35 and 240 kDa were also identified in YBGS .
+
+The M w and recovery from SEC column for PEA2 -SP was previously determined and were included in Table 2 for comparison. Briefly, PEA2 -SP presents an apparent M w of 36 kDa. Populations with M w higher than 2120 kDa were also identified. The higher M w populations present both in YBGS and PEA2 -SP are attributed to the presence of aggregates in aqueous solutions.

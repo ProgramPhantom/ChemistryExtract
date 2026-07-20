@@ -1,0 +1,10 @@
+{
+  "description": "Assignment of 1H NMR peaks for PAMAM dendrimers E5.NH2 and E5.SAH.",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "PAMAM_E5.NH2",
+    "PAMAM_E5.SAH"
+  ],
+  "other_statistics": []
+}

@@ -1,0 +1,29 @@
+{
+  "description": "Determination of diffusion coefficients (D G *) and binding constants (K) for various guest molecules (vanillin, HVA, VMA) with different cyclodextrin hosts (\u03b1 CD, \u03b2 CD, \u03b3 CD, and their respective nanoparticles/polymers CDNP).",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "vanillin (Val)",
+    "HVA",
+    "VMA",
+    "\u03b1 CD",
+    "\u03b2 CD",
+    "\u03b3 CD",
+    "\u03b2 CDNP 0.9",
+    "\u03b2 CDNP 2.0",
+    "\u03b2 CDNP 2.7",
+    "\u03b2 CDNP 3.0",
+    "\u03b1 CDNP 3.2",
+    "\u03b3 CDNP 3.3"
+  ],
+  "other_statistics": [
+    {
+      "name": "D G * (10 - 10 m 2 /s)",
+      "value": "Diffusion coefficient of the guest molecule in the complex"
+    },
+    {
+      "name": "K (M - 1 )",
+      "value": "Binding constant"
+    }
+  ]
+}

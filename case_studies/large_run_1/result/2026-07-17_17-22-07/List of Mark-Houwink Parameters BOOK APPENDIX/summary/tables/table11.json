@@ -1,0 +1,25 @@
+{
+  "description": "Specific Refractive Index Increments for Polystyrene in various solvents",
+  "temperature": "Various (e.g., 20, 22, 23, 25, 30, 40 \u00b0C)",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "Polystyrene",
+    "toluene",
+    "benzene",
+    "CCl4",
+    "tetrahydrofuran (THF)",
+    "chloroform",
+    "acetone methyl ethyl ketone",
+    "tetrahydronaphthalene"
+  ],
+  "other_statistics": [
+    {
+      "name": "Wave-length",
+      "value": "Various (e.g., 436, 488, 546.0, 589.3, 632.8, 670 nm)"
+    },
+    {
+      "name": "dn/dc",
+      "value": "Various (e.g., 0.104 to 0.224 ml/g)"
+    }
+  ]
+}

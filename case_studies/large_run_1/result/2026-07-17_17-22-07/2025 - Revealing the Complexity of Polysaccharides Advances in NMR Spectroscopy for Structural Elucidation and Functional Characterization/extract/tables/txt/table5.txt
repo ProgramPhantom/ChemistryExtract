@@ -1,0 +1,26 @@
+-------------- TABLE 5 EXTRACTION --------------
+**[Preceding Paragraphs]**
+The NMR analysis of marine microorganisms and polysaccharides is beneficial for environmental applications, providing solutions for biofilm management and sustainable technologies [10]. These various applications show that NMR plays a crucial role in turning structural insights into practical benefits in many fields.
+
+To summarize these diverse applications, we have compiled key studies into Table 3. This table outlines the major contributions of NMR in biomedical applications, food science, and environmental research. It highlights key findings, methodologies, and potential impacts in each field.
+
+Table 3. Applications of NMR in polysaccharide research.
+
+[table omitted]
+
+Table 3. Cont.
+
+**[Table Data]**
+| Field         | Key Findings                                                                                                                                      | Methodology                                           | Potential Impact                                                                                                 |
+|---------------|---------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|
+| Food Science  | Analysis of polysaccharide interactions in food matrices Study of gelation and hydration dynamics                                                 | 1 HNMR, DOSY Solid-state NMR, relaxation measurements | Optimization of texture, stability, and sensory properties Enhanced food product formulation and quality control |
+| Environmental | Investigation of microbial exopolysaccharides in biofilms Solid-state NMR, Analysis of lignocellulose degradation in biofuel production CP/MASNMR | DNP-enhancedNMR                                       | Development of sustainable bio- film management technologies Advancement in renewable energy technologies        |
+
+**[Succeeding Paragraphs]**
+## 3.1. Biomedical Applications
+
+NMRhas been instrumental in studying polysaccharides with biomedical relevance, offering a detailed understanding of their structure-function relationships and guiding therapeutic innovations. Although earlier reviews have given an understanding of the particular uses of NMR in polysaccharide research, our review is different, combining the recent progress in multidimensional NMR, DNP, and computational modeling techniques. This helps to deal with the current challenges and creates new research directions. For example, Mulloy et al. elucidated the structure of anticoagulant sulfate polysaccharides. They also gained a deeper understanding of how they work and how they interact with coagulation factors [15]. This work demonstrates how NMR can provide insights into the relationship between structural features and biological activity. It also lays the foundation for the development of anticoagulant drugs.
+
+Yang et al. described an immunomodulatory polysaccharide that comes from Candida albicans , linking its structural motif with the activation of the immune system [53]. This study highlights the role of NMR in identifying the functional domains that help with biological activity, allowing for the reasonable design of immune-boosting therapies. Similarly, a study by Qin et al. demonstrated that NMR can measure the main molecular features of bacterial capsule polysaccharides used in vaccine formulations. Structural data are crucial in ensuring that the vaccine works effectively and is safe [55]. The examples presented highlight the potential of NMR as a valuable tool for understanding the link between polysaccharide structure and its biological functions. NMR has also provided key insights into the relationship between structure and function. NMR facilitates the development of innovative therapeutics and enhances the precision of biomedical applications.
+
+Liu et al. demonstrated that a polysaccharide (AERP) extracted from Astragalus membranaceus residue significantly improved cognitive dysfunction in diabetic mice. This effect was mediated through modulation of the gut microbiota and enhancement of shortchain fatty acids (SCFAs), including butyrate, which are known to exert antioxidant and anti-inflammatory effects by reducing reactive oxygen species (ROS) accumulation and improving mitochondrial function. Importantly, NMR spectroscopy played a central role in characterizing AERP. Through 1 Hand 13 C NMR, the α -1,4-glucan backbone and branched arabinogalactan structures were elucidated, revealing key structural features likely responsible for AERP's bioactivity. These findings have highlighted the critical function of NMR in linking structural motifs to antioxidant mechanisms, thereby facilitating the understanding of structure-function relationships in bioactive polysaccharides.

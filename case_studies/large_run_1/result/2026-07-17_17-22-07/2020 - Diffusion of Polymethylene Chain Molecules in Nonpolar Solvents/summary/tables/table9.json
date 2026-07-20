@@ -1,0 +1,28 @@
+{
+  "description": "Average percentage difference between experimental and calculated diffusion constants for various solutes in different solvents.",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "n-Ci",
+    "tetralin",
+    "decalin",
+    "benzene",
+    "toluene",
+    "CCl4",
+    "1-Ci",
+    "1-CiPh",
+    "HPMN",
+    "pristane",
+    "squalane"
+  ],
+  "other_statistics": [
+    {
+      "name": "no. of solutes",
+      "value": "207 (total)"
+    },
+    {
+      "name": "avg % diff",
+      "value": "2.47% (all solutes in all solvents)"
+    }
+  ]
+}

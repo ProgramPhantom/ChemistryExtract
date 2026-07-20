@@ -1,0 +1,14 @@
+{
+  "title": "Is NMR Combined with Multivariate Regression Applicable for the Molecular Weight Determination of Randomly Cross-Linked Polymers Such as Lignin?",
+  "authors": [
+    "Ren \u00e9 Burger",
+    "Jessica Rumpf",
+    "Xuan Tung Do",
+    "Yulia B. Monakhova",
+    "Bernd W. K. Diehl",
+    "Matthias Rehahn",
+    "Margit Schulze"
+  ],
+  "doi": "10.1021/acsomega.1c03574",
+  "abstract": "The molecular weight properties of lignins are one of the key elements that need to be analyzed for a successful industrial application of these promising biopolymers. In this study, the use of 1 H NMR as well as di ff usion-ordered spectroscopy (DOSY NMR), combined with multivariate regression methods, was investigated for the determination of the molecular weight ( M w and M n) and the polydispersity of organosolv lignins ( n = 53, Miscanthus x giganteus , Paulownia tomentosa , and Silphium perfoliatum ). The suitability of the models was demonstrated by cross validation (CV) as well as by an independent validation set of samples from di ff erent biomass origins (beech wood and wheat straw). CV errors of ca. 7 -9 and 14 -16% were achieved for all parameters with the models from the 1 H NMR spectra and the DOSY NMR data, respectively. The prediction errors for the validation samples were in a similar range for the partial least squares model from the 1 H NMR data and for a multiple linear regression using the DOSY NMR data. The results indicate the usefulness of NMR measurements combined with multivariate regression methods as a potential alternative to more time-consuming methods such as gel permeation chromatography."
+}

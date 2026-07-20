@@ -1,0 +1,24 @@
+-------------- TABLE 3 EXTRACTION --------------
+**[Preceding Paragraphs]**
+Figure 5. Di ff usion distribution P ( D ) of a globular protein -egg albumin and monodisperse PEO ( M = 32.5k) in D2O. P ( D ) shows no dependence on concentration for protein but a signi fi cant dependence on concentration for PEO.
+
+<!-- image -->
+
+ε 0 R h,0 3 represents the volume ( v p ) pervaded by individual polymer chain with ε 0 introduced as a prefactor, e.g., ε 0 = 4/3 π for spherical conformations. Considering chain conformation as the major factor that governs ε 0 , f v,dilute * can be approximated as a constant for linear polymers with a similar chain conformation in the same solvent. PMMA can be treated as a PEO analog with short branches, meaning the determined M of PEO via eq 10 will be signi fi cantly lower than that based on size, i.e., PMMA apparent M ( M ap ). For simplicity, we set ε 0 to 1. Di ff usion analysis of PMMA standards and Figure 2b yield f v,dilute,CDCl3 * = 0.0012 ± 0.00018, which in combination with eq 10 allows determination of M ( M 0) of two monodisperse PEO samples in CDCl3: PEO8.5k and PEO32.5k. Table 3 compares
+
+Table 3. Molecular Weight of Monodisperse PEO Samples Determined by Di ff erent NMR Methods
+
+**[Table Data]**
+| sample   | M ap (kg/mol)   | M 0 (kg/mol)   |
+|----------|-----------------|----------------|
+| PEO8.5k  | 16.5 ± 0.2      | 8.5 ± 1.7      |
+| PEO32.5k | 63.2 ± 0.6      | 36.5 ± 7.3     |
+
+**[Succeeding Paragraphs]**
+the results of M 0 and M ap for PEO based on PMMA. In summary, M ap is signi fi cantly higher than M 0 , indicating PEO has much fewer branches than PMMA. In addition, M 0 determined by eq 10 is much closer to the actual M as expected.
+
+We have demonstrated the critical role of C dilute * to specify the su ffi ciently dilute condition for M and MWD characterization and further linked it to chain conformation, M and PDI. Polymer and solvent di ff usion respond di ff erently to concentration variation, highlighting the unique role of chain interactions even at concentrations signi fi cantly below C * . Quantitative analysis indicates that D polymer measurement above the su ffi ciently dilute condition would lead to a systematic and potentially large error in M and MWD analysis. These fi ndings help to understand the data disparity in the literature and provide useful guidance toward M /MWD characterization by NMR di ff usion measurements. The study o ff ers key insights that lead to the discovery of the invariant macromolecular di ff usion on concentration for globular structure and provides a di ff erent approach for characterizing polymer molecular weight and chain architecture.
+
+## ■ CONCLUSIONS
+
+<!-- image -->

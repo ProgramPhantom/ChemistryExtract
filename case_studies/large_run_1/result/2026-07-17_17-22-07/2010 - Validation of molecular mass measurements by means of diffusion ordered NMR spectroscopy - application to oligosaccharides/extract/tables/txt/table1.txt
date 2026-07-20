@@ -1,0 +1,26 @@
+-------------- TABLE 1 EXTRACTION --------------
+**[Preceding Paragraphs]**
+The DOSYtoMW procedure was finally applied in order to estimate the molecular weight of each constituent of the oligosaccharides mixture. An error bar of 5% on measured diffusion coefficients was used.
+
+Those results are summarized in Table 1.
+
+From this table, it can be seen that the molecular mass estimation method used here allows to determine unambiguously the number of monosaccharide units for oligosaccharides up to seven units, since the error calculated for the 1 -cyclodextrin is close to the molecular weight of one sugar unit.
+
+Table 1 values of molecular mass.
+
+**[Table Data]**
+| Molecule         |   Theoretical mass | Experimental determined mass with initial model   | Experimental determined mass with extended model   |
+|------------------|--------------------|---------------------------------------------------|----------------------------------------------------|
+| Glucose          |              180.2 | 214  48                                                   | 201  43                                                    |
+| Sucrose          |              342.3 | 378  82                                                   | 357  76                                                    |
+| Raffinose        |              504.4 | 530  117                                                   | 500  105                                                    |
+| b -cyclodextrine |               1135 | 1080  233                                                   | 1040  219                                                    |
+
+**[Succeeding Paragraphs]**
+## 4. Model extension
+
+The molecular weight estimate proposed in [1] for oligosaccharides and used here is based on the work by Viel et al. [7] and was determined on large oligosaccharides with molecular masses ranging from 5.8 to 853 kDa, very different from that presented here. The fact that the molecular masses estimated with this model are correct is a token of the robustness of the model and of the DOSY approach for molecular mass determination.
+
+In return, the newly determined value of diffusion have been used to extend and strengthen the model for low masses. This extended model is now available in the presented software, as well as in the reference web application available at http://abcis.cbs.cnrs.fr/MW/. With this extended model, it can be seen (Table 1) that the mass determination is significantly improved, and the error bars reduced.
+
+## 5. Conclusion

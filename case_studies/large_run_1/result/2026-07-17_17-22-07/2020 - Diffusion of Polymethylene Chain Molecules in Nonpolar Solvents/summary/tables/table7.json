@@ -1,0 +1,13 @@
+{
+  "description": "Values of the Solvents' Viscosities, \u03c3/b, and \u03c3 for 1-Alkene Solutes",
+  "temperature": "25.0 \u00b0C",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "n-C8",
+    "n-C10",
+    "n-C12",
+    "n-C14",
+    "n-C16"
+  ],
+  "other_statistics": []
+}

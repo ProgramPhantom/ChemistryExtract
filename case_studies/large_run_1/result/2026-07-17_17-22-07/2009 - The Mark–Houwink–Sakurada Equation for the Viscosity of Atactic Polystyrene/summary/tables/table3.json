@@ -1,0 +1,19 @@
+{
+  "description": "Viscosity data for polystyrene in toluene across various molecular weight ranges and measurement methods.",
+  "temperature": "Various (12, 25, 30, 35 \u00b0C)",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "polystyrene",
+    "toluene"
+  ],
+  "other_statistics": [
+    {
+      "name": "MW range",
+      "value": "660 to 4 x 10^6"
+    },
+    {
+      "name": "MW method",
+      "value": "sedimentation velocity, light scattering, cryoscopy, osmotic pressure"
+    }
+  ]
+}

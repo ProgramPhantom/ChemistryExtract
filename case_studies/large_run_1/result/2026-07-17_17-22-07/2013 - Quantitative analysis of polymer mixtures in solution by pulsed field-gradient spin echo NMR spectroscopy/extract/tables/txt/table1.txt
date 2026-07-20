@@ -1,0 +1,30 @@
+-------------- TABLE 1 EXTRACTION --------------
+**[Preceding Paragraphs]**
+All measurements were performed without spinning at 298 K on a Bruker Avance III 300 MHz spectrometer using a 5 mm BBFO probe equipped with a z -gradient coil providing a maximum gradient strength of 49.8 G cm  1 . For all experiments, the recycling delay was always five times larger than the longest T 1.
+
+T 1 relaxation times were determined using the inversion recovery (IR) pulse sequence (32 increments) and T 2 relaxation times using the Carr-Purcell-Meiboom-Gill (CPMG) pulse sequence (32 increments). Relaxation measurements were analyzed (relaxations times and fractions, when relevant) by fitting the appropriate function to the data (integrals of resonance peaks) using a least squares algorithm as implemented in Topspin 3.0 (Bruker).
+
+A convection compensating double stimulated echo pulse sequence with longitudinal eddy current delay ( Te = 5 ms), bipolar sine-shaped gradient pulses of amplitude G (from 2% to 90% with 32 increments) and pulse length d was used for PGSE NMR exper- iments. 32 transients were acquired for each gradient increment. For each studied sample, different values of the diffusion delay D were used (100-800 ms). The associated gradient pulse length d was fixed as follow. For D equals 200 ms, d was optimized in order to obtain a residual intensity of ca. 3% at 90% gradient strength. For the other D values, d was calculated so Dd 2 is kept constant for all the ( D , d ) pairs. With such pairs, the echo decays are always well described.
+
+Table 1 Characteristics of polystyrene GPC standards (polydispersity 1.01): molecular weight Mw , calculated gyration radius r g and diffusion coefficient D calc ( g chloroformd 0.539 cP), experimental T 1 and T 2 relaxation times and diffusion coefficient D exp. Relaxation times and diffusion coefficients are reported for the signal (7.25-6.89 ppm) associated to the para and meta protons of the phenyl ring.
+
+**[Table Data]**
+| PS   |   M w (g mol  1 ) |   r g (nm) |   D calc (10  10 m 2 s  1 ) |   T 1 (s) |   T 2 (s) | D exp (10  10 m 2 s  1 )   | D exp (10  10 m 2 s  1 )   |
+|------|-------------------|------------|-----------------------------|-----------|-----------|----------------------------|----------------------------|
+|      |                   |            |                             |           |           | D = 200 ms                 | D = 800 ms                 |
+| A    |              3700 |       0.52 |                        7.77 |      1.06 |      0.59 | 2.99                       | 3.05                       |
+| B    |             29300 |       1.48 |                        2.76 |      1.10 |      0.36 | 1.06                       | 1.05                       |
+| C    |            212400 |       3.98 |                        1.03 |      1.08 |      0.34 | 0.27                       | 0.27                       |
+| D    |            382000 |       5.33 |                        0.77 |      1.06 |      0.31 | 0.20                       | 0.19                       |
+| E    |           1880000 |      11.83 |                        0.35 |      1.08 |      0.24 | 0.09                       | 0.09                       |
+
+**[Succeeding Paragraphs]**
+Table 2
+
+Weight fractions of polystyrene standards from Table 1 used to prepare 500 l l of polystyrene mixture and corresponding relative weight fractions.
+
+[table omitted]
+
+PGSE NMR data were analyzed with a single-channel (univariate) process by fitting the appropriate attenuation function (see text) to the data (integrals of resonance peaks extracted with Topspin 3.0) using a least squares algorithm. As the effects of relaxation effects (see Eq. (5)) could not be easily implemented in standard processing packages used to analyze PGSE NMR experiment (ex. Topspin or DOSYToolbox [34]), the fitting was performed with Excel, a common and easily available software. SCORE [35], a multivariate method that does not require a quadratic spacing of the gradients intensities, was also used, as implemented in the DOSYToolbox by Nilsson [34], to analyze PGSE experiments. SCORE was only used to compare the results of a multivariate algorithm with those of a univariate process, when relaxation effects are not taken into accounts (Fig. 2, left panel).
+
+## 3. Results and discussion

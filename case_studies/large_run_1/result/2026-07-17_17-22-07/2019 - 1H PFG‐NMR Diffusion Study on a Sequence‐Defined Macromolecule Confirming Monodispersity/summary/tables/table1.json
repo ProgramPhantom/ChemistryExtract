@@ -1,0 +1,60 @@
+{
+  "description": "1H PFG-NMR diffusion experiments comparing the PFG-STE and \u03b2-PFG-SE pulse sequences.",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "hexadecane",
+    "CDCl3",
+    "decamer"
+  ],
+  "other_statistics": [
+    {
+      "name": "Gradient pulse duration, \u03b4",
+      "value": "2 ms"
+    },
+    {
+      "name": "Maximum gradient amplitude, g max",
+      "value": "3 Tm-1"
+    },
+    {
+      "name": "Gradient pulse stabilization time",
+      "value": "1 ms"
+    },
+    {
+      "name": "Number of gradient steps",
+      "value": "32"
+    },
+    {
+      "name": "Diffusion time, \u03d4",
+      "value": "40 ms"
+    },
+    {
+      "name": "Number of scans",
+      "value": "128"
+    },
+    {
+      "name": "Repetition time, TR (PFG-STE)",
+      "value": "11 s"
+    },
+    {
+      "name": "Repetition time, TR (\u03b2-PFG-SE)",
+      "value": "0.59 s"
+    },
+    {
+      "name": "Excitation pulse, P1 (PFG-STE)",
+      "value": "8.3 \u00b5s (90\u00b0)"
+    },
+    {
+      "name": "Excitation pulse, P1 (\u03b2-PFG-SE)",
+      "value": "3 \u00b5s (\u03b2 = 23\u00b0)"
+    },
+    {
+      "name": "Number of dummy scans (PFG-STE)",
+      "value": "2"
+    },
+    {
+      "name": "Number of dummy scans (\u03b2-PFG-SE)",
+      "value": "4"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+-------------- TABLE 1 EXTRACTION --------------
+**[Preceding Paragraphs]**
+The estimates of m from the lognormal and gamma listed in Table 1 differ due to strong sensitivity of the method to model choice. This is evident in Fig. 1c where two very similar massweighted diffusion coefficient distributions arise from the first fit, but the constraints lead to drastically different number-weighted diffusion coefficient distributions from the second fit. Certain models in certain instances, such as the gamma for mixture 1 and the lognormal for mixture 2, resulted in accurate m estimates compared to the known value, which then led to better estimates of Mw = Mn than those of the alternative models. Both models accurately estimated Mw = Mn for mixture 3 even though their estimates of m were off, potentially because small values of Mw = Mn are less sensitive to errors in m , as seen by Eqs. (7) and (10). For 8 out of the 12 estimated values of m and Mw = Mn in Table 1, the known values are within the 95% confidence intervals.
+
+Estimates were quite successful considering that the method only assumed that M and D scale by Eq. (1) and that the distribution models were appropriate. A wide range of polymers follow the scaling relation [17]. The universal calibration method by which absolute molecular mass can be obtained with SEC [4] relies on an analogous scaling relation known as the Mark-HouwinkSakurada equation. A major limitation then is the assumption of a distribution shape. Knowledge of the polymerization reaction kinetics can help inform on an accurate model choice. For instance, the gamma-in a parameterization widely known as the Schulz distribution [39,40]-and lognormal distributions of molecular mass have been derived from certain polymer reaction mechanisms [34]. Relative changes in m for a given model should not depend on model choice and so the method may be useful for measuring the change in solvent quality as a function of system parameters such as solvent or temperature. Another limitation is the capability to resolve an end-group signal, which diminishes with increasing molecular mass due to increasing peak broadness and decreasing signal.
+
+The scaling exponent and absolute molecular mass are fundamental to realizing the full potential of a polymer. Demands for new applications are driving the complexity of new polymers for which traditional characterization methods do not always work. We show a method by which the scaling exponent and absolute molecular mass distribution characteristics can be obtained directly from a single PGSE measurement performed on a polymer without fractionation.
+
+Table 1 Results of m and Mw = Mn, with 95% confidence intervals, compared to the known values for the three PEG mixtures.
+
+**[Table Data]**
+|   Mixture | Known     | Lognormal   | Gamma     |
+|-----------|-----------|-------------|-----------|
+|         1 | m 0 : 50  0 : 02           | m 0 : 54  0 : 05             | m 0 : 50  0 : 11           |
+|         2 | 0 : 50  0 : 02           | 0 : 49  0 : 03             | 0 : 41  0 : 07           |
+|         3 | 0 : 50  0 : 02           | 0 : 61  0 : 04             | 0 : 58  0 : 14           |
+|           | M w = M n | M w = M n   | M w = M n |
+|         1 | 1.81      | 1 : 60  0 : 13             | 1 : 71  0 : 42           |
+|         2 | 2.49      | 2 : 23  0 : 23             | 3 : 03  1 : 37           |
+|         3 | 1.41      | 1 : 38  0 : 05             | 1 : 41  0 : 24           |
+
+**[Succeeding Paragraphs]**
+## Acknowledgements
+
+This research was funded by the South Australian Government Premier's Research and Industry Grant project 'A Systems Approach to Surface Science', as well as the Australian Government International President's Scholarship (IPS).
+
+## Appendix A. Supplementary material
+
+Supplementary data associated with this article can be found, in the online version, at http://dx.doi.org/10.1016/j.jcis.2017.01.058.

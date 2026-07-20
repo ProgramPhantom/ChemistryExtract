@@ -1,0 +1,36 @@
+-------------- TABLE 1 EXTRACTION --------------
+**[Preceding Paragraphs]**
+## 2.3 | Design of experiments
+
+An I-optimal response surface design was created separately for PEG and PS using Design-Expert 10.0.3.1 (Stat-Ease Inc., Minnesota, United States). Both designs were set up in the same way, using five factors all having only discrete factor levels (Tables 1 and 2). In total, five different responses were studied (see next section). The designs were built to be able to fit a quadratic model for each response, and each design featured five lack-of-fit points and five replicate points, leading to 31 experimental runs per design: 21 points, 5 lack-of-fit and 5 replicates.
+
+<!-- image -->
+
+TABLE 1 List of factors and their levels in the design for PEG
+
+**[Table Data]**
+|   MWPEG(Da) |   d1 (s) |   τ E ( μ s) |   n |   wt% |
+|-------------|----------|--------------|-----|-------|
+|         300 |        2 |          100 | 120 |     5 |
+|       1,000 |        5 |          150 | 220 |   7.5 |
+|       6,000 |        8 |          200 | 320 |    10 |
+|      11,600 |       10 |          250 | 420 |       |
+|      22,500 |       15 |          300 | 520 |       |
+|      41,500 |       20 |          350 | 620 |       |
+|             |          |          400 |     |       |
+|             |          |          450 |     |       |
+|             |          |          500 |     |       |
+|             |          |          550 |     |       |
+|             |          |          600 |     |       |
+|             |          |          640 |     |       |
+
+**[Succeeding Paragraphs]**
+Abbreviations: MW, molecular weight; PEG, polyethylene glycol.
+
+TABLE 2 List of factors and their levels in the design for PS
+
+[table omitted]
+
+Abbreviations: MW, molecular weight; PS, polystyrene.
+
+a The polydispersity (MW/Mn) is equal to 1 for all PS samples, Mp is approximated with MW.

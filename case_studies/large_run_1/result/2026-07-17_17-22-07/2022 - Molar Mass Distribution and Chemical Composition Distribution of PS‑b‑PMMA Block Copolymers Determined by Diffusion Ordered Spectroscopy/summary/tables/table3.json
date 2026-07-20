@@ -1,0 +1,16 @@
+{
+  "description": "Molar mass distributions of PSb-PMMA copolymers analyzed using two different methods: SEC-UV-RI (Size Exclusion Chromatography with UV and Refractive Index detectors) and DOSY-ILT (Diffusion Ordered Spectroscopy - Inverse Laplace Transform).",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "PSb-PMMA copolymer",
+    "polystyrene (PS)",
+    "poly(methyl methacrylate) (PMMA)"
+  ],
+  "other_statistics": [
+    {
+      "name": "Number of gradient strengths for diffusion experiments",
+      "value": "128"
+    }
+  ]
+}

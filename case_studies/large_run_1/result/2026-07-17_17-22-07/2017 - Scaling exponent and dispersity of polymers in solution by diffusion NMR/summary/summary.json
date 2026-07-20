@@ -1,0 +1,11 @@
+{
+  "title": "Scaling exponent and dispersity of polymers in solution by diffusion NMR",
+  "authors": [
+    "Nathan H. Williamson",
+    "Magnus R\u00f6ding",
+    "Stanley J. Miklavcic",
+    "Magnus Nyd\u00e9n"
+  ],
+  "doi": "Not found",
+  "abstract": "Molecular mass distribution measurements by pulsed gradient spin echo nuclear magnetic resonance (PGSE NMR) spectroscopy currently require prior knowledge of scaling parameters to convert from polymer self-diffusion coefficient to molecular mass. Reversing the problem, we utilize the scaling relation as prior knowledge to uncover the scaling exponent from within the PGSE data. Thus, the scaling exponenta measure of polymer conformation and solvent quality-and the dispersity (Mw = Mn) are obtainable from one simple PGSE experiment. The method utilizes constraints and parametric distribution models in a two-step fitting routine involving first the mass-weighted signal and second the number-weighted signal. The method is developed using lognormal and gamma distribution models and tested on experimental PGSE attenuation of the terminal methylene signal and on the sum of all methylene signals of polyethylene glycol in D2O. Scaling exponent and dispersity estimates agree with known values in the majority of instances, leading to the potential application of the method to polymers for which characterization is not possible with alternative techniques."
+}

@@ -1,0 +1,710 @@
+{
+  "is_mark_houwink_data": true,
+  "is_flory_data": false,
+  "mh_entries": [
+    {
+      "polymer_name": "POMA",
+      "solvent": "THF",
+      "temperature_k": 298.15,
+      "raw_K_value": 5.556,
+      "K_transformation": "10^2",
+      "K_value": 0.05556,
+      "raw_a_value": 0.56,
+      "a_transformation": "",
+      "a_value": 0.56
+    },
+    {
+      "polymer_name": "PLMA",
+      "solvent": "THF",
+      "temperature_k": 298.15,
+      "raw_K_value": 0.73,
+      "K_transformation": "10^2",
+      "K_value": 0.0073,
+      "raw_a_value": 0.69,
+      "a_transformation": "",
+      "a_value": 0.69
+    },
+    {
+      "polymer_name": "PSMA",
+      "solvent": "THF",
+      "temperature_k": 303.15,
+      "raw_K_value": 0.9,
+      "K_transformation": "10^2",
+      "K_value": 0.009,
+      "raw_a_value": 0.67,
+      "a_transformation": "",
+      "a_value": 0.67
+    },
+    {
+      "polymer_name": "PMA",
+      "solvent": "THF",
+      "temperature_k": 298.15,
+      "raw_K_value": 0.388,
+      "K_transformation": "10^2",
+      "K_value": 0.00388,
+      "raw_a_value": 0.82,
+      "a_transformation": "",
+      "a_value": 0.82
+    },
+    {
+      "polymer_name": "PMA",
+      "solvent": "toluene",
+      "temperature_k": 308.15,
+      "raw_K_value": 2.1,
+      "K_transformation": "10^2",
+      "K_value": 0.021,
+      "raw_a_value": 0.6,
+      "a_transformation": "",
+      "a_value": 0.6
+    },
+    {
+      "polymer_name": "PtBA",
+      "solvent": "THF",
+      "temperature_k": 298.15,
+      "raw_K_value": 0.33,
+      "K_transformation": "10^2",
+      "K_value": 0.0033,
+      "raw_a_value": 0.8,
+      "a_transformation": "",
+      "a_value": 0.8
+    },
+    {
+      "polymer_name": "Polyethylene",
+      "solvent": "ODCB",
+      "temperature_k": 408.15,
+      "raw_K_value": 4.77,
+      "K_transformation": "10^2",
+      "K_value": 0.0477,
+      "raw_a_value": 0.7,
+      "a_transformation": "",
+      "a_value": 0.7
+    },
+    {
+      "polymer_name": "Polyethylene",
+      "solvent": "ODCB",
+      "temperature_k": 408.15,
+      "raw_K_value": 4.9,
+      "K_transformation": "10^2",
+      "K_value": 0.049,
+      "raw_a_value": 0.74,
+      "a_transformation": "",
+      "a_value": 0.74
+    },
+    {
+      "polymer_name": "Polyethylene",
+      "solvent": "ODCB",
+      "temperature_k": 411.15,
+      "raw_K_value": 5.06,
+      "K_transformation": "10^2",
+      "K_value": 0.0506,
+      "raw_a_value": 0.7,
+      "a_transformation": "",
+      "a_value": 0.7
+    },
+    {
+      "polymer_name": "Polyethylene",
+      "solvent": "TCB",
+      "temperature_k": 408.15,
+      "raw_K_value": 5.5,
+      "K_transformation": "10^2",
+      "K_value": 0.055,
+      "raw_a_value": 0.704,
+      "a_transformation": "",
+      "a_value": 0.704
+    },
+    {
+      "polymer_name": "Polyethylene",
+      "solvent": "TCB",
+      "temperature_k": 408.15,
+      "raw_K_value": 4.34,
+      "K_transformation": "10^2",
+      "K_value": 0.0434,
+      "raw_a_value": 0.724,
+      "a_transformation": "",
+      "a_value": 0.724
+    },
+    {
+      "polymer_name": "Polyethylene",
+      "solvent": "TCB",
+      "temperature_k": 408.15,
+      "raw_K_value": 9.54,
+      "K_transformation": "10^2",
+      "K_value": 0.0954,
+      "raw_a_value": 0.64,
+      "a_transformation": "",
+      "a_value": 0.64
+    },
+    {
+      "polymer_name": "Polyethylene",
+      "solvent": "TCB",
+      "temperature_k": 408.15,
+      "raw_K_value": 5.3,
+      "K_transformation": "10^2",
+      "K_value": 0.053,
+      "raw_a_value": 0.7,
+      "a_transformation": "",
+      "a_value": 0.7
+    },
+    {
+      "polymer_name": "HDPE",
+      "solvent": "ODCB",
+      "temperature_k": 408.15,
+      "raw_K_value": 5.05,
+      "K_transformation": "10^2",
+      "K_value": 0.0505,
+      "raw_a_value": 0.693,
+      "a_transformation": "",
+      "a_value": 0.693
+    },
+    {
+      "polymer_name": "HDPE",
+      "solvent": "TCB",
+      "temperature_k": 398.15,
+      "raw_K_value": 3.58,
+      "K_transformation": "10^2",
+      "K_value": 0.0358,
+      "raw_a_value": 0.74,
+      "a_transformation": "",
+      "a_value": 0.74
+    },
+    {
+      "polymer_name": "HDPE",
+      "solvent": "TCB",
+      "temperature_k": 403.15,
+      "raw_K_value": 3.92,
+      "K_transformation": "10^2",
+      "K_value": 0.0392,
+      "raw_a_value": 0.725,
+      "a_transformation": "",
+      "a_value": 0.725
+    },
+    {
+      "polymer_name": "HDPE",
+      "solvent": "TCB",
+      "temperature_k": 403.15,
+      "raw_K_value": 9.54,
+      "K_transformation": "10^2",
+      "K_value": 0.0954,
+      "raw_a_value": 0.64,
+      "a_transformation": "",
+      "a_value": 0.64
+    },
+    {
+      "polymer_name": "HDPE",
+      "solvent": "TCB",
+      "temperature_k": 403.15,
+      "raw_K_value": 5.26,
+      "K_transformation": "10^2",
+      "K_value": 0.0526,
+      "raw_a_value": 0.7,
+      "a_transformation": "",
+      "a_value": 0.7
+    },
+    {
+      "polymer_name": "HDPE",
+      "solvent": "TCB",
+      "temperature_k": 403.15,
+      "raw_K_value": 5.23,
+      "K_transformation": "10^2",
+      "K_value": 0.0523,
+      "raw_a_value": 0.7,
+      "a_transformation": "",
+      "a_value": 0.7
+    },
+    {
+      "polymer_name": "HDPE",
+      "solvent": "TCB",
+      "temperature_k": 403.15,
+      "raw_K_value": 7.1,
+      "K_transformation": "10^2",
+      "K_value": 0.071,
+      "raw_a_value": 0.67,
+      "a_transformation": "",
+      "a_value": 0.67
+    },
+    {
+      "polymer_name": "HDPE",
+      "solvent": "TCB",
+      "temperature_k": 403.15,
+      "raw_K_value": 5.63,
+      "K_transformation": "10^2",
+      "K_value": 0.0563,
+      "raw_a_value": 0.7,
+      "a_transformation": "",
+      "a_value": 0.7
+    },
+    {
+      "polymer_name": "HDPE",
+      "solvent": "TCB",
+      "temperature_k": 413.15,
+      "raw_K_value": 3.95,
+      "K_transformation": "10^2",
+      "K_value": 0.0395,
+      "raw_a_value": 0.726,
+      "a_transformation": "",
+      "a_value": 0.726
+    },
+    {
+      "polymer_name": "HDPE",
+      "solvent": "TCB",
+      "temperature_k": 413.15,
+      "raw_K_value": 3.23,
+      "K_transformation": "10^2",
+      "K_value": 0.0323,
+      "raw_a_value": 0.735,
+      "a_transformation": "",
+      "a_value": 0.735
+    },
+    {
+      "polymer_name": "HDPE",
+      "solvent": "TCB",
+      "temperature_k": 418.15,
+      "raw_K_value": 1.73,
+      "K_transformation": "10^2",
+      "K_value": 0.0173,
+      "raw_a_value": 0.784,
+      "a_transformation": "",
+      "a_value": 0.784
+    },
+    {
+      "polymer_name": "HDPE",
+      "solvent": "decalin",
+      "temperature_k": 408.15,
+      "raw_K_value": 4.17,
+      "K_transformation": "10^2",
+      "K_value": 0.0417,
+      "raw_a_value": 0.71,
+      "a_transformation": "",
+      "a_value": 0.71
+    },
+    {
+      "polymer_name": "HDPE",
+      "solvent": "decalin",
+      "temperature_k": 408.15,
+      "raw_K_value": 3.9,
+      "K_transformation": "10^2",
+      "K_value": 0.039,
+      "raw_a_value": 0.74,
+      "a_transformation": "",
+      "a_value": 0.74
+    },
+    {
+      "polymer_name": "HDPE",
+      "solvent": "decalin",
+      "temperature_k": 408.15,
+      "raw_K_value": 4.6,
+      "K_transformation": "10^2",
+      "K_value": 0.046,
+      "raw_a_value": 0.73,
+      "a_transformation": "",
+      "a_value": 0.73
+    },
+    {
+      "polymer_name": "HDPE",
+      "solvent": "decalin",
+      "temperature_k": 411.15,
+      "raw_K_value": 6.2,
+      "K_transformation": "10^2",
+      "K_value": 0.062,
+      "raw_a_value": 0.7,
+      "a_transformation": "",
+      "a_value": 0.7
+    },
+    {
+      "polymer_name": "HDPE",
+      "solvent": "decane",
+      "temperature_k": 393.15,
+      "raw_K_value": 6.98,
+      "K_transformation": "10^2",
+      "K_value": 0.0698,
+      "raw_a_value": 0.65,
+      "a_transformation": "",
+      "a_value": 0.65
+    },
+    {
+      "polymer_name": "LDPE LLDPE",
+      "solvent": "ODCB TCB",
+      "temperature_k": 408.15,
+      "raw_K_value": 5.06,
+      "K_transformation": "10^2",
+      "K_value": 0.0506,
+      "raw_a_value": 0.7,
+      "a_transformation": "",
+      "a_value": 0.7
+    },
+    {
+      "polymer_name": "LDPE LLDPE",
+      "solvent": "ODCB TCB",
+      "temperature_k": 418.15,
+      "raw_K_value": 5.91,
+      "K_transformation": "10^2",
+      "K_value": 0.0591,
+      "raw_a_value": 0.69,
+      "a_transformation": "",
+      "a_value": 0.69
+    },
+    {
+      "polymer_name": "LDPE LLDPE",
+      "solvent": "TCB",
+      "temperature_k": 408.15,
+      "raw_K_value": 2.7,
+      "K_transformation": "10^2",
+      "K_value": 0.027,
+      "raw_a_value": 0.746,
+      "a_transformation": "",
+      "a_value": 0.746
+    },
+    {
+      "polymer_name": "PP",
+      "solvent": "TCB",
+      "temperature_k": 408.15,
+      "raw_K_value": 1.37,
+      "K_transformation": "10^2",
+      "K_value": 0.0137,
+      "raw_a_value": 0.75,
+      "a_transformation": "",
+      "a_value": 0.75
+    },
+    {
+      "polymer_name": "PP",
+      "solvent": "TCB",
+      "temperature_k": 408.15,
+      "raw_K_value": 1.76,
+      "K_transformation": "10^2",
+      "K_value": 0.0176,
+      "raw_a_value": 0.73,
+      "a_transformation": "",
+      "a_value": 0.73
+    },
+    {
+      "polymer_name": "PP",
+      "solvent": "ODCB",
+      "temperature_k": 418.15,
+      "raw_K_value": 1.56,
+      "K_transformation": "10^2",
+      "K_value": 0.0156,
+      "raw_a_value": 0.76,
+      "a_transformation": "",
+      "a_value": 0.76
+    },
+    {
+      "polymer_name": "PP",
+      "solvent": "ODCB",
+      "temperature_k": 408.15,
+      "raw_K_value": 1.0,
+      "K_transformation": "10^2",
+      "K_value": 0.01,
+      "raw_a_value": 0.78,
+      "a_transformation": "",
+      "a_value": 0.78
+    },
+    {
+      "polymer_name": "PP",
+      "solvent": "ODCB",
+      "temperature_k": 408.15,
+      "raw_K_value": 2.42,
+      "K_transformation": "10^2",
+      "K_value": 0.0242,
+      "raw_a_value": 0.707,
+      "a_transformation": "",
+      "a_value": 0.707
+    },
+    {
+      "polymer_name": "PP",
+      "solvent": "ODCB",
+      "temperature_k": 408.15,
+      "raw_K_value": 1.1,
+      "K_transformation": "10^2",
+      "K_value": 0.011,
+      "raw_a_value": 0.8,
+      "a_transformation": "",
+      "a_value": 0.8
+    },
+    {
+      "polymer_name": "Polyisobutylene",
+      "solvent": "THF",
+      "temperature_k": 298.15,
+      "raw_K_value": 5.0,
+      "K_transformation": "10^2",
+      "K_value": 0.05,
+      "raw_a_value": 0.6,
+      "a_transformation": "",
+      "a_value": 0.6
+    },
+    {
+      "polymer_name": "Polyisobutylene",
+      "solvent": "THF",
+      "temperature_k": 313.15,
+      "raw_K_value": 6.47,
+      "K_transformation": "10^2",
+      "K_value": 0.0647,
+      "raw_a_value": 0.593,
+      "a_transformation": "",
+      "a_value": 0.593
+    },
+    {
+      "polymer_name": "Polyisobutylene",
+      "solvent": "THF",
+      "temperature_k": 313.15,
+      "raw_K_value": 5.79,
+      "K_transformation": "10^2",
+      "K_value": 0.0579,
+      "raw_a_value": 0.593,
+      "a_transformation": "",
+      "a_value": 0.593
+    },
+    {
+      "polymer_name": "Polycarbonate",
+      "solvent": "THF",
+      "temperature_k": 298.15,
+      "raw_K_value": 3.99,
+      "K_transformation": "10^2",
+      "K_value": 0.0399,
+      "raw_a_value": 0.77,
+      "a_transformation": "",
+      "a_value": 0.77
+    },
+    {
+      "polymer_name": "Polycarbonate",
+      "solvent": "THF",
+      "temperature_k": 298.15,
+      "raw_K_value": 4.9,
+      "K_transformation": "10^2",
+      "K_value": 0.049,
+      "raw_a_value": 0.67,
+      "a_transformation": "",
+      "a_value": 0.67
+    },
+    {
+      "polymer_name": "Polycarbonate",
+      "solvent": "THF",
+      "temperature_k": 298.15,
+      "raw_K_value": 4.12,
+      "K_transformation": "10^2",
+      "K_value": 0.0412,
+      "raw_a_value": 0.69,
+      "a_transformation": "",
+      "a_value": 0.69
+    },
+    {
+      "polymer_name": "Polycarbonate",
+      "solvent": "toluene",
+      "temperature_k": 308.15,
+      "raw_K_value": 3.18,
+      "K_transformation": "10^2",
+      "K_value": 0.0318,
+      "raw_a_value": 0.68,
+      "a_transformation": "",
+      "a_value": 0.68
+    },
+    {
+      "polymer_name": "PB",
+      "solvent": "toluene",
+      "temperature_k": 303.15,
+      "raw_K_value": 5.19,
+      "K_transformation": "10^2",
+      "K_value": 0.0519,
+      "raw_a_value": 0.679,
+      "a_transformation": "",
+      "a_value": 0.679
+    },
+    {
+      "polymer_name": "PB",
+      "solvent": "toluene",
+      "temperature_k": 336.15,
+      "raw_K_value": 2.888,
+      "K_transformation": "10^2",
+      "K_value": 0.02888,
+      "raw_a_value": 0.753,
+      "a_transformation": "",
+      "a_value": 0.753
+    }
+  ],
+  "flory_entries": [],
+  "calculator_calls": [
+    {
+      "expression": "5.556 / 100",
+      "result": "0.05556"
+    },
+    {
+      "expression": "0.73 / 100",
+      "result": "0.0073"
+    },
+    {
+      "expression": "0.90 / 100",
+      "result": "0.009000000000000001"
+    },
+    {
+      "expression": "0.388 / 100",
+      "result": "0.00388"
+    },
+    {
+      "expression": "2.1 / 100",
+      "result": "0.021"
+    },
+    {
+      "expression": "0.33 / 100",
+      "result": "0.0033"
+    },
+    {
+      "expression": "4.77 / 100",
+      "result": "0.04769999999999999"
+    },
+    {
+      "expression": "4.90 / 100",
+      "result": "0.049"
+    },
+    {
+      "expression": "5.06 / 100",
+      "result": "0.0506"
+    },
+    {
+      "expression": "5.50 / 100",
+      "result": "0.055"
+    },
+    {
+      "expression": "4.34 / 100",
+      "result": "0.0434"
+    },
+    {
+      "expression": "9.54 / 100",
+      "result": "0.09539999999999998"
+    },
+    {
+      "expression": "5.3 / 100",
+      "result": "0.053"
+    },
+    {
+      "expression": "5.05 / 100",
+      "result": "0.050499999999999996"
+    },
+    {
+      "expression": "3.58 / 100",
+      "result": "0.0358"
+    },
+    {
+      "expression": "3.92 / 100",
+      "result": "0.0392"
+    },
+    {
+      "expression": "9.54 / 100",
+      "result": "0.09539999999999998"
+    },
+    {
+      "expression": "5.23 / 100",
+      "result": "0.052300000000000006"
+    },
+    {
+      "expression": "7.1 / 100",
+      "result": "0.071"
+    },
+    {
+      "expression": "5.63 / 100",
+      "result": "0.056299999999999996"
+    },
+    {
+      "expression": "3.95 / 100",
+      "result": "0.0395"
+    },
+    {
+      "expression": "3.23 / 100",
+      "result": "0.0323"
+    },
+    {
+      "expression": "1.73 / 100",
+      "result": "0.0173"
+    },
+    {
+      "expression": "4.17 / 100",
+      "result": "0.0417"
+    },
+    {
+      "expression": "3.9 / 100",
+      "result": "0.039"
+    },
+    {
+      "expression": "4.6 / 100",
+      "result": "0.046"
+    },
+    {
+      "expression": "6.2 / 100",
+      "result": "0.062"
+    },
+    {
+      "expression": "6.98 / 100",
+      "result": "0.0698"
+    },
+    {
+      "expression": "5.06 / 100",
+      "result": "0.0506"
+    },
+    {
+      "expression": "5.91 / 100",
+      "result": "0.0591"
+    },
+    {
+      "expression": "2.7 / 100",
+      "result": "0.027000000000000003"
+    },
+    {
+      "expression": "1.37 / 100",
+      "result": "0.0137"
+    },
+    {
+      "expression": "1.76 / 100",
+      "result": "0.0176"
+    },
+    {
+      "expression": "1.56 / 100",
+      "result": "0.015600000000000001"
+    },
+    {
+      "expression": "1.0 / 100",
+      "result": "0.01"
+    },
+    {
+      "expression": "2.42 / 100",
+      "result": "0.0242"
+    },
+    {
+      "expression": "1.10 / 100",
+      "result": "0.011000000000000001"
+    },
+    {
+      "expression": "5 / 100",
+      "result": "0.05"
+    },
+    {
+      "expression": "6.47 / 100",
+      "result": "0.0647"
+    },
+    {
+      "expression": "5.79 / 100",
+      "result": "0.0579"
+    },
+    {
+      "expression": "3.99 / 100",
+      "result": "0.039900000000000005"
+    },
+    {
+      "expression": "4.9 / 100",
+      "result": "0.049"
+    },
+    {
+      "expression": "4.12 / 100",
+      "result": "0.0412"
+    },
+    {
+      "expression": "3.18 / 100",
+      "result": "0.0318"
+    },
+    {
+      "expression": "5.19 / 100",
+      "result": "0.0519"
+    },
+    {
+      "expression": "2.888 / 100",
+      "result": "0.02888"
+    }
+  ]
+}

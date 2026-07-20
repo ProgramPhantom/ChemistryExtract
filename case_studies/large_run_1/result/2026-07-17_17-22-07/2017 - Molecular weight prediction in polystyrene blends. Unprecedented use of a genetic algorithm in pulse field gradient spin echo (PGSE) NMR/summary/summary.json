@@ -1,0 +1,11 @@
+{
+  "title": "Molecular weight prediction in polystyrene blends. Unprecedented use of a genetic algorithm in pulse field gradient spin echo (PGSE) NMR",
+  "authors": [
+    "Francisco M. Arrabal-Campos",
+    "Jose \u00da D. \u00c1lvarez",
+    "Amador Garc\u00eda-Sancho",
+    "Ignacio Fern\u00e1ndez"
+  ],
+  "doi": "10.1039/c7sm01569k",
+  "abstract": "A genetic algorithm that uses boxcar functions (diffGA) has been applied for the first time in PGSE NMR. It reconstructs accurate diffusion coefficients for all the components of the mixture, and therefore predicts correct weight-average molecular weights for all of them. The results reported herein complement those obtained with established methods such as ITAMeD, CONTIN and TRAIn algorithms, and provide a detailed solution picture. Its robustness and limits have been stretched in order to ascertain the minimum separation within diffusion coefficients or relative proportion between components. In addition, the new genetic algorithm has been also applied to a mixture of small molecules, providing excellent results at very low computational times."
+}

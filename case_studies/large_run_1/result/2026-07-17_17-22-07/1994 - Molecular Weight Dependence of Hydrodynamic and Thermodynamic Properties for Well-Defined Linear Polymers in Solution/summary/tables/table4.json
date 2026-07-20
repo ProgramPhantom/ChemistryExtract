@@ -1,0 +1,10 @@
+{
+  "description": "Viscosity and size measurements of polybutadiene in cyclohexane",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "polybutadiene",
+    "cyclohexane"
+  ],
+  "other_statistics": []
+}

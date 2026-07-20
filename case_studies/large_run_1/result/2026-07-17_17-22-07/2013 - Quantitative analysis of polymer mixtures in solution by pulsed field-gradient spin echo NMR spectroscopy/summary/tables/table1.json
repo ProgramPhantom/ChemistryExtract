@@ -1,0 +1,39 @@
+{
+  "description": "Measurement of T1 and T2 relaxation times and diffusion coefficients for polystyrene GPC standards using PGSE NMR spectroscopy.",
+  "temperature": "298 K",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "polystyrene GPC standards",
+    "chloroform"
+  ],
+  "other_statistics": [
+    {
+      "name": "Spectrometer",
+      "value": "Bruker Avance III 300 MHz"
+    },
+    {
+      "name": "name",
+      "value": "5 mm BBFO probe"
+    },
+    {
+      "name": "name",
+      "value": "z-gradient coil (max gradient strength 49.8 G cm-1)"
+    },
+    {
+      "name": "name",
+      "value": "name: Topspin 3.0"
+    },
+    {
+      "name": "Cpmg pulse sequence",
+      "value": "T2 relaxation times"
+    },
+    {
+      "name": "Inversion recovery (IR) pulse sequence",
+      "value": "value: T1 relaxation times"
+    },
+    {
+      "name": "Diffusion delay D",
+      "value": "100-800 ms"
+    }
+  ]
+}

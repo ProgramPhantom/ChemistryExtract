@@ -1,0 +1,10 @@
+{
+  "description": "Diffusion Coefficients and Hydrodynamic Radii (Stokes-Einstein Model) of Six Dilute Aqueous Solutions of Pullulan Determined by DOSY Experiments",
+  "temperature": "300 K",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "pullulan",
+    "D2O"
+  ],
+  "other_statistics": []
+}

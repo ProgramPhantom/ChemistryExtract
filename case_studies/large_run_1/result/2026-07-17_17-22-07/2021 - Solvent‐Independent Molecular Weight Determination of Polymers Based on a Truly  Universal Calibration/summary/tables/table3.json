@@ -1,0 +1,15 @@
+{
+  "description": "Calibration coefficients obtained for poly(ethylene glycol) for a variety of deuterated solvents using DOSY.",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "poly(ethylene glycol)",
+    "D2O",
+    "methanol-d4",
+    "acetone-d6",
+    "THF-d8",
+    "CDCl3",
+    "ACN-d3"
+  ],
+  "other_statistics": []
+}

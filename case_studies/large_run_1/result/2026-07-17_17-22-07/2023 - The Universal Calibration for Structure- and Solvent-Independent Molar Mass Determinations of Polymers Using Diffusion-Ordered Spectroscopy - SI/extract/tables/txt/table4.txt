@@ -1,0 +1,37 @@
+-------------- TABLE 4 EXTRACTION --------------
+**[Preceding Paragraphs]**
+## Tables
+
+Table  S1. Molar  mass  distributions  of  PS-,  PEO  and  PMMA  homopolymer  samples  used  for  the calibration.
+
+[table omitted]
+
+Table S2. Pulsed field gradient conditions for all samples and solvents: Gradient pulse length given as little delta (LD) and diffusion delay as big delta (BD) for the convection compensated pulse sequence dstebpgp3s.
+
+[table omitted]
+
+Table S3. Comparison of Mark-Houwink parameters K and a determined by DOSY and provided by available literature data (rounded to the same number of digits).
+
+[table omitted]
+
+**[Table Data]**
+| PMMA   | Benzene    |   0.00848 |   0.733 |   0.00745 |   0.76 |   8 |
+|--------|------------|-----------|---------|-----------|--------|-----|
+| PMMA   | Chloroform |   0.00517 |   0.771 |   0.00581 |   0.79 |   8 |
+| PMMA   | THF        |   0.01061 |   0.695 |    0.0104 |  0.697 |   8 |
+
+**[Succeeding Paragraphs]**
+## References
+
+- (1) Flory, P. J. Principles of Polymer Chemistry ; Cornell University Press: Ithaka, N. Y., 1953.
+- (2) Rudin, A.; Johnston, H. K. Diffusion Coefficients and Intrinsic Viscosities of Polymers. J Polym Sci B 1971 , 9 (1), 55-60. https://doi.org/10.1002/pol.1971.110090109.
+- (3) Einstein, A. Über Die von Der Molekularkinetischen Theorie Der Wärme Geforderte Bewegung von in Ruhenden Flüssigkeiten Suspendierten Teilchen. Ann Phys 1905 , 322 (8), 549-560. https://doi.org/10.1002/andp.19053220806.
+- (4) Rouse, P. E. A Theory of the Linear Viscoelastic Properties of Dilute Solutions of Coiling Polymers. J Chem Phys 1953 , 21 (7), 1272-1280. https://doi.org/10.1063/1.1699180.
+- (5) Zimm, B. H. Dynamics of Polymer Molecules in Dilute Solution: Viscoelasticity, Flow Birefringence and Dielectric Loss. J Chem Phys 1956 , 24 (2), 269-278. https://doi.org/10.1063/1.1742462.
+- (6) Wagner, H. L. The Mark-Houwink-Sakurada Equation for the Viscosity of Atactic Polystyrene. J Phys Chem Ref Data 1985 , 14 (4), 1101-1106. https://doi.org/10.1063/1.555740.
+- (7) Rauschkolb, J. C.; Ribeiro, B. C.; Feiden, T.; Fischer, B.; Weschenfelder, T. A.; Cansian, R. L.; Junges, A. Parameter Estimation of Mark-Houwink Equation of Polyethylene Glycol (PEG) Using Molecular Mass and Intrinsic Viscosity in Water. Biointerface Res Appl Chem 2021 , 12 (2), 1778-1790. https://doi.org/10.33263/BRIAC122.17781790.
+- (8) Wagner, H. L. The Mark-Houwink-Sakurada Relation for Poly(Methyl Methacrylate). J Phys Chem Ref Data 1987 , 16 (2), 165-173. https://doi.org/10.1063/1.555776.
+
+## Figures
+
+Figure S1. Diffusion coefficients in dependence of the molar mass for polystyrene in different solvents.

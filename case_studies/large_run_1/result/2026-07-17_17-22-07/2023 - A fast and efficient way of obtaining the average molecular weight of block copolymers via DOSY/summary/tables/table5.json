@@ -1,0 +1,22 @@
+{
+  "description": "MALLS and SEC results of PEGMEA samples with various degrees of polymerization (DPs)",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "pPEGMEA"
+  ],
+  "other_statistics": [
+    {
+      "name": "MALLS Mw",
+      "value": "g mol-1"
+    },
+    {
+      "name": "SEC Mwa",
+      "value": "g mol-1"
+    },
+    {
+      "name": "SEC \u0110",
+      "value": "unitless"
+    }
+  ]
+}

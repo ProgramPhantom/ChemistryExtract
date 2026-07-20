@@ -1,0 +1,564 @@
+{
+  "is_mark_houwink_data": true,
+  "is_flory_data": false,
+  "mh_entries": [
+    {
+      "polymer_name": "Polystyrene",
+      "solvent": "THF",
+      "temperature_k": null,
+      "raw_K_value": 1.55,
+      "K_transformation": "10^2",
+      "K_value": 0.0155,
+      "raw_a_value": 0.692,
+      "a_transformation": "",
+      "a_value": 0.692
+    },
+    {
+      "polymer_name": "Polystyrene",
+      "solvent": "THF",
+      "temperature_k": null,
+      "raw_K_value": 0.682,
+      "K_transformation": "10^2",
+      "K_value": 0.00682,
+      "raw_a_value": 0.766,
+      "a_transformation": "",
+      "a_value": 0.766
+    },
+    {
+      "polymer_name": "Polystyrene",
+      "solvent": "THF",
+      "temperature_k": null,
+      "raw_K_value": 1.11,
+      "K_transformation": "10^2",
+      "K_value": 0.0111,
+      "raw_a_value": 0.725,
+      "a_transformation": "",
+      "a_value": 0.725
+    },
+    {
+      "polymer_name": "Polystyrene",
+      "solvent": "THF",
+      "temperature_k": null,
+      "raw_K_value": 1.6,
+      "K_transformation": "10^2",
+      "K_value": 0.016,
+      "raw_a_value": 0.706,
+      "a_transformation": "",
+      "a_value": 0.706
+    },
+    {
+      "polymer_name": "Polystyrene",
+      "solvent": "THF",
+      "temperature_k": null,
+      "raw_K_value": 1.17,
+      "K_transformation": "10^2",
+      "K_value": 0.0117,
+      "raw_a_value": 0.725,
+      "a_transformation": "",
+      "a_value": 0.725
+    },
+    {
+      "polymer_name": "Polystyrene",
+      "solvent": "THF",
+      "temperature_k": null,
+      "raw_K_value": 1.17,
+      "K_transformation": "10^2",
+      "K_value": 0.0117,
+      "raw_a_value": 0.717,
+      "a_transformation": "",
+      "a_value": 0.717
+    },
+    {
+      "polymer_name": "Polystyrene",
+      "solvent": "THF",
+      "temperature_k": null,
+      "raw_K_value": 1.25,
+      "K_transformation": "10^2",
+      "K_value": 0.0125,
+      "raw_a_value": 0.707,
+      "a_transformation": "",
+      "a_value": 0.707
+    },
+    {
+      "polymer_name": "Polystyrene",
+      "solvent": "THF",
+      "temperature_k": null,
+      "raw_K_value": 1.68,
+      "K_transformation": "10^2",
+      "K_value": 0.0168,
+      "raw_a_value": 0.69,
+      "a_transformation": "",
+      "a_value": 0.69
+    },
+    {
+      "polymer_name": "Polystyrene",
+      "solvent": "THF",
+      "temperature_k": null,
+      "raw_K_value": 1.41,
+      "K_transformation": "10^2",
+      "K_value": 0.0141,
+      "raw_a_value": 0.7,
+      "a_transformation": "",
+      "a_value": 0.7
+    },
+    {
+      "polymer_name": "Polystyrene",
+      "solvent": "THF",
+      "temperature_k": null,
+      "raw_K_value": 1.25,
+      "K_transformation": "10^2",
+      "K_value": 0.0125,
+      "raw_a_value": 0.717,
+      "a_transformation": "",
+      "a_value": 0.717
+    },
+    {
+      "polymer_name": "Polystyrene",
+      "solvent": "THF",
+      "temperature_k": null,
+      "raw_K_value": 1.42,
+      "K_transformation": "10^2",
+      "K_value": 0.0142,
+      "raw_a_value": 0.7,
+      "a_transformation": "",
+      "a_value": 0.7
+    },
+    {
+      "polymer_name": "Polystyrene",
+      "solvent": "THF",
+      "temperature_k": null,
+      "raw_K_value": 1.16,
+      "K_transformation": "10^2",
+      "K_value": 0.0116,
+      "raw_a_value": 0.724,
+      "a_transformation": "",
+      "a_value": 0.724
+    },
+    {
+      "polymer_name": "Polystyrene",
+      "solvent": "THF",
+      "temperature_k": null,
+      "raw_K_value": 1.28,
+      "K_transformation": "10^2",
+      "K_value": 0.0128,
+      "raw_a_value": 0.7,
+      "a_transformation": "",
+      "a_value": 0.7
+    },
+    {
+      "polymer_name": "Polystyrene",
+      "solvent": "THF",
+      "temperature_k": null,
+      "raw_K_value": 0.609,
+      "K_transformation": "10^2",
+      "K_value": 0.00609,
+      "raw_a_value": 0.768,
+      "a_transformation": "",
+      "a_value": 0.768
+    },
+    {
+      "polymer_name": "Polystyrene",
+      "solvent": "THF",
+      "temperature_k": null,
+      "raw_K_value": 1.76,
+      "K_transformation": "10^2",
+      "K_value": 0.0176,
+      "raw_a_value": 0.679,
+      "a_transformation": "",
+      "a_value": 0.679
+    },
+    {
+      "polymer_name": "Polystyrene",
+      "solvent": "THF",
+      "temperature_k": null,
+      "raw_K_value": 0.86,
+      "K_transformation": "10^2",
+      "K_value": 0.0086,
+      "raw_a_value": 0.74,
+      "a_transformation": "",
+      "a_value": 0.74
+    },
+    {
+      "polymer_name": "Polystyrene",
+      "solvent": "THF",
+      "temperature_k": null,
+      "raw_K_value": 1.05,
+      "K_transformation": "10^2",
+      "K_value": 0.0105,
+      "raw_a_value": 0.731,
+      "a_transformation": "",
+      "a_value": 0.731
+    },
+    {
+      "polymer_name": "Polystyrene",
+      "solvent": "THF",
+      "temperature_k": null,
+      "raw_K_value": 1.57,
+      "K_transformation": "10^2",
+      "K_value": 0.0157,
+      "raw_a_value": 0.698,
+      "a_transformation": "",
+      "a_value": 0.698
+    },
+    {
+      "polymer_name": "Polystyrene",
+      "solvent": "THF",
+      "temperature_k": null,
+      "raw_K_value": 1.05,
+      "K_transformation": "10^2",
+      "K_value": 0.0105,
+      "raw_a_value": 0.731,
+      "a_transformation": "",
+      "a_value": 0.731
+    },
+    {
+      "polymer_name": "Polystyrene",
+      "solvent": "THF",
+      "temperature_k": null,
+      "raw_K_value": 1.62,
+      "K_transformation": "10^2",
+      "K_value": 0.0162,
+      "raw_a_value": 0.701,
+      "a_transformation": "",
+      "a_value": 0.701
+    },
+    {
+      "polymer_name": "Polystyrene",
+      "solvent": "THF",
+      "temperature_k": null,
+      "raw_K_value": 1.112,
+      "K_transformation": "10^2",
+      "K_value": 0.01112,
+      "raw_a_value": 0.723,
+      "a_transformation": "",
+      "a_value": 0.723
+    },
+    {
+      "polymer_name": "Polystyrene",
+      "solvent": "THF",
+      "temperature_k": null,
+      "raw_K_value": 1.28,
+      "K_transformation": "10^2",
+      "K_value": 0.0128,
+      "raw_a_value": 0.712,
+      "a_transformation": "",
+      "a_value": 0.712
+    },
+    {
+      "polymer_name": "Polystyrene",
+      "solvent": "THF",
+      "temperature_k": null,
+      "raw_K_value": 17.1,
+      "K_transformation": "10^2",
+      "K_value": 0.171,
+      "raw_a_value": 0.428,
+      "a_transformation": "",
+      "a_value": 0.428
+    },
+    {
+      "polymer_name": "Polystyrene",
+      "solvent": "THF",
+      "temperature_k": null,
+      "raw_K_value": 1.25,
+      "K_transformation": "10^2",
+      "K_value": 0.0125,
+      "raw_a_value": 0.717,
+      "a_transformation": "",
+      "a_value": 0.717
+    },
+    {
+      "polymer_name": "Polystyrene",
+      "solvent": "THF",
+      "temperature_k": null,
+      "raw_K_value": 1.258,
+      "K_transformation": "10^2",
+      "K_value": 0.01258,
+      "raw_a_value": 0.715,
+      "a_transformation": "",
+      "a_value": 0.715
+    },
+    {
+      "polymer_name": "Polystyrene",
+      "solvent": "THF",
+      "temperature_k": null,
+      "raw_K_value": 1.58,
+      "K_transformation": "10^2",
+      "K_value": 0.0158,
+      "raw_a_value": 0.704,
+      "a_transformation": "",
+      "a_value": 0.704
+    },
+    {
+      "polymer_name": "Polystyrene",
+      "solvent": "THF",
+      "temperature_k": null,
+      "raw_K_value": 1.6,
+      "K_transformation": "10^2",
+      "K_value": 0.016,
+      "raw_a_value": 0.703,
+      "a_transformation": "",
+      "a_value": 0.703
+    },
+    {
+      "polymer_name": "Polystyrene",
+      "solvent": "THF",
+      "temperature_k": null,
+      "raw_K_value": 1.247,
+      "K_transformation": "10^2",
+      "K_value": 0.01247,
+      "raw_a_value": 0.72,
+      "a_transformation": "",
+      "a_value": 0.72
+    },
+    {
+      "polymer_name": "Polystyrene",
+      "solvent": "THF",
+      "temperature_k": null,
+      "raw_K_value": 1.9,
+      "K_transformation": "10^2",
+      "K_value": 0.019,
+      "raw_a_value": 0.68,
+      "a_transformation": "",
+      "a_value": 0.68
+    },
+    {
+      "polymer_name": "Polystyrene",
+      "solvent": "THF",
+      "temperature_k": null,
+      "raw_K_value": 1.31,
+      "K_transformation": "10^2",
+      "K_value": 0.0131,
+      "raw_a_value": 0.719,
+      "a_transformation": "",
+      "a_value": 0.719
+    },
+    {
+      "polymer_name": "Polystyrene",
+      "solvent": "THF",
+      "temperature_k": null,
+      "raw_K_value": 1.51,
+      "K_transformation": "10^2",
+      "K_value": 0.0151,
+      "raw_a_value": 0.706,
+      "a_transformation": "",
+      "a_value": 0.706
+    },
+    {
+      "polymer_name": "Polystyrene",
+      "solvent": "benzene",
+      "temperature_k": null,
+      "raw_K_value": 1.13,
+      "K_transformation": "10^2",
+      "K_value": 0.0113,
+      "raw_a_value": 0.73,
+      "a_transformation": "",
+      "a_value": 0.73
+    },
+    {
+      "polymer_name": "Polystyrene",
+      "solvent": "benzene",
+      "temperature_k": null,
+      "raw_K_value": 1.623,
+      "K_transformation": "10^2",
+      "K_value": 0.01623,
+      "raw_a_value": 0.695,
+      "a_transformation": "",
+      "a_value": 0.695
+    },
+    {
+      "polymer_name": "Polystyrene",
+      "solvent": "toluene",
+      "temperature_k": null,
+      "raw_K_value": 1.05,
+      "K_transformation": "10^2",
+      "K_value": 0.0105,
+      "raw_a_value": 0.73,
+      "a_transformation": "",
+      "a_value": 0.73
+    },
+    {
+      "polymer_name": "Polystyrene",
+      "solvent": "toluene",
+      "temperature_k": null,
+      "raw_K_value": 0.662,
+      "K_transformation": "10^2",
+      "K_value": 0.00662,
+      "raw_a_value": 0.76,
+      "a_transformation": "",
+      "a_value": 0.76
+    },
+    {
+      "polymer_name": "Polystyrene",
+      "solvent": "toluene",
+      "temperature_k": null,
+      "raw_K_value": 11.4,
+      "K_transformation": "10^2",
+      "K_value": 0.114,
+      "raw_a_value": 0.47,
+      "a_transformation": "",
+      "a_value": 0.47
+    },
+    {
+      "polymer_name": "Polystyrene",
+      "solvent": "toluene",
+      "temperature_k": null,
+      "raw_K_value": 1.06,
+      "K_transformation": "10^2",
+      "K_value": 0.0106,
+      "raw_a_value": 0.728,
+      "a_transformation": "",
+      "a_value": 0.728
+    }
+  ],
+  "flory_entries": [],
+  "calculator_calls": [
+    {
+      "expression": "1.55 / 100",
+      "result": "0.0155"
+    },
+    {
+      "expression": "0.682 / 100",
+      "result": "0.0068200000000000005"
+    },
+    {
+      "expression": "1.11 / 100",
+      "result": "0.0111"
+    },
+    {
+      "expression": "1.60 / 100",
+      "result": "0.016"
+    },
+    {
+      "expression": "1.17 / 100",
+      "result": "0.011699999999999999"
+    },
+    {
+      "expression": "1.17 / 100",
+      "result": "0.011699999999999999"
+    },
+    {
+      "expression": "1.25 / 100",
+      "result": "0.0125"
+    },
+    {
+      "expression": "1.68 / 100",
+      "result": "0.0168"
+    },
+    {
+      "expression": "1.41 / 100",
+      "result": "0.0141"
+    },
+    {
+      "expression": "1.25 / 100",
+      "result": "0.0125"
+    },
+    {
+      "expression": "1.42 / 100",
+      "result": "0.014199999999999999"
+    },
+    {
+      "expression": "1.16 / 100",
+      "result": "0.0116"
+    },
+    {
+      "expression": "1.28 / 100",
+      "result": "0.0128"
+    },
+    {
+      "expression": "0.609 / 100",
+      "result": "0.00609"
+    },
+    {
+      "expression": "1.76 / 100",
+      "result": "0.0176"
+    },
+    {
+      "expression": "0.86 / 100",
+      "result": "0.0086"
+    },
+    {
+      "expression": "1.05 / 100",
+      "result": "0.0105"
+    },
+    {
+      "expression": "1.57 / 100",
+      "result": "0.015700000000000002"
+    },
+    {
+      "expression": "1.05 / 100",
+      "result": "0.0105"
+    },
+    {
+      "expression": "1.62 / 100",
+      "result": "0.016200000000000003"
+    },
+    {
+      "expression": "1.112 / 100",
+      "result": "0.011120000000000001"
+    },
+    {
+      "expression": "1.28 / 100",
+      "result": "0.0128"
+    },
+    {
+      "expression": "17.1 / 100",
+      "result": "0.171"
+    },
+    {
+      "expression": "1.25 / 100",
+      "result": "0.0125"
+    },
+    {
+      "expression": "1.258 / 100",
+      "result": "0.012580000000000001"
+    },
+    {
+      "expression": "1.580 / 100",
+      "result": "0.0158"
+    },
+    {
+      "expression": "1.60 / 100",
+      "result": "0.016"
+    },
+    {
+      "expression": "1.247 / 100",
+      "result": "0.012470000000000002"
+    },
+    {
+      "expression": "1.90 / 100",
+      "result": "0.019"
+    },
+    {
+      "expression": "1.31 / 100",
+      "result": "0.0131"
+    },
+    {
+      "expression": "1.51 / 100",
+      "result": "0.0151"
+    },
+    {
+      "expression": "1.13 / 100",
+      "result": "0.0113"
+    },
+    {
+      "expression": "1.623 / 100",
+      "result": "0.01623"
+    },
+    {
+      "expression": "1.05 / 100",
+      "result": "0.0105"
+    },
+    {
+      "expression": "0.662 / 100",
+      "result": "0.00662"
+    },
+    {
+      "expression": "11.4 / 100",
+      "result": "0.114"
+    },
+    {
+      "expression": "1.06 / 100",
+      "result": "0.0106"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "description": "Mark-Houwink parameters for polystyrene in cyclohexane",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [],
+  "other_statistics": [
+    {
+      "name": "K",
+      "value": "87.7 x 10^-3 mL/g (Fukuda et al.)"
+    },
+    {
+      "name": "K",
+      "value": "84.6 x 10^-3 mL/g (Inagaki et al.)"
+    },
+    {
+      "name": "K \u0628\u0633\u0628\u0628\u062a an empty list for chemicals and other_statistics.",
+      "value": "84.0 x 10^-3 mL/g (Berry)"
+    },
+    {
+      "name": "K",
+      "value": "91 x 10^-3 mL/g (87.7 x 10^-3 mL/g (Fukuda et al.)"
+    }
+  ]
+}

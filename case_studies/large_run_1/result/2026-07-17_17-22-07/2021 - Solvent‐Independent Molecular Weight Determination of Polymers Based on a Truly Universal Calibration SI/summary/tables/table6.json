@@ -1,0 +1,10 @@
+{
+  "description": "Measurement of DOSY spectrum and determination of variables (b' and v) for poly(ethylene glycol) with a molecular weight of 12300 g/mol in D2O.",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "poly(ethylene glycol)",
+    "D2O"
+  ],
+  "other_statistics": []
+}

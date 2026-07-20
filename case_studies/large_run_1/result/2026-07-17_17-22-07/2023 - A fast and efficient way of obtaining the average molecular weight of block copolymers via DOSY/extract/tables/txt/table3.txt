@@ -1,0 +1,30 @@
+-------------- TABLE 3 EXTRACTION --------------
+**[Preceding Paragraphs]**
+## Block copolymer pBA-pMA
+
+Next, we turned to an all-acrylate block copolymer, namely p(butyl acrylate)b -p(methyl acrylate), pBA-pMA. Homopolymer calibrations of poly(methyl acrylate), pMA, are available in the literature (lg( b ′ / m 2 s -1 ) = -7.72, v = 0.5, measured in toluene). 21,22 For the second block, poly(butyl acrylate), pBA, no DOSY calibration is available so far. Hence, we measured the di ff usion coe ffi cients of RAFT-synthesized pBA homopolymers via DOSY and calibrated against weight average molecular weight results obtained using SEC-MALLS for the same samples. Absolute molecular weights are given in Table 2 in comparison with the results typically obtained from universal calibration SEC employing MHKS values for pBA. As one can see, conventionally calibrated SEC does not perform overly well in comparison to light scattering detection. The RAFT polymerization was well controlled achieving a low dispersity (see the conventional SEC results in Table 2). Di ff erent degrees of polymerization were targeted in the range of 30 to 100. In line with all other polymers tested, the di ff usion coe ffi cients from DOSY exhibit a linear relation with the weight average molecular weight of the pBA homopolymers, obtained via SEC-MALLS. The DOSY calibration shows excellent linearity and an evenly low error in the entire covered molecular weight range. The individual di ff usion coe ffi cients and information on the RAFT polymerizations are found in the ESI. † The calibration fit results for various solvents are given in Table 3 (and plotted in Fig. S7 † ). Part of the pBA samples used for calibration were successively chain extended with pMA. This created a library of di ff erent block copolymers that can be comprehensively tested for their di ff usion coe ffi cients and DOSY calibration behaviour. The results for this series are given in Table 4 and Fig. 3. It should be noted that here (and all other instances in this work), MALLS refers to weightaverage molecular weight M w, while for DOSY it is not 100%
+
+Table 2 MALLS and SEC results of poly(butyl acrylate), pBA, and samples with various DPs
+
+[table omitted]
+
+Table 3 Calibration parameters for pBA in various solvents
+
+**[Table Data]**
+| Sample          | lg( b ′ /m 2 s - 1 )   |    v |
+|-----------------|------------------------|------|
+| Benzene         | - 7.83                 | 0.51 |
+| Acetone         | - 7.56                 | 0.50 |
+| Chloroform      | - 7.86                 | 0.50 |
+| D × η corrected | - 8.05                 | 0.51 |
+
+**[Succeeding Paragraphs]**
+Table 4 MALLS, SEC and DOSY results of pBA-pMA block copolymer samples with various DPs. M w obtained via DOSY is obtained via the butyl acrylate calibration
+
+[table omitted]
+
+Fig. 3 DOSY molecular weight calibration for RAFT-made pBA and pBA-pMA polymers in deuterated benzene. Molecular weights were obtained via MALLS. The black line represents the best linear fi t of all data, yielding the relation log( D ) = -0.5135 log( M ) -7.812.
+
+<!-- image -->
+
+clear what average is measured and hence the abbreviation MWis chosen (assuming though that it is likely to be closer to the weight average).

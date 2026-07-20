@@ -1,0 +1,32 @@
+{
+  "description": "Summary of GPC Results Compared with Theoretical Values for Isolated Samples",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "G5c",
+    "T2",
+    "T3",
+    "G5m",
+    "dimer",
+    "trimer",
+    "tetramer"
+  ],
+  "other_statistics": [
+    {
+      "name": "theoretical MW",
+      "value": "28 826 - 115 304"
+    },
+    {
+      "name": "Mn",
+      "value": "28 270 - 75 950"
+    },
+    {
+      "name": "Mw",
+      "value": "30 820 - 75 950"
+    },
+    {
+      "name": "PDI",
+      "value": "1.02 - 1.56"
+    }
+  ]
+}

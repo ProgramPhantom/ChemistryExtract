@@ -1,0 +1,34 @@
+-------------- TABLE 2 EXTRACTION --------------
+**[Preceding Paragraphs]**
+where I 0 is the resonance amplitude at zero gradient strength, γ is the magnetogyric ratio of the observed nucleus, g and δ are the strength and the duration of the gradient pulses, respectively, and ∆ is the diffusion time, that is, the time during which the diffusion is monitored. ε ( δ ) is a correction factor that depends on both δ and the pulse sequence. Usually, only the gradient strength is varied, and all delays are kept constant to avoid any complication arising from magnetic relaxation. Note that, in large polymers, spin relaxation rates are typically determined by segmental motion (local) rather than overall tumbling rates, and hence relaxation times are usually assumed to be independent of molecular weight. 29 Specifically, the gradient strength was quadratically incremented in 16 steps from 6 to 95% of its maximum value. The diffusion time was set to 500 ms, and gradient pulse durations were optimized for each experiment to achieve at the largest gradient amplitude a decrease in the resonance intensity larger than 97%; typically, bipolar sine gradient pulses between 1.0 and 2.3 ms were employed. The gradient pulse recovery time and the longitudinal eddy current delay were set to 0.15 and 25 ms, respectively. On average a PGSE experiment lasted about 47 min (32 scans for each gradient value), but recent development of this technique allows further time saving to be envisioned in the future. 43 After Fourier transformation and phase correction, the baseline of the spectra was carefully adjusted. The data were
+
+Table 1. Copolymer Distribution Parameters Determined by MALDI MS (after Copolymer Hydrolysis) 21 and Quantitative 1 H NMR
+
+[table omitted]
+
+a Calculated by adding the mass of the junction moiety and of the end groups (467 g mol -1 ) to the mass of the PEO and PS blocks. b Calculated considering the integral of the terminal OCH3 group as a reference. c Calculated considering the M n PEO value as a reference.
+
+Table 2. Total Weight Average Molecular Weight ( M w T ) Values for the Copolymers under Study As Obtained from PGSE Self-Diffusion Coefficient Measurements and Using the Homopolymer Calibration Curves a
+
+**[Table Data]**
+|     | PGSE                      | PEO calibration curve   | PEO calibration curve   | PS calibration curve   | PS calibration curve   |
+|-----|---------------------------|-------------------------|-------------------------|------------------------|------------------------|
+| no. | D ( × 10 - 10 m 2 s - 1 ) | M w T (g mol - 1 )      | dev. (%) b              | M w T (g mol - 1 )     | dev. (%) b             |
+| A1  | 1.474                     | 7874                    | + 2                     | 13581                  | + 76                   |
+| A2  | 1.135                     | 12276                   | - 31                    | 21770                  | + 23                   |
+| A3  | 1.077                     | 13421                   | - 30                    | 23932                  | + 24                   |
+| A4  | 0.976                     | 15865                   | - 34                    | 28588                  | + 19                   |
+| B1  | 1.384                     | 8764                    | - 7                     | 15217                  | + 61                   |
+| B2  | 1.256                     | 10335                   | + 4                     | 18131                  | + 83                   |
+| B3  | 1.102                     | 12907                   | - 12                    | 22961                  | + 56                   |
+| B4  | 0.948                     | 16669                   | - 17                    | 30131                  | + 49                   |
+| B5  | 0.875                     | 19101                   | - 32                    | 34821                  | + 23                   |
+
+**[Succeeding Paragraphs]**
+a Deviations are calculated with respect to data derived from MALDI analysis. b Taking MALDI-MS values as a reference, see Table 1.
+
+analyzed by plotting the signal intensities (areas) as a function of the gradient strength and fitting the resulting decays with a nonlinear least-squares fit. This simple data analysis scheme was motivated by the relatively narrow molecular weight distribution of the samples obtained by MALDI (see Table 1). However, inconsistent results may be obtained in the case of significant polymer polydispersity, as emphasized in refs 29 and 30.
+
+## RESULTS
+
+Initially, the size of each block for all the samples of both PEOb -PS block copolymer series, annotated A i ( M n PEO ≈ 2000 g mol -1 ) and Bi ( M n PEO ≈ 5000 g mol -1 ), respectively, was determined by 1 H NMR analysis and by MALDI MS after hydrolysis of the studied copolymers. 21 Adding the mass of both the junction moiety and the end-groups to these values (i.e., 467 g mol -1 ), one could obtain distribution parameters of the whole macromolecules, M n T and M w T , as reported in Table 1. The MALDI data used as a reference indicate that the analyzed copolymers are characterized by a relatively narrow molecular weight distribution (polydispersity index &lt; 1.1). This situation is rather typical for samples obtained by NMP, and it helps simplifying the PGSE data analysis by minimizing the artifacts arising from sample polydispersity. 29,30

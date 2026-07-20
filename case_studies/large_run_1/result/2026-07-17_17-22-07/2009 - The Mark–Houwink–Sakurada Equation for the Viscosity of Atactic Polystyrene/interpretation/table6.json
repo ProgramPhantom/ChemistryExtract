@@ -1,0 +1,84 @@
+{
+  "is_mark_houwink_data": true,
+  "is_flory_data": false,
+  "mh_entries": [
+    {
+      "polymer_name": "atactic polystyrene",
+      "solvent": "cyclohexane",
+      "temperature_k": null,
+      "raw_K_value": 87.7,
+      "K_transformation": "10^-3 mL/g",
+      "K_value": 0.0877,
+      "raw_a_value": 0.5,
+      "a_transformation": "none",
+      "a_value": 0.5
+    },
+    {
+      "polymer_name": "atactic polystyrene",
+      "solvent": "cyclohexane",
+      "temperature_k": null,
+      "raw_K_value": 84.6,
+      "K_transformation": "10^-3 mL/g",
+      "K_value": 0.0846,
+      "raw_a_value": 0.5,
+      "a_transformation": "none",
+      "a_value": 0.5
+    },
+    {
+      "polymer_name": "atactic polystyrene",
+      "solvent": "cyclohexane",
+      "temperature_k": null,
+      "raw_K_value": 84.0,
+      "K_transformation": "10^-3 mL/g",
+      "K_value": 0.084,
+      "raw_a_value": 0.5,
+      "a_transformation": "none",
+      "a_value": 0.5
+    },
+    {
+      "polymer_name": "atactic polystyrene",
+      "solvent": "cyclohexane",
+      "temperature_k": null,
+      "raw_K_value": 91.0,
+      "K_transformation": "10^-3 mL/g",
+      "K_value": 0.091,
+      "raw_a_value": 0.5,
+      "a_transformation": "none",
+      "a_value": 0.5
+    },
+    {
+      "polymer_name": "atactic polystyrene",
+      "solvent": "2-butanone",
+      "temperature_k": 298.15,
+      "raw_K_value": 0.039,
+      "K_transformation": "10^-3 mL/g",
+      "K_value": 0.039,
+      "raw_a_value": 0.58,
+      "a_transformation": "none",
+      "a_value": 0.58
+    }
+  ],
+  "flory_entries": [],
+  "calculator_calls": [
+    {
+      "expression": "39 * 10**-3",
+      "result": "0.039"
+    },
+    {
+      "expression": "87.7 * 10**-3",
+      "result": "0.0877"
+    },
+    {
+      "expression": "84.6 * 10**-3",
+      "result": "0.0846"
+    },
+    {
+      "expression": "84.0 * 10**-3",
+      "result": "0.084"
+    },
+    {
+      "expression": "91 * 10**-3",
+      "result": "0.091"
+    }
+  ]
+}

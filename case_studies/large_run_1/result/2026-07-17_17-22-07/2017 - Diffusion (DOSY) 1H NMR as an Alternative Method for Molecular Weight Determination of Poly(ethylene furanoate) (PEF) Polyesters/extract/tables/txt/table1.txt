@@ -1,0 +1,42 @@
+-------------- TABLE 1 EXTRACTION --------------
+**[Preceding Paragraphs]**
+Figure 2. Stacked increments of  1 H NMR spectra of PEF (7.46 ppm = 3 = Furan, 4.88 ppm = 4 = Ethylene Glycol) in TFA-d (11.7 ppm = TFA) with increasing gradient strength g.
+
+<!-- image -->
+
+settings  and  with  optimized  diffusion  times ∆ and  gradient  lengths δ .  Figure  2  shows  the  well-separated 1 H chemical  shifts  of  the  TFA  solvent  peak  and  the  Furanand Ethylene Glycol (EG)-protons in PEF in a typical stack of  32  gradient  strength  increments.  Both  PEF  resonances can be used for fitting their decay curve to the ST equation. However, PEF standards  for  calibration  are  not  available, and therefore, we deemed PET standards the appropriate choice due to its similar structure  and  size  distribution  characteristics. We found the reliability of this approach  confirmed  by  the  results  in Table  1:  PET  and  PEF  molecules  of  the same  (absolute)  molecular  weight  do show the same diffusion coefficient, e.g., D = 3.2 × 10 -11 m 2 s -2 (by  DOSY) for both PET and PEF of about 61 000 mol -1 (by MALS). Note that this same approach does not apply to SEC measurements of PEF samples. In fact, initially applied SEC analysis  of  our  PEF  samples  using  PET standards  resulted  in  an  overprediction of molecular weight by roughly 2-2.5 fold, compared with SEC analysis evaluated with MALS. Similar overprediction was found using polymethylmethacrylate and polystyrene (PS)  standards.  An  explanation  for  the  observed  discrepancy - exceeding the scope of this work - is ongoing.
+
+Table 1. Number-average and weight-average molecular weights, M n and M w, respectively, and polydispersity index (PDI = M w/ M n ) derived from SEC-MALS and DOSY NMR for PET standards, commercial PET bottle samples, and synthesized PEF products.
+
+**[Table Data]**
+|                              | SEC-MALS               | SEC-MALS               | SEC-MALS               | DOSYNMR                | DOSYNMR                | DOSYNMR                | DOSYNMR                |
+|------------------------------|------------------------|------------------------|------------------------|------------------------|------------------------|------------------------|------------------------|
+|                              | M n [g mol - 1 ]       | M w [g mol - 1 ]       | PDI [-]                | M n [g mol - 1 ]       | M w [g mol - 1 ]       | PDI [-]                | D [m 2 s - 1 ]         |
+| PET                          | standards              | standards              | standards              | standards              | standards              | standards              | standards              |
+| PSS-pet3.5k                  | 2000                   | 3760                   | 1.88                   | 2206                   | 4537                   | 2.06                   | 1.33 × 10 - 10         |
+| PSS-pet10k                   | 5420                   | 9900                   | 1.83                   | 5053                   | 10 240                 | 2.03                   | 8.54 × 10 - 11         |
+| PSS-pet18k                   | 10 050                 | 18 190                 | 1.81                   | 8478                   | 17 010                 | 2.01                   | 6.47 × 10 - 11         |
+| PSS-pet25k                   | 12 950                 | 23 720                 | 1.83                   | 12 055                 | 24 040                 | 1.99                   | 5.36 × 10 - 11         |
+| PSS-pet35k                   | 20 500                 | 37 770                 | 1.84                   | 19 499                 | 38 540                 | 1.98                   | 4.14 × 10 - 11         |
+| PSS-pet50k                   | 28 500                 | 51 920                 | 1.82                   | 26 594                 | 52 270                 | 1.97                   | 3.51 × 10 - 11         |
+| PSS-pet75k                   | 36 360                 | 73 230                 | 2.01                   | 39 587                 | 77 240                 | 1.95                   | 2.84 × 10 - 11         |
+| Commercial PET bottles       | Commercial PET bottles | Commercial PET bottles | Commercial PET bottles | Commercial PET bottles | Commercial PET bottles | Commercial PET bottles | Commercial PET bottles |
+| PET bottle 1                 | 28 061                 | 57 050                 | 2.03                   | 29 020                 | 56 875                 | 1.96                   | 3.35 × 10 - 11         |
+| PET bottle 2                 | 28 879                 | 58 380                 | 2.02                   | 29 650                 | 58 110                 | 1.96                   | 3.31 × 10 - 11         |
+| PET bottle 3                 | 31 515                 | 60 900                 | 1.93                   | 31 500                 | 61 753                 | 1.96                   | 3.21 × 10 - 11         |
+| PEF synthesis products       | PEF synthesis products | PEF synthesis products | PEF synthesis products | PEF synthesis products | PEF synthesis products | PEF synthesis products | PEF synthesis products |
+| PEF1                         | 10 600                 | 19 420                 | 1.83                   | 9099                   | 17 670                 | 1.94                   | 6.31 × 10 - 11         |
+| PEF2                         | 17 490                 | 32 740                 | 1.87                   | 17 454                 | 33 850                 | 1.94                   | 4.44 × 10 - 11         |
+| PEF3                         | 21 760                 | 39 910                 | 1.83                   | 21 397                 | 41 480                 | 1.94                   | 3.98 × 10 - 11         |
+| PEF4                         | 31 490                 | 61 130                 | 1.94                   | 31 807                 | 61 600                 | 1.94                   | 3.22 × 10 - 11         |
+| PEF5                         | 34 110                 | 72 420                 | 1.94                   | 37 333                 | 72 270                 | 1.94                   | 2.95 × 10 - 11         |
+| PEF from reactor (X = 43.4%) | 16 100                 | 31 900                 | 1.98                   | 16 600                 | 32 200                 | 1.94                   | 4.57 × 10 - 11         |
+
+**[Succeeding Paragraphs]**
+<!-- image -->
+
+www.advancedsciencenews.com From the corresponding decay curves of known absolute molecular weight PET standards (see the Supporting Information), diffusion coefficients were derived and a calibration curve was established (Figure 3). Since PET standards, similar to PEF products, feature a polydispersity ≈ 2, separate calibration curves for number-average molecular weight, M n,  and  weight-average  molecular  weight, M w, are  presented  in  Figure  3.  Recently,  Kuz'mina  et  al.  followed a similar  approach,  assigning  different  molecular weight  averages  ( M n, M w, M p )  of  hydroxyethyl  starch (HES) to its diffusion coefficient for the analysis of other HES samples of the same type, where the error between DOSY and SEC prediction  was  below  20%. [28]   Calibration
+
+Figure 3. DOSY calibration curve of PET standards ( M w = 9870-115 000 g mol -1 ) in TFA-d derived from fully (5%) attenuated aromatic  proton  signal  decay  curves.  Error  bars  were  calculated using t-statistics on the variance of &gt; 3 repetitions per sample.
+
+<!-- image -->

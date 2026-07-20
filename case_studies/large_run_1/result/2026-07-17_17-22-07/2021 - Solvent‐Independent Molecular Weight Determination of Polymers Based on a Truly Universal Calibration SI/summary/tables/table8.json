@@ -1,0 +1,45 @@
+{
+  "description": "Viscosities of used deuterated solvents at 25 \u00b0C",
+  "temperature": "25 \u00b0C",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "benzene-d6",
+    "CDCl3",
+    "D2O",
+    "methanol-d4",
+    "acetone-d6",
+    "toluene-d8",
+    "tetrahydrofuran-d8",
+    "acetonitrile-d3"
+  ],
+  "other_statistics": [
+    {
+      "name": "viscosity (\u03b7)",
+      "value": "0.6076 mPa\u00b7s for benzene-d6"
+    },
+    {
+      "name": "viscosity (\u03b7)",
+      "value": "0.563 mPa\u00b7s for CDCl3"
+    },
+    {
+      "name": "name",
+      "value": "1.2314 mPa\u00b7s for D2O"
+    },
+    {
+      "name": "viscosity (\u03b7)",
+      "value": "0.56 la mPa\u00b7s for methanol-d4"
+    },
+    {
+      "name": "viscosity (en)",
+      "value": "0.295 mPa\u00b7s for acetone-d6"
+    },
+    {
+      "name": "name",
+      "value": "0.48 mPa\u00b7s for tetrahydrofuran-d8"
+    },
+    {
+      "name": "name",
+      "value": "0.343 mPa\u00b7s for acetonitrile-d3"
+    }
+  ]
+}

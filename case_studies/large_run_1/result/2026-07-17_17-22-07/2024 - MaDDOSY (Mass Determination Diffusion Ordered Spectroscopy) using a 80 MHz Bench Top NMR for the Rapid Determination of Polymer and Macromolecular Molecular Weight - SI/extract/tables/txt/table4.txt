@@ -1,0 +1,25 @@
+-------------- TABLE 4 EXTRACTION --------------
+**[Preceding Paragraphs]**
+<!-- image -->
+
+## Commercial Polymers
+
+Commercial  Samples  of  lysozyme,  poly(styrene-co-maleic  anhydride)  cumene  terminated (PSCMA),  calcitonin,  poly(vinyl  pyridine)  and  styrene-ethylene-butadiene-styrene  (SEBS) were  each  dissolved  in  the  solvents  and  at  the  concentrations  detailed  in  table  3,  the molecular  weights  calculated  by  MaDDOSY  and  the  reported  weight  average  molecular weights(Mw) are also reported in table 3. Weight average molecular weights are as given by the supplier  from the certificates of analysis in all cases except the samples of SEBS in which in house GPC was used with Values obtained using PMMA calibration on RI detector.
+
+Table 3 - Experimental details of commercial polymers.
+
+[table omitted]
+
+**[Table Data]**
+| SEBS Kraton         | CDCl 3   |   10 |   79000 |   82700 |
+|---------------------|----------|------|---------|---------|
+| SEBS Sigma- Aldrich | CDCl 3   |   10 |   84200 |   84100 |
+
+**[Succeeding Paragraphs]**
+## Representative Spectra
+
+When processing DOSY data through Magritek Spinsolve version 2.1.3, diffusion coefficients are calculated through a Stejskal-Tanner plot. An example of the stacked spectrum is shown in figure 13, with the resultant Stejskal-Tanner plot shown in figure 14. In both cases here, the  figures  are  for  a  sample  of  100  kDa  polyisoprene  in  CDCl 3 .  In  this  experiment,  the acquisition  parameters  were  as  follows:  Number  of  scans  =  8,  acquisition  time  =  6.5  s, repetition time = 10 s, little delta = 10 ms, big delta = 100 ms, maximum gradient = 392.25 mT (=75% maximum gradient), number of steps = 8, total experiment time = 10 minutes 41 seconds. The Stejskal-Tanner plot gives a diffusion constant of 2.323x10 -11 m 2 s -1
+
+Figure 13 - Stacked PGSTE plot for 100 kDa polyisoprene in CDCl 3
+
+<!-- image -->

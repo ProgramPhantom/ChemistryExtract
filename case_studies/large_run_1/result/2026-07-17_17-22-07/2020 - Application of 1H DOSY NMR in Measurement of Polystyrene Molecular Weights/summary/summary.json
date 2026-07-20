@@ -1,0 +1,11 @@
+{
+  "title": "Application of 1 H DOSY NMR in Measurement of Polystyrene Molecular Weights",
+  "authors": [
+    "Nguyen Hoai Nam",
+    "Nguyen Huu Tho",
+    "Nguyen Minh Ngoc",
+    "Pham Quang Trung"
+  ],
+  "doi": "Not found",
+  "abstract": "In this work, we studied the applicability of diffusion ordered nuclear magnetic resonance spectroscopy (DOSY NMR) as an alternative method in determination of polystyrene molecular weight. DOSY NMR spectroscopy allows measuring the diffusion coefficient of molecule which directly depend on hydrodynamic radius and so on, average molar mass in weight ( M w). By using commercial polystyrene (PS) standards, an external calibration curve was established. Based on the excellent linear correlation between diffusion coefficient ( logD ) and molecular weight ( logM ), the molecular weight of polystyrene can be predicted using the following equation \u2064logD = -0.6512\u2064logM - 7.2686 . The validation was done by comparing with the M w value obtained by gel permeation chromatography within less than 5% deviation. From the diffusion coefficient, some property of polystyrene in solution, such as Flory coefficient and polymer-solvent interaction, were also studied. The Flory coefficient confirmed that chloroform is a good solvent for PS."
+}

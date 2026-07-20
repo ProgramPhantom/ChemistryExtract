@@ -1,0 +1,22 @@
+-------------- TABLE 4 EXTRACTION --------------
+**[Preceding Paragraphs]**
+There is an inverse relationship between the diffusion and the viscosity. To create the diffusion calibration curves that are independent from the viscosity, and therefore to a big extend the solvent, are created by multiplying the viscosity by the diffusion obtained via the DOSY experiment.
+
+$$D _ { v i s c o s i t y \ c a l i b r a t e d } = D \cdot \eta$$
+
+The viscosity of chloroform is 0.563 mPa  s at 25  C. The logarithm can be taken from the viscosity independent diffusion coefficient. The logarithmic of the molecular weight stays the same and the error needs to be recalculated using the above formula.
+
+Table 3. Logarithm of D (viscosity) of 18000 g  mol -1 poly(styrene) in CDCl3 with error
+
+**[Table Data]**
+| b' /m 2  s -1   | v   |
+|------------------|-----|
+
+**[Succeeding Paragraphs]**
+These values can be obtained for all the different molecular weights. These data points will also have a linear relationship that overlap with data obtained from other solvents.
+
+## Average calibration curve
+
+Using the values obtained from all the different molecular weights and different solvents, an average calibration curve can be obtained. This is possible because viscosity is now taking into account into the calculations. b' and v are given in table.
+
+Table 4. b' and v values for the average calibration curve of poly(styrene)

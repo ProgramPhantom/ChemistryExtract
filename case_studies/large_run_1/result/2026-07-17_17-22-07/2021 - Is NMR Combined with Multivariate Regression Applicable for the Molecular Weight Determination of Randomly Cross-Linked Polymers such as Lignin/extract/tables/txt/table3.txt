@@ -1,0 +1,30 @@
+-------------- TABLE 3 EXTRACTION --------------
+**[Preceding Paragraphs]**
+Table 2. PLS-R Results from the DOSY NMR Spectra
+
+[table omitted]
+
+Figure 7. Scatterplots of the MLR calibration. The GPC data are plotted against the results of the calibration samples from the MLR on a logarithmic scale due to the model being calculated with the logarithmized data.
+
+<!-- image -->
+
+Table 3. Multiple Linear Regression Results from the DOSY NMR Fit Results
+
+**[Table Data]**
+| unit                               | range                              | R 2 cal.                           | R 2 val.                           | RMSEC                              | RMSEV                              | RE (%)                             |
+|------------------------------------|------------------------------------|------------------------------------|------------------------------------|------------------------------------|------------------------------------|------------------------------------|
+| M w                                | 1884 - 7405 Da                     | 0.79                               | 0.72                               | 677 Da                             | 804 Da                             | 15%                                |
+| M n                                | 664 - 1052 Da                      | 0.80                               | 0.77                               | 51 Da                              | 62 Da                              | 16%                                |
+| PDI                                | 2.50 - 7.23                        | 0.65                               | 0.53                               | 0.71                               | 0.87                               | 18%                                |
+| a Relative error RE = RMSEV/range. | a Relative error RE = RMSEV/range. | a Relative error RE = RMSEV/range. | a Relative error RE = RMSEV/range. | a Relative error RE = RMSEV/range. | a Relative error RE = RMSEV/range. | a Relative error RE = RMSEV/range. |
+
+**[Succeeding Paragraphs]**
+The DOSY spectral processing before the PLS regression seems to be superior to a MLR analysis of the di ff usion data, with better results of the calibration and comparable CV results.
+
+Variance of Repeated Measurements. There were generally higher errors of the calibration and validation from the DOSY-PLS models than from the 1 H-PLS model. These di ff erences can also be seen in repeated measurements of the same samples. The samples used for this analysis were taken from the calibration set ( n = 3) and measured in triplicate. The 1 H-PLS model results showed a considerably lower variance than the results from the DOSY-PLS model and the MLR model from the direct PFG NMR analysis (Table 4). However, a considerably lower variance was observed in the MLR model than that in the DOSY-PLS. This shows that the measurement and processing of the same sample has a signi fi cant impact on the error of the molecular weight determination using DOSY NMR. The 1 H NMR measurement produced, as expected, highly reproducible results.
+
+Table 4. Comparison of the Variation Coe ffi cients from Repeated Measurements Using Di ff erent Methods a
+
+[table omitted]
+
+A threefold determination of the Mw of non-fractionated kraft lignins by Ro ̈ nnols et al. using a Mark -Houwink approach after D 0 determination led to variation coe ffi cients of ca. 10%. 17 This shows that these errors could possibly be strongly in fl uenced by the instability of the PFG NMR measurement itself, and not only on the method of processing and model calibration. Looking at the determination of D values itself, a mean variance of 4% from repeated measurements was observed. A systematic analysis of the uncertainty of a D value determination of disperse polymers using PFG NMR is needed. This is especially challenging, because strictly speaking, not one D value from a single exponential decay, but a whole distribution is generated.

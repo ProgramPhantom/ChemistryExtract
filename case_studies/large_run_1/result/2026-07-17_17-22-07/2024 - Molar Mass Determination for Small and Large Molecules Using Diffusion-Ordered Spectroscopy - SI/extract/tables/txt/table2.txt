@@ -1,0 +1,40 @@
+-------------- TABLE 2 EXTRACTION --------------
+**[Preceding Paragraphs]**
+S9-S14: Diffusion coefficients in dependence of molar masses
+
+S15: Experimental vs. calculated diffusion coefficients
+
+## 1) Tables:
+
+Table S1. Molar masses (in g/mol) of PS-, PMMA, PI, P2VP and PEO homopolymers used for the DOSY calibration.
+
+[table omitted]
+
+**[Table Data]**
+| peo2   |    3450 |    3450 |    3340 |   1.03 |
+|--------|---------|---------|---------|--------|
+| peo3   |    6530 |    6200 |    5860 |   1.06 |
+| peo4   |   12600 |   11400 |   10300 |   1.11 |
+| peo5   |   26100 |   25800 |   22100 |   1.17 |
+| peo6   |   42700 |   40100 |   30700 |   1.31 |
+| peo7   |   99000 |  103000 |   91800 |   1.12 |
+| peo8   |  217000 |  220000 |  196000 |   1.12 |
+| peo9   |  504000 |  504000 |  461000 |   1.09 |
+| peo10  | 1180000 | 1200000 | 1110000 |   1.08 |
+
+**[Succeeding Paragraphs]**
+Table S2. Molar masses (in g/mol) of small molecules used for the DOSY calibration. The samples are separated  according  to  their  shapes:  CS=compact  spheres,  DSE=dissipated  spheres  and  ellipsoids, ED=expanded discs (nomenclature according to ref (1,2)).
+
+[table omitted]
+
+Table S3. Pulsed field gradient conditions for all polymers and solvents: Gradient pulse length given as little delta  (LD)  and  diffusion  delay  as  big  delta  (BD)  for  the  convection  compensated  pulse  sequence dstebpgp3s
+
+[table omitted]
+
+[table omitted]
+
+[table omitted]
+
+-
+
+Table S4a. Parameters b (Flory parameter) and c of the power scaling D=c·M -b  determined via DOSY and the dynamic viscosities (in Pa·s) of the solvents for small molecules of different shapes at T=298 K: compact spheres (CS), dissipated spheres and ellipsoids (DSE) and expanded discs (ED) (parameters b and c are calculated from diffusion data of ref (1) reproduced with permission of the Royal Society of Chemistry and ref  (2)  reproduced  with  permission  of  John  Wiley  and  Sons,  respectively).  The  dynamic  viscosities  are related to the references and temperature dependences of Table S5.

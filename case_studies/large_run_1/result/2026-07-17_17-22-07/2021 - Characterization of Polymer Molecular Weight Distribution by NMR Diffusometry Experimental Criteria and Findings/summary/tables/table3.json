@@ -1,0 +1,11 @@
+{
+  "description": "Molecular Weight of Monodisperse PEO Samples Determined by Different NMR Methods",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "PEO8.5k",
+    "PEO32.5k",
+    "PMMA"
+  ],
+  "other_statistics": []
+}

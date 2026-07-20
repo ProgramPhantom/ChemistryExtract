@@ -1,0 +1,11 @@
+{
+  "title": "Towards the universal use of DOSY as a molar mass characterization tool: temperature dependence investigations and a software tool to process di ff usion coe ffi cients \u2020",
+  "authors": [
+    "Igor W. F. Silva",
+    "Alasdair McKay",
+    "Anna Sokolova",
+    "Tanja Junkers"
+  ],
+  "doi": "10.1039/d3py01172k",
+  "abstract": "Two aspects of molar mass determination via di ff usion ordered spectroscopy (DOSY) are described in this work. Firstly, we investigated how far the temperature of measurement a ff ects the outcome of the DOSY experiment. For this, we performed molar mass calibrations of di ff usion coe ffi cients obtained for a series of narrowly distributed polystyrene samples in the temperature range of 0 to 40 \u00b0C. While a linear calibration is obtained at each temperature, a profound dependence of the obtained di ff usion coe ffi cient on temperature is fi rst identi fi ed. We then demonstrated that this e ff ect is an artifact created from convection in an NMR tube during the experiment and is dependent on the pulse sequence program. Using the dstebpgp3s pulse sequence, the available molar mass range and the temperature window for calibration are extended, and a reasonable agreement of all data with the Stokes -Einstein equation is found. To verify the validity of the chosen pulse sequence, we further determined the radii of gyration for di ff erent polymers via small-angle neutron scattering (SANS) experiments. SANS con fi rms the expected change in the radius with the molar mass, and no signi fi cant temperature dependence of the coil size is seen, in agreement with the results obtained using the dstebpgp3s pulse sequence. Secondly, we discuss di ff erent modes of calibration that scientists can use to determine molar masses from their individually measured di ff usion coe ffi cients. In addition, we provide a freely available software tool that allows one to directly transform di ff usion coe ffi cients into molar masses by applying a variety of calibrations and by guiding researchers as to which calibration is most suitable for their speci fi c case."
+}

@@ -1,0 +1,710 @@
+{
+  "is_mark_houwink_data": true,
+  "is_flory_data": false,
+  "mh_entries": [
+    {
+      "polymer_name": "Poly(N-vinylacetamide)",
+      "solvent": "HP",
+      "temperature_k": null,
+      "raw_K_value": 16.0,
+      "K_transformation": "10^-2",
+      "K_value": 0.16,
+      "raw_a_value": 0.52,
+      "a_transformation": "",
+      "a_value": 0.52
+    },
+    {
+      "polymer_name": "Polyamic acid",
+      "solvent": "DMAc",
+      "temperature_k": 303.15,
+      "raw_K_value": 2.01,
+      "K_transformation": "10^-2",
+      "K_value": 0.0201,
+      "raw_a_value": 0.79,
+      "a_transformation": "",
+      "a_value": 0.79
+    },
+    {
+      "polymer_name": "PEG,PEO",
+      "solvent": "H 2 O",
+      "temperature_k": 298.15,
+      "raw_K_value": 1.25,
+      "K_transformation": "10^-2",
+      "K_value": 0.0125,
+      "raw_a_value": 0.78,
+      "a_transformation": "",
+      "a_value": 0.78
+    },
+    {
+      "polymer_name": "PEG,PEO",
+      "solvent": "H 2 O",
+      "temperature_k": 303.15,
+      "raw_K_value": 1.25,
+      "K_transformation": "10^-2",
+      "K_value": 0.0125,
+      "raw_a_value": 0.78,
+      "a_transformation": "",
+      "a_value": 0.78
+    },
+    {
+      "polymer_name": "PEG,PEO",
+      "solvent": "LiN0 3",
+      "temperature_k": 298.15,
+      "raw_K_value": 2.8,
+      "K_transformation": "10^-2",
+      "K_value": 0.028,
+      "raw_a_value": 0.72,
+      "a_transformation": "",
+      "a_value": 0.72
+    },
+    {
+      "polymer_name": "PEG,PEO",
+      "solvent": "LiN0 3",
+      "temperature_k": 308.15,
+      "raw_K_value": 3.48,
+      "K_transformation": "10^-2",
+      "K_value": 0.0348,
+      "raw_a_value": 0.7,
+      "a_transformation": "",
+      "a_value": 0.7
+    },
+    {
+      "polymer_name": "PEG",
+      "solvent": "0.lN NaN0 3",
+      "temperature_k": 308.15,
+      "raw_K_value": 10.1,
+      "K_transformation": "10^-2",
+      "K_value": 0.101,
+      "raw_a_value": 0.58,
+      "a_transformation": "",
+      "a_value": 0.58
+    },
+    {
+      "polymer_name": "PEO",
+      "solvent": "0.lN NaN0 3",
+      "temperature_k": null,
+      "raw_K_value": 3.47,
+      "K_transformation": "10^-2",
+      "K_value": 0.0347,
+      "raw_a_value": 0.7,
+      "a_transformation": "",
+      "a_value": 0.7
+    },
+    {
+      "polymer_name": "PEO",
+      "solvent": "0.42N NaOH",
+      "temperature_k": 298.15,
+      "raw_K_value": 2.5,
+      "K_transformation": "10^-2",
+      "K_value": 0.025,
+      "raw_a_value": 0.66,
+      "a_transformation": "",
+      "a_value": 0.66
+    },
+    {
+      "polymer_name": "PEO",
+      "solvent": "p-dioxane",
+      "temperature_k": 298.15,
+      "raw_K_value": 3.5,
+      "K_transformation": "10^-2",
+      "K_value": 0.035,
+      "raw_a_value": 0.71,
+      "a_transformation": "",
+      "a_value": 0.71
+    },
+    {
+      "polymer_name": "PEO",
+      "solvent": "DMF",
+      "temperature_k": 298.15,
+      "raw_K_value": 2.4,
+      "K_transformation": "10^-2",
+      "K_value": 0.024,
+      "raw_a_value": 0.73,
+      "a_transformation": "",
+      "a_value": 0.73
+    },
+    {
+      "polymer_name": "PEO",
+      "solvent": "DMF",
+      "temperature_k": 333.15,
+      "raw_K_value": 5.0,
+      "K_transformation": "10^-2",
+      "K_value": 0.05,
+      "raw_a_value": 0.653,
+      "a_transformation": "",
+      "a_value": 0.653
+    },
+    {
+      "polymer_name": "PEO",
+      "solvent": "DMF",
+      "temperature_k": null,
+      "raw_K_value": 5.5,
+      "K_transformation": "10^-2",
+      "K_value": 0.055,
+      "raw_a_value": 0.643,
+      "a_transformation": "",
+      "a_value": 0.643
+    },
+    {
+      "polymer_name": "PEO",
+      "solvent": "MeOH/H 2 O (1:1)",
+      "temperature_k": 298.15,
+      "raw_K_value": 2.21,
+      "K_transformation": "10^-2",
+      "K_value": 0.0221,
+      "raw_a_value": 0.75,
+      "a_transformation": "",
+      "a_value": 0.75
+    },
+    {
+      "polymer_name": "PEG",
+      "solvent": "MeCN/H 2 O (2:8)",
+      "temperature_k": 308.15,
+      "raw_K_value": 87.3,
+      "K_transformation": "10^-2",
+      "K_value": 0.873,
+      "raw_a_value": 0.6,
+      "a_transformation": "",
+      "a_value": 0.6
+    },
+    {
+      "polymer_name": "PEO",
+      "solvent": "MeCN/H 2 O (2:8)",
+      "temperature_k": null,
+      "raw_K_value": 2.45,
+      "K_transformation": "10^-2",
+      "K_value": 0.0245,
+      "raw_a_value": 0.73,
+      "a_transformation": "",
+      "a_value": 0.73
+    },
+    {
+      "polymer_name": "PEO",
+      "solvent": "MeOH/H 2 O (2:8)",
+      "temperature_k": 298.15,
+      "raw_K_value": 3.4,
+      "K_transformation": "10^-2",
+      "K_value": 0.034,
+      "raw_a_value": 0.75,
+      "a_transformation": "",
+      "a_value": 0.75
+    },
+    {
+      "polymer_name": "PPG",
+      "solvent": "benzene",
+      "temperature_k": 303.15,
+      "raw_K_value": 3.241,
+      "K_transformation": "10^-2",
+      "K_value": 0.03241,
+      "raw_a_value": 0.686,
+      "a_transformation": "",
+      "a_value": 0.686
+    },
+    {
+      "polymer_name": "PPG",
+      "solvent": "toluene",
+      "temperature_k": 303.15,
+      "raw_K_value": 0.447,
+      "K_transformation": "10^-2",
+      "K_value": 0.00447,
+      "raw_a_value": 0.92,
+      "a_transformation": "",
+      "a_value": 0.92
+    },
+    {
+      "polymer_name": "PPG",
+      "solvent": "p-dioxane",
+      "temperature_k": 303.15,
+      "raw_K_value": 2.247,
+      "K_transformation": "10^-2",
+      "K_value": 0.02247,
+      "raw_a_value": 0.715,
+      "a_transformation": "",
+      "a_value": 0.715
+    },
+    {
+      "polymer_name": "PPG",
+      "solvent": "DMF",
+      "temperature_k": 303.15,
+      "raw_K_value": 5.284,
+      "K_transformation": "10^-2",
+      "K_value": 0.05284,
+      "raw_a_value": 0.598,
+      "a_transformation": "",
+      "a_value": 0.598
+    },
+    {
+      "polymer_name": "PYA",
+      "solvent": "H 2 O",
+      "temperature_k": 298.15,
+      "raw_K_value": 14.0,
+      "K_transformation": "10^-2",
+      "K_value": 0.14,
+      "raw_a_value": 0.6,
+      "a_transformation": "",
+      "a_value": 0.6
+    },
+    {
+      "polymer_name": "PYA",
+      "solvent": "0.lNNaN0 3",
+      "temperature_k": 308.15,
+      "raw_K_value": 13.3,
+      "K_transformation": "10^-2",
+      "K_value": 0.133,
+      "raw_a_value": 0.56,
+      "a_transformation": "",
+      "a_value": 0.56
+    },
+    {
+      "polymer_name": "Cellulose nitrate",
+      "solvent": "THF",
+      "temperature_k": 298.15,
+      "raw_K_value": 25.0,
+      "K_transformation": "10^-2",
+      "K_value": 0.25,
+      "raw_a_value": 1.0,
+      "a_transformation": "",
+      "a_value": 1.0
+    },
+    {
+      "polymer_name": "Cellulose nitrate",
+      "solvent": "THF",
+      "temperature_k": null,
+      "raw_K_value": 82.0,
+      "K_transformation": "10^-2",
+      "K_value": 0.82,
+      "raw_a_value": 1.0,
+      "a_transformation": "",
+      "a_value": 1.0
+    },
+    {
+      "polymer_name": "Cellulose nitrate",
+      "solvent": "THF",
+      "temperature_k": null,
+      "raw_K_value": 446.0,
+      "K_transformation": "10^-2",
+      "K_value": 4.46,
+      "raw_a_value": 0.76,
+      "a_transformation": "",
+      "a_value": 0.76
+    },
+    {
+      "polymer_name": "Cellulose nitrate",
+      "solvent": "THF",
+      "temperature_k": null,
+      "raw_K_value": 6.44,
+      "K_transformation": "10^-2",
+      "K_value": 0.0644,
+      "raw_a_value": 0.73,
+      "a_transformation": "",
+      "a_value": 0.73
+    },
+    {
+      "polymer_name": "Nitrocellulose",
+      "solvent": "THF",
+      "temperature_k": 298.15,
+      "raw_K_value": 3.21,
+      "K_transformation": "10^-2",
+      "K_value": 0.0321,
+      "raw_a_value": 0.83,
+      "a_transformation": "",
+      "a_value": 0.83
+    },
+    {
+      "polymer_name": "Methyl cellulose",
+      "solvent": "H 2 O",
+      "temperature_k": 298.15,
+      "raw_K_value": 10.7,
+      "K_transformation": "10^-2",
+      "K_value": 0.107,
+      "raw_a_value": 0.61,
+      "a_transformation": "",
+      "a_value": 0.61
+    },
+    {
+      "polymer_name": "Dextran",
+      "solvent": "H 2 O",
+      "temperature_k": 298.15,
+      "raw_K_value": 9.78,
+      "K_transformation": "10^-2",
+      "K_value": 0.0978,
+      "raw_a_value": 0.5,
+      "a_transformation": "",
+      "a_value": 0.5
+    },
+    {
+      "polymer_name": "Dextran",
+      "solvent": "O.lM NaCI",
+      "temperature_k": 296.15,
+      "raw_K_value": 15.7,
+      "K_transformation": "10^-2",
+      "K_value": 0.157,
+      "raw_a_value": 0.451,
+      "a_transformation": "",
+      "a_value": 0.451
+    },
+    {
+      "polymer_name": "Dextran",
+      "solvent": "O.lM NaCI",
+      "temperature_k": 298.15,
+      "raw_K_value": 13.6,
+      "K_transformation": "10^-2",
+      "K_value": 0.136,
+      "raw_a_value": 0.47,
+      "a_transformation": "",
+      "a_value": 0.47
+    },
+    {
+      "polymer_name": "Dextran",
+      "solvent": "O.lM NaN0 3",
+      "temperature_k": 298.15,
+      "raw_K_value": 37.0,
+      "K_transformation": "10^-2",
+      "K_value": 0.37,
+      "raw_a_value": 0.4,
+      "a_transformation": "",
+      "a_value": 0.4
+    },
+    {
+      "polymer_name": "Dextran",
+      "solvent": "0.2MNaN0 3",
+      "temperature_k": null,
+      "raw_K_value": 48.5,
+      "K_transformation": "10^-2",
+      "K_value": 0.485,
+      "raw_a_value": 0.39,
+      "a_transformation": "",
+      "a_value": 0.39
+    },
+    {
+      "polymer_name": "Dextran",
+      "solvent": "0.2MNaN0 3 + 0.025M KH 2 P0 4",
+      "temperature_k": 303.15,
+      "raw_K_value": 47.6,
+      "K_transformation": "10^-2",
+      "K_value": 0.476,
+      "raw_a_value": 0.34,
+      "a_transformation": "",
+      "a_value": 0.34
+    },
+    {
+      "polymer_name": "Dextran",
+      "solvent": "0.42N NaOH",
+      "temperature_k": 298.15,
+      "raw_K_value": 12.0,
+      "K_transformation": "10^-2",
+      "K_value": 0.12,
+      "raw_a_value": 0.48,
+      "a_transformation": "",
+      "a_value": 0.48
+    },
+    {
+      "polymer_name": "Dextran",
+      "solvent": "NaOH (0.005 N)",
+      "temperature_k": 298.15,
+      "raw_K_value": 18.0,
+      "K_transformation": "10^-2",
+      "K_value": 0.18,
+      "raw_a_value": 0.438,
+      "a_transformation": "",
+      "a_value": 0.438
+    },
+    {
+      "polymer_name": "Dextran",
+      "solvent": "NaOH (0.0185 N)",
+      "temperature_k": null,
+      "raw_K_value": 18.5,
+      "K_transformation": "10^-2",
+      "K_value": 0.185,
+      "raw_a_value": 0.431,
+      "a_transformation": "",
+      "a_value": 0.431
+    },
+    {
+      "polymer_name": "Dextran",
+      "solvent": "NaOH (0.097 N)",
+      "temperature_k": null,
+      "raw_K_value": 15.8,
+      "K_transformation": "10^-2",
+      "K_value": 0.158,
+      "raw_a_value": 0.451,
+      "a_transformation": "",
+      "a_value": 0.451
+    },
+    {
+      "polymer_name": "Dextran",
+      "solvent": "NaOH (0.287 N)",
+      "temperature_k": null,
+      "raw_K_value": 12.4,
+      "K_transformation": "10^-2",
+      "K_value": 0.124,
+      "raw_a_value": 0.474,
+      "a_transformation": "",
+      "a_value": 0.474
+    },
+    {
+      "polymer_name": "Dextran",
+      "solvent": "NaOH (0.501 N)",
+      "temperature_k": null,
+      "raw_K_value": 13.2,
+      "K_transformation": "10^-2",
+      "K_value": 0.132,
+      "raw_a_value": 0.478,
+      "a_transformation": "",
+      "a_value": 0.478
+    },
+    {
+      "polymer_name": "Dextran",
+      "solvent": "NaOH (0.671 N)",
+      "temperature_k": null,
+      "raw_K_value": 14.7,
+      "K_transformation": "10^-2",
+      "K_value": 0.147,
+      "raw_a_value": 0.465,
+      "a_transformation": "",
+      "a_value": 0.465
+    },
+    {
+      "polymer_name": "Dextran",
+      "solvent": "NaOH (0.877 N)",
+      "temperature_k": null,
+      "raw_K_value": 15.1,
+      "K_transformation": "10^-2",
+      "K_value": 0.151,
+      "raw_a_value": 0.464,
+      "a_transformation": "",
+      "a_value": 0.464
+    },
+    {
+      "polymer_name": "Pullulan",
+      "solvent": "2 O.lM NaCI",
+      "temperature_k": 298.15,
+      "raw_K_value": 103.0,
+      "K_transformation": "10^-2",
+      "K_value": 1.03,
+      "raw_a_value": 0.25,
+      "a_transformation": "",
+      "a_value": 0.25
+    },
+    {
+      "polymer_name": "Pullulan",
+      "solvent": "2 O.lM NaCI",
+      "temperature_k": 298.15,
+      "raw_K_value": 1.79,
+      "K_transformation": "10^-2",
+      "K_value": 0.0179,
+      "raw_a_value": 0.67,
+      "a_transformation": "",
+      "a_value": 0.67
+    },
+    {
+      "polymer_name": "Pullulan",
+      "solvent": "0.2MNaN0 3",
+      "temperature_k": null,
+      "raw_K_value": 4.22,
+      "K_transformation": "10^-2",
+      "K_value": 0.0422,
+      "raw_a_value": 0.64,
+      "a_transformation": "",
+      "a_value": 0.64
+    },
+    {
+      "polymer_name": "Pullulan",
+      "solvent": "0.025M KH 2 P0 4",
+      "temperature_k": 303.15,
+      "raw_K_value": 1.7,
+      "K_transformation": "10^-2",
+      "K_value": 0.017,
+      "raw_a_value": 0.72,
+      "a_transformation": "",
+      "a_value": 0.72
+    }
+  ],
+  "flory_entries": [],
+  "calculator_calls": [
+    {
+      "expression": "16 * 10**-2",
+      "result": "0.16"
+    },
+    {
+      "expression": "2.01 * 10**-2",
+      "result": "0.0201"
+    },
+    {
+      "expression": "1.25 * 10**-2",
+      "result": "0.0125"
+    },
+    {
+      "expression": "2.8 * 10**-2",
+      "result": "0.027999999999999997"
+    },
+    {
+      "expression": "3.48 * 10**-2",
+      "result": "0.0348"
+    },
+    {
+      "expression": "10.1 * 10**-2",
+      "result": "0.10099999999999999"
+    },
+    {
+      "expression": "3.47 * 10**-2",
+      "result": "0.0347"
+    },
+    {
+      "expression": "2.5 * 10**-2",
+      "result": "0.025"
+    },
+    {
+      "expression": "3.50 * 10**-2",
+      "result": "0.035"
+    },
+    {
+      "expression": "2.40 * 10**-2",
+      "result": "0.024"
+    },
+    {
+      "expression": "5.0 * 10**-2",
+      "result": "0.05"
+    },
+    {
+      "expression": "5.50 * 10**-2",
+      "result": "0.055"
+    },
+    {
+      "expression": "2.21 * 10**-2",
+      "result": "0.0221"
+    },
+    {
+      "expression": "87.3 * 10**-2",
+      "result": "0.873"
+    },
+    {
+      "expression": "2.45 * 10**-2",
+      "result": "0.0245"
+    },
+    {
+      "expression": "3.4 * 10**-2",
+      "result": "0.034"
+    },
+    {
+      "expression": "3.241 * 10**-2",
+      "result": "0.03241"
+    },
+    {
+      "expression": "0.447 * 10**-2",
+      "result": "0.00447"
+    },
+    {
+      "expression": "2.247 * 10**-2",
+      "result": "0.02247"
+    },
+    {
+      "expression": "5.284 * 10**-2",
+      "result": "0.05284"
+    },
+    {
+      "expression": "14.0 * 10**-2",
+      "result": "0.14"
+    },
+    {
+      "expression": "13.3 * 10**-2",
+      "result": "0.133"
+    },
+    {
+      "expression": "25.0 * 10**-2",
+      "result": "0.25"
+    },
+    {
+      "expression": "82 * 10**-2",
+      "result": "0.8200000000000001"
+    },
+    {
+      "expression": "446 * 10**-2",
+      "result": "4.46"
+    },
+    {
+      "expression": "6.44 * 10**-2",
+      "result": "0.0644"
+    },
+    {
+      "expression": "3.21 * 10**-2",
+      "result": "0.032100000000000004"
+    },
+    {
+      "expression": "10.7 * 10**-2",
+      "result": "0.107"
+    },
+    {
+      "expression": "9.78 * 10**-2",
+      "result": "0.0978"
+    },
+    {
+      "expression": "15.7 * 10**-2",
+      "result": "0.157"
+    },
+    {
+      "expression": "13.6 * 10**-2",
+      "result": "0.136"
+    },
+    {
+      "expression": "37 * 10**-2",
+      "result": "0.37"
+    },
+    {
+      "expression": "48.5 * 10**-2",
+      "result": "0.485"
+    },
+    {
+      "expression": "47.6 * 10**-2",
+      "result": "0.47600000000000003"
+    },
+    {
+      "expression": "12.0 * 10**-2",
+      "result": "0.12"
+    },
+    {
+      "expression": "18.0 * 10**-2",
+      "result": "0.18"
+    },
+    {
+      "expression": "18.5 * 10**-2",
+      "result": "0.185"
+    },
+    {
+      "expression": "15.8 * 10**-2",
+      "result": "0.158"
+    },
+    {
+      "expression": "12.4 * 10**-2",
+      "result": "0.12400000000000001"
+    },
+    {
+      "expression": "13.2 * 10**-2",
+      "result": "0.132"
+    },
+    {
+      "expression": "14.7 * 10**-2",
+      "result": "0.147"
+    },
+    {
+      "expression": "15.1 * 10**-2",
+      "result": "0.151"
+    },
+    {
+      "expression": "103 * 10**-2",
+      "result": "1.03"
+    },
+    {
+      "expression": "1.79 * 10**-2",
+      "result": "0.0179"
+    },
+    {
+      "expression": "4.22 * 10**-2",
+      "result": "0.0422"
+    },
+    {
+      "expression": "1.70 * 10**-2",
+      "result": "0.017"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "description": "Measurement of diffusion values for different polystyrene (PS) polymers using various algorithms (ITAMeD, CONTIN, TRAIn, and DiffGA).",
+  "temperature": "294 K",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "polystyrene (PS5950)",
+    "polystyrene (PS60000)",
+    "polystyrene (PS1020000)"
+  ],
+  "other_statistics": []
+}

@@ -1,0 +1,31 @@
+-------------- TABLE 4 EXTRACTION --------------
+**[Preceding Paragraphs]**
+## 3.2. Application of methanol GPC as tool for studying highly branched (HB) PNIPAM polymers
+
+HB-PNIPAM has been prepared previously for a number applications [11,13,14] and we considered that methanol as an eluent would provide a general system for the analysis of these and other complex amphiphilic polymers. On the other hand, in our experience the alternative eluents, DMF, THF + tetrabutylammonium bromide or aqueous systems are often useful for only a narrow range of compositions. Thus, HB-PNIPAMs were prepared by copolymerization of NIPAM with 4-vinylbenzyl pyrrolecarbodithioate (VBP) (previously described by Plenderleith et al. [11]) were analyzed using the methanol SEC system and it was found that these polymers had bimodal molar mass distributions (Fig. 5). This itself is not unexpected and has previously been reported, however size exclusion chromatography in DMF did not fully resolve the two peaks into separate components. Furthermore the size distribution of the two components changed depending on the degree of branching of the polymer, with the smaller component of the highly branched (15:1) peak giving almost no response in differential pressure whilst in less branched samples the RI, DP and UV detector responses were almost superimposable.
+
+The molar mass averages of these polymers were calculated using the Universal calibration. The two bi-modal peaks were treated as one polymer distribution and MN, MW and MZ values were calculated. The Ð of a polymer molar mass distribution is usually described using a single parameter, MW/MN. Given the bimodal nature of these distributions we consider that a better description of the data can be provided using two dispersities ( Ð W= MW/MN, Ð Z = MZ/MW). Ð W was highly influenced by the lower molar mass
+
+Table 3 Molar Mass Moments of HB-PNIPAM obtained from Methanol SEC.
+
+**[Table Data]**
+|   NIPAM: VBP |    M N |    M W |    M Z |   Ð W |   Ð Z |   𝛂 1 |   𝛂 2 |
+|--------------|--------|--------|--------|-------|-------|-------|-------|
+|           15 | 1834.7 | 3766.0 | 5338.3 |  2.05 |  1.42 | 0.493 | 0.748 |
+|           25 | 1133.9 | 5022.1 | 8631.1 |  4.43 |  1.71 | 0.328 | 0.785 |
+|           35 |  555.4 | 3357.2 | 5885.6 |  6.04 |  1.75 | 0.463 | 0.715 |
+|           45 |  532.3 | 2909.4 | 5144.2 |  5.46 |  1.77 | 0.220 | 0.691 |
+|           55 |  438.8 | 2888.8 | 5552.3 |  6.58 |  1.92 | 0.307 | 0.518 |
+|           65 |  245.6 | 3452.7 | 6940.8 | 14.06 |  2.01 | 0.234 | 0.531 |
+|           75 |  412.5 | 2265.5 | 4298.0 |  5.49 |  1.90 | 0.209 | 0.491 |
+|           85 |  624.6 | 3352.1 | 6548.3 |  5.37 |  1.95 | 0.303 | 0.490 |
+
+**[Succeeding Paragraphs]**
+- a Molar polymerization feeds, NIPAM:VBP.
+- b In kg mol -1
+
+.
+
+- c Molar mass range Log 5-6 ( 𝛂 1) and log 6-7 ( 𝛂 2).
+
+Fig. 6. Molar Mass Distributions of HB-PNIPAMs (PNIPAM: VBP feed molar ratio shown to the right) determined by Methanol GPC. INSET: Distributions obtained using polystyrene columns with: a. THF as eluent (see Supporting information) or b. previously published distributions using DMF as eluent [11].

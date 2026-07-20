@@ -1,0 +1,10 @@
+{
+  "description": "Measurement of polymer properties (Rg, RH, intrinsic viscosity [1]) for Poly(a-methylstyrene) in toluene",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "Poly(a-methylstyrene)",
+    "toluene"
+  ],
+  "other_statistics": []
+}

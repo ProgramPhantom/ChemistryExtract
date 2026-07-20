@@ -1,0 +1,99 @@
+{
+  "is_mark_houwink_data": false,
+  "is_flory_data": true,
+  "mh_entries": [],
+  "flory_entries": [
+    {
+      "polymer_name": "PS",
+      "solvent": "deuterated benzene",
+      "temperature_k": null,
+      "raw_v_value": 0.553,
+      "v_transformation": "abs(b)",
+      "v_value": 0.553,
+      "raw_c_value": 3.23e-08,
+      "c_transformation": "log10(a)",
+      "c_value": -7.490797477668897
+    },
+    {
+      "polymer_name": "PS",
+      "solvent": "deuterated benzene",
+      "temperature_k": null,
+      "raw_v_value": -0.899,
+      "v_transformation": "abs(b)",
+      "v_value": 0.899,
+      "raw_c_value": 1.17e-06,
+      "c_transformation": "log10(a)",
+      "c_value": -5.931814138253839
+    },
+    {
+      "polymer_name": "PMMA",
+      "solvent": "deuterated benzene",
+      "temperature_k": null,
+      "raw_v_value": 0.536,
+      "v_transformation": "abs(b)",
+      "v_value": 0.536,
+      "raw_c_value": 2.85e-08,
+      "c_transformation": "log10(a)",
+      "c_value": -7.54515513999149
+    },
+    {
+      "polymer_name": "PMMA",
+      "solvent": "deuterated benzene",
+      "temperature_k": null,
+      "raw_v_value": -0.907,
+      "v_transformation": "abs(b)",
+      "v_value": 0.907,
+      "raw_c_value": 1.34e-06,
+      "c_transformation": "log10(a)",
+      "c_value": -5.872895201635193
+    },
+    {
+      "polymer_name": "PI",
+      "solvent": "deuterated benzene",
+      "temperature_k": null,
+      "raw_v_value": -0.582,
+      "v_transformation": "abs(b)",
+      "v_value": 0.582,
+      "raw_c_value": 4.09e-08,
+      "c_transformation": "log10(a)",
+      "c_value": -7.388276691992658
+    },
+    {
+      "polymer_name": "PI",
+      "solvent": "deuterated benzene",
+      "temperature_k": null,
+      "raw_v_value": -1.081,
+      "v_transformation": "abs(b)",
+      "v_value": 1.081,
+      "raw_c_value": 7.95e-06,
+      "c_transformation": "log10(a)",
+      "c_value": -5.0996328713435295
+    }
+  ],
+  "calculator_calls": [
+    {
+      "expression": "log10(3.23 * 10**-8)",
+      "result": "-7.490797477668897"
+    },
+    {
+      "expression": "log10(1.17 * 10**-6)",
+      "result": "-5.931814138253839"
+    },
+    {
+      "expression": "log10(2.85 * 10**-8)",
+      "result": "-7.54515513999149"
+    },
+    {
+      "expression": "log10(1.34 * 10**-6)",
+      "result": "-5.872895201635193"
+    },
+    {
+      "expression": "log10(4.09 * 10**-8)",
+      "result": "-7.388276691992658"
+    },
+    {
+      "expression": "log10(7.95 * 10**-6)",
+      "result": "-5.0996328713435295"
+    }
+  ]
+}

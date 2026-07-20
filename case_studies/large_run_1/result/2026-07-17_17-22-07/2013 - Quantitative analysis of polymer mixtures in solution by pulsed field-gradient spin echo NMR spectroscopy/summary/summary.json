@@ -1,0 +1,11 @@
+{
+  "title": "Quantitative analysis of polymer mixtures in solution by pulsed field-gradient spin echo NMR spectroscopy",
+  "authors": [
+    "Luk Van Lokeren",
+    "Hanen Ben Sassi",
+    "Guy Van Assche",
+    "\u200cFran\u00e7ois Ribot"
+  ],
+  "doi": "Not found",
+  "abstract": "Pulsed Field-Gradient Spin Echo (PGSE) NMR, which associates to a spectral dimension the measure of diffusion coefficients, is a convenient technique for mixture analysis. Unfortunately, because of relaxation, the quantification of mixtures by PGSE NMR is far from straightforward for mixtures with strong spectral overlap. Antalek (J. Am. Chem. Soc. 128 (2006) 8402-8403) proposed a quantification strategy based on DECRA analysis and extrapolation to zero of the diffusion delay. More recently, Barr\u00e8re et al. (J. Magn. Reson. 216 (2012) 201-208) presented a new strategy based also on DECRA and on the renormalization of the intensities using estimates of the T 1 and T 2 relaxation times. Here we report an alternative quantification approach in which the fractions are obtained by analyzing the PGSE attenuation profile with a general Stejskal-Tanner equation that explicitly includes the relaxation effects. The required values of T 1 and T 2 relaxation times are either independently measured with conventional sequences or determined, along with the fractions and the diffusion coefficients, from the simultaneous analysis of up to 6 PGSE data sets recorded with different diffusion delays. This method yields errors lower than 3% for the fractions, even for complete spectral overlap, as demonstrated on model binary and ternary mixtures of polystyrene in the case of a convection compensating double stimulated echo (DSTE) sequence."
+}

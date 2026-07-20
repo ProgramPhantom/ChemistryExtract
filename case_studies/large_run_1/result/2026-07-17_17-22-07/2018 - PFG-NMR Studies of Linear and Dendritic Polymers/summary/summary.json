@@ -1,0 +1,11 @@
+{
+  "title": "PFG-NMR Studies of Linear and Dendritic Polymers",
+  "authors": [
+    "James E. Hanson",
+    "Sibel Alkan",
+    "Hershel Lackey",
+    "Judith B. Cain"
+  ],
+  "doi": "10.12691/jpbpc-6-1-3",
+  "abstract": "Diffusion coefficients were measured by pulsed-field gradient NMR for low molecular weight linear polystyrenes in THF and for a broader molecular weight range of linear polystyrenes in chloroform and for PAMAM dendrimers up to generation 4 in methanol. Radii were calculated from the measured diffusion coefficients using the Stokes-Einstein relationship. The linear polystyrenes displayed a relationship between radius and molecular weight that followed the expected power law. From simple theoretical considerations, the dendritic polymers were expected to follow a logarithmic relationship between radius and molecular weight. The PAMAM dendrimers gave reasonable fits to both a power law and a logarithmic relationship from generation 0 to generation 3 (the power law gave a slightly better fit), but displayed a turnover with generation 4, which gave a smaller Stokes radius than generation 3. These results were compared with earlier results from poly (aryl ether) monodendrons, where the relationship was ambiguous between a power law and a logarithmic relationship."
+}

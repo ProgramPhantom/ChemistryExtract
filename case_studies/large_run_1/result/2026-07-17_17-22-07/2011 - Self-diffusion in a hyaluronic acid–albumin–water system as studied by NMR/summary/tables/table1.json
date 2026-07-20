@@ -1,0 +1,28 @@
+{
+  "description": "Pulsed field gradient NMR measurements of hyaluronic acid (HA), bovine serum albumin (BSA), and HA+BSA mixed solutions in D2O.",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "hyaluronic acid (HA)",
+    "bovine serum albumin (BSA)",
+    "D2O"
+  ],
+  "other_statistics": [
+    {
+      "name": "pH",
+      "value": "7.0 - 7.2"
+    },
+    {
+      "name": "NMR frequency",
+      "value": "60 MHz"
+    },
+    {
+      "name": "Magnetic field strength",
+      "value": "value: 1.4 T"
+    },
+    {
+      "name": "Pulsed magnetic field amplitude",
+      "value": "0 to 30 T/m"
+    }
+  ]
+}

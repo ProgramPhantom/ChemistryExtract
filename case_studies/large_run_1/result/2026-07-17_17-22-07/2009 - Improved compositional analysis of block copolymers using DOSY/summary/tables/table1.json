@@ -1,0 +1,12 @@
+{
+  "description": "Diffusion coefficients of various polystyrene (PS) and poly(ethylene oxide) (PEO) samples measured by DOSY NMR experiments.",
+  "temperature": "300 K",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "CDCl3",
+    "polystyrene (PS)",
+    "poly(ethylene oxide) (PEO)",
+    "polystyrene-block-poly(ethylene oxide) (PS-b-PEO)"
+  ],
+  "other_statistics": []
+}

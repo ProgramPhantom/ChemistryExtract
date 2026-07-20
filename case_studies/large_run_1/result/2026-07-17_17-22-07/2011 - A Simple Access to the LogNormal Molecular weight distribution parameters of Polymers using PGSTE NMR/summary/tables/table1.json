@@ -1,0 +1,9 @@
+{
+  "description": "GPC and PGSTE NMR results for four monodisperse PEO samples (R1, R2, R3, R4).",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "PEO"
+  ],
+  "other_statistics": []
+}

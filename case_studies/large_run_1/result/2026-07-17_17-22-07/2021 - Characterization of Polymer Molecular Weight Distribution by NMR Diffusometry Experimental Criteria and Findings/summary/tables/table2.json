@@ -1,0 +1,19 @@
+{
+  "description": "Determination of number-average molecular weight (Mn) and weight-average molecular weight (Mw) of a polydisperse polystyrene (PS1683) sample using different methods (NMR Guo et al., NMR this work, and GPC).",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "polystyrene (PS1683)",
+    "CDCl3"
+  ],
+  "other_statistics": [
+    {
+      "name": "Mn (kg/mol)",
+      "value": "102 - 442 \u00b1 35"
+    },
+    {
+      "name": "Mw (kg/mol)",
+      "value": "275 - 442 \u00b1 35"
+    }
+  ]
+}

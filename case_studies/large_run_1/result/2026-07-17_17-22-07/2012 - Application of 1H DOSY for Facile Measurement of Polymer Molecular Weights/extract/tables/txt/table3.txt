@@ -1,0 +1,26 @@
+-------------- TABLE 3 EXTRACTION --------------
+**[Preceding Paragraphs]**
+On the basis of the exciting results from ATRP, we continued to assess reversible addition -fragmentation chain-transfer polymerization (RAFT) kinetic aliquot as another example of living polymerization. The PS calibration curve with the region between 5000 and 30 000 g/mol was enhanced by incorporating four data points obtained from ATRP measurements for more accurate M w prediction of RAFT polymers. The enhanced calibration curve ( y = -0.537 x -7.695) showed an increased r 2 value of 0.9997 with improved accuracy in the lower M w range (Figure S26 and Table S4).
+
+We next analyzed a typical RAFT polymerization of styrene 1 in a similar fashion. In our experiment, trithiocarbonate CTA and 2-(dodecylthiocarbonothioylthio)-2-methylpropionic acid ( 4 ) were used to perform RAFT which was initiated by thermal initiator azobis(isobutyronitrile) (AIBN). We randomly sampled the reaction crude at four time points to verify agreement in molecular weights for both GPC and DOSY experiments (Table 3). The molecular weights obtained from GPC and DOSY were within less than 7% deviation between
+
+## Table 3. RAFT Results from GPC and Externally Referenced DOSY
+
+a 1 H DOSY measurement was performed at 25 ° C in benzened 6 . b Equation of the PS standard calibration curve is y = -0.5369 x -7.6947 ( r 2 = 0.9997). M w Pred is based on measured D and the calibration curve. c Calculated from M w(GPC) and M w(DOSY). d Conversion was calculated by 1 H NMR. For more details please see Table S3.
+
+**[Table Data]**
+|   t (min) |   M w (GPC) (g/mol) | D (10 - 10 )   |   av M w (DOSY) (g/mol) |   di ff (%) |   conv (%) |   PDI |
+|-----------|---------------------|----------------|-------------------------|-------------|------------|-------|
+|       230 |                2900 | 2.60 ± 0.06    |                    3300 |        13.8 |       18.7 |  1.04 |
+|       590 |                6200 | 1.80 ± 0.04    |                    6600 |         6.4 |       46.0 |  1.04 |
+|      1345 |                9700 | 1.41 ± 0.02    |                   10300 |         6.2 |       49.4 |  1.06 |
+|      1760 |               10600 | 1.36 ± 0.03    |                   11000 |         3.8 |       53.9 |  1.06 |
+
+**[Succeeding Paragraphs]**
+5000 and 90 000 g/mol. In general, higher molecular weight polymer indicated higher agreement between DOSY and GPC values than the lower molecular weight instance. The values of di ff usion coe ffi cient of styrene were all close to 17.65 × 10 -10 m 2 /s, suggesting good viscosity control between each sample. The chain growth of polystyrene 5 over time was conveniently monitored by the decreasing values of di ff usion coe ffi cient (Figure 4).
+
+Inspired by the results of ATRP and RAFT, we continued to investigate the ring-opening metathesis polymerization (ROMP) to broaden the utility of our method for controlled polymerization.
+
+Figure 4. Stacked DOSY spectra of reaction crude of RAFT. DOSY spectra of 0 h, 9 h 50 min, 22 h 25 min, and 29 h 20 min were stacked. Ole fi nic peaks of styrene were used as internal references to monitor the viscosity change of the dilute crude solution. Because of the heavy overlap of the aromatic regions of styrene and polystyrene, they are not shown in the stacked spectra. Representative RAFT 1 H DOSY spectra can be found in Figure S21.
+
+<!-- image -->

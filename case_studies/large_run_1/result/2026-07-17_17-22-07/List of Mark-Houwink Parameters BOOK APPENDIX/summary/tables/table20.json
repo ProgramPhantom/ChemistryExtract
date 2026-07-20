@@ -1,0 +1,33 @@
+{
+  "description": "Specific Refractive Index Increments",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "Carboxylmethyl-cellulose",
+    "NaCI",
+    "PNaAMPS",
+    "water",
+    "BSA",
+    "Ovalbumin-SDS",
+    "Ribonuclease-SDS",
+    "Ribonuclease A",
+    "Lysozyme",
+    "Bovin alkaline phosphatase",
+    "Bovin thyroglobulin",
+    "Serum albumin",
+    "ChymotrypsinogenA",
+    "Na2S04",
+    "DNA",
+    "DNA fragment"
+  ],
+  "other_statistics": [
+    {
+      "name": "Wave-length",
+      "value": "632.8 nm"
+    },
+    {
+      "name": "dn/dc",
+      "value": "mltg"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "description": "PLS-R Results from the DOSY NMR Spectra",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [],
+  "other_statistics": [
+    {
+      "name": "M w",
+      "value": "1884 - 7405 Da (range), R2 cal. = 0.92, R2 val. = 0.69, RMSEC = 454 Da, RMSEV = 837 Da, RE (%) = 15"
+    },
+    {
+      "name": "M n",
+      "value": "664 - 1052 Da (range), R2 cal. = 0.93, R2 val. = 0.74, RMSEC = 32 Da, RMSEV = 64 Da, RE (%) = 14"
+    },
+    {
+      "name": "PDI",
+      "value": "2.50 - 7.23 (range), R2 cal. = 0.93, R2 val. = 0.72, RMSEC = 0.34, RMSEV = 0.64, RE (%) = 14"
+    }
+  ]
+}

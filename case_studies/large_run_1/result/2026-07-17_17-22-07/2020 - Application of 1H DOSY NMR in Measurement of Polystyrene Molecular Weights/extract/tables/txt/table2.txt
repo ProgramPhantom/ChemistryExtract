@@ -1,0 +1,33 @@
+-------------- TABLE 2 EXTRACTION --------------
+**[Preceding Paragraphs]**
+Table 1. Diffusion coefficients of four peaks of PS ( Mw = 4130 g/mol) calculated by Topspin 3.5 T1/T2 package
+
+[table omitted]
+
+## 3.2. Calibration
+
+Commercial narrow standards  of  PS (GPC standards) were selected to construct the calibration  curve.  Table  2  and  Figure  4  show detailed results of calibration curve in chloroform. The R 2 value equal to 0.993 provided an excellent linearity of the log D -log M curve,  over  a  very  wide  range  of  molecular weight. From calibration curve, the value of df is determined  as  0.65.  This  value  is  close  to  the theoretical value, so the Flory coefficient of PS in chloroform is 1/𝑑𝑓 = 1.54 . It can be confirmed that chloroform is a good solvent for PS [10].
+
+Table 2. D -Mw results of PS standard calibration curves
+
+**[Table Data]**
+| Sample   |   M w (GPC) (g/mol) |   D (10 -11 m 2 /s) |   Log D |   LogM w |
+|----------|---------------------|---------------------|---------|----------|
+| PS       |                4130 |                23.6 |   -9.63 |     3.62 |
+| PS       |               19300 |                10.6 |   -9.97 |     4.28 |
+| PS       |              114000 |                2.75 |  -10.56 |     5.04 |
+| PS       |              223000 |                1.63 |  -10.79 |     5.35 |
+| PS       |              567700 |                0.91 |  -11.04 |     5.75 |
+| PS       |             2000000 |                0.35 |  -11.46 |     6.30 |
+| PS       |             6300000 |                0.25 |  -11.60 |     6.80 |
+
+**[Succeeding Paragraphs]**
+Figure 4. Calibration curve of log D -log M.
+
+<!-- image -->
+
+Table 3. D -Mw of PS standard validation and PS (FRP) prediction
+
+[table omitted]
+
+## 3.3. Validation and Application

@@ -1,0 +1,19 @@
+{
+  "title": "NMR Measure of Translational Diffusion and Fractal Dimension. Application to Molecular Mass Measurement",
+  "authors": [
+    "Sophie Auge",
+    "Pierre-Olivier Schmit",
+    "Christopher A. Crutchfield",
+    "Mohammad T. Islam",
+    "Douglas J. Harris",
+    "Emmanuelle Durand",
+    "Martin Clemancey",
+    "Anne-Agathe Quoineaud",
+    "Jean-Marc Lancelin",
+    "Yann Prigent",
+    "Francis Taulelle",
+    "Marc-Andre Delsuc"
+  ],
+  "doi": "Not found",
+  "abstract": "Experimental NMR diffusion measure on polymers and on globular proteins are presented. These results, complemented with results found in the literature, enable a general description of effective fractal dimension for objects such as small organic molecules, sugars, polymers, DNA, and proteins. Results are compared to computational simulations as well as to theoretical values. A global picture of the diffusion phenomenon emerges from this description. A power law relating molecular mass with diffusion coefficients is described and found to be valid over 4 orders of magnitude. From this law, the fractal dimension of the molecular family can be measured, with experimental values ranging from 1.41 to 2.56 in full agreement with theoretical approaches. Finally, a method for evaluating the molecular mass of unknown solutes is described and implemented as a Web page."
+}

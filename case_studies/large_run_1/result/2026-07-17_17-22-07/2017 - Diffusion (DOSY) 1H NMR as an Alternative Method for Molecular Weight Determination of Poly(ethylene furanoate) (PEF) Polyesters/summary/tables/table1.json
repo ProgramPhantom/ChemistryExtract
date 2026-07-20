@@ -1,0 +1,30 @@
+{
+  "description": "Comparison of number-average (Mn) and weight-average (Mw) molecular weights, polydispersity index (PDI), and diffusion coefficients (D) for PET standards, commercial PET bottles, and synthesized PEF products using SEC-MALS and DOSY NMR techniques.",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "PET",
+    "PEF",
+    "TFA-d",
+    "polymethylmethacrylate",
+    "polystyrene (PS)"
+  ],
+  "other_statistics": [
+    {
+      "name": "Mn",
+      "value": "Number-average molecular weight"
+    },
+    {
+      "name": "Mw",
+      "value": "Weight-average molecular weight"
+    },
+    {
+      "name": "PDI",
+      "value": "Polydispersity index"
+    },
+    {
+      "name": "D",
+      "value": "Diffusion coefficient"
+    }
+  ]
+}

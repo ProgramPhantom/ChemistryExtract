@@ -1,0 +1,11 @@
+{
+  "description": "Fitted parameters a and b for the molar mass dependence of diffusion coefficients of PS, PMMA, and PI in lower and higher molar mass regions.",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "PS",
+    "PMMA",
+    "PI"
+  ],
+  "other_statistics": []
+}

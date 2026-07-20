@@ -1,0 +1,24 @@
+-------------- TABLE 4 EXTRACTION --------------
+**[Preceding Paragraphs]**
+Chen et al. 5 suggested that pH response only becomes signi fi cant for higher generation dendrimers. Experimentally, they found that commercial G3 and higher PAMAMs underwent signi fi cant swelling, whereas G2 and G1 did not. However, the work reported here suggests that dendrimer as large as G5, in monomer form (G5m), does not undergo signi fi cant swelling due to changes in pH. It is hypothesized, therefore, that the observed swelling in the commercial material is actually due to oligomer structures that make up &gt;15% of the commercial sample. This could also explain the observations of Chen et al., as oligomers become more prevalent at higher generations so G3c would be expected to have signi fi cantly more oligomers present than G2c. G5 dimers are approximately the same size as a G6 PAMAM dendrimer by molecular weight; therefore, they would be expected to undergo larger conformational changes upon protonation than a G5-sized dendrimer. To test this theory, we collected DOSY spectra of isolated G5 dimer at pH 3, 7, and 11 (Figure 6, Table 4). A 44% increase in hydrodynamic radius was observed when the pH was lowered from 11 to 3, indicating a much higher degree of swelling for the dimer samples as compared with G5m. Therefore, the small di ff erence in pH response of the G5c material compared with the G5m is the result of swelling of the ∼ 14% dimer and higher oligomer fractions present in the G5c material. It also explains why the R H value of G5m is larger than the average R H value G5c at high pH when the larger oligomer structures present in G5c are collapsed, decreasing the average R H of the G5c mixture.
+
+Figure 6. Stejskal -Tanner plots of G5 dimer in various pH bu ff ers. Standard deviations are approximated by averaging the percent deviations of the G3c, G5c, and G5m at each data point.
+
+<!-- image -->
+
+Table 4. Summary of Self Di ff usion and Hydrodynamic Radii of G5 Dimer in Various pH Bu ff ers
+
+**[Table Data]**
+|                      |   pH 3 |   pH 7 |   pH 11 |   D 2 O |
+|----------------------|--------|--------|---------|---------|
+| D (m/s 2 ) × 10 - 11 |   3.89 |   5.23 |    5.53 |    5.68 |
+| r H (nm)             |    5.9 |    4.4 |     4.1 |     4.0 |
+
+**[Succeeding Paragraphs]**
+the same velocity as the liquid surface (i.e., D2O). 7 Under the slip boundary condition, the dendrimer rotates independently from the solvent (i.e., no interaction), and the Stokes -Einstein relation takes the form
+
+$$r _ { H } = \frac { k _ { B } T } { 4 \pi \eta D }$$
+
+consequently increasing the measured radii by a factor of 1.5. The authors state that improper boundary conditions may have caused some groups to measure erroneous increases in R H by di ff usion. It seems logical to assume that the charged surface amines present at lower pH values would interact more with the D2O than the neutral surface amines at higher pH. This would imply that lower pH values are closer to the stick limit and higher pH at the slip limit. Treatment of the G5m at high pH in the slip limit would imply that the dendrimer actually decreases in R H as pH is lowered. At pH 11, the slip-limit R H of G5m would give a volume of 421 nm 3 , and at pH 3 a stick-limit R H gives a volume of 138 nm 3 . This would re fl ect a collapsing of the dendrimer structure upon protonation of the primary amines, an extremely unlikely event that is not supported by MD computations. A stick/slip boundary limit transition would, in fact, account for the measured change in the dimer case. A pH 11 slip-limit gives an observed R H value of 6.2 nm and a pH 3 stick-limit R H value of 5.9 nm (around the expected error of ± 0.1 nm). However, because the G5 dimer has the same chemical components as the G5m, there is no reason for the solvent to interact with it di ff erently. Therefore, although it cannot be determined from DOSY alone which limiting case is most appropriate, the observed trend of the G5m data indicates that a complete switching of limits is not appropriate. Therefore, the swelling observed for the dimer is not an artifact of a boundary condition change of the Stokes -Einstein equation but is due to a change in dendrimer arm backfolding.
+
+## ■ CONCLUSIONS

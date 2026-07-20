@@ -1,0 +1,10 @@
+{
+  "description": "Measurement of molecular weight (M), intrinsic viscosity ([\u03b7], and other dimensions (Rg, RH) and the second virial coefficient (A2) for polystyrene in tetrahydrofuran.",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "polystyrene",
+    "tetrahydrofuran"
+  ],
+  "other_statistics": []
+}

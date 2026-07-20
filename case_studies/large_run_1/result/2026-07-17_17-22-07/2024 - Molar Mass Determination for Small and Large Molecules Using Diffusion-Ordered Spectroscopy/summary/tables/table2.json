@@ -1,0 +1,23 @@
+{
+  "description": "Mark-Houwink Parameters K and a Determined via DOSY for various polymers in different solvents",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "Polystyrene (PS)",
+    "Poly(Methyl Methacrylate) (PMMA)",
+    "Polyisoprene (PI)",
+    "Poly(2-Vinylpyridine) (P2VP)",
+    "Polyethylene Oxide (PEO)",
+    "THF-d8",
+    "C6D6",
+    "CDCl3",
+    "CD2Cl2",
+    "Toluene-d8",
+    "Acetone-d6",
+    "DMSO-d6",
+    "CD3CN",
+    "CD3OD",
+    "D2O"
+  ],
+  "other_statistics": []
+}

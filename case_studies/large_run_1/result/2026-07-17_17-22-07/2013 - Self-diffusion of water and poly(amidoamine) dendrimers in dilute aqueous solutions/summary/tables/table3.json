@@ -1,0 +1,15 @@
+{
+  "description": "The calculated molar volumes and the number of water molecules in one dendrimer molecule",
+  "temperature": "300 K",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "E5.NH2",
+    "E5.SAH"
+  ],
+  "other_statistics": [
+    {
+      "name": "pH",
+      "value": "10.8 for E5.NH2, 5.42 for E5.SAH"
+    }
+  ]
+}

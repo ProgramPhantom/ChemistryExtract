@@ -1,0 +1,48 @@
+{
+  "description": "Mark-Houwink Parameters for Polar Polymers",
+  "temperature": "Various (23, 25, 30, 35, 60 \u00b0C)",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "Poly(N-vinylacetamide)",
+    "Polyamic acid",
+    "PEG",
+    "PEO",
+    "PPG",
+    "PYA",
+    "Cellulose nitrate",
+    "Nitrocellulose",
+    "Methyl cellulose",
+    "Dextran",
+    "Branched dextran",
+    "Pullulan",
+    "HP",
+    "DMAc",
+    "H2O",
+    "LiNO3",
+    "NaN03",
+    "NaOH",
+    "p-dioxane",
+    "DMF",
+    "MeOH/H2O",
+    "MeCN/H2O",
+    "benzene",
+    "toluene",
+    "THF",
+    "NaCl",
+    "KH2PO4"
+  ],
+  "other_statistics": [
+    {
+      "name": "Kx 10^2 (mUg)",
+      "value": "Various"
+    },
+    {
+      "name": "a",
+      "value": "Various"
+    },
+    {
+      "name": "name's MW range (M x 10-3)",
+      "value": "Various"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "title": "Diffusion in Polymer Solutions: Molecular Weight Distribution by PFG-NMR and Relation to SEC",
+  "authors": [
+    "Xiaoai Guo",
+    "Esther Laryea",
+    "Manfred Wilhelm",
+    "Burkhard Luy",
+    "Hermann Nirschl",
+    "Gisela Guthausen"
+  ],
+  "doi": "Not found",
+  "abstract": "Quantification of diffusion coefficient distribution (DCD) and correlation with molecular weight distribution (MWD) of polymers is still an issue in pulsed field-gradient nuclear magnetic resonance (PFG-NMR). The conventional scaling law utilized so far to relate diffusion coefficient and molecular weight only holds true for the determination of MWD at sufficiently low concentrations. To extend measurement limits and to get a good signal-to-noise ratio, an exponential correlation is introduced to describe the effect of polymer concentration on diffusion in PFG-NMR. Two model polymers (polystyrene and poly(methyl methacrylate)) dissolved in deuterated chloroform are studied at different concentrations in the range of 0.16-8 wt%.\n\nThe DCDs are determined by modeling the measured signal attenuation with three methods (gamma distribution, log normal distribution, and tailored norm regularization). It is shown that the proposed method applies to the PFG-NMR measurements on polymer solutions over a wide concentration range, providing almost the same MWDs as those obtained at low concentrations. The MWDs retrieved from NMR experiments agree well with those by size exclusion chromatography."
+}

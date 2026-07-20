@@ -1,0 +1,28 @@
+{
+  "description": "Mark-Houwink Parameters for Homopolymers",
+  "temperature": "Various (e.g., 210, 23, 25, 30, 40, 50, 115, 135 \u00b0C)",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "LCA polyester",
+    "PTHF",
+    "Polyoxymethylene",
+    "PVDBC",
+    "PVB",
+    "POA",
+    "PDEPP",
+    "PDPPP",
+    "PAPP",
+    "PVK",
+    "PPS",
+    "PEEK",
+    "HFIP",
+    "PFP",
+    "MCIDCAA",
+    "cyclohexanone",
+    "DMF",
+    "THF",
+    "sulfuric acid",
+    "phenol/TCB"
+  ],
+  "other_statistics": []
+}

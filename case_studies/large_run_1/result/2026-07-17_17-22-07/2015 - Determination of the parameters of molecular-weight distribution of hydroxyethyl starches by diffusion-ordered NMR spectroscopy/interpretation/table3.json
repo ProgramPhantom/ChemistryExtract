@@ -1,0 +1,123 @@
+{
+  "is_mark_houwink_data": false,
+  "is_flory_data": true,
+  "mh_entries": [],
+  "flory_entries": [
+    {
+      "polymer_name": "Hydroxyethyl starch",
+      "solvent": "water",
+      "temperature_k": null,
+      "raw_v_value": 0.3826,
+      "v_transformation": "calculated from logMW = a log D + b",
+      "v_value": 0.3826,
+      "raw_c_value": -9.6243,
+      "c_transformation": "calculated from logMW = a log D + b",
+      "c_value": -9.6243
+    },
+    {
+      "polymer_name": "Hydroxyethyl starch",
+      "solvent": "water",
+      "temperature_k": null,
+      "raw_v_value": 0.3941,
+      "v_transformation": "calculated from logMW = a log D + b",
+      "v_value": 0.3941,
+      "raw_c_value": -9.6233,
+      "c_transformation": "calculated from logMW = a log D + b",
+      "c_value": -9.6233
+    },
+    {
+      "polymer_name": " yang ",
+      "solvent": "water",
+      "temperature_k": null,
+      "raw_v_value": 0.4135,
+      "v_transformation": "calculated from logMW = a log D + b",
+      "v_value": 0.4135,
+      "raw_c_value": -9.668,
+      "c_transformation": "calculated from logMW = a log D + b",
+      "c_value": -9.668
+    },
+    {
+      "polymer_name": "Hydroxyethyl starch",
+      "solvent": "solvent",
+      "temperature_k": null,
+      "raw_v_value": 0.3817,
+      "v_transformation": "calculated from log D = (1/a) log MW + (-b/a)",
+      "v_value": 0.3817,
+      "raw_c_value": -9.6004,
+      "c_transformation": "calculated from log D = (1/a) log MW + (-b/a)",
+      "c_value": -9.6004
+    },
+    {
+      "polymer_name": "Hydroxyethyl starch",
+      "solvent": "solvent",
+      "temperature_k": null,
+      "raw_v_value": 0.3931,
+      "v_transformation": "// a = -2.5438, b = -24.425; v = -1/a, c = -b/a",
+      "v_value": 0.3931,
+      "raw_c_value": -9.6018,
+      "c_transformation": "calculated from log D = (1/a) log MW + b' ",
+      "c_value": -9.6018
+    },
+    {
+      "polymer_name": "Hydroxyethyl starch",
+      "solvent": "solvent",
+      "temperature_k": null,
+      "raw_v_value": 0.4127,
+      "v_transformation": "calculated from log D = (1/a) log MW + (-b/a)",
+      "v_value": 0.4127,
+      "raw_c_value": -9.6455,
+      "c_transformation": "calculated from (log b' = -b / a)",
+      "c_value": -9.6455
+    }
+  ],
+  "calculator_calls": [
+    {
+      "expression": "-1 / -2.6136",
+      "result": "0.38261401897765535"
+    },
+    {
+      "expression": "-(-25.154) / -2.6136",
+      "result": "-9.624273033363943"
+    },
+    {
+      "expression": "-1 / -2.5375",
+      "result": "0.3940886699507389"
+    },
+    {
+      "expression": "-(-24.419) / -2.5375",
+      "result": "-9.623251231527094"
+    },
+    {
+      "expression": "-1 / -2.4185",
+      "result": "0.41347942939838744"
+    },
+    {
+      "expression": "-(-23.382) / -2.4185",
+      "result": "-9.667976018193096"
+    },
+    {
+      "expression": "-1 / -2.6201",
+      "result": "0.3816648219533606"
+    },
+    {
+      "expression": "-(-25.154) / -2.6201",
+      "result": "-9.600396931414831"
+    },
+    {
+      "expression": "-1 / -2.5438",
+      "result": "0.3931126660901014"
+    },
+    {
+      "expression": "-(-24.425) / -2.5438",
+      "result": "-9.601776869250727"
+    },
+    {
+      "expression": "-1 / -2.4232",
+      "result": "0.41267745130406075"
+    },
+    {
+      "expression": "-(-23.373) / -2.4232",
+      "result": "-9.645510069329813"
+    }
+  ]
+}

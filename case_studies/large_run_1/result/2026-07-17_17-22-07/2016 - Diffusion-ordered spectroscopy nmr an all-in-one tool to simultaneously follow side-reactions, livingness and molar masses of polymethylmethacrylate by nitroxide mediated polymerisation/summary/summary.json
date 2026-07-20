@@ -1,0 +1,11 @@
+{
+  "title": "Di ff usion-ordered spectroscopy NMR DOSY: an all-in-one tool to simultaneously follow side reactions, livingness and molar masses of polymethylmethacrylate by nitroxide mediated polymerization \u2020",
+  "authors": [
+    "N. Cheri fi",
+    "A. Khoukh",
+    "A. Benaboura",
+    "L. Billon"
+  ],
+  "doi": "10.1039/c6py00927a",
+  "abstract": "In this work, we report the use of the di ff usion-ordered spectroscopy (NMR DOSY) nuclear magnetic resonance (NMR) technique to follow the nitroxide-mediated polymerization (NMP) of methyl methacrylate (MMA), well known as a di ffi cult monomer to polymerize by NMP. Two syntheses were carried out either in the presence or absence of a small amount of styrene at 80 \u00b0C, using N -tert -butylN -(1-diethylphosphono-2,2-dimethylpropyl)nitroxide (SG1) as a control agent and 2-methylaminoxypropionic-SG1 alkoxyamine (BlocBuilder) as the initiator. Di ff usion coe ffi cients determined from NMR DOSY experiments could be accurately correlated to the weight average molar masses M w of PMMA, and could thereby be used to con fi rm that the polymerization of pure MMA by NMP is uncontrolled due to disproportionation side reactions leading to non-reversible termination ( i.e. dead chains). In a similar manner, the livingness of the PMMA chains grown in the presence of a small amount of styrene was con fi rmed by the linear evolution of the di ff usion coe ffi cient versus time (conversion) and the retention of the alkoxyamine chain end. Livingness was further assessed by NMR DOSY analysis of chain extensions with n -butyl acrylate. This all-in-one technique permits disproportionation side reactions, livingness, and evolution of the molar masses with time to be simultaneously followed."
+}

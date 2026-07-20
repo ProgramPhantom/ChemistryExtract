@@ -1,0 +1,33 @@
+{
+  "description": "Measured values for Cr and dF (as defined in equation 6) for various molecular families across different solvents/conditions.",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "toluene",
+    "PEO",
+    "D2O",
+    "HDO",
+    "CDCl3",
+    "TMS",
+    "PS",
+    "acetone",
+    "THF",
+    "PMMA",
+    "small molecules",
+    "globular proteins",
+    "Tris",
+    "oligosaccharides",
+    "denatured peptide",
+    "dioxan"
+  ],
+  "other_statistics": [
+    {
+      "name": "Cr",
+      "value": "Various (see table)"
+    },
+    {
+      "name": "dF",
+      "value": "Various (see table)"
+    }
+  ]
+}

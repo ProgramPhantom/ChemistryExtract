@@ -1,0 +1,26 @@
+-------------- TABLE 2 EXTRACTION --------------
+**[Preceding Paragraphs]**
+After having established the dependence of D on M w and polymer concentration, it was necessary to verify the correctness of this relationship before performing the ' One NMR Tube Experiment ' . Therefore, a kinetic experiment on L-lactide polymerization was performed with sampling of the polymerization mixture ( protocol and conditions of experiments are given in ESI † ). The determined molar masses are given in Table 2.
+
+The data in Table 2 (as well as Fig. S8 in ESI † ) show, that for the dead macromolecules, both the DOSY and SEC methods give almost identical values of M n and M w. This observation additionally indicates that the relationship between M w and D has been correctly determined. Moreover, Đ of polymer samples range from 1.00 to 1.07, as expected for chains formed in the controlled-living polymerization.
+
+Application of DOSY for studies of the polymerization kinetics of L-lactide using the ' One NMR Tube Experiment ' approach is illustrated by polymerization conducted in sealed NMR tubes (Experimental details are given in ESI † ). A polymerization mixture containing C6D6, LA, and initiating/ catalytic system Sn(Oct)2/BzOH was prepared and transferred into an NMR tube under vacuum. The tube was then sealed o ff and kept in a thermostat at 353 K. At predetermined time
+
+Table 2 M n, M w, Đ and D as determined by SEC, 1 H NMR and DOSY measurements in the kinetic experiment with sampling
+
+**[Table Data]**
+|   Id | M n a   | M w a   |   Đ a |   M n b | M w c   |   Đ d |   10 11 × D c (m 2 s - 1 ) |
+|------|---------|---------|-------|---------|---------|-------|----------------------------|
+|    1 | 6500    | 6800    |  1.03 |    6800 | 6780    |  1.00 |                     1.5042 |
+|    2 | 8450    | 8600    |  1.02 |    8600 | 8620    |  1.01 |                     1.3048 |
+|    3 | 9400    | 9700    |  1.04 |    9800 | 10 100  |  1.03 |                     1.1846 |
+|    4 | 10 200  | 10 600  |  1.03 |    9400 | 10 100  |  1.07 |                     1.1840 |
+
+**[Succeeding Paragraphs]**
+a SEC with MALLS detection. b Integration of 1 H NMR spectra. c From DOSY. d M n( 1 H NMR)/ M w(DOSY).
+
+intervals, the tube was cooled and 1 H NMR as well as DOSY spectra of the polymerizing mixture were acquired at 298 K. Polymerization practically does not take place at this temperature during the 20 minutes of the measurement.
+
+The monomer conversion and degree of polymerization P n were determined from integrations of the standard 1 H NMR spectrum (Fig. 3). The spectrum shows the structure of active macromolecules being in equilibrium with the temporarily inactive chains with -OH end groups, in agreement with ref. 15. The monomer conversion was calculated from the ratio of the integration of the signal from methine protons of the lactoyl units e (overlapped quartets at δ = 5.0 -5.1 ppm) to the integration of the monomer signal (quartet centred at δ = 3.75 ppm). Signals e ′ and g broadened due to an equilibrium between active and inactive chains and therefore cannot be used for calculations of P n of living macromolecules. P n and M n were calculated from the ratio of the integrations of signals e and d ′ (the latter at δ = 4.89 ppm).
+
+Fig. 4 shows the experimental plot of the left-hand side of eqn (5) as a function of time.

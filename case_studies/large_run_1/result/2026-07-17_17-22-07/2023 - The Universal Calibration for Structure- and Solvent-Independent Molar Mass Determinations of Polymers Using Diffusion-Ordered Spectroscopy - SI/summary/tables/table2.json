@@ -1,0 +1,30 @@
+{
+  "description": "Pulsed field gradient NMR conditions for various polymer samples (PS, PEG, PMMA) in different solvents to determine diffusion coefficients.",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "CDCl3",
+    "C6D6",
+    "CD2Cl2",
+    "Toluene",
+    "THF",
+    "Acetone",
+    "MeOD",
+    "D2O",
+    "CD3CN",
+    "DMSO",
+    "Polystyrene (PS)",
+    "Polyethylene glycol (PEG)",
+    "Poly(methyl methacrylate) (PMMA)"
+  ],
+  "other_statistics": [
+    {
+      "name": "Gradient pulse length (LD)",
+      "value": "ms"
+    },
+    {
+      "name": "Diffusion delay (BD)",
+      "value": "ms"
+    }
+  ]
+}

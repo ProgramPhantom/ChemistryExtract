@@ -1,0 +1,35 @@
+{
+  "description": "Specific Refractive Index Increments for various polymers in different solvents",
+  "temperature": "Various (e.g., 25, 30, 90, 125, 135, 145 degrees Celsius; RT)",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "Polypropylene",
+    "1-chloronaphthalene",
+    "TCB",
+    "DMF",
+    "Polyoxymethylene",
+    "Polyethylene terephthalate",
+    "HFIP",
+    "PFP",
+    "MCIDCAA",
+    "DCAA",
+    "m-cresol",
+    "a-chlorophenol",
+    "Polyamide 6",
+    "Polyamide 11",
+    "Polyamide 12",
+    "Polyamide 6, 6",
+    "Polyamide 6, 9",
+    "formic acid"
+  ],
+  "other_statistics": [
+    {
+      "name": "Wave-length",
+      "value": "436, 546, 578, 589.0, 632.8 nm"
+    },
+    {
+      "name": "dn/dc",
+      "value": "-0.227 to 0.257 mUg"
+    }
+  ]
+}

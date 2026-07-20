@@ -1,0 +1,32 @@
+-------------- TABLE 3 EXTRACTION --------------
+**[Preceding Paragraphs]**
+Just as in the case of  benzene, a very large amount of information is available for toluene over a considerable mo­ lecular weight range. It is possible to select papers in which molecular weights were determined by absolute methods. In Fig. 2 the data reported in eight different papers are plotted over a range of  molecular weights from 660 to 4 X 10 6 ,  Tije curve is also best fit by a quadratic equation,
+
+FIG. 2.Composite plot of  the polystyrene-toluene viscosity data referred to in Table 2.
+
+<!-- image -->
+
+TABLE 2. Sources of  toluene data
+
+**[Table Data]**
+| Author          |   TiC |   KI (1O-3 mL/g) |    a |   No. of samples | MW range          | MW method              | Ref.   |
+|-----------------|-------|------------------|------|------------------|-------------------|------------------------|--------|
+| McCormick       |    25 |             9.77 | 0.73 |               12 | 11400-1.06X 10 6  | sedimentation velocity | 12     |
+| Berry           |    12 |                  |      |                9 | 20 000-4.4X 10 6  | light scattering       | 13     |
+| Rossi et a/, I  |    25 |                  |      |               11 | 660-34500         | cryoscopy              | 14     |
+| Yamamoto et al. |    30 |             8.81 | 0.75 |                5 | 280000-165000     | light scattering       | S      |
+| Papazian        |    25 |              8.5 | 0.74 |                5 | 49000-242000      | light scattering       | 15     |
+| Oth and Desreux |    25 |             7.50 | 0.75 |                7 | 115 000-2.8X 10 6 | light scattering       | 16     |
+| Bawnetal.       |    25 |             13.4 | 0.71 |                5 | 72 000-1.5X10 6   | osmotic pressure       | 9      |
+| Nakata          |    35 |             12.6 | 0.71 |               15 | 33 000-3.2X 10 6  | light scattering       | 17     |
+
+**[Succeeding Paragraphs]**
+TABLE 3. Mark-Houwink constants-polystyrene in 1,2,4-trichlorobenzene
+
+[table omitted]
+
+$$\text {curve is as much bit of a quadratic equation,} & & \quad \text {mark-that} , \\ \log [ \eta ] = A + B \log M + C ( \log M ) ^ { 2 } , & & \quad ( 2 ) \\ \text {where} & & \quad \text {where} \\ A = - 0 . 5 3 8 , \quad & \text {s.d. 0.075} ; & \quad \text {method} \\ B = \ 0 . 2 3 , \quad & \text {s.d. 0.0321} ; & \quad \text {found,} \\ C = \ 0 . 0 4 7 1 , \quad & \text {s.d. 0.0333} ; & \quad \text {the res} \\ \text {with } [ \eta ] \text { in } m L / g \text { and for } 6 6 \degrees \text { of freedom and a residue} \quad & & \quad \text {carried}$$
+
+with [1]] in mL/g  and for 66 degrees offreedom and a residu­ al standard deviation of 0.026 or 6%. A linear fit,  on the other hand, would give a 14% standard deviation.
+
+The  sources of  the data are listed in Table 2. It is inter­ esting to note that Berry's data for  12 uC  fall  on the same curve as the data taken at 25-30 °C. Most of the data were obtained from papers in which fractionated samples were employed because so much of the work was carried out be­ fore the advent of  anionic polymerization.

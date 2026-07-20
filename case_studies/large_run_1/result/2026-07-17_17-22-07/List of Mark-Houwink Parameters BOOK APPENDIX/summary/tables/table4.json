@@ -1,0 +1,35 @@
+{
+  "description": "Mark-Houwink Parameters for Homopolymers",
+  "temperature": "Various (e.g., 25, 30, 35, 120, 127, 130, 135, 138, 140, 145 \u00b0C)",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "POMA",
+    "PLMA",
+    "PSMA",
+    "PMA",
+    "PtBA",
+    "Polyethylene",
+    "HDPE",
+    "LDPE",
+    "LLDPE",
+    "Hydrogenated PB",
+    "PP",
+    "Polyisobutylene",
+    "Polycarbonate",
+    "PB"
+  ],
+  "other_statistics": [
+    {
+      "name": "Kx 10^2 (ml/g)",
+      "value": "Various values provided in the table for each polymer-solvent combination"
+    },
+    {
+      "name": "a",
+      "value": "Various values provided in the table for each polymer-solvent combination"
+    },
+    {
+      "name": "MW range (M x 10^-3)",
+      "value": "Various ranges provided for some polymers"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "description": "Diffusion coefficients (D) and relative weight fractions (x) for binary PS/PS mixtures measured using PGSE NMR spectroscopy on the signal associated with para and meta protons of the phenyl ring.",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "polystyrene (PS)",
+    "binary PS/PS mixtures"
+  ],
+  "other_statistics": [
+    {
+      "name": "Diffusion delay (D)",
+      "value": "100, 200, 300, 400, 500, 600 ms"
+    },
+    {
+      "name": "Diffusion coefficients (D)",
+      "value": "10^-10 m^2 s^-1"
+    },
+    {
+      "name": "Relative weight fractions (x)",
+      "value": "%"
+    }
+  ]
+}

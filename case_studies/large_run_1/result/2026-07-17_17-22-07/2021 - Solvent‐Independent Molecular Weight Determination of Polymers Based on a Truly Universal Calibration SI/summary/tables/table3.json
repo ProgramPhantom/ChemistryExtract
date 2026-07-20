@@ -1,0 +1,10 @@
+{
+  "description": "Logarithm of diffusion coefficient (D) and molecular weight (M) for poly(styrene) in CDCl3",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "poly(styrene)",
+    "CDCl3"
+  ],
+  "other_statistics": []
+}

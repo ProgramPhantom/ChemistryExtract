@@ -1,0 +1,22 @@
+{
+  "description": "Diffusion Constants of 1-C16 and 1-C20 in Alkanes",
+  "temperature": "22.50 \u00b1 0.50 \u00b0C",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "1-C16",
+    "1-C20",
+    "n-C6",
+    "n-C8",
+    "n-C10",
+    "n-C12",
+    "n-C14",
+    "n-C16",
+    "squalane"
+  ],
+  "other_statistics": [
+    {
+      "name": "uncertainties",
+      "value": "\u00b1 2.5%"
+    }
+  ]
+}

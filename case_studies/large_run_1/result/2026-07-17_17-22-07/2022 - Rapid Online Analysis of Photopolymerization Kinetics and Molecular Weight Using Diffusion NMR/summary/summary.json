@@ -1,0 +1,12 @@
+{
+  "title": "Rapid Online Analysis of Photopolymerization Kinetics and Molecular Weight Using Diffusion NMR",
+  "authors": [
+    "Lucy L. Fillbrook",
+    "Mitchell D. Nothling",
+    "Martina H. Stenzel",
+    "William S. Price",
+    "Jonathon E. Beves"
+  ],
+  "doi": "10.1021/acsmacrolett.1c00719",
+  "abstract": "Online, high-throughput molecular weight analysis of polymerizations is rare, with most studies relying on tedious sampling techniques and batchwise postanalysis. The ability to track both monomer conversion and molecular weight evolution in real time could underpin precision polymer development and facilitate study of rapid polymerization reactions. Here, we use a single time-resolved diffusion nuclear magnetic resonance (NMR) experiment to simultaneously study the kinetics and molecular weight evolution during a photopolymerization, with in situ irradiation inside the NMR instrument. As a model system, we used a photoinduced electron transfer reversible addition -fragmentation chain transfer (PET-RAFT) polymerization. The data allow diffusion coefficients and intensities to be calculated every 14 s from which the polymer size and monomer conversion can be extracted. Key to this approach is (1) the use of shuffled gradient amplitudes in the diffusion NMR experiment to access reactions of any rate, (2) the addition of a relaxation agent to increase achievable time resolution and, (3) a sliding correction that accounts for viscosity changes during polymerization. Diffusion NMR offers a uniquely simple, translatable handle for online monitoring of polymerization reactions."
+}

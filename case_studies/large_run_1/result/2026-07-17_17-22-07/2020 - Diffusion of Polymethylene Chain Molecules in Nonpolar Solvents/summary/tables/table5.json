@@ -1,0 +1,17 @@
+{
+  "description": "Diffusion constants of 1-phenylalkane solutes in various solvents",
+  "temperature": "20.5 - 25.5 \u00b0C",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "n-C9",
+    "n-C10",
+    "n-C12",
+    "n-C15",
+    "n-C16",
+    "HPMN",
+    "pristane",
+    "squalane",
+    "1-phenylalkanes"
+  ],
+  "other_statistics": []
+}

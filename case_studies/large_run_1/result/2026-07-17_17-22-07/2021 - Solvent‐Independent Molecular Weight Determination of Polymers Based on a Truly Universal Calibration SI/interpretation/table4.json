@@ -1,0 +1,19 @@
+{
+  "is_mark_houwink_data": false,
+  "is_flory_data": true,
+  "mh_entries": [],
+  "flory_entries": [
+    {
+      "polymer_name": "poly(styrene)",
+      "solvent": "CDCl3",
+      "temperature_k": null,
+      "raw_v_value": 0.49,
+      "v_transformation": "none",
+      "v_value": 0.49,
+      "raw_c_value": -7.94,
+      "c_transformation": "log10",
+      "c_value": -7.94
+    }
+  ],
+  "calculator_calls": []
+}

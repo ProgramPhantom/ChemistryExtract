@@ -1,0 +1,33 @@
+{
+  "description": "Comparison of Mark-Houwink parameters K and a determined by DOSY (Diffusion Ordered Spectroscopy) and provided by available literature data for various polymers in different solvents.",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "PS (Polystyrene)",
+    "PEO (Polyethylene oxide)",
+    "Benzene",
+    "Chloroform",
+    "Toluene",
+    "THF (Tetrahydrofuran)",
+    "Water",
+    "Acetone"
+  ],
+  "other_statistics": [
+    {
+      "name": "K (DOSY)",
+      "value": "0.01077, 0.00732, 0.00980, 0.01410, 0.02554, 0.06862"
+    },
+    {
+      "name": "a (DOSY)",
+      "value": "0.727, 0.678, 0.565, 0.746, 0.735, 0.700"
+    },
+    {
+      "name": "K (literature)",
+      "value": "0.0113, 0.00716, 0.00977, 0.0141, 0.04683, 0.156"
+    },
+    {
+      "name": "a (literature)",
+      "value": "0.73, 0.76, 0.73, 0.7, 0.659, 0.5"
+    }
+  ]
+}

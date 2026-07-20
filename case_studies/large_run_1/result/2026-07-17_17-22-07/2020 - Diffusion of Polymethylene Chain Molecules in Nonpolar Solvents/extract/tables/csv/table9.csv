@@ -1,0 +1,15 @@
+,solutes,no. of solutes,solvents,avg % di ff
+0,n -C i,40,n -C i,2.6 0
+1,n -C i,8,tetralin,3.7 9
+2,n -C i,10,decalin,4.2 4
+3,n -C i,17,benzene,4.1 6
+4,n -C i,24,toluene,1.9 7
+5,n -C i,59,"te, de, bz, to",3.2 3
+6,n -C i,32,CCl 4,2.2 9
+7,n -C i,131,total,2.8 1
+8,1-C i,26,n -C i,1.5 0
+9,1-C i Ph,30,n -C i,1.7 0
+10,1-C i Ph,20,"H, P, S",2.6 6
+11,1-C i Ph,50,total,2.0 8
+12,"1-C i , 1-C i Ph",total,76,1.8 8
+13,all solutes,207,all solvents,2.4 7

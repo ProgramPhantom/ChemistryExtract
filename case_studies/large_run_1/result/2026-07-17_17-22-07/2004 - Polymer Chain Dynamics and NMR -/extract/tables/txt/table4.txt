@@ -1,0 +1,26 @@
+-------------- TABLE 4 EXTRACTION --------------
+**[Preceding Paragraphs]**
+respectively (Table 1).
+
+On a longer time scale, in limit (II)DE ( t e &lt;&lt; t &lt;&lt; t R ), the tube constraints become effective, and chain modes are consequently connected with elongations along the tube contour (the 'primitive path'). The distribution of relaxation times extends up to the value known as the (longest) Rouse relaxation time given in 54. That is, segment motions are anisotropic on the time scale of this limit. Since segments distant enough from each other are fluctuating still independently, the mean squared segment displacement remains molecular mass independent. Two particularly characteristic power laws for limit (II)DE refer to the mean squared segment displacement,
+
+$$\langle R ^ { 2 } \rangle \circ M ^ { 0 } t ^ { 1 / 4 } ,$$
+
+Table 1. Theoretical dependences on time ( t ), angular frequency ( w ), and molecular mass ( M ) predicted by the tube/reptation model for the mean squared segment displacement and the intrasegment spin-lattice relaxation time in the four Doi/Edwards limits. The factors CI , CII , CIII , and CN are frequency and molecular mass independent constants
+
+**[Table Data]**
+|          | Limit                   | Mean squared segment displacement h R 2 i =    | Refs    | Intrasegment spin-lattice relaxation time T 1 intra =   | Refs     |
+|----------|-------------------------|------------------------------------------------|---------|---------------------------------------------------------|----------|
+| (I) DE   | t s <<( t ,1/ w )<< t e | 2 p 3 = 2 b 2 t t s 1 = 2 / M 0 t 1 = 2        | [1]     |  C I M 0 t s ln wt s ð Þ                                | [47, 50] |
+| (II) DE  | t e <<( t ,1/ w )<< t R | b 2 N 1 = 2 e t t s 1 = 4 / M 0 t 1 = 4                                                  | [1, 54] | C II M 0 w 3/4                                          | [54, 70] |
+| (III) DE | t R <<( t ,1/ w )<< t d | 2 p b 2 N e 3 N t t s 1 = 2 / M  1 = 2 t 1 = 2 | [1, 54] | C III M 1/2 w 1/2                                                         | [54]     |
+| (IV) DE  | t d <<( t ,1/ w )       | 2 k B T z N e N 2 t / M  2 t 1                 | [1,54]  | C IV M (1.5...2.0) w 0                                                         | [123]    |
+
+**[Succeeding Paragraphs]**
+and to the (intrasegment) spin-lattice relaxation time,
+
+$$T _ { 1 } \circ M ^ { 0 } \omega ^ { 3 / 4 }$$
+
+(Table 1). Equations 68 and 69 are totally equivalent as can be seen from a simple probability consideration. In the frame of this and the following time limit, the correlation function given in Eq. 28 can essentially be considered to represent the probability that the spin-bearing segment is still or again in the tube section where it was initially [54, 70, 71]. That is,
+
+$$G _ { m } ( t ) \in \frac { a ^ { 2 } } { \langle R ^ { 2 } ( t ) \rangle } ,$$

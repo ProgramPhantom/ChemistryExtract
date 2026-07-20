@@ -1,0 +1,17 @@
+{
+  "description": "Experimental D average values and calculated RH [in square parenthesis] for PDMS and TMS in 2015-2019 Malbec organic extract batches.",
+  "temperature": "298 K",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "PDMS",
+    "TMS",
+    "C6D6",
+    "Malbec organic extract"
+  ],
+  "other_statistics": [
+    {
+      "name": "dynamic viscosity (\u03b7) of the organic extract with C6D6 and 2 mM of TMS",
+      "value": "70 centipoise average"
+    }
+  ]
+}

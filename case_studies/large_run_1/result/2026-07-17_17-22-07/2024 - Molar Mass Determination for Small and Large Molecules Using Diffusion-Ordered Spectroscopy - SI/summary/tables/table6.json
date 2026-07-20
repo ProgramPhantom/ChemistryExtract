@@ -1,0 +1,16 @@
+{
+  "description": "Pulsed field gradient conditions (BD/ms and LD/ms) for polymers and solvents using the convection compensated pulse sequence dstebpgp3s.",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [],
+  "other_statistics": [
+    {
+      "name": "BD/ms",
+      "value": "95.13, 94.33, 95.4, 95.4, 75.93, 94.33, 93.27, 94.6, 94.6, 75.4, 113.8, 112.47, 94.07, 114.07, 141.93, 241.93, 91.93, 141.93, 291.93, 341.93, 161.93, 191.93, 291.93, 491.93, 241.93, 291.93, 491.93, 641.93, 441.93, 491.93"
+    },
+    {
+      "name": "LD/ms",
+      "value": "3.8, 4.6, 3.6, 3.6, 3.0, 4.2, 5.2, 4.0, 4.0, 5.6, 5.6, 5.6, 5.6, 5.6, 5.6, 5.6, 5.6, 5.6, 5.6, 5.6, 5.6, 5.6, 5.6, 5.6, 5.6, 5.6, 5.6"
+    }
+  ]
+}

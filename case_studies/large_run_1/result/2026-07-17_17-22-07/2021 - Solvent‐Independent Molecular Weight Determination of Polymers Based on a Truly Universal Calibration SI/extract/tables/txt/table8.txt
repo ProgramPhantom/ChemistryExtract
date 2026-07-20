@@ -1,0 +1,30 @@
+-------------- TABLE 8 EXTRACTION --------------
+**[Preceding Paragraphs]**
+<!-- image -->
+
+## Poly(ethylene glycol)
+
+A paper published by Waggoner et al. in Macromolecules (DOI: 10.1021/ma00112a010) was used in comparison with the poly(ethylene glycol) data. Again, to compare results it is important to have comparable molecular weights. Therefore the range of 2960 g/mol to 15100 g/mol is used. Using this new range, a new curve and error margin was fitted for Waggoner.
+
+Table 7. Logarithm of D (viscosity) of poly(ethylene glycol) in D2O with error, Waggoner
+
+**[Table Data]**
+| Solvent             |    (mPa  s) |
+|---------------------|---------------|
+| benzene-d 6         |        0.6076 |
+| CDCl 3              |         0.563 |
+| D 2 O               |        1.2314 |
+| methanol-d 4        |         0.543 |
+| acetone-d 6         |         0.295 |
+| toluene-d 8         |          0.56 |
+| tetrahydrofuran-d 8 |          0.48 |
+| acetonitrile-d 3    |         0.343 |
+
+**[Succeeding Paragraphs]**
+Figure 9. Comparison calibration curve for poly(ethylene glycol) in D2O and literature
+
+<!-- image -->
+
+## Viscosity of solvents (25  C)
+
+Table 8. Viscosities of used deuterated solvents

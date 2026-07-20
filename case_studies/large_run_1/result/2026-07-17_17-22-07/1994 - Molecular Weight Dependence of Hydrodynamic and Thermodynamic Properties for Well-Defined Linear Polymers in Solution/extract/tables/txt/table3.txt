@@ -1,0 +1,28 @@
+-------------- TABLE 3 EXTRACTION --------------
+**[Preceding Paragraphs]**
+$$[ \eta ] - 1 . 7 7 \times 1 0 ^ { - 1 } \, M ^ { 0 . 5 3 }$$
+
+The exponent of 0.503, based on 12 samples covering about 1.5 orders of  magnitude in M, shows that 26.5 °C is very near to the theta temperature for this polymer/solvent pair. Appli­ cation of the extrapolation method of Burchard l6 and Stock­ mayer and Fixman l7 (BSF approach), which corrects for slight deviations from theta, yields:
+
+$$[ \eta ] _ { \theta } = 1 . 8 4 \times 1 0 ^ { - 1 } \, M ^ { 1 2 }$$
+
+TABLE 1  .. Polybutad.iene in  1,4-dioxane
+
+**[Table Data]**
+|   Reference | M x 10- 5 (g mOI""I)   | [TJ] (cm 3 g-I)    | Ria (run)   |           |
+|-------------|------------------------|--------------------|-------------|-----------|
+|          23 | 0.108 0.221            | 18.5 27.2          |             |           |
+|             | 0.717 0.960 2.32 5.22  | 47.6 35.0 84.5 129 |             | 2.98      |
+|          24 | 0.111 0.393 0.590 1.14 | 39.5               | 12.8        | 6.91 9.50 |
+|             | 1.55 1.64              |                    | 14.9 ·15.3  |           |
+|             | 1.80 2.56              | 83.0               | 16.0 19.1   | 14.6      |
+|             | 3.61                   | :.122              | 22.7        | l6.5      |
+
+**[Succeeding Paragraphs]**
+acaleulated from  the power law given in Ref.  24.
+
+The  good  solvent viscosity  data  of Table  2  result  in  the MHS equation (corr. coeff. 0.9998):
+
+$$[ \eta ] - 3 . 8 7 \times 1 0 ^ { - 2 } \, M ^ { 0 . 6 9 7 }$$
+
+This  equation  is  based  on  15  polymers  covering  nearly 2! orders  of magnitude  in  molecular weight  (Fig. 1). Surpris­ ingly this plot is linear all the way down to 11,000 in M. As noted above9-14, deviations from linearity are expected below a M of  about 50,000, but clearly no such curvature is observed in Fig.  1. This effect may be due to the thin and streamlined structure of PBD.

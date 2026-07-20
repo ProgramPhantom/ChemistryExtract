@@ -1,0 +1,11 @@
+{
+  "description": "Copolymer Distribution Parameters Determined by MALDI MS and Quantitative 1H NMR",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "CDCl3",
+    "PEO",
+    "PS"
+  ],
+  "other_statistics": []
+}

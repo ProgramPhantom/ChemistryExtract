@@ -1,0 +1,12 @@
+{
+  "title": "Concentration-independent molecular weight determination of polymers via diffusion NMR: A universal approach across solvents",
+  "authors": [
+    "Francisco Manuel Arrabal-Campos",
+    "Marta Gonz\u00e1lez-L\u00e1zaro",
+    "Juana M. P\u00e9rez",
+    "Juan A. Mart\u00ednez Lao",
+    "Ignacio Fern\u00e1ndez"
+  ],
+  "doi": "Not found",
+  "abstract": "Diffusion NMR is a widely used technique to measure diffusion coefficients, which provides insights into the size and mobility of molecules in solution. For polymer and other systems, these diffusion coefficients are often linked to molecular weight through empirical scaling relationships, allowing the molecular weight to be estimated indirectly. However, factors such as solvent type and polymer concentration can have a significant impact on the precision of molecular weight predictions derived from these coefficients. Typically, diffusion NMR measurements are performed at very low concentrations to minimize distortions in diffusion coefficients, which can affect molecular weight estimation. However, this approach poses challenges, such as inaccuracies due to the need to very small quantities of polymer. Additionally, achieving reliable results often requires numerous scans and long recovery periods between scans to account for T1 relaxation times, leading to extended experimental durations. To avoid these drawbacks, we propose a new iterative method that incorporate the relationship D \u03b7 | c = D \u03b7 | 1 / \u221e e \u03ba C \u03bd where the Kappa value depends on the molecular weight affording a new scaling law D \u03b7 | c = a e ( mMw + n ) C \u03bd M b w . This approach improves the accuracy of molecular weight estimates described so far and makes it independent to changes in the type of solvent and more importantly in the concentration of the polymer validate from 1.5 mg/mL until 150 mg/mL. This method represents a step forward in the precise characterization of polymers using diffusion NMR."
+}

@@ -1,0 +1,25 @@
+{
+  "description": "Parameters b (Flory parameter) and c of the power scaling D=c\u00b7M^-b determined via DOSY for PMMA in C6D6 and PEO in D2O at variable temperatures.",
+  "temperature": "298.15 K to 333.15 K",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "PMMA",
+    "C6D6",
+    "PEO",
+    "D2O"
+  ],
+  "other_statistics": [
+    {
+      "name": "b (Flory parameter)",
+      "value": "Variable based on sample and temperature"
+    },
+    {
+      "name": "c",
+      "value": "Variable based on sample and temperature"
+    },
+    {
+      "name": "dynamic viscosity (\u03b7)",
+      "value": "Variable based on sample and temperature"
+    }
+  ]
+}

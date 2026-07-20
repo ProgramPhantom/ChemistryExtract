@@ -1,0 +1,10 @@
+{
+  "description": "Measurement of hydrodynamic radius (RH) and other size parameters for Polystyrene (PS) in benzene.",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "Polystyrene",
+    "benzene"
+  ],
+  "other_statistics": []
+}

@@ -1,0 +1,12 @@
+{
+  "title": "Self-di ff usion of water and poly(amidoamine) dendrimers in dilute aqueous solutions",
+  "authors": [
+    "Istv\u00e1n B\u00e1nyai",
+    "M\u00f3nika K\u00e9ri",
+    "Zolt\u00e1n Nagy",
+    "M\u00e1rta Berka",
+    "Lajos P. Balogh"
+  ],
+  "doi": "10.1039/c2sm26726h",
+  "abstract": "Medium generation PAMAM dendrimers are extensively researched as drug delivery vehicles therefore detailed knowledge of their physico-chemical properties in solution is vital. We have selected ethylenediamine core, generation fi ve poly(amidoamine) (PAMAM_E5) dendrimers (amine terminated PAMAM_E5.NH2 and its succinamic acid derivative PAMAM_E5.SAH, respectively) as model compounds to study their dynamic behavior in water as a function of pH and concentration. Di ff usion coe ffi cients of water and the dendrimers were determined in deuterium oxide using pulse- fi eld gradient stimulated echo (PGSE) NMR. The di ff usion rate for PAMAM_E5.NH2 increased monotonously with increasing pH values while for PAMAM_E5.SAH a maximum was found at an isoelectric value of pH \u2013 5.7. The apparent di ff usion coe ffi cients of dendrimers decreased linearly with increasing concentration measured at their self-pH (pH \u2013 9.4 for PAMAM_E5.NH2 and pH \u2013 5.7 for PAMAM_E5.SAH) in the absence of added salts. The observations could be explained by considering hard sphere interactions between strongly hydrated dendrimer molecules. The average hydrodynamic radii of dendrimers were determined by extrapolating the measured di ff usion coe ffi cients to zero dendrimer concentration and applying the Stokes -Einstein equation. The calculated values were R H \u2013 3.05  0.04 nm for PAMAM_E5.NH2 and R H \u2013 3.37  0.08 nm for PAMAM_E5.SAH respectively. Measured di ff usion coe ffi cients of water (D2O) also decreased linearly with increasing dendrimer concentration. From the concentration dependence, the average number of water molecules that form one dynamic unit with one macromolecule could be calculated on the basis of three di ff erent obstruction models. It has been concluded that hydrated PAMAM dendrimers in aqueous solutions behave as soft colloids against solvent molecules but as hard-sphere colloids against each other. Their equivalent hard-sphere radii were found to be equal to the measured hydrodynamic radii."
+}

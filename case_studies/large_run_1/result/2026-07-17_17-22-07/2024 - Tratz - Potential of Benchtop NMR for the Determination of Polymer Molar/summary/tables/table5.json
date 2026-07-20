@@ -1,0 +1,21 @@
+{
+  "description": "Determination of weight-average molar mass (Mw) and dispersity (\u00d0) of polystyrene (PS) and PS-b-PMMA block copolymer samples using Size Exclusion Chromatography (SEC).",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "polystyrene (PS)",
+    "poly(methyl methacrylate) (PMMA)",
+    "deuterated chloroform (CDCl3)",
+    "tetrahydrofuran (THF)"
+  ],
+  "other_statistics": [
+    {
+      "name": "Mw [kg \u2022 mol - 1 ]",
+      "value": "10, 17, 63, 123, 271, 516, 931 for PS; 50, 81, 84, 108 for PS-b-PMMA"
+    },
+    {
+      "name": "\u00d0",
+      "value": "1.03 to 1.18"
+    }
+  ]
+}

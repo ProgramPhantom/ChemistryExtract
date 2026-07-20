@@ -1,0 +1,24 @@
+-------------- TABLE 2 EXTRACTION --------------
+**[Preceding Paragraphs]**
+Figure 2. DOSY spectrum of 18000 g  mol -1  poly(styrene) in CDCl3
+
+<!-- image -->
+
+Dynamics Center was used to analyse the DOSY spectrum. Following the peak of the aromatic ring in styrene at 6.6 ppm. The following values are obtained:
+
+Table 1. Diffusion coefficient and error of 18000 g  mol -1 poly(styrene) in CDCl3
+
+**[Table Data]**
+| log( D /m 2  s -   |   log( M / g  mol -1 ) |   Error |
+|---------------------|-------------------------|---------|
+| 1 )                 |                         |         |
+| -9.91               |                    4.26 |    0.04 |
+
+**[Succeeding Paragraphs]**
+To create the curves, the logarithm is taken of the diffusion and the molecular weight that is measured. To calculate the error on the logarithmic scale a simple mathematic calculation is done:
+
+$$E r r o r _ { g r a p h } = \log ( D + e r r o r ) - \log ( D )$$
+
+After the calculation, this gives the following values that are used in the graphs:
+
+Table 2. Logarithm of D of 18000 g  mol -1 poly(styrene) in CDCl3 and calculated error

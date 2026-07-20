@@ -1,0 +1,46 @@
+,Sample,Solvent,Wave- length (nm),dn/dc (ml/g),Temp (ac),A2 (x 10 3 ),"Ref, Remark"
+0,Poly(acrylic acid),aqueous NaCI,436,0.158,30,,10
+1,,THF,632.8,0.0738,23,,20
+2,,,632.8,0.0994,23,,20
+3,,0.2N HCl,632.8,0.133,,,83
+4,Poly(allyl amine),0.1% TFAI,632.8,0.2034,35,,"84,j"
+5,,0.20M NaN0 3,632.8,0.1950,35,,"84,k"
+6,Poly(vinyl amine),0.1 % TFA/0.20M NaN0 3,632.8,0.1751,35,,"84,m"
+7,Branched polyethyleneimine,Branched polyethyleneimine,,,,,
+8,,water,632.8,0.210,35,,85
+9,,1M NaCI,632.8,0.195,35,,85
+10,,methanol,632.8,0.225,35,,85
+11,Poly(ethylene oxide),methanol,632.8,0.145,25,,86
+12,Dextran,water,632.8,0.147,,,"87,n"
+13,,water,632.8,0.150,25,,88
+14,,O.IM KN0 3,632.8,0.150,25,,88
+15,,0.05M KH 2 P0 4 (pH 7),632.8,0.137,,,"87,n"
+16,,0.15M NaCI,632.8,0.145,,,89
+17,,0.05M K 2 HP0 4 (pH 7),632.8,0.1378,,0.41,90
+18,,water,546,0.148,,,91
+19,,O.5M NaCI,546,0.145,,,91
+20,,water,436,0.150,,,91
+21,,O.5M NaCl,436,0.148,,,91
+22,,0.2MNaN0 3,514.5,0.147,RT,,92
+23,Pullulan,0.2M NaN0 3,514.5,0.147,RT,,92
+24,,0.15M NaCI,632.8,0.145,,,89
+25,,water,488,0.148,25,,94
+26,Polysaccharide,,,0.146,,,95
+27,,water O.IM NaCI,632.8 632.8,0.143,,,"96,p"
+28,(anionic),O.IM NaCl,632.8,0.143,,,"96,q"
+29,Sodium hyaluronate,O.IM NH 4 N0 3,632.8,0.155,,3,97
+30,,,,0.163,,,
+31,Sodium heparin,O.IM NaCI,632.8,,23,,"98,r"
+32,Sodium poly(styrene sulfonate),Sodium poly(styrene sulfonate),,,,,
+33,,water,632.8,0.17,,,99
+34,(0.9 meq/g),0.05M NaCl,546,0.212,25,,10
+35,(1.8 meq/g),,546,0.207,25,,10
+36,(2.0 meq/g),O.1OM NaCI,546,0.195,25,,10
+37,(2.7 meq/g),,546,0.205,25,,10
+38,,O.IM NaNO,632.8,0.195,,,100
+39,Poly(sulfoalkyl methacrylate),Poly(sulfoalkyl methacrylate),,,,,
+40,(ethyl),O.IM NaCl,532,0.135,25,,101
+41,(hexyl),,532,0.140,25,,101
+42,(decyl),,532,0.170,25,,101
+43,(octyl),,532,0.149,25,,101
+44,Hydroxyethyl-,O.IM NaCI,632.8,0.159,,,102

@@ -1,0 +1,15 @@
+{
+  "description": "D-Mw Results of PS Standard Calibration Curve and Predictions",
+  "temperature": "25 \u00b0C",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "Polystyrene (PS)",
+    "benzene-d6"
+  ],
+  "other_statistics": [
+    {
+      "name": "R^2",
+      "value": "0.9991"
+    }
+  ]
+}

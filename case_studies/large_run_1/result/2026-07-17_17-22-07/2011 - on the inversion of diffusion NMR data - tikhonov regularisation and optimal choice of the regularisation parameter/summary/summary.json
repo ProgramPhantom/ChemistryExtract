@@ -1,0 +1,8 @@
+{
+  "title": "On the inversion of diffusion NMR data: Tikhonov regularization and optimal choice of the regularization parameter",
+  "authors": [
+    "Iain J. Day"
+  ],
+  "doi": "Not found",
+  "abstract": "The analysis of diffusion NMR data in terms of distributions of diffusion coefficients is hampered by the ill-posed nature of the required inverse Laplace transformation. Na\u00efve approaches such as multiexponential fitting or standard least-squares algorithms are numerically unstable and often fail. This paper updates the CONTIN approach of the application of Tikhonov regularization to stabilise this numerical inversion problem and demonstrates two methods for automatically choosing the optimal value of the regularization parameter. These approaches are computationally efficient and easy to implement using standard matrix algebra techniques. Example analyses are presenting using both synthetic data and experimental results of diffusion NMR studies on the azo-dye sunset yellow and some polymer molecular weight reference standards."
+}

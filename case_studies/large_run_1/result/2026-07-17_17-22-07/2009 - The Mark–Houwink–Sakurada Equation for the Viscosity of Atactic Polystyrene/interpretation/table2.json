@@ -1,0 +1,110 @@
+{
+  "is_mark_houwink_data": true,
+  "is_flory_data": false,
+  "mh_entries": [
+    {
+      "polymer_name": "atactic polystyrene",
+      "solvent": "benzene",
+      "temperature_k": 408.15,
+      "raw_K_value": 0.0146,
+      "K_transformation": "10^-3 multiplier",
+      "K_value": 0.0146,
+      "raw_a_value": 0.689,
+      "a_transformation": "none",
+      "a_value": 0.689
+    },
+    {
+      "polymer_name": "atactic polystyrene",
+      "solvent": "benzene",
+      "temperature_k": 298.15,
+      "raw_K_value": 0.0141,
+      "K_transformation": "10^-3 multiplier",
+      "K_value": 0.0141,
+      "raw_a_value": 0.7,
+      "a_transformation": "none",
+      "a_value": 0.7
+    },
+    {
+      "polymer_name": "atactic polystyrene",
+      "solvent": "benzene",
+      "temperature_k": 411.15,
+      "raw_K_value": 0.0138,
+      "K_transformation": "10^-3 multiplier",
+      "K_value": 0.0138,
+      "raw_a_value": 0.7,
+      "a_transformation": "none",
+      "a_value": 0.7
+    },
+    {
+      "polymer_name": "atactic polystyrene",
+      "solvent": "benzene",
+      "temperature_k": 298.15,
+      "raw_K_value": 0.039,
+      "K_transformation": "10^-3 multiplier",
+      "K_value": 0.039,
+      "raw_a_value": 0.58,
+      "a_transformation": "none",
+      "a_value": 0.58
+    },
+    {
+      "polymer_name": "atactic polystyrene {C}",
+      "solvent": "benzene",
+      "temperature_k": 298.15,
+      "raw_K_value": 0.00716,
+      "K_transformation": "10^-3 multiplier",
+      "K_value": 0.00716,
+      "raw_a_value": 0.76,
+      "a_transformation": "none",
+      "a_value": 0.76
+    },
+    {
+      "polymer_name": "atactic polystyrene",
+      "solvent": "benzene",
+      "temperature_k": 295.15,
+      "raw_K_value": 0.021,
+      "K_transformation": "none",
+      "K_value": 0.021,
+      "raw_a_value": 0.66,
+      "a_transformation": "none",
+      "a_value": 0.66
+    },
+    {
+      "polymer_name": "atactic polystyrene",
+      "solvent": "benzene",
+      "temperature_k": 323.15,
+      "raw_K_value": 0.0364,
+      "K_transformation": "10^-3 multiplier",
+      "K_value": 0.0364,
+      "raw_a_value": 0.584,
+      "a_transformation": "none",
+      "a_value": 0.584
+    }
+  ],
+  "flory_entries": [],
+  "calculator_calls": [
+    {
+      "expression": "14.6 * 10**-3",
+      "result": "0.0146"
+    },
+    {
+      "expression": "14.1 * 10**-3",
+      "result": "0.0141"
+    },
+    {
+      "expression": "13.8 * 10**-3",
+      "result": "0.013800000000000002"
+    },
+    {
+      "expression": "39 * 10**-3",
+      "result": "0.039"
+    },
+    {
+      "expression": "7.16 * 10**-3",
+      "result": "0.0071600000000000006"
+    },
+    {
+      "expression": "36.4 * 10**-3",
+      "result": "0.0364"
+    }
+  ]
+}

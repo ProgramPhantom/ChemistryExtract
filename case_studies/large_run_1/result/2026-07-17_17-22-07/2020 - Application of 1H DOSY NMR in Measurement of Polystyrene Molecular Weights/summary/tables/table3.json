@@ -1,0 +1,15 @@
+{
+  "description": "Validation of molecular weight (Mw) determination of Polystyrene (PS) using DOSY NMR compared to GPC measurements.",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "Polystyrene (PS)",
+    "Chloroform-d (CDCl3)"
+  ],
+  "other_statistics": [
+    {
+      "name": "Deviation",
+      "value": " < 5%"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "title": "Polymer Dispersity Determination by Diffusion-Ordered Spectroscopy (DOSY)",
+  "authors": [
+    "Igor W. F. Silva",
+    "Alasdair McKay",
+    "Tanja Junkers"
+  ],
+  "doi": "Not found",
+  "abstract": "The dispersity ( \u0113 ) of a polymer is one of its most important characteristics. While the most established technique for dispersity determination is size exclusion chromatography (SEC), Diffusion-ordered NMR spectroscopy (DOSY) has emerged as a rival for routine polymer molar mass determination, even if dispersity remained somewhat elusive in DOSY to date. To expand DOSY to reliable dispersity measurement, we synthesize 26 polystyrenes with \u0113 ranging from 1.1 to 3.7 and number-average molar mass ( M n ) ranging from 3.0 to 22.4 kg \u22c5 mol -1 to correlate molar mass distribution (MMD) measurements of SEC to DOSY. We show that the method of inverse Laplace transformation (ILT) fails to represent the shape of the MMD of a polymer when it is not narrowly dispersed. Despite this failure, DOSY does yield the number and weight average molar mass with high accuracy, and thus the dispersity of samples is well accessible from DOSY-ILT. SEC and DOSY-ILT are well correlated up to \u0113 = 2.0. Interestingly, using the standard deviation ( \u03c3 ) and coefficient of variation of the MMD rather than dispersity yields an even better correlation across the entire dispersity and molar mass range covered in this study, underpinning the usefulness of using \u03c3 more regularly in polymer characterization."
+}

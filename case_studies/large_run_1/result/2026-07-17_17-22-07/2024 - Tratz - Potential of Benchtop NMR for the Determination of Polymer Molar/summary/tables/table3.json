@@ -1,0 +1,15 @@
+{
+  "description": "Measurement of molar masses and relative weight fractions of bimodal polystyrene (PS) samples using SEC, ILT-NMR, and biexponential fit NMR to compare with monomodal components.",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "polystyrene (PS)",
+    "CDCl3"
+  ],
+  "other_statistics": [
+    {
+      "name": "NMR step number",
+      "value": "128"
+    }
+  ]
+}

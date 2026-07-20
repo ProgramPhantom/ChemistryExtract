@@ -1,0 +1,13 @@
+{
+  "description": "MW determination of intermediates formed by different catalysts in a glycosylation reaction using DOSY NMR measurements",
+  "temperature": "-55 \u00b0C",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "BF3\u00b7OEt2",
+    "TMSOTf",
+    "Tf2NTMS",
+    "1,3,5-tris(trifluoromethyl)benzene",
+    "CD2Cl2"
+  ],
+  "other_statistics": []
+}

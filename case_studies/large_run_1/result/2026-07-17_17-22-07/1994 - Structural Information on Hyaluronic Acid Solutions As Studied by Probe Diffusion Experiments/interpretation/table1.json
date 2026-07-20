@@ -1,0 +1,54 @@
+{
+  "is_mark_houwink_data": false,
+  "is_flory_data": true,
+  "mh_entries": [],
+  "flory_entries": [
+    {
+      "polymer_name": "FITC-dextran",
+      "solvent": "water",
+      "temperature_k": null,
+      "raw_v_value": 0.607,
+      "v_transformation": "none",
+      "v_value": 0.607,
+      "raw_c_value": 4.46,
+      "c_transformation": "log10",
+      "c_value": 0.6493348587121419
+    },
+    {
+      "polymer_name": "FITC-dextran",
+      "solvent": "water",
+      "temperature_k": null,
+      "raw_v_value": 0.629,
+      "v_transformation": "none",
+      "v_value": 0.629,
+      "raw_c_value": 3.14,
+      "c_transformation": "log10",
+      "c_value": 0.4969296480732149
+    },
+    {
+      "polymer_name": "FITC-dextran",
+      "solvent": "water",
+      "temperature_k": null,
+      "raw_v_value": 0.5,
+      "v_transformation": "none",
+      "v_value": 0.5,
+      "raw_c_value": 1.66,
+      "c_transformation": "log10",
+      "c_value": 0.220108088040055
+    }
+  ],
+  "calculator_calls": [
+    {
+      "expression": "log10(4.46)",
+      "result": "0.6493348587121419"
+    },
+    {
+      "expression": "log10(3.14)",
+      "result": "0.49692964807321494"
+    },
+    {
+      "expression": "log10(1.66)",
+      "result": "0.22010808804005508"
+    }
+  ]
+}

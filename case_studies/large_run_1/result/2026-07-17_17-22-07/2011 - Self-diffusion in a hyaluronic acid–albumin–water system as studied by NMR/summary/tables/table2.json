@@ -1,0 +1,28 @@
+{
+  "description": "Self-diffusion coefficients of water, HA (hyaluronic acid), and BSA (bovine serum albumin) molecules in various aqueous systems (HA - D2O, BSA - D2O, and HA - BSA - D2O).",
+  "temperature": "30 \u00b0C, 45 \u00b0C",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "D2O",
+    "HA (hyaluronic acid)",
+    "BSA (bovine serum albumin)"
+  ],
+  "other_statistics": [
+    {
+      "name": "Concentration of HA in D2O",
+      "value": "4 wt%"
+    },
+    {
+      "name": "Concentration of BSA in D2O",
+      "value": "4 wt%"
+    },
+    {
+      "name": "Concentration of BSA and HA in D2O",
+      "value": "4 wt% BSA, 0.25% HA; 4 wt% BSA, 0.75% HA"
+    },
+    {
+      "name": "Diffusion times",
+      "value": "7, 20 and 33 ms"
+    }
+  ]
+}

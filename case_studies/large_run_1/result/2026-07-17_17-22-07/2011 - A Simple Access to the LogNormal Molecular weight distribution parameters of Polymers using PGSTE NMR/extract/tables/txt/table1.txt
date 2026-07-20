@@ -1,0 +1,29 @@
+-------------- TABLE 1 EXTRACTION --------------
+**[Preceding Paragraphs]**
+The MWD characteristics (Table 2) of the three PEO samples S A, S B, and S C as determinedbyGPC,aretabulatedin Table 2 and their distributions shown in Figure 8A. The results demonstrate - by visual inspection - that both the narrow MWD samples deviate from a pure log/normal distribution, sample S B more than sample S A.
+
+<!-- image -->
+
+www.mcp-journal.de
+
+Table 1. GPC and PGSTE NMR results (fitting a stretch exponential model to the observed response curve) obtained on four monodisperse PEO samples obtained from.
+
+**[Table Data]**
+| Sample   | GPC   | GPC       | NMR   | NMR   | NMR       | NMR     |
+|----------|-------|-----------|-------|-------|-----------|---------|
+|          | M w [10  4 g  mol  1 ]       | M w = M n | D S [10 11 m 2  s  1 ]       | b obs | b calc a) | r 2     |
+| R1       | 2.37  | 1.03      | 4.376  0.010       | 0.998  0.003       | 0.996     | 0.99994 |
+| R2       | 4.30  | 1.03      | 2.863  0.007       | 0.980  0.003       | 0.996     | 0.99993 |
+| R3       | 10.1  | 1.07      | 1.936  0.004       | 0.989  0.003       | 0.991     | 0.99993 |
+| R4       | 15.0  | 1.04      | 1.296  0.002       | 0.995  0.004       | 0.995     | 0.99990 |
+
+**[Succeeding Paragraphs]**
+Table 2. Sample characteristics obtained on three PEO samples by GPC and PGSTE NMR analysis.
+
+[table omitted]
+
+a) Calculated from Equation (9); b) Calculated from Equation (11) c) Calculated by assuming an LNMWD with M w = M n ¼ exp( s 2 ).
+
+<!-- image -->
+
+Figure 8. (A) The MWD of three PEO samples S A, S B, and S C. The solid curves are derived from GPC and the dotted curves are derived from PGSTE NMR as described in the text (see Table 2). Two of the dotted curves were calculated by replacing s with s  ss and M 0 replaced by M 0  s M 0 . (B) PGSTE NMR data of the three PEO samples S A, S B, and S C.

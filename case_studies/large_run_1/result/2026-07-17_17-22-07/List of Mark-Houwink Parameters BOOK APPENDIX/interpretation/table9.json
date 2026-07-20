@@ -1,0 +1,328 @@
+{
+  "is_mark_houwink_data": true,
+  "is_flory_data": false,
+  "mh_entries": [
+    {
+      "polymer_name": "Polysaccharide",
+      "solvent": "0.1N NaN0 3 MeCN/H 2 0 (2:8)",
+      "temperature_k": null,
+      "raw_K_value": 3.72,
+      "K_transformation": "10^2",
+      "K_value": 0.0372,
+      "raw_a_value": 0.59,
+      "a_transformation": "",
+      "a_value": 0.59
+    },
+    {
+      "polymer_name": "Polysaccharide",
+      "solvent": "MeOH/H20",
+      "temperature_k": 298.15,
+      "raw_K_value": 4.4,
+      "K_transformation": "10^2",
+      "K_value": 0.044,
+      "raw_a_value": 0.6,
+      "a_transformation": "",
+      "a_value": 0.6
+    },
+    {
+      "polymer_name": "Polysaccharide",
+      "solvent": "MeOH/H20",
+      "temperature_k": 308.15,
+      "raw_K_value": 6.9,
+      "K_transformation": "10^2",
+      "K_value": 0.069,
+      "raw_a_value": 0.6,
+      "a_transformation": "",
+      "a_value": 0.6
+    },
+    {
+      "polymer_name": "Xanthan",
+      "solvent": "H 2 0",
+      "temperature_k": 298.15,
+      "raw_K_value": 2.67,
+      "K_transformation": "10^2",
+      "K_value": 0.0267,
+      "raw_a_value": 1.1,
+      "a_transformation": "",
+      "a_value": 1.1
+    },
+    {
+      "polymer_name": "Xanthan",
+      "solvent": "H 2 0",
+      "temperature_k": 298.15,
+      "raw_K_value": 0.6,
+      "K_transformation": "10^2",
+      "K_value": 0.006,
+      "raw_a_value": 0.73,
+      "a_transformation": "",
+      "a_value": 0.73
+    },
+    {
+      "polymer_name": "Xylan",
+      "solvent": "O.lM NaN0 3 0.5MNaOH phosphate",
+      "temperature_k": null,
+      "raw_K_value": 0.024,
+      "K_transformation": "10^2",
+      "K_value": 0.00024,
+      "raw_a_value": 0.74,
+      "a_transformation": "",
+      "a_value": 0.74
+    },
+    {
+      "polymer_name": "NaPSS",
+      "solvent": "NaCl (0.005 N)",
+      "temperature_k": 333.15,
+      "raw_K_value": 0.5,
+      "K_transformation": "10^2",
+      "K_value": 0.005,
+      "raw_a_value": 0.794,
+      "a_transformation": "",
+      "a_value": 0.794
+    },
+    {
+      "polymer_name": "NaPSS",
+      "solvent": "NaCl (0.05 N)",
+      "temperature_k": 333.15,
+      "raw_K_value": 0.106,
+      "K_transformation": "10^2",
+      "K_value": 0.0106,
+      "raw_a_value": 0.741,
+      "a_transformation": "",
+      "a_value": 0.741
+    },
+    {
+      "polymer_name": "NaPSS",
+      "solvent": "NaCl (0.20 N)",
+      "temperature_k": 333.15,
+      "raw_K_value": 0.209,
+      "K_transformation": "10^2",
+      "K_value": 0.0209,
+      "raw_a_value": 0.8,
+      "a_transformation": "",
+      "a_value": 0.8
+    },
+    {
+      "polymer_name": "NaPSS",
+      "solvent": "NaCl (0.50 N)",
+      "temperature_k": 333.15,
+      "raw_K_value": 0.285,
+      "K_transformation": "10^2",
+      "K_value": 0.0285,
+      "raw_a_value": 1.079,
+      "a_transformation": "",
+      "a_value": 1.079
+    },
+    {
+      "polymer_name": "NaPSS",
+      "solvent": "NaCl (1.0 N)",
+      "temperature_k": 333.15,
+      "raw_K_value": 0.416,
+      "K_transformation": "10^2",
+      "K_value": 0.0416,
+      "raw_a_value": 0.935,
+      "a_transformation": "",
+      "a_value": 0.935
+    },
+    {
+      "polymer_name": "NaPSS",
+      "solvent": "NaOH (0.005 N)",
+      "temperature_k": 333.15,
+      "raw_K_value": 0.24,
+      "K_transformation": "10^2",
+      "K_value": 0.024,
+      "raw_a_value": 0.805,
+      "a_transformation": "",
+      "a_value": 0.805
+    },
+    {
+      "polymer_name": "NaPSS",
+      "solvent": "NaOH (0.0185 N)",
+      "temperature_k": 333.15,
+      "raw_K_value": 0.038,
+      "K_transformation": "10^2",
+      "K_value": 0.0038,
+      "raw_a_value": 0.815,
+      "a_transformation": "",
+      "a_value": 0.815
+    },
+    {
+      "polymer_name": "NaPSS",
+      "solvent": "NaOH (0.097 N)",
+      "temperature_k": 333.15,
+      "raw_K_value": 0.146,
+      "K_transformation": "10^2",
+      "K_value": 0.0146,
+      "raw_a_value": 0.74,
+      "a_transformation": "",
+      "a_value": 0.74
+    },
+    {
+      "polymer_name": "NaPSS",
+      "solvent": "NaOH (0.287 N)",
+      "temperature_k": 333.15,
+      "raw_K_value": 0.281,
+      "K_transformation": "10^2",
+      "K_value": 0.0281,
+      "raw_a_value": 0.59,
+      "a_transformation": "",
+      "a_value": 0.59
+    },
+    {
+      "polymer_name": "NaPSS",
+      "solvent": "NaCl (0.501 N)",
+      "temperature_k": 298.15,
+      "raw_K_value": 0.198,
+      "K_transformation": "10^2",
+      "K_value": 0.0198,
+      "raw_a_value": 0.828,
+      "a_transformation": "",
+      "a_value": 0.828
+    },
+    {
+      "polymer_name": "NaPSS",
+      "solvent": "NaCl (0.671 N)",
+      "temperature_k": 298.15,
+      "raw_K_value": 0.174,
+      "K_transformation": "10^2",
+      "K_value": 0.0174,
+      "raw_a_value": 0.83,
+      "a_transformation": "",
+      "a_value": 0.83
+    },
+    {
+      "polymer_name": "NaPSS",
+      "solvent": "solvent not specified",
+      "temperature_k": 298.15,
+      "raw_K_value": 0.11,
+      "K_transformation": "10^2",
+      "K_value": 0.0011,
+      "raw_a_value": 0.851,
+      "a_transformation": "",
+      "a_value": 0.851
+    },
+    {
+      "polymer_name": "NaPSS",
+      "solvent": "0.42N NaOH",
+      "temperature_k": 298.15,
+      "raw_K_value": 0.2,
+      "K_transformation": "10^2",
+      "K_value": 0.02,
+      "raw_a_value": 0.82,
+      "a_transformation": "",
+      "a_value": 0.82
+    },
+    {
+      "polymer_name": "NaPSS",
+      "solvent": "0.15M NaCI",
+      "temperature_k": 298.15,
+      "raw_K_value": 1.09,
+      "K_transformation": "10^2",
+      "K_value": 0.0109,
+      "raw_a_value": 1.16,
+      "a_transformation": "",
+      "a_value": 1.16
+    },
+    {
+      "polymer_name": "Chitosan HA",
+      "solvent": "solvent not specified",
+      "temperature_k": 298.15,
+      "raw_K_value": 3.6,
+      "K_transformation": "10^2",
+      "K_value": 0.036,
+      "raw_a_value": 0.78,
+      "a_transformation": "",
+      "a_value": 0.78
+    },
+    {
+      "polymer_name": "Ch4-S",
+      "solvent": "0.2M NaCI",
+      "temperature_k": null,
+      "raw_K_value": 3.1,
+      "K_transformation": "10^2",
+      "K_value": 0.031,
+      "raw_a_value": 1.01,
+      "a_transformation": "",
+      "a_value": 1.01
+    },
+    {
+      "polymer_name": "Ch4-S",
+      "solvent": "0.02M NaCI",
+      "temperature_k": 298.15,
+      "raw_K_value": 5.49,
+      "K_transformation": "10^2",
+      "K_value": 0.0549,
+      "raw_a_value": 0.74,
+      "a_transformation": "",
+      "a_value": 0.74
+    },
+    {
+      "polymer_name": "Proteins",
+      "solvent": "6 M guanidinium hydrochloride",
+      "temperature_k": null,
+      "raw_K_value": 3.16,
+      "K_transformation": "10^2",
+      "K_value": 0.0316,
+      "raw_a_value": 0.66,
+      "a_transformation": "",
+      "a_value": 0.66
+    },
+    {
+      "polymer_name": "Proteins",
+      "solvent": "solvent not specified",
+      "temperature_k": 298.15,
+      "raw_K_value": 0.0174,
+      "K_transformation": "10^2",
+      "K_value": 0.000174,
+      "raw_a_value": 1.09,
+      "a_transformation": "",
+      "a_value": 1.09
+    }
+  ],
+  "flory_entries": [],
+  "calculator_calls": [
+    {
+      "expression": "0.024 * 10**-2",
+      "result": "0.00024"
+    },
+    {
+      "expression": "3.6 * 10**-2",
+      "result": "0.036000000000000004"
+    },
+    {
+      "expression": "3.1 * 10**-2",
+      "result": "0.031000000000000003"
+    },
+    {
+      "expression": "5.49 * 10**-2",
+      "result": "0.054900000000000004"
+    },
+    {
+      "expression": "3.16 * 10**-2",
+      "result": "0.0316"
+    },
+    {
+      "expression": "0.0174 * 10**-2",
+      "result": "0.000174"
+    },
+    {
+      "expression": "3.72 * 10**-2",
+      "result": "0.037200000000000004"
+    },
+    {
+      "expression": "4.4 * 10**-2",
+      "result": "0.044000000000000004"
+    },
+    {
+      "expression": "6.9 * 10**-2",
+      "result": "0.069"
+    },
+    {
+      "expression": "2.67 * 10**-2",
+      "result": "0.0267"
+    },
+    {
+      "expression": "0.60 * 10**-2",
+      "result": "0.006"
+    }
+  ]
+}

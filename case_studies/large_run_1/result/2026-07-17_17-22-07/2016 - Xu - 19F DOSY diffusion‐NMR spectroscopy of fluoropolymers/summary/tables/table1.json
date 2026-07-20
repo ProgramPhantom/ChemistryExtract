@@ -1,0 +1,10 @@
+{
+  "description": "DOSY results for HFB in a small molecule mixture, evaluating the effect of substituting 90\u00b0 pulses with shorter pulses using adiabatic refocusing pulses.",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "HFB",
+    "small molecule mixture"
+  ],
+  "other_statistics": []
+}

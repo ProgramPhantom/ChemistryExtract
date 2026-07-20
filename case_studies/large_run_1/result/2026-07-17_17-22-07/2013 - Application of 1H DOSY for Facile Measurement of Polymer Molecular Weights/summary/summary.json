@@ -1,0 +1,12 @@
+{
+  "title": "Application of 1 H DOSY for Facile Measurement of Polymer Molecular Weights",
+  "authors": [
+    "Weibin Li",
+    "Hoyong Chung",
+    "Chris Dae ffl er",
+    "Jeremiah A. Johnson",
+    "Robert H. Grubbs"
+  ],
+  "doi": "Not found",
+  "abstract": "To address the practical issues of polymer molecular weight determination, the fi rst accurate polymer weight-average molecular weight determination method in diverse living/controlled polymerization via DOSY (di ff usionordered NMR spectroscopy) is reported. Based on the linear correlation between the logarithm of di ff usion coe ffi cient (log D ) and the molecular weights (log M w), external calibration curves were created to give predictions of molecular weights of narrowly dispersed polymers. This method was successfully applied to atom transfer radical polymerization (ATRP), reversible addition -fragmentation chain transfer (RAFT), and ring-opening metathesis polymerization (ROMP), with weightaverage molecular weights given by this method closely correlated to those obtained from GPC measurement."
+}

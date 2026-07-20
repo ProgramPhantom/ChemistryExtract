@@ -1,0 +1,38 @@
+-------------- TABLE 6 EXTRACTION --------------
+**[Preceding Paragraphs]**
+Table 5. 1-Phenylalkane Solutes and Their Solvents
+
+[table omitted]
+
+a The D values in n -C16 are from this work; those in n -C9, n -C10 , and n -C12 are from ref 29; and those in n -C15 , HPMN, pristane, and squalane are from ref 30.
+
+While the terminal groups of the 1-alkenes and 1-phenylalkanes are obviously di ff erent from the n -alkanes ' methyl groups, we found an average di ff erence of 1.88% for these solutes ' 76 di ff usion constants by assuming that the 1phenylalkanes ' phenyl ring and the 1-alkenes ' double bond added a single equivalent element to their chains of n c sp 3 carbon atoms ( N = n c + 1); solutes with n c ≥ 5 were considered with 17 ≥ n c ≥ 5 for the 1-phenylalkanes and 18 ≥ n c ≥ 6 for the 1-
+
+## Table 6. Values of the Solvents ' Viscosities, σ / b , σ , and c β for n -Alkane Solutes
+
+**[Table Data]**
+| solvent   |   T ( ° C) |   10 2 η (P) |   σ / b |   σ (Å) |   c β |
+|-----------|------------|--------------|---------|---------|-------|
+| n -C 6    |       25.0 |        0.300 |   0.464 |   0.710 |       |
+| n -C 7    |       25.0 |        0.385 |   0.429 |   0.656 |       |
+| n -C 8    |       25.0 |        0.508 |   0.380 |   0.581 |       |
+| n -C 10   |       25.0 |        0.838 |   0.274 |   0.419 |       |
+| n -C 12   |       25.0 |         1.38 |   0.196 |   0.300 |       |
+| n -C 14   |       25.0 |         2.09 |   0.163 |   0.249 |       |
+| n -C 16   |       25.0 |         3.03 |   0.135 |   0.207 |       |
+| toluene   |       27.0 |        0.535 |   0.422 |   0.646 |       |
+| benzene   |       22.2 |        0.632 |   0.407 |   0.623 | 0.213 |
+| tetralin  |       22.2 |         2.10 |   0.222 |   0.340 | 0.121 |
+| decalin   |       22.2 |         2.64 |   0.196 |   0.300 | 0.099 |
+| CCl 4     |       25.0 |        0.894 |   0.432 |   0.661 | 0.225 |
+
+**[Succeeding Paragraphs]**
+a See Table 3 for the list of solutes. b If the D values were analyzed at more than one temperature in a given solvent (see Table 3), the temperature closest to (if not at) 25 ° C and the corresponding viscosity are given. c Values of σ for b = 1.53 Å. d From ref 46 for benzene and CCl4 at 25 ° C, decalin and tetralin at 22.2 ° C. e From ref 35. f Viscosities for toluene, benzene, and CCl 4 at all temperatures in Table 3 are from ref 36. g From ref 25.
+
+Table 7. Values of the Solvents ' Viscosities, σ / b , and σ for 1Alkene Solutes
+
+[table omitted]
+
+a See Table 4 for the list of solutes. b The viscosities at 25 ° C are given, although some of the D values were obtained at 22.5 ° C (see Table 4); the viscosities for both temperatures are from ref 35. c Values of σ for b = 1.53 Å.
+
+## Table 8. Values of the Solvents ' Viscosities, σ / b , and σ for 1-Phenylalkane Solutes

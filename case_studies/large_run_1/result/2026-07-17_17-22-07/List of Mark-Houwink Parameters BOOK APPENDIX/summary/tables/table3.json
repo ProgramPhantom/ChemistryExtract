@@ -1,0 +1,36 @@
+{
+  "description": "Mark-Houwink Parameters for Homopolymers",
+  "temperature": "Various (e.g., 23, 25, 30, 35, 40, 110, 135 \u00b0C)",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "PVC",
+    "THF",
+    "TCB",
+    "PVAc",
+    "PMMA",
+    "chloroform",
+    "acetone",
+    "MEK",
+    "benzene",
+    "toluene",
+    "cydohexanone",
+    "DMF",
+    "TFE",
+    "PEMA",
+    "PBMA"
+  ],
+  "other_statistics": [
+    {
+      "name": "K x 10^2 (ml/g)",
+      "value": "Various"
+    },
+    {
+      "name": "a",
+      "value": "Various"
+    },
+    {
+      "name": "MW range (M x 10-3)",
+      "value": "Various"
+    }
+  ]
+}

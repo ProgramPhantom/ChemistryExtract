@@ -1,0 +1,10 @@
+{
+  "title": "Molar Mass Determination for Small and Large Molecules Using Diffusion-Ordered Spectroscopy",
+  "authors": [
+    "Wolf Hiller",
+    "Bastian Grabe",
+    "Jan Schonert"
+  ],
+  "doi": "10.1021/acs.analchem.4c02874",
+  "abstract": "The development of the most comprehensive universal calibration of molar mass dependences will be presented. For the first time, diffusion-ordered spectroscopy (DOSY) can now provide structure-, solvent-, and temperature-independent molar mass determinations for both small and large molecules. This fundamental theoretical approach provides only one single function which could perfectly describe all molar mass dependences. The new development using DOSY was tested on 477 diffusion coefficients representing altogether 56 molar mass dependences of 30 small molecules in 7 solvents, 5 different polymers in 10 solvents, and 11 temperature dependences of 2 polymers in 2 solvents, respectively. These samples cover a very large range of molar masses varying between 70 g/mol until 1 200 000 g/mol."
+}

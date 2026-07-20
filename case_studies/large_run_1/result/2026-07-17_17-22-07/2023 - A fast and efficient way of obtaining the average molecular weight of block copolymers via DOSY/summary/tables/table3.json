@@ -1,0 +1,12 @@
+{
+  "description": "Calibration parameters for poly(butyl acrylate) (pBA) in various solvents",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "poly(butyl acrylate)",
+    "benzene",
+    "acetone",
+    "chloroform"
+  ],
+  "other_statistics": []
+}

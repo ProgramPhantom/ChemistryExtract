@@ -1,0 +1,15 @@
+{
+  "description": "Mark-Houwink Parameters K and a Determined via DOSY for Small Molecules: Compact Spheres (CS), Dissipated Spheres and Ellipsoids (DSE) and Expanded Discs (ED)",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "THF-d8",
+    "C6D6",
+    "CDCl3",
+    "CD2Cl2",
+    "Toluene-d8",
+    "DMSO-d6",
+    "C6D12"
+  ],
+  "other_statistics": []
+}

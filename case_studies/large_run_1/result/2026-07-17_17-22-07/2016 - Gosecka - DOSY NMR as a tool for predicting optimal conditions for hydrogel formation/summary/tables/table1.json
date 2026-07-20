@@ -1,0 +1,19 @@
+{
+  "description": "Analysis of the effects of pH and molar ratio of diol groups to benzene-1,4-boronic diacid (BDBA) on the diffusion coefficients, hydrodynamic diameter, and molecular volume of HbPGL aggregates in solution.",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "HbPGL",
+    "benzene-1,4-boronic diacid (BDBA)"
+  ],
+  "other_statistics": [
+    {
+      "name": "weight concentration of the polymer",
+      "value": "66 mg/mL"
+    },
+    {
+      "name": "pH range",
+      "value": "10 to 13"
+    }
+  ]
+}

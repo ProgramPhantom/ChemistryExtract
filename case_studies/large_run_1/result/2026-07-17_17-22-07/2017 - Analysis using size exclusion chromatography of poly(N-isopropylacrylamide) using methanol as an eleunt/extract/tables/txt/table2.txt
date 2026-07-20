@@ -1,0 +1,29 @@
+-------------- TABLE 2 EXTRACTION --------------
+**[Preceding Paragraphs]**
+Fig. 1. 1 H NMR (A), 1 H DOSY NMR (in D2O) (B), and FTIR (C) spectra of PNIPAM 9. Expanded spectra and additional information are shown in the electronic Supporting information.
+
+<!-- image -->
+
+Fig. 2. MHS Plot for PEO of varying molar masses calculated from NMR diffusion measurements ( ♦ ) compared to measurements from previous studies (dilute solution viscometry) with calculated K and 𝛂 [24,26-31].
+
+<!-- image -->
+
+**[Table Data]**
+|           |      K |   Alpha |   R^2 |
+|-----------|--------|---------|-------|
+| ◆ DOSY    | 0.0008 |    0.64 | 0.995 |
+| Armstrong | 0.0004 |    0.68 | 0.995 |
+| Kawaguchi | 0.0006 |    0.66 | 0.989 |
+| Woodley   | 0.0001 |    0.80 | 0.996 |
+| Amu       | 0.0001 |    0.90 | 0.996 |
+| Kirincic  | 0.0012 |    0.59 | 0.985 |
+| Fabula    | 0.0001 |    0.78 | 0.999 |
+
+**[Succeeding Paragraphs]**
+The RHp data shown in Table 1 were obtained from the diffusion constants obtained from DOSY NMR by using Eq. (2). These data were then used to provided the peak average of the intrinsic viscosity ([ 𝛈 ]p) by application of Eq. (3).
+
+In order to validate the DOSY method (using Eqs. (1) and (2)) [ 𝛈 ]p was obtained in D2O for a set of narrow dispersity polyethylene glycol (PEG) standards of known molar mass and the values were compared to the [ 𝛈 ]w in water obtained from the literature [24,26-31]). The data and the literature values are presented in Fig. 2 by plotting log[ 𝛈 ] versus logM (see also Supporting data) following the Mark-Houwink-Sakarada (MHS) equation (Eq. (4)). The MHS equation is usually used to relate empirically derived values of the intrinsic viscosity to the viscosity average molar mass (Mv) and here we use this approach to compare the values of log [ 𝛈 ] derived from DOSY to those derived from dilute solution viscometry.
+
+$$[ \eta ] = K M _ { V } ^ { \alpha } & & ( 4 ) & \text {calibration} \\ & & & & \text {porting}$$
+
+Fig. 2 shows that [ 𝛈 ] obtained by the DOSY technique was the same within experimental error as the literature reported values; linear regression showed R 2 = 0.993 for all of the combined data. An important part of the DOSY method for obtaining [ 𝛈 ] was the realization (see electronic Supporting information) that the viscosity of the medium ( 𝛈 in Eq (1)) could be obtained by using Eq. (5).

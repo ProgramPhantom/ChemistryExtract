@@ -1,0 +1,28 @@
+{
+  "description": "Parameters b (Flory parameter) and c of the power scaling D=c\u00b7M^-b determined via DOSY and dynamic viscosities (\u03b7) for polymers P2VP and PEO in various solvents.",
+  "temperature": "298.15 K",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "P2VP",
+    "PEO",
+    "THF-d8",
+    "CD3CN",
+    "D2O",
+    "MeOD",
+    "Acetone-d6"
+  ],
+  "other_statistics": [
+    {
+      "name": "Flory parameter (b)",
+      "value": "0.58062, 0.59613, 0.5723, 0.57021, 0.47448 (for PEO)"
+    },
+    {
+      "name": "Scaling constant (c)",
+      "value": "3.3196E-8, 5.225E-8, 1.3268E-8, 2.5609E-8, 2.1208E-8 (for PEO)"
+    },
+    {
+      "name": "Dynamic viscosity (\u03b7)",
+      "value": "P2VP: 0.000501, 0.000636, 0.000413, 0.000602; PEO: 0.000501, 0.000357, 0.001098, 0.000602, 0.000326"
+    }
+  ]
+}

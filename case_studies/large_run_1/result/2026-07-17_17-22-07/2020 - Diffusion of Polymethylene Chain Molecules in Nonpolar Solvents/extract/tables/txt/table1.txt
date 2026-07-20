@@ -1,0 +1,32 @@
+-------------- TABLE 1 EXTRACTION --------------
+**[Preceding Paragraphs]**
+## ■ EXPERIMENTAL METHODS
+
+Chemicals and Sample Preparation. In this and the following sections, n -C i , 1-C i , and 1-C i Ph are used for particular n -alkanes, 1-alkenes, and 1-phenylalkanes, respectively. The suppliers for our solutes and solvents were (a) Aldrich: 1-C8Ph (98%), 1-C11Ph (99%), 1-C17Ph (97%), n -C8 (99+%), n -C14 (99+%), and squalane (99%); (b) Sigma-Aldrich: n -C6 ( ≥ 99%), n -C10 ( ≥ 99%), and n -C16 (99%); (c) Alfa Aesar: 1-C5Ph (96%) and 1-C14 Ph (97%); (d) TCI: 1-C16 (&gt;99%) and 1-C20 (&gt;97%); (e) Sigma: n -C12 (99%); and (f) Acros: ethylbenzene (99.8%). All substances were used as received. Solutions were prepared by adding two to fi ve drops of the liquid solutes to 6.0 -8.0 mL of the solvents.
+
+Data Acquisition and Analysis. The microcapillary method used to determine the D values was developed by Bello and co-workers. 33 The acquisition of the solutes ' elution pro fi les was described in refs 31 and 32. The data acquisition system, including the microcapillary (76.5 μ mi.d.) and variable wavelength detector, was the same as that in ref 32; wavelengths of 260 and 192 nm were used for the 1-phenylalkanes and 1alkenes, respectively. The di ff usion constants were obtained by comparing the sigmoidal elution pro fi les with those calculated using Taylor ' s theory, 34 as described in refs 29, 31, and 32. All pro fi les were taken at room temperature, which was 22.50 ± 0.50 and 25.00 ± 0.25 ° Cfor the 1-alkenes and 1-phenylalkanes, respectively. Multiple determinations of D were made for each solute -solvent pair; their average values, with uncertainties of ± 2.5%, are given in Tables 1 and 2.
+
+Table 1. Di ff usion Constants of 1-C 16 and 1-C20 in Alkanes at 22.50 ± 0.50 ° C
+
+**[Table Data]**
+|          | 10 6 D (expt), cm 2 s - 1   | 10 6 D (expt), cm 2 s - 1   |
+|----------|-----------------------------|-----------------------------|
+| solvent  | 1-C 16                      | 1-C 20                      |
+| n -C 6   | 24.0                        | 20.1                        |
+| n -C 8   | 15.0 5                      | 13.0                        |
+| n -C 10  | 9.81                        | 8.18                        |
+| n -C 12  | 6.61                        | 5.67                        |
+| n -C 14  | 4.94                        | 4.04                        |
+| n -C 16  | 3.75                        | 3.08 5                      |
+| squalane | 0.876                       | 0.667                       |
+
+**[Succeeding Paragraphs]**
+Solute -Solvent Systems. The solvents for the n -alkane, 10 -27 1-alkene, 28 and 1-phenylalkane 29,30 solutes are given in Tables 3 -5, respectively, as are the temperatures at which they were studied. A temperature near (or equal to) 25 ° C was used for all solutions; the solvents ' viscosities 25,35 -39 at those temperatures are given in Tables 6 -8 and will be used when discussing our results in the sections ' Solvent Dependence of σ ' and ' Solvent-Dependent Size Parameters ' . The n -alkanes in toluene, CCl 4 , and benzene (Table 3) and the 1-alkenes in the n -alkanes (Table 4) were studied at additional temperatures; the viscosities at those temperatures 25,35 -39 are not given but were used in our analyses. The di ff usion constants in refs 10 -27 were reported from two to four signi fi cant fi gures; the average di ff erences between the experimental and calculated D values reported here are given to two signi fi cant fi gures with a third subscripted fi gure.
+
+Table 2. Di ff usion Constants of Alkylbenzenes in n -C16 at 25.0 ± 0.25 ° C
+
+[table omitted]
+
+## ■ RESULTS AND DISCUSSION
+
+Hydrodynamic Bead Model. Garcia de la Torre and coworkers 6,7 calculated values of ϕ ( r ) = f t * averaged over Monte Carlo-generated polymethylene conformers at 25 ° Cwith a 500 cal mol -1 energy di ff erence between t and g rotational isomers. Hydrodynamic interactions were taken into account using a modi fi ed Oseen tensor; translation -rotation coupling was included as was excluded volume. Stokes law

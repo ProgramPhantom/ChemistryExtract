@@ -1,0 +1,20 @@
+{
+  "description": "Measurement of self-diffusion coefficients and calculation of molecular weights for various PBP samples obtained by different irradiation doses and polymerization methods (cationic catalysis, free radical initiator, Ziegler Natta) in dilute solutions of d2-TCE using NMR diffusion measurements (DOSY).",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "PBP",
+    "d2-TCE",
+    "PEG"
+  ],
+  "other_statistics": [
+    {
+      "name": "Concentration of PBP solutions",
+      "value": "0.8 mg/0.7 ml (with additional measurements at 0.4 mg/0.7 ml and 0.2 mg/0.7 ml for cationic catalysis samples)"
+    },
+    {
+      "name": "Error on calculated molecular weights",
+      "value": "10% - 12%"
+    }
+  ]
+}

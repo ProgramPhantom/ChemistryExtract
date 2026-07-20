@@ -1,0 +1,5 @@
+,,Limit,Mean squared segment displacement h R 2 i =,intrasegment spin-lattice relaxation time T 1 intra =,Refs
+0,Rouse,"t s <<( t ,1/ w )<< t s / y",2 p 3 = 2 b 2 t t s 1 = 2 / M 0 t 1 = 2, C I M 0 t s ln wt s ð Þ,"[47, 48]"
+1,(I) RR,'high  mode  number limit' N 6 p < p < 0 : 22 N ffiffiffi y p t s 1 : 9 y t ; 1 = w ð Þ 6 p ð Þ 4 1 : 9 yt s,0 : 5 b 2 t t s y 1 = 4 / M 0 t 1 = 4  ,C I RR M 0 w 1/2,[49]
+2,(II) RR,'low  mode  number ; short  time limit' p < N 6 p 6 p ð Þ 4 20 yt s t ; 1 = w ð Þ t RR 1  2 : 14 yt s N 2 : 5,0 : 23 b 2 t yt s 2 = 5 / M 0 t 2 = 5,C II RR M 0 w 1/5  ,"[47, 49]"
+3,(III) RR,'low  mode  number ; long  time limit' p < N 6 p t RR 1  2 : 14 yt s N 2 : 5 t ; 1 = w ð Þ,6 D RR t  0 : 42 p 2 b 2 yt s N  3 = 2 t,C RR III b 4 N  2 t RR 1 1 þ wt RR 1 = 2 ð Þ 2  1,present work

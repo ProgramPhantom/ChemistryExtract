@@ -1,0 +1,21 @@
+{
+  "description": "Molecular Weight of Monodisperse PEO Samples Determined by Different NMR Methods",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "PEO8.5k",
+    "PEO32.5k",
+    "PMMA",
+    "CDCl3"
+  ],
+  "other_statistics": [
+    {
+      "name": "M ap (kg/mol)",
+      "value": "16.5 \u00b1 0.2 for PEO8.5k, 63.2 \u00b1 0.6 for PEO32.5k"
+    },
+    {
+      "name": "M 0 (kg/mol)",
+      "value": "8.5 \u00b1 1.7 for PEO8.5k, 36.5 \u00b1 7.3 for PEO32.5k"
+    }
+  ]
+}

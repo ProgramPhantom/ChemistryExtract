@@ -1,0 +1,159 @@
+{
+  "is_mark_houwink_data": true,
+  "is_flory_data": false,
+  "mh_entries": [
+    {
+      "polymer_name": "Polymer Ac-1(V)",
+      "solvent": "volatile organic solvents",
+      "temperature_k": 295.0,
+      "raw_K_value": -7.9,
+      "K_transformation": "log K",
+      "K_value": 1.2589254117941662,
+      "raw_a_value": 0.69,
+      "a_transformation": "none",
+      "a_value": 0.69
+    },
+    {
+      "polymer_name": "Polymer Ac-1(V)",
+      "solvent": "volatile organic solvents",
+      "temperature_k": 295.0,
+      "raw_K_value": -7.32,
+      "K_transformation": "log K",
+      "K_value": 4.78630092322638,
+      "raw_a_value": 0.89,
+      "a_transformation": "none",
+      "a_value": 0.89
+    },
+    {
+      "polymer_name": "Polymer Ac-1(V)",
+      "solvent": "volatile organic solvents",
+      "temperature_k": 295.0,
+      "raw_K_value": -8.04,
+      "K_transformation": "log K",
+      "K_value": 9.120108393559114,
+      "raw_a_value": 0.67,
+      "a_transformation": "none",
+      "a_value": 0.67
+    },
+    {
+      "polymer_name": "Polymer Ac-1(V)",
+      "solvent": "volatile organic solvents",
+      "temperature_k": 295.0,
+      "raw_K_value": -7.74,
+      "K_transformation": "log K",
+      "K_value": 1.8197008586099825,
+      "raw_a_value": 0.72,
+      "a_transformation": "none",
+      "a_value": 0.72
+    },
+    {
+      "polymer_name": "Poly\ub3c4\uba54\uc778 Ac-1(V)",
+      "solvent": "volatile organic solvents",
+      "temperature_k": 295.0,
+      "raw_K_value": -7.69,
+      "K_transformation": "log K",
+      "K_value": 2.0417379446695274,
+      "raw_a_value": 0.76,
+      "a_transformation": "none",
+      "a_value": 0.76
+    },
+    {
+      "polymer_name": "Polymer Ac-1(V)",
+      "solvent": "volatile organic solvents",
+      "temperature_k": 295.0,
+      "raw_K_value": -8.04,
+      "K_transformation": "log K",
+      "K_value": 9.120108393559114,
+      "raw_a_value": 0.65,
+      "a_transformation": "none",
+      "a_value": 0.67
+    },
+    {
+      "polymer_name": "Polymer Ac-1(V)",
+      "solvent": "volatile organic solvents",
+      "temperature_k": 295.0,
+      "raw_K_value": -7.82,
+      "K_transformation": "log K",
+      "K_value": 1.513561248436207,
+      "raw_a_value": 0.7,
+      "a_transformation": "none",
+      "a_value": 0.7
+    },
+    {
+      "polymer_name": "Polymer Ac-1(V)",
+      "solvent": "volatile organic solvents",
+      "temperature_k": 295.0,
+      "raw_K_value": -7.51,
+      "K_transformation": "log K",
+      "K_value": 3.090295432513592,
+      "raw_a_value": 0.83,
+      "a_transformation": "none",
+      "a_value": 0.83
+    },
+    {
+      "polymer_name": "Polymer Ac-1(V)",
+      "solvent": "volatile organic solvents",
+      "temperature_k": 295.0,
+      "raw_K_value": -8.04,
+      "K_transformation": "log K",
+      "K_value": 9.120108393559114,
+      "raw_a_value": 0.66,
+      "a_transformation": "none",
+      "a_value": 0.66
+    },
+    {
+      "polymer_name": "Acetylated kraft lignin (Fr1 - Fr9)",
+      "solvent": "volatile organic solvents",
+      "temperature_k": 295.0,
+      "raw_K_value": -8.21,
+      "K_transformation": "log K",
+      "K_value": 6.16595001861481,
+      "raw_a_value": 0.59,
+      "a_transformation": "none",
+      "a_value": 0.59
+    }
+  ],
+  "flory_entries": [],
+  "calculator_calls": [
+    {
+      "expression": "10**-7.90",
+      "result": "0.000000012589254117941661"
+    },
+    {
+      "expression": "10**-7.32",
+      "result": "0.0000000478630092322638"
+    },
+    {
+      "expression": "10**-8.04",
+      "result": "0.000000009120108393559115"
+    },
+    {
+      "expression": "10**-7.74",
+      "result": "0.000000018197008586099826"
+    },
+    {
+      "expression": "10**-7.69",
+      "result": "0.000000020417379446695274"
+    },
+    {
+      "expression": "10**-8.04",
+      "result": "0.000000009120108393559115"
+    },
+    {
+      "expression": "10**-7.82",
+      "result": "0.000000015135612484362072"
+    },
+    {
+      "expression": "10**-7.51",
+      "result": "0.00000003090295432513592"
+    },
+    {
+      "expression": "10**-8.04",
+      "result": "0.000000009120108393559115"
+    },
+    {
+      "expression": "10**-8.21",
+      "result": "0.00000000616595001861481"
+    }
+  ]
+}

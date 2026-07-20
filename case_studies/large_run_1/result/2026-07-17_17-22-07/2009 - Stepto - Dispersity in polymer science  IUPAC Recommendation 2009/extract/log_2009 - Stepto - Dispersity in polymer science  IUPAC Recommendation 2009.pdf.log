@@ -1,0 +1,213 @@
+Running: parse_pdf
+Raw PDF conversion timings:
+{
+  "pipeline_total": {
+    "scope": "document",
+    "count": 1,
+    "times": [
+      1.488185509108007
+    ],
+    "start_timestamps": [
+      "2026-07-17 18:33:11.295082+00:00"
+    ]
+  },
+  "page_parse": {
+    "scope": "page",
+    "count": 2,
+    "times": [
+      0.09304934367537498,
+      0.06293988320976496
+    ],
+    "start_timestamps": [
+      "2026-07-17 18:33:11.298876+00:00",
+      "2026-07-17 18:33:11.391965+00:00"
+    ]
+  },
+  "ocr": {
+    "scope": "page",
+    "count": 2,
+    "times": [
+      0.12752619292587042,
+      0.11951215378940105
+    ],
+    "start_timestamps": [
+      "2026-07-17 18:33:11.392037+00:00",
+      "2026-07-17 18:33:11.519600+00:00"
+    ]
+  },
+  "layout": {
+    "scope": "page",
+    "count": 2,
+    "times": [
+      0.05547941569238901,
+      0.02768697403371334
+    ],
+    "start_timestamps": [
+      "2026-07-17 18:33:11.519673+00:00",
+      "2026-07-17 18:33:11.639206+00:00"
+    ]
+  },
+  "table_structure": {
+    "scope": "page",
+    "count": 2,
+    "times": [
+      1.567043364048004e-05,
+      2.437550574541092e-05
+    ],
+    "start_timestamps": [
+      "2026-07-17 18:33:11.633782+00:00",
+      "2026-07-17 18:33:11.713373+00:00"
+    ]
+  },
+  "page_assemble": {
+    "scope": "page",
+    "count": 2,
+    "times": [
+      0.00034389737993478775,
+      0.00030300021171569824
+    ],
+    "start_timestamps": [
+      "2026-07-17 18:33:11.633844+00:00",
+      "2026-07-17 18:33:11.713506+00:00"
+    ]
+  },
+  "doc_assemble": {
+    "scope": "document",
+    "count": 1,
+    "times": [
+      0.007354347035288811
+    ],
+    "start_timestamps": [
+      "2026-07-17 18:33:11.713962+00:00"
+    ]
+  },
+  "reading_order": {
+    "scope": "document",
+    "count": 1,
+    "times": [
+      0.007011021487414837
+    ],
+    "start_timestamps": [
+      "2026-07-17 18:33:11.713987+00:00"
+    ]
+  },
+  "doc_enrich": {
+    "scope": "document",
+    "count": 1,
+    "times": [
+      1.061916084960103
+    ],
+    "start_timestamps": [
+      "2026-07-17 18:33:11.721338+00:00"
+    ]
+  }
+}
+All hyperlinked elements redacted in-memory.
+Clean PDF conversion timings:
+{
+  "pipeline_total": {
+    "scope": "document",
+    "count": 1,
+    "times": [
+      1.4816764704883099
+    ],
+    "start_timestamps": [
+      "2026-07-17 18:33:12.804464+00:00"
+    ]
+  },
+  "page_parse": {
+    "scope": "page",
+    "count": 2,
+    "times": [
+      0.08620172087103128,
+      0.060795778408646584
+    ],
+    "start_timestamps": [
+      "2026-07-17 18:33:12.807874+00:00",
+      "2026-07-17 18:33:12.894118+00:00"
+    ]
+  },
+  "ocr": {
+    "scope": "page",
+    "count": 2,
+    "times": [
+      0.12288161367177963,
+      0.12216806132346392
+    ],
+    "start_timestamps": [
+      "2026-07-17 18:33:12.894454+00:00",
+      "2026-07-17 18:33:13.017372+00:00"
+    ]
+  },
+  "layout": {
+    "scope": "page",
+    "count": 2,
+    "times": [
+      0.05418411921709776,
+      0.027914411388337612
+    ],
+    "start_timestamps": [
+      "2026-07-17 18:33:13.017455+00:00",
+      "2026-07-17 18:33:13.139630+00:00"
+    ]
+  },
+  "table_structure": {
+    "scope": "page",
+    "count": 2,
+    "times": [
+      1.560896635055542e-05,
+      2.480577677488327e-05
+    ],
+    "start_timestamps": [
+      "2026-07-17 18:33:13.133963+00:00",
+      "2026-07-17 18:33:13.214251+00:00"
+    ]
+  },
+  "page_assemble": {
+    "scope": "page",
+    "count": 2,
+    "times": [
+      0.0005890978500247002,
+      0.00031449180096387863
+    ],
+    "start_timestamps": [
+      "2026-07-17 18:33:13.134031+00:00",
+      "2026-07-17 18:33:13.214369+00:00"
+    ]
+  },
+  "doc_assemble": {
+    "scope": "document",
+    "count": 1,
+    "times": [
+      0.007370827719569206
+    ],
+    "start_timestamps": [
+      "2026-07-17 18:33:13.214840+00:00"
+    ]
+  },
+  "reading_order": {
+    "scope": "document",
+    "count": 1,
+    "times": [
+      0.007025819271802902
+    ],
+    "start_timestamps": [
+      "2026-07-17 18:33:13.214865+00:00"
+    ]
+  },
+  "doc_enrich": {
+    "scope": "document",
+    "count": 1,
+    "times": [
+      1.063893435522914
+    ],
+    "start_timestamps": [
+      "2026-07-17 18:33:13.222232+00:00"
+    ]
+  }
+}
+Function parse_pdf took 3.0155 seconds to execute.
+Running: get_tables
+Function get_tables took 0.0000 seconds to execute.
+Running: get_surrounding_paragraphs
+Function get_surrounding_paragraphs took 0.0000 seconds to execute.

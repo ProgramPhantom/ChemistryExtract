@@ -1,0 +1,16 @@
+{
+  "description": "Diffusion Analysis of Pyrene Labeled Poly(aryl Ether) Monodendrons in THF and Acetonitrile",
+  "temperature": "298 K",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "THF",
+    "Acetonitrile",
+    "Pyrene Labeled Poly(aryl Ether) Monodendrons (G0Py, G1Py, G2Py, G3Py, G4Py)"
+  ],
+  "other_statistics": [
+    {
+      "name": "Viscosity (\u03b7)",
+      "value": "4.56 x 10-4 Pa-sec for THF, 3.69 x 10-4 Pa-sec for acetonitrile"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+-------------- TABLE 2 EXTRACTION --------------
+**[Preceding Paragraphs]**
+The molecular weight of the native dextran produced by L. mesenteroides KIBGE-IB26 was found to be 892 kDa (D1) (Table 2). Initially, for the hydrolysis of this native polymer, dextranase was employed and the molecular mass of the fractions were determined using diffusion ordered spectroscopic (DOSY) analysis (Fig. 1A and 1B). This enzymatic hydrolysis resulted in the fractionation of 528 kDa (D7) dextran when exposed to the enzyme up to 72 h. This molecular weight fraction obtained was not in the range of clinical grade dextran therefore, any further hydrolysis by enzymatic means was not favorable as the dextranase lost is catalytic potential during this incubation time period. Dextranase from other species have also been used to hydrolyze dextran [32]. The dextranase used in the current study is produced from B. megaterium KIBGE-IB31, which is stable and cost effective as compared to commercially available dextranases [33].
+
+In the current study, for further fractionation of the synthesized native dextran into low molecular fractions, the native dextran was exposed to dilute mineral acid (0.1N H2SO4); though, this type of hydrolysis causes non-specific cleavage and results in the formation of polydispersed products. The low molecular weight dextran that were produced after the treatment with sulphuric acid, with a pH value of 1.4, for 2 and 4 h were approximately 77.0 kDa and 57.0 kDa, respectively. However, when the pH was raised from 1.4 to 1.8, the acidic treatment was not as effective as lower pH
+
+Table 2
+
+Chemical and enzymatic hydrolysis of native dextran into different low molecular weight fractions produced by Leuconostoc mesenteroides KIBGE-IB26.
+
+**[Table Data]**
+| Sample               | pH   | Temperature   | C)   | Time   | ours)   |   Molecular weight (kDa) | Reference       |
+|----------------------|------|---------------|------|--------|---------|--------------------------|-----------------|
+| D1                   | nd   | nd            |      | nd     |         |                    892.0 | Current study   |
+| Acid Hydrolysis      |      |               |      |        |         |                          |                 |
+| D4                   | 1.4  | 80.0          |      | 2.0    |         |                     77.0 | Current study   |
+| D5                   | 1.4  | 80.0          |      | 4.0    |         |                     57.0 | Current study   |
+| D6                   | 1.8  | 80.0          |      | 2.0    |         |                    270.0 | Current study   |
+| Enzymatic Hydrolysis |      |               |      |        |         |                          |                 |
+| D7                   | 5.5  | 50.0          |      | 48.0   |         |                    528.0 | Current study   |
+| D2                   | nd   | nd            |      | nd     |         |                     38.0 | Sigma           |
+| D3                   | nd   | nd            |      | nd     |         |                    510.0 | Siddiqui (2014) |
+
+**[Succeeding Paragraphs]**
+- a pH of dextran solution (20.0 g L -1 ) was adjusted using H2SO4 (0.1N).
+- b Hydrolysis of dextran solution (20.0 g L -1 ) was carried out at aforementioned temperature.
+- c Time specified for hydrolysis of dextran solution (20.0 g L -1 ).
+- d Native dextran produced by L. mesenteroides KIBGE-IB26.
+- e Hydrolysed fractions of native dextran.
+- f Clinical grade dextran from L. mesenteroides NRRL B512F (Sigma, D-4751).
+- g Native dextran from L. mesenteroides KIBGE-IB22.
+
+values since the dextran fraction obtained was of 270 kDa. The results showed that acid hydrolysis gave more fractionation range as compared to enzymatic treatment. After the treatment with acid, multiple fractions were collected using different molecular cut off membranes. However, fractional precipitation of dextran can also be performed by organic solvents or ultrafiltration [23]. The chemical analysis of the hydrolyzed fractions of dextran is presented in Table 3.
+
+Initially the samples were analyzed by FTIR spectral analysis in order to examine the type of the linkages and functional groups present in native dextran produced by L. mesenteroides KIBGE-IB26 and its hydrolyzed fractions (data not shown). Both native and hydrolyzed products showed similar spectra. Structural analysis of the samples was carried out in the region between 500 cm -1 to 4000 cm -1 . The signal at 1008.2 cm -1 , 1005.8 cm -1 , 1003.3 cm -1 , 1000.9 cm -1 and 993.3 cm -1 represents the presence of 𝛂 -(1 → 6) linkage in D1, D4, D5, D6 and D7, respectively. The signals around this region depict the chain flexibility in the dextran due to the presence of glycosidic bonds [34]. The specific signal peaks representing different functional groups (C O C, C H, C O, og(m2/s)
+
+Fig. 1. NMR spectroscopic analysis of native and hydrolyzed low molecular weight fractions. A and B: Molecular weight determination of dextran using diffusion-ordered spectroscopy (DOSY); C: Total correlation spectroscopy (TOCSY) &amp; Homonuclear correlation spectroscopy (COSY); D: Heteronuclear single-quantum correlation spectroscopy (HSQC) &amp; Heteronuclear multiple-bond correlation spectroscopy (HMBC).

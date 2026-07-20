@@ -1,0 +1,10 @@
+{
+  "description": "Multi-angle light scattering measurements for polyisoprene in cyclohexane.",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "polyisoprene",
+    "cyclohexane"
+  ],
+  "other_statistics": []
+}

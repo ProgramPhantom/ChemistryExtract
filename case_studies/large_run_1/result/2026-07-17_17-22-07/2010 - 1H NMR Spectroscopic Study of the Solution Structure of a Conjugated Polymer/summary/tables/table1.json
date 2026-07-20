@@ -1,0 +1,18 @@
+{
+  "description": "Chemical shifts (ppm) of MEH-PPV protons in different solvents",
+  "temperature": "25 \u00b0C",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "MEH-PPV",
+    "Chloroform-d",
+    "Chlorobenzene-d5",
+    "Toluene-d8",
+    "Benzene-d6"
+  ],
+  "other_statistics": [
+    {
+      "name": "polymer concentration",
+      "value": "0.5% (w/v)"
+    }
+  ]
+}

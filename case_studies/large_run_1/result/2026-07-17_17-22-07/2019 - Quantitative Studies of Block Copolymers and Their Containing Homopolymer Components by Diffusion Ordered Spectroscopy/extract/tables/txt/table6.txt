@@ -1,0 +1,24 @@
+-------------- TABLE 6 EXTRACTION --------------
+**[Preceding Paragraphs]**
+<!-- image -->
+
+www.advancedsciencenews.com
+
+<!-- image -->
+
+Table 6. Molar masses and molar amounts of the homopolymer precursors of the PI-b-PMMA (IM2) and PS-b-PMMA (SM6) block copolymers determined via Equations (2) and (5) and online SEC-NMR.
+
+**[Table Data]**
+| Copolymer     | M w copolymer [g mol - 1 ] (DOSY)   | M w homopolymer [g mol - 1 ] (DOSY)   |   X wt homopolymer [rel. wt%] (DOSY) | M w copolymer [g mol - 1 ] (SEC-NMR)   | M w homopolymer [g mol - 1 ] (SEC-NMR)   | X wt homopolymer [rel. wt%] (SEC-NMR)   |
+|---------------|-------------------------------------|---------------------------------------|--------------------------------------|----------------------------------------|------------------------------------------|-----------------------------------------|
+| PI-b-PMMA IM2 | 61 470                              | 21 790                                |                                0.229 | 64 200 a)                              | 27 600 a)                                | 0.293 a)                                |
+| PS-b-PMMA SM6 | 138 930                             | 58 920                                |                                0.207 | 164 100                                | 75 900                                   | 0.253                                   |
+
+**[Succeeding Paragraphs]**
+Consequently,  this  DOSY  concept  seems  to  be  very  useful for  the  characterization  of  block  copolymers  and  especially in  respect  of  determining  molar  masses  and  amounts  of  the polymer  components.  Moreover,  the  DOSY  analysis  requires much  less  efforts  than  the  comprehensive  SEC-NMR  separation or SEC multi detector copolymer analysis. The other SECNMR diagrams are presented in Figure S10, Supporting Information. These copolymers are not providing such clear separation of the copolymer and homopolymer regions. Nevertheless, the molar mass distributions of the copolymers were delivered and could be used for comparison to DOSY.
+
+## 3. Conclusion
+
+It was shown that DOSY is a very powerful tool for the separation of polymer mixtures. In particular, it could be shown that mixtures of polymers of different molar masses containing the same  structural  monomer  units  can  be  separated  and  quantified  if  biexponential  fittings  are  involved.  It  was  possible  to determine  the  molar  masses  as  well  as  the  amounts  of  each polymer  component  via  the  two-component  fitting  of  the  diffusion curves and the molar mass calibration of the diffusion coefficients. This separation problem is very similar to SEC if the same structural components are overlapping in the chromatogram. Whereas SEC showed problems for overlapping peaks, DOSY was still successful for the demonstrated blends. In particular, DOSY is very powerful if block copolymers are involved where DOSY can observe both blocks independently. Furthermore, DOSY was able to separate block copolymers regarding their additional parts of homopolymers. In this case, both the copolymers and homopolymers could be quantified in respect of their molar masses as well as their contents in the mixture. In  particular,  if  the  experimental  diffusion  coefficient  of  the copolymer part is known, the molar mass of the homopolymer as  well  as  the  amount  of  both  polymers  components  can  be well quantified. It can be concluded that the DOSY determination of the molar masses of PS-b-PMMA and PI-b-PMMA block copolymers can be well described by molar mass calibrations of homopolymers if the same kind of homopolymers as the blocks of the copolymers and the same concentrations as well as solvents  are  used  for  the  DOSY  measurements.  To  verify  these investigations, online SEC-NMR studies were used in order to confirm the DOSY separation and quantifications. These SEC results also support the application of the DOSY homopolymer calibrations  for  the  quantification  of  the  block  copolymers. However, it also would be very useful to find out a recipe for
+
+the separation limits of DOSY in respect of very similar molar masses and the minimum detectable contents of each polymer component.

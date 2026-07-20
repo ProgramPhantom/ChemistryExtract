@@ -1,0 +1,15 @@
+{
+  "description": "Measurement of T1 and T2 relaxation times and corresponding relative weight fractions for binary PS/PS mixtures (polymers A and D) using NMR on the signal associated to the para and meta protons of the phenyl ring.",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "Polystyrene (PS)",
+    "Chloroform"
+  ],
+  "other_statistics": [
+    {
+      "name": "NMR Signal Range",
+      "value": "7.25-6.89 ppm"
+    }
+  ]
+}

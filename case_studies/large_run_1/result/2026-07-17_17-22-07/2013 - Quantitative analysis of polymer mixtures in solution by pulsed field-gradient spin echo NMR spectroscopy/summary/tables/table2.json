@@ -1,0 +1,10 @@
+{
+  "description": "Preparation of polystyrene mixtures using weight fractions of GPC standards",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "polystyrene",
+    "chloroform"
+  ],
+  "other_statistics": []
+}

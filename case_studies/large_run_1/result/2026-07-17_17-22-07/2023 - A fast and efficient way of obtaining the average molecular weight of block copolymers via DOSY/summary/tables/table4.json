@@ -1,0 +1,11 @@
+{
+  "description": "MALLS, SEC and DOSY results of pBA-pMA block copolymer samples with various DPs",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "poly(butyl acrylate)",
+    "poly(methyl acrylate)",
+    "pBA-pMA block copolymer"
+  ],
+  "other_statistics": []
+}

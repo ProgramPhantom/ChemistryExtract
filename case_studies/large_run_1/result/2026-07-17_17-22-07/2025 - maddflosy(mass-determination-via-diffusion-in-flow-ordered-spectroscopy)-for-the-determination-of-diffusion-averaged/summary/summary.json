@@ -1,0 +1,16 @@
+{
+  "title": "MaDDFLOSY(Mass Determination via Diffusion in FLow Ordered SpectroscopY) for the Determination of Diffusion-Averaged Molecular Weight of Polymers in Continuous Motion Using Benchtop NMR",
+  "authors": [
+    "William Pointer",
+    "Owen Tooley",
+    "Asad Saib",
+    "Rowan Radmall",
+    "Paul Wilson",
+    "Daniel Lester",
+    "James Town",
+    "Robin J. Blagg",
+    "David Haddleton"
+  ],
+  "doi": "10.1021/acs.macromol.4c03260",
+  "abstract": "Real-time determination of the molecular weight of polymers synthesized in continuous flow or indeed in any process is essential for efficient and sustainable process chemistry. Typically achieved through online chromatographic techniques, such methods are often prone to perturbations, require large volumes of solvents, have lengthy acquisition times, and can result in significant process inefficiencies. We demonstrate the use of diffusion-ordered NMR spectroscopy (DOSY NMR) calibration on a 60 MHz benchtop to measure the molecular weight of polymers while in laminar flow. We then utilized this technique to monitor batch polymerization progress in real time."
+}

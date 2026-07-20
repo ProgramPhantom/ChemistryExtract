@@ -1,0 +1,33 @@
+{
+  "description": "Molecular weight information of monodispersed PEO and PMMA standards used for polymer diffusion measurements via NMR and GPC analysis.",
+  "temperature": "25 \u00b0C",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "Poly(methyl methacrylate) (PMMA)",
+    "poly(ethylene oxide) (PEO)",
+    "Polystyrene 1683",
+    "Albumin from egg white protein",
+    "tetrahydrofuran",
+    "deuterated chloroform (CDCl3)",
+    "deuterated water (D2O)",
+    "chromium(III) acetylacetonate"
+  ],
+  "other_statistics": [
+    {
+      "name": "GPC flow rate",
+      "value": "1.0 mL/min"
+    },
+    {
+      "name": "GPC column temperature",
+      "value": "35 \u00b0C"
+    },
+    {
+      "name": "GPC injection volume",
+      "value": "100 \u03bcL"
+    },
+    {
+      "name": "GPC sample concentration",
+      "value": "2 mg/mL"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "description": "Molecular Weight Data Obtained by SEC and NMR for the Polymers in Various Solvents",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "S-AM",
+    "S-S/MA",
+    "THF",
+    "THF-d8",
+    "CD2Cl2",
+    "FA",
+    "acetone-d6"
+  ],
+  "other_statistics": [
+    {
+      "name": "Mw (Molecular Weight)",
+      "value": "4100, 31000, 27000, 24000, 52000"
+    }
+  ]
+}

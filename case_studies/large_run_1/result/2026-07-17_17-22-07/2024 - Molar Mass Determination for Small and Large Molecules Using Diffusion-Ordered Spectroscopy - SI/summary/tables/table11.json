@@ -1,0 +1,28 @@
+{
+  "description": "Temperature dependences of the dynamic viscosities of various deuterated solvents calculated using the formula ln(\u03b7) = d/T + e.",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "THF-d8",
+    "C6D6",
+    "CDCl3",
+    "CD2Cl2",
+    "Toluene-d8",
+    "DMSO-d6",
+    "C6D12",
+    "MeOD",
+    "D2O",
+    "CD3CN",
+    "Acetone-d6"
+  ],
+  "other_statistics": [
+    {
+      "name": "d",
+      "value": "404.06770 (THF-d8), 555.68004 (C6D6), 381.31056 (CDCl3), 428.82173 (CD2Cl2), 442.06333 (Toluene-d8), 756.47082 (DMSO-d6), 653.21399 (C6D12), 549.48078 (MeOD), 810.387038 (D2O), 388.56288 (CD3CN), 376.24429 (Acetone-d6)"
+    },
+    {
+      "name": "e",
+      "value": "-4.65605 (THF-d8), -5.05978 (C6D6), -4.54363 (CDCl3), -4.82233 (CD2Cl2), -4.69177 (Toluene-d8), -5.19904 (DMSO-d6), -5.20988 (C6D12), -5.06149 (MeOD), -4.82233 (CD2Cl2), -4.74954 (CD3CN), -4.749 (Acetone-d6)"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "title": "Deconstructing Oligomer Distributions: Discrete Species and Artificial Distributions",
+  "authors": [
+    "Jeroen De Neve",
+    "Joris J. Haven",
+    "Simon Harrisson",
+    "Tanja Junkers"
+  ],
+  "doi": "10.1002/anie.201906842",
+  "abstract": "The separation of an oligo(methyl acrylate) distribution, obtained from reversible addition-fragmentation chain transfer (RAFT) polymerization, in a discrete (dispersity = 1) oligomeric library (degree of polymerization between 1 and 22) is presented. The properties of this library in terms of diffusivity, glass transition temperature, and viscosity are determined, filling a significant knowledge gap associated with these materials. The obtained oligomer library is used to construct artificial oligomer distributions on demand. These artificial oligomer distributions are used to highlight the potential to tailor physical properties of a material, while concomitantly demonstrating the limitations associated with size-exclusion chromatography analysis of molecular weight and dispersity in particular."
+}

@@ -1,0 +1,38 @@
+-------------- TABLE 1 EXTRACTION --------------
+**[Preceding Paragraphs]**
+Fig. 1 SEC-UV/RI evaluation method on PSb -PZL: (A) determination of the chemical composition of copolymer fractions from the UV (dashed) and RI (solid) traces; (B) calculation of the concentration and molar mass of copolymer chains, including generation of a copolymer calibration curve (dotted); and (C) calculation of the copolymer mass distribution. Reproduced from ref. 31 with permission from the American Chemical Society, copyright 2003.
+
+<!-- image -->
+
+|
+
+Table 1 Examples of BCPs exhibiting atypical behavior during SEC
+
+**[Table Data]**
+|   Entry | Polymer c                        | Polymer type     | M ˉ n,SEC   | M ˉ n     | Đ    |   Ref. |
+|---------|----------------------------------|------------------|-------------|-----------|------|--------|
+|       1 | OHPV 5                           | Homopolymer      | 2.3         | 1.5 a , b | 1.02 |     37 |
+|       2 | OHPV 5 - b -PEG 12               | Linear BCP       | 1.9         | 2.1 a     | 1.04 |        |
+|       3 | OHPV 5 - b -PEG 45               | Linear BCP       | 3.7         | 3.6 a     | 1.06 |        |
+|       4 | OHPV 5 - b -PEG 115              | Linear BCP       | 7.7         | 6.6 a     | 1.05 |        |
+|       5 | PF - Br                          | Homopolymer      | 6.1         | -         | 1.48 |     38 |
+|       6 | PF- b -PHFBMA 12                 | Linear BCP       | 9.5         | 9.3 a     | 1.50 |        |
+|       7 | PF- b -PHFBMA 36                 | Linear BCP       | 9.6         | 15.7 a    | 1.60 |        |
+|       8 | PF- b -PHFBMA 39                 | Linear BCP       | 9.1         | 21.9 a    | 1.64 |        |
+|       9 | PF- b -PHFBMA 87                 | Linear BCP       | 8.7         | 29.4 a    | 1.60 |        |
+|      10 | PNIPAM                           | Homopolymer      | 23.0        | -         | 1.3  |     39 |
+|      11 | PNIPAM- b -PPEGA- b -PNIPAM      | ABA-type BCP     | 14.0        | -         | 1.36 |        |
+|      12 | PS- b -PNIPAM- b -PPEGA          | ABCACBA-type BCP | 77.0        | -         | 1.45 |        |
+|      13 | PEI 32                           | Homopolymer      | -           | 19.3 a    | -    |     40 |
+|      14 | P4VP 29 - b -PEI 32 - b -P4VP 29 | ABA-type BCP     | 18.7        | 25.6 a    | 1.90 |        |
+|      15 | P4VP 35 - b -PEI 32 - b -P4VP 35 | ABA-type BCP     | 12.1        | 27.7 a    | 2.12 |        |
+|      16 | P4VP 85 - b -PEI 32 - b -P4VP 85 | ABA-type BCP     | 10.5        | 37.8 a    | 2.17 |        |
+
+**[Succeeding Paragraphs]**
+amic radius of the polymer becomes larger, counterintuitive results are obtained if during coupling or growth of the second block the polymer coil contracts, collapses or exhibits an increased interaction with the stationary phase. Below, we discuss a number of representative examples (overview in Table 1) of ' non-classical ' functional BCPs that behave deviant in SEC inasmuch an apparent increase in the retention time is observed with increasing molecular weight.
+
+Rod -coil transition. The first set of examples (Table 1, entries 1 -4), taken from the work of Winnik et al. , represents a range of linear BCPs consisting of a short and sti ff oligo(dihexyloxyphenylenevinylene) (OHPV) conjugated, luminescent block and a flexible poly(ethylene glycol) (PEG) block comprising 12, 45 and 115 EG repeat units (Table 1, entries 2 -4). 37 The GPC traces for these polymers have been reproduced in Fig. 2. Although the retention time consistently decreases with increasing PEG length, an initial increase is observed upon converting the OHPV homopolymer (entry 1) into OHPVb -(PEG)12. In other words, the (apparent) hydrodynamic volume of the BCP is smaller than that of the precursor. The authors have not explicitly discussed this observation, as it is not the focus of their study. It may however portray a di ffi culty associated with molecular weight determination of rod -coil BCPs, a trend that is observable consistently with conjugated polymers.
+
+The underlying reason for this discrepancy might in part be related to the fact that the molecular weight of the OHPV homopolymer is likely overestimated ( ∼ 50% compared to the value from NMR and MALDI) due to its high rigidity. For a given molecular weight, the associated hydrodynamic volume of poly( p -phenylenevinylene) is hence high in comparison with a more flexible polymer used for SEC calibration ( i.e. usually polystyrene). 41 This is expressed by the disagreement between the SEC molecular weight average and the estimate obtained by NMR (entry 1). Upon connecting the flexible PEG block, the hydrodynamic properties become more reminiscent of those of the PS calibration standard, leading to an agree- ment between the SEC and NMR estimates, but perhaps resulting in an apparent reduction in the hydrodynamic volume compared to the OHPV homopolymer. An increase in the retention time due to a higher a ffi nity of the PEG residues with the stationary phase is not likely in view of the apolar column material used in this work 37 (crosslinked styrene/divinyl benzene matrix). We note that an increase in the retention time when connecting or growing a flexible block to/from a sti ff homopolymer is certainly not always observed 42 -44 and speculate that it may depend on the length of the latter and/or whether the sti ff block is truly in the rod-like limit.
+
+Fig. 2 SEC traces of OHPVxb -PEGy polymers, corresponding to entries 1 -4 in Table 1; (a) RI signal and (b) UV-vis signal recorded at 490 nm. See the main text for the non-abbreviated nomenclature. Reproduced from ref. 37 with permission from the Royal Society of Chemistry, copyright 2014.

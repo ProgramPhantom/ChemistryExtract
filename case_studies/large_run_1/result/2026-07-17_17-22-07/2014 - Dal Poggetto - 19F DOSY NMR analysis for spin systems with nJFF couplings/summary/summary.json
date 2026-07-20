@@ -1,0 +1,12 @@
+{
+  "title": "19 F DOSY NMR analysis for spin systems with n J FF couplings",
+  "authors": [
+    "Guilherme Dal Poggetto",
+    "Denize C. Favaro",
+    "Mathias Nilsson",
+    "Gareth A. Morris",
+    "Cl\u00e1udio F. Tormena"
+  ],
+  "doi": "10.1002/mrc.4047",
+  "abstract": "NMR is a powerful method for identi fi cation and quanti fi cation of drug components and contaminations. These problems present themselves as mixtures, and here, one of the most powerful tools is DOSY. DOSY works best when there is no spectral overlap between components, so drugs containing fl uorine substituents are well-suited for DOSY analysis as 19 F spectra are typically very sparse. Here, we demonstrate the use of a modi fi ed 19 F DOSY experiment (on the basis of the Oneshot sequences) for various fl uorinated benzenes. For compounds with signi fi cant n J FF coupling constants, as is common, the undesirable J -modulation can be ef fi ciently suppressed using the Oneshot45 pulse sequence. This investigation highlights 19 F DOSY as a valuable and robust method for analysis of molecular systems containing fl uorine atoms even where there are large fl uorine -fl uorine couplings."
+}

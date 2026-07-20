@@ -1,0 +1,31 @@
+{
+  "description": "Specific Refractive Index Increments (dn/dc) for various polymers in different solvents at specified wavelengths and temperatures.",
+  "temperature": "20, 25, 30, 135, 145 \u00b0C",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "Polybutadiene",
+    "cyclohexane",
+    "benzene",
+    "hexane",
+    "Polychloroprene",
+    "THF",
+    "MEK",
+    "Polyisobutylene",
+    "1-chloronaphthalene",
+    "trichlorobenzene",
+    "toluene",
+    "Poly(l-butene)",
+    "n-nonane",
+    "Polyethylene"
+  ],
+  "other_statistics": [
+    {
+      "name": "Wavelength",
+      "value": "436, 546, 578, 589.3, 632.8 nm"
+    },
+    {
+      "name": "dn/dc",
+      "value": "Refractive index increment values provided in the table"
+    }
+  ]
+}

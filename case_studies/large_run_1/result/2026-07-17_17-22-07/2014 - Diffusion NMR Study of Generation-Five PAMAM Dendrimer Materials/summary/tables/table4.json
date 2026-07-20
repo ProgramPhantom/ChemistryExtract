@@ -1,0 +1,23 @@
+{
+  "description": "Self-diffusion and hydrodynamic radii of G5 PAMAM dendrimer dimer in various pH buffers",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "G5 PAMAM dendrimer dimer",
+    "D2O"
+  ],
+  "other_statistics": [
+    {
+      "name": "pH",
+      "value": "3, 7, 11"
+    },
+    {
+      "name": "Diffusion coefficient (D)",
+      "value": "3.89 x 10^-11 m^2/s (at pH 3), 5.23 x 10^-11 m^2/s (at pH 7), 5.53 x 10^-11 m^2/s (at pH 11), 5.68 x 10^-11 m^2/s (for D2O)"
+    },
+    {
+      "name": "Hydrodynamic radius (rH)",
+      "value": "5.9 nm (at pH 3), 4.4 nm (at pH 7), 4.1 nm (at pH 11), 4.0 nm (for D2O)"
+    }
+  ]
+}

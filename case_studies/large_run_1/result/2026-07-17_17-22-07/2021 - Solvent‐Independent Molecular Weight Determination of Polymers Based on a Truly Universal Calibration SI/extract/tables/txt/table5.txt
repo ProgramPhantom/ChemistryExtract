@@ -1,0 +1,27 @@
+-------------- TABLE 5 EXTRACTION --------------
+**[Preceding Paragraphs]**
+These values can be obtained for all the different molecular weights. These data points will also have a linear relationship that overlap with data obtained from other solvents.
+
+## Average calibration curve
+
+Using the values obtained from all the different molecular weights and different solvents, an average calibration curve can be obtained. This is possible because viscosity is now taking into account into the calculations. b' and v are given in table.
+
+Table 4. b' and v values for the average calibration curve of poly(styrene)
+
+**[Table Data]**
+| D /m 2  s -1                          | Error                 |       |
+|----------------------------------------|-----------------------|-------|
+| 5.91 E-11                              | 2.57E-12              |       |
+| log( D /m 2  s -1 )                   | log( M / g  mol -1 ) | Error |
+| -10.23                                 | 4.09                  | 0.02  |
+| log( D /m 2  s -1 ) + log( / mPa  s) | log( M / g  mol -1 ) | Error |
+| -10.13                                 | 4.09                  | 0.02  |
+
+**[Succeeding Paragraphs]**
+Because this calibration curve is created using all the data from the different solvents, this gives the perfect estimation what a universal calibration would look like. The next graphs show the variation between all the data points obtained with the different solvents and the average calibration curve. The deviation between the average and the data points are 15% or lower. Therefore, this can be seen as an accurate calibration, especially in comparison with deviations observed in SEC.
+
+Figure 3. Average calibration curve of poly(styrene)
+
+<!-- image -->
+
+Figure 4. Difference data points with poly(styrene) average calibration curve

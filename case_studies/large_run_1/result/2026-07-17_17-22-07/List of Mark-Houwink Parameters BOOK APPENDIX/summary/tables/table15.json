@@ -1,0 +1,23 @@
+{
+  "description": "Specific Refractive Index Increments for various types of polyethylene (Polyethylene, HDPE, LDPE, Linear-LDPE)",
+  "temperature": "120 - 145 \u00b0C",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "Polyethylene",
+    "decane",
+    "o-dichlorobenzene",
+    "1-cyclonaphthalene",
+    "HDPE",
+    "TeB",
+    "1-chloronaphthalene",
+    "diphenylmethane",
+    "LDPE",
+    "Linear-LDPE"
+  ],
+  "other_statistics": [
+    {
+      "name": "Wave-length",
+      "value": "404, 436, 546, 577, 578, 589, 589.3, 632.8 nm"
+    }
+  ]
+}

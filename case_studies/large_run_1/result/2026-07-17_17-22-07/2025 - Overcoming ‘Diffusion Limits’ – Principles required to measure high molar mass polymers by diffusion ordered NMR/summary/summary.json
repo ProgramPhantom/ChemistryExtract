@@ -1,0 +1,12 @@
+{
+  "title": "Overcoming 'Diffusion Limits ' -Principles required to measure high molar mass polymers by diffusion ordered NMR",
+  "authors": [
+    "Thomas Swift",
+    "Edward Dyson",
+    "Natalia Koniuch",
+    "Richard Telford",
+    "Stephen Rimmer"
+  ],
+  "doi": "10.1016/j.aca.2025.343937",
+  "abstract": "Question: This paper studies the importance of resolving 'in-solution ' viscosity to determine an accurate hydrodynamic radii for high molar mass or high dispersity macromolecules via DOSY NMR. Analysis of polymer size via diffusion NMR has become increasingly more common, however as in-solution viscosity increases NMR output becomes more complex and requires dedicated methodologies (both in the instrumentation and data treatment) that can sufficiently resolve slowly diffusing analytes.\n\nResults: Diffusion measurements were used to determine hydrodynamic radii of dissolved polymer chains of materials across a broad molar mass range in multiple solvents. Studied systems included poly(ethylene glycol), poly(ethylene oxide), poly(styrene), poly(methyl methacrylate) and poly( N -isopropylacrylamide) and all are shown to match known literature values for dissolved polymer coils with a high degree of accuracy. However, it is shown that it is essential to use the ' in-solution viscosity ' , which can be obtained by applying a viscosity correction factor to the pure solvent viscosity. It was found that % error in outputs correlates to the viscosity of the solvent, with low viscosity solvents contributing to a higher variability in output data. We have also shown how the experimental range of the technique can be expanded to high molar mass (in excess of 1 million g mol 1 ), or high viscosity, and demonstrated the advantages of a diffusion optimised NMR probe (Bruker DiffBB) to target slowly diffusing chemical species.\n\nSignificance: The presence of even small quantities of large molar mass polymer analytes (2 mg mL 1 ) has an impact on in-solution viscosity, and thus provides a systematic offset in output diffusion values that are commonly used to interpret polymer sample size. DOSY NMR data include the diffusion of the solvent insolution. Therefore, DOSY NMR measurements alone, with no internal or external standard besides the solvent itself, can be used to correct for this, allowing for prediction of an accurate hydrodynamic radius (and thus molar mass) of large, slowly diffusing, materials."
+}

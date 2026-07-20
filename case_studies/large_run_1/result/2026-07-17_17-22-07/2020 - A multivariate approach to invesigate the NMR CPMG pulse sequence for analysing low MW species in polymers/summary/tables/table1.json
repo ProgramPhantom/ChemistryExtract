@@ -1,0 +1,30 @@
+{
+  "description": "I-optimal response surface design factors and levels for polyethylene glycol (PEG)",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "polyethylene glycol (PEG)"
+  ],
+  "other_statistics": [
+    {
+      "name": "MWPEG(Da)",
+      "value": "300, 1,000, 6,000, 11,600, 22,500, 41,500"
+    },
+    {
+      "name": "d1 (s)",
+      "value": "2, 5, 8, 10, 15, 20"
+    },
+    {
+      "name": "\u03c4 E (\u03bc s)",
+      "value": "100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 640"
+    },
+    {
+      "name": "n",
+      "value": "120, 220, 320, 420, 520, 620"
+    },
+    {
+      "name": "wt%",
+      "value": "5, 7.5, 10"
+    }
+  ]
+}

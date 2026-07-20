@@ -1,0 +1,21 @@
+{
+  "description": "Characterisation of EGDMA/DDT Transfer-Based Radical Telomerisation (TBRT) to form branched polymer structures.",
+  "temperature": "70 \u00b0C",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "2,2\u2032-azobis(2-methylpropionitrile) (AIBN)",
+    "ethylene glycol dimethacrylate (EGDMA)",
+    "dodecanethiol (DDT)",
+    "toluene"
+  ],
+  "other_statistics": [
+    {
+      "name": "concentration of AIBN",
+      "value": "1.5 mol% based on vinyl functional groups"
+    },
+    {
+      "name": "",
+      "value": "50 wt% solids"
+    }
+  ]
+}

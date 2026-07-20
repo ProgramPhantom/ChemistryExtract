@@ -1,0 +1,15 @@
+{
+  "description": "Measurement of diffusion values and prediction of weight-average molecular weights (Mw) for poly(propylene glycol) (PPG) blends using the dART algorithm.",
+  "temperature": "294 K",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "poly(propylene glycol)",
+    "benzene-d6"
+  ],
+  "other_statistics": [
+    {
+      "name": "viscosity",
+      "value": "0.646 x 10^-3 kg m^-1 s^-1"
+    }
+  ]
+}

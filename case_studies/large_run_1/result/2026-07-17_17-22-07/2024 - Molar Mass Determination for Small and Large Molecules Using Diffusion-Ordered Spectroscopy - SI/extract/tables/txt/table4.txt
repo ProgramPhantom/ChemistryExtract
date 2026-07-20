@@ -1,0 +1,81 @@
+-------------- TABLE 4 EXTRACTION --------------
+**[Preceding Paragraphs]**
+## 1) Tables:
+
+Table S1. Molar masses (in g/mol) of PS-, PMMA, PI, P2VP and PEO homopolymers used for the DOSY calibration.
+
+[table omitted]
+
+[table omitted]
+
+Table S2. Molar masses (in g/mol) of small molecules used for the DOSY calibration. The samples are separated  according  to  their  shapes:  CS=compact  spheres,  DSE=dissipated  spheres  and  ellipsoids, ED=expanded discs (nomenclature according to ref (1,2)).
+
+[table omitted]
+
+Table S3. Pulsed field gradient conditions for all polymers and solvents: Gradient pulse length given as little delta  (LD)  and  diffusion  delay  as  big  delta  (BD)  for  the  convection  compensated  pulse  sequence dstebpgp3s
+
+**[Table Data]**
+| Sample   | Gradients   | CDCl 3     | C 6 D 6   | CD 2 Cl 2   | THF                 | Toluene    | Acetone   |
+|----------|-------------|------------|-----------|-------------|---------------------|------------|-----------|
+| ps1      | LD/ms       | 2.0        | 2.0       | 1.6         | 2.0                 | 2.0        | 1.6       |
+|          | BD/ms       | 76.73      | 76.73     | 77.27       | 76.73               | 76.73      | 57.27     |
+|          | LD/ms       | 2.0        | 2.0       | 1.6         | 2.0                 | 2.0        | 1.6       |
+| ps2      | BD/ms       | 76.73      | 76.73     | 77.27       | 76.73               | 76.73      | 57.27     |
+|          | LD/ms       | 2.6        | 2.6       | 2.4         | 2.6                 | 2.6        | 2.0       |
+| ps3      | BD/ms       | 95.93      | 95.93     | 76.2        | 95.93               | 95.93      | 76.73     |
+|          | LD/ms       | 3.2        | 3.2       | 3.0         | 3.2                 | 3.2        | 2.6       |
+| ps4      | BD/ms       | 95.13      | 95.13     | 95.4        | 95.13               | 95.13      | 75.93     |
+| ps5      | LD/ms       | 3.8        | 3.8       | 3.6         | 3.8 94.33 4.2 113.8 | 3.8 94.33  | 3.0 75.4  |
+|          | BD/ms       | 94.33      | 94.33     | 94.6        |                     | 4.2        |           |
+| ps6      | LD/ms       | 4.2        | 4.2       | 4.0         |                     |            | -         |
+|          | BD/ms       | 113.8      | 113.8     | 94.07       |                     | 113.8      | -         |
+|          | LD/ms       | 5.6        | 5.6       | 5.6         | 5.6                 | -          | -         |
+| ps7      | BD/ms       | 111.93     | 91.93     | 141.93      | 91.93               | -          | -         |
+|          | LD/ms       | 5.6        | 5.6       | 5.6         | 5.6                 | -          | -         |
+| ps8      | BD/ms       | 191.93     | 191.93    | 251.93      | 191.93              | -          | -         |
+|          | LD/ms LD/ms | 5.6        | 5.6 5.6   | 5.6 5.6     | 5.6 241.93          | -          | -         |
+| ps9      | BD/ms       | 291.93     | 241.93    | 251.93      | 5.6                 | - -        | - -       |
+| ps10     | BD/ms       | 5.6 291.93 | 391.93    | 341.93      | 391.93              | -          | -         |
+| Sample   | Gradients   | CDCl 3     | C 6 D 6   | CD 2 Cl 2   | THF                 | DMSO       | -         |
+| pmma1    | LD/ms       | 2.0 76.73  | 2.0 76.73 | 1.6 77.27   | 2.0 76.73           | 3.6 74.6   | - -       |
+| pmma2    | BD/ms       |            | 76.73     | 76.73       | 76.47               |            |           |
+|          | LD/ms       | 2.0        | 2.0       | 2.0         | 2.2                 | 3.8        | -         |
+|          | BD/ms       | 76.73      |           |             |                     | 94.33      | -         |
+| pmma3    | LD/ms       | 2.6        | 2.6       | 2.4         | 2.6                 | 4.0        | -         |
+|          | BD/ms       | 95.93      | 95.93     | 96.2        | 95.93               | 94.07      | -         |
+| pmma4    | LD/ms       | 3.2        | 3.2       | 3.0         | 3.2                 | 4.6        | -         |
+| pmma5    | BD/ms LD/ms | 95.13 3.8  | 95.13 3.8 | 95.4 3.6    | 95.13 3.8           | 113.27 5.2 | -         |
+|          | BD/ms LD/ms | 94.33 4.2  | 94.33 4.2 | 94.6        | 94.33 4.2           | 122.47 5.6 | - -       |
+| pmma6    |             | 113.8      | 113.8     | 4.0         | 113.8               | 141.93     | -         |
+|          |             |            |           | 94.07       |                     |            |           |
+|          | BD/ms LD/ms | 5.6        | 5.6       | 5.6         | 5.6                 | -          | - -       |
+| pmma7    | BD/ms       | 141.93     | 141.93    | 141.93      | 91.93               | -          | -         |
+|          | LD/ms       | 5.6        | 5.6       | 5.6         | 5.6                 | -          | -         |
+| pmma8    | BD/ms       | 291.93     | 291.93    | 251.93      | 191.93              | -          | -         |
+|          | LD/ms       | 5.6        | 5.6       | 5.6         | 5.6                 |            | -         |
+| pmma9    | BD/ms       | 391.93     | 391.93    | 341.93      | 341.93              | - -        | -         |
+|          | Gradients   | CDCl 3     | C 6 D 6   | CD 2 Cl 2   | THF                 | -          | -         |
+|          | LD/ms       | 1.6        | 2.0       | 1.6         | 1.8                 | -          | -         |
+| Sample   |             |            |           |             |                     |            |           |
+| pi1      | BD/ms       | 77.27      | 76.73     | 77.27 1.8   | 77.0                | -          | -         |
+| pi2      |             |            |           |             |                     |            | -         |
+|          | LD/ms       | 2.0        | 2.0       |             | 2.0                 | -          |           |
+
+**[Succeeding Paragraphs]**
+[table omitted]
+
+[table omitted]
+
+-
+
+Table S4a. Parameters b (Flory parameter) and c of the power scaling D=c·M -b  determined via DOSY and the dynamic viscosities (in Pa·s) of the solvents for small molecules of different shapes at T=298 K: compact spheres (CS), dissipated spheres and ellipsoids (DSE) and expanded discs (ED) (parameters b and c are calculated from diffusion data of ref (1) reproduced with permission of the Royal Society of Chemistry and ref  (2)  reproduced  with  permission  of  John  Wiley  and  Sons,  respectively).  The  dynamic  viscosities  are related to the references and temperature dependences of Table S5.
+
+[table omitted]
+
+Table S4b. Parameters b (Flory parameter) and c of the power scaling D=c·M -b  determined via DOSY and the dynamic viscosities (in Pa·s) of the solvents for PS, PMMA, PI, P2VP and PEO at T=298.15 K. The dynamic viscosities are related to the references and temperature dependences of Table S5.
+
+[table omitted]
+
+[table omitted]
+
+Table S4c. Parameters b (Flory parameter) and c of the power scaling D=c·M -b  determined via DOSY and the dynamic viscosities (in Pa·s) of the solvents for PMMA in C6D6 and PEO in D2O at variable temperatures in Kelvin. The dynamic viscosities are related to the references and temperature dependences of Table S5.

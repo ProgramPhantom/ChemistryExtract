@@ -1,0 +1,11 @@
+{
+  "description": "DOSY molecular weight calibration parameters for pPEGMEA homopolymer in different solvents",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "pPEGMEA",
+    "Water",
+    "Acetone"
+  ],
+  "other_statistics": []
+}

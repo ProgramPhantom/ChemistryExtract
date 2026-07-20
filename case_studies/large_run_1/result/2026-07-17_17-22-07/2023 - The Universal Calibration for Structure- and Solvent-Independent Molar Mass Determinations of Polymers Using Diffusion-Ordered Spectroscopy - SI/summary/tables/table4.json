@@ -1,0 +1,12 @@
+{
+  "description": "Comparison of Mark-Houwink parameters K and a determined by DOSY and provided by available literature data for PMMA in various solvents.",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "PMMA",
+    "Benzene",
+    "Chloroform",
+    "THF"
+  ],
+  "other_statistics": []
+}

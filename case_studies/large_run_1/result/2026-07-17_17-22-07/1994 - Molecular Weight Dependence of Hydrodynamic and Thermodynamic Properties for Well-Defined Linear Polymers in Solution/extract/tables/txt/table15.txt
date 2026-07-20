@@ -1,0 +1,61 @@
+-------------- TABLE 15 EXTRACTION --------------
+**[Preceding Paragraphs]**
+## 8.  Conclusions
+
+Values  of the  hydrodynamic  and thennodynamic  proper­ ties, [11], Rg, RH and A2, have been collected for five common linear, flexible chains in theta solvents and in good solvents. It  is  believed  that  all  of the  pertinent  literature  results  on studies of  narrow polydispersity (M J  M n :!S;  1.1) chains using reliable  instrumental methods,  where  all of the  above  men­ tioned parameters are reported, have been examined. Linear power law expressions were observed for all parameters as a function  of molecular weight.  This  work  appears  to  be  the first major effort in critically analyzing such data and compil.;. , ing  the  corresponding  power  laws  for  narrow  distribution chains.
+
+Some conclusions  are  directly  obtainable  from  the  data. First, it appears that in some cases the estimated unperturbed dimensions of chains may depend on whether measurements are made on samples in solution or in the bulk99-10l.  Second, it appears  that,  in  most instances,  the  results  from  different investigators,  in  some  cases  using  different  methods,  are consistent.  For example the  results  from  photon  correlation spectroscopy  and  sedimentation velocity  provide similar diffusion coefficients and RH values. Third, in contrast to the claim  102  that the MHS relationship breaks down at very high molecular  weights (M~ 10 6 ), the  extensive  viscosity  data presented herein show no such deviations. Finally, the need for  additional  measurements  on  certain  systems  has  been noted in the text.
+
+TABLE  11.  Polystyrene in tetrahydrofuran
+
+**[Table Data]**
+|   Reference | M X 10- 5 (g mol-I)   |   [TlJ (em 3 g-I) | R, (nm)   | RH (nm)   | A2 X 10 4 (em 3 mol g-2)   |
+|-------------|-----------------------|-------------------|-----------|-----------|----------------------------|
+|          72 | 0.50                  |              28.2 |           |           |                            |
+|             | 1.11                  |              51.1 |           |           |                            |
+|             | 2.07                  |              78.1 |           |           |                            |
+|             | 2.16                  |              79.1 |           |           |                            |
+|             | 2.54                  |              91.8 |           |           |                            |
+|             | 3.92                  |               127 |           |           |                            |
+|             | 4.14                  |               130 |           |           |                            |
+|             | 6.75                  |               186 |           |           |                            |
+|             | 8.67                  |               219 |           |           |                            |
+|             | 8.84                  |               220 |           |           |                            |
+|             | 9.50                  |               250 |           |           |                            |
+|             | 13.5                  |               307 |           |           |                            |
+|             | 33.7                  |               609 |           |           |                            |
+|          73 | 0.944                 |              40.5 |           |           |                            |
+|             | 2.16                  |              73.3 |           |           |                            |
+|             | 4.14                  |               122 |           |           |                            |
+|             | 7.57                  |               191 |           |           |                            |
+|             | 8.67                  |               204 |           |           |                            |
+|             | 8.84                  |               205 |           |           |                            |
+|             | 13.5                  |               287 |           |           |                            |
+|             | 17.8                  |               349 |           |           |                            |
+|             | 33.7                  |               556 |           |           |                            |
+|          74 | 0.506                 |              29.3 |           |           |                            |
+|             | 0.972                 |              46.4 |           |           |                            |
+|             | 1.59                  |              64.6 |           |           |                            |
+|             | 4.05                  |               132 |           |           |                            |
+|             | 8.29                  |               225 |           |           |                            |
+|          75 | 0.68                  |              31.3 |           |           |                            |
+|             | 2.13                  |              81.5 |           |           |                            |
+|             | 2.90                  |              96.7 |           |           |                            |
+|             | 9.34-                 |               221 |           |           |                            |
+|             | 22.3                  |               391 |           |           |                            |
+|          76 | 2.00                  |              72.6 |           |           |                            |
+|             | 8.67                  |               223 |           |           |                            |
+|             | 21.6                  |               473 |           |           |                            |
+
+**[Succeeding Paragraphs]**
+## FETTERS ET AL.
+
+TABLE II. Polystyrene in tetrahydrofuran  Continued
+
+[table omitted]
+
+TABLE 11.  Polystyrene  in  tetrahydrofuran  Continued
+
+[table omitted]
+
+FIG.  3. Rg  as  a function of M for  PS  in THF (x -Ref.  81;  A  Ref.  82;. Ref.  65  0  Ref.  68;  · -Refs. 69  and 83).

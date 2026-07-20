@@ -1,0 +1,27 @@
+{
+  "description": "Pulsed field gradient conditions (gradient pulse length LD and diffusion delay BD) for various polymers (PS, PMMA, PI) in different solvents.",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "CDCl3",
+    "C6D6",
+    "CD2Cl2",
+    "THF",
+    "Toluene",
+    "Acetone",
+    "DMSO",
+    "PS",
+    "PMMA",
+    "PI"
+  ],
+  "other_statistics": [
+    {
+      "name": "LD/ms",
+      "value": "Gradient pulse length in milliseconds"
+    },
+    {
+      "name": "BD/ms",
+      "value": "Diffusion delay in milliseconds"
+    }
+  ]
+}

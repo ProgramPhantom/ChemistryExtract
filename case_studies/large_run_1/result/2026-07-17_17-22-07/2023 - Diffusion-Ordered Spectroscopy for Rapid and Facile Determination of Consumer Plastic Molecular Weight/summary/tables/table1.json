@@ -1,0 +1,22 @@
+{
+  "description": "Determination of log(D) vs log(MW) relationships for various polymers (PS, PE, PET, and dextran) in different deuterated solvents using DOSY NMR to establish calibration curves for molecular weight determination.",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "Polystyrene (PS)",
+    "Polyethylene (PE)",
+    "Polyethylene terephthalate (PET)",
+    "Dextran",
+    "CDCl3",
+    "C2D2Cl4",
+    "TFA-d",
+    "D2O",
+    "DMSO-d6"
+  ],
+  "other_statistics": [
+    {
+      "name": "Concentration",
+      "value": "10 mg mL-1"
+    }
+  ]
+}

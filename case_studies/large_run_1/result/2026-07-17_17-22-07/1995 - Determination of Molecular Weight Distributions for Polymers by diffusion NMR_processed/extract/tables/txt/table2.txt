@@ -1,0 +1,24 @@
+-------------- TABLE 2 EXTRACTION --------------
+**[Preceding Paragraphs]**
+The DOSY experiment has been described in detail elsewhere.23·24 Instrumentation for the PFGNMR experiments includes a Broker AC250 spectrometer with computer controlled gradient drivers designed and constructed in-house.25 Two probes custom built by Cryomagnet Systems, Inc., with actively shielded gradient coils (coil constants: 0.156 T   ' -1 and 0.1785 T m''A~l) were used in these experiments.26 In all NMR experiments, the probe temperature was maintained at 298 ± 1 K by the standard Broker temperature control unit, and 5 mm sample tubes were used.
+
+(23) Morris, K. F.; Johnson, C. S., Jr. J. Am. Chem. Soc. 1992, 114, 3139-3141.
+
+(24) Hinton, D. P.; Johnson, C. S' Jr. J. Phys. Chem. 1993, 97, 90649072.
+
+Table 2. Polydisperse Polyethylene oxide)
+
+**[Table Data]**
+| sample type   | Mj, (103 g mol-1) (103 g (manufacturer)   |   Mw mol-1) (manufacturer) |   M- (103 g mol-1) (DOSY) |   Mw (103 g mol-1) (DOSY) |
+|---------------|-------------------------------------------|----------------------------|---------------------------|---------------------------|
+| PEO200K       | 4X0                                       |                        204 |                        46 |                       180 |
+| PEO120K       | 36.5                                      |                        123 |                        35 |                       110 |
+
+**[Succeeding Paragraphs]**
+From 20 to 40 FIDs, each associated with a different q value (1 x 104 to 3 x 106 m-1), were collected with an ASPECT-3000 computer in each ex^riment. In each case the maximum attenuation reduced the signal % or less of its original intensity so that polydisperse polymer samples could be completely characterized. The LED pulse sequence27 was employed with diffusion time ( = 105.5 ms) and eddy current delay time (Te = 50 ms). The data files were transferred via Broknet from the ASPECT-3000 to a Silicon Graphics (SGI) workstation; and software package FELIX (Hare Research, Inc.) was used for Fourier transformations, phasing, and polynomial baseline corrections. All the analysis programs were written in FORTRAN on SGI workstations, and the diffusion coefficients and their distributions were determined with a version of CONTIN modified in-house.
+
+## Results and Discussion
+
+Microaveraging. In order to test for microaveraging effects under our experimental conditions, a mixture of equal weights of the PE05K (Aíw s 5000) and PEO100K (Mw == 100 000) samples at a total concentration of 1 g/L in D2O was studied with PFGNMR. The best fit to a plot of In[/(g)] versus q2(A -Ó/3) for the methylene peak of PEO was found to contain fast and slow components with the diffusion coefficients 1.3 x 10'10 and 1.9 x 10\_11 m2 s\_l, respectively. This result matches within experimental error the diffusion coefficients obtained for samples containing only PE05K (1.1 x 10-,° m2 s-1) and PEO100K (1.9 x 10~" m2 s-1) at the same total weight percent of PEO. Therefore, we conclude that the microaveraging effect on diffusion coefficients resulting from intermolecular interactions is insignificant at concentrations of 1 g/L or lower.
+
+Scaling Relation. The relationship between the mass weighted tracer diffusion coefficient D and mass average molar mass Mw was established for monodisperse PEO samples (1 g/L of PEO in D2O) by measuring the diffusion coefficients for monodisperse samples with PFGNMR.5 The results shown in Figure 9 verify that log(D) changes linearly with log(Mw), and as expected the scaling relationship has the form D = AM0·. Analysis of the data in Figure 9 shows that A = 10-7 62 and a = -0.62 with D in units of m2 s\_l in good agreement with previous studies.28

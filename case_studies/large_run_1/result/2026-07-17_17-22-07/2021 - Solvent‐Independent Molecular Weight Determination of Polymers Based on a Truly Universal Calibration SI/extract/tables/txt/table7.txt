@@ -1,0 +1,25 @@
+-------------- TABLE 7 EXTRACTION --------------
+**[Preceding Paragraphs]**
+Table 5. All variables of 12300 g  mol -1 poly(ethylene glycol)
+
+[table omitted]
+
+## Average calibration curve
+
+Same as with polystyrene, using all the values from all the different molecular weights and different solvents an average calibration can be obtained.
+
+Table 4. b' and v values for the average calibration curve of poly(ethylene glycol)
+
+**[Table Data]**
+|   b' /m 2  s -1 |       v |   Error |
+|------------------|---------|---------|
+|           -8.391 | -0.4737 | -0.3458 |
+
+**[Succeeding Paragraphs]**
+Figure 6. Average calibration curve of poly(ethylene glycol)
+
+<!-- image -->
+
+Again, a comparison can be made with collected data points and the created average calibration curve. It can be seen that the difference for the majority of the samples doesn't go over 10%. Therefore, this can be seen as an accurate calibration.
+
+Figure 7. Difference data points with poly(ethylene glycol) average calibration curve

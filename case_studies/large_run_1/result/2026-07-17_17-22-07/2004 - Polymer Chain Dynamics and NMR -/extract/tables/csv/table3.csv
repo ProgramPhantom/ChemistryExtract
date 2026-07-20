@@ -1,0 +1,27 @@
+,0,1
+0,BWR,Bloch/Wangsness/Redfield theory
+1,CLF,contour length fluctuation
+2,CPMG,Carr/Purcell/Meiboom/Gill
+3,FID,free-induction decay
+4,GLE,generalized Langevin equation
+5,NMR,nuclear magnetic resonance
+6,ODF,order director fluctuations
+7,PB,poly(butadiene)
+8,PDES,poly(diethylsiloxane)
+9,PDMS,poly(dimethylsiloxane)
+10,PE,poly(ethylene)
+11,PEO,poly(ethylene oxide)
+12,PGSE,pulsed gradient spin echo method
+13,PHEMA,poly(hydroxyethylmethacrylate)
+14,PIB,poly(isobutylene)
+15,PIP,poly(isoprene)
+16,PMMC,polymer mode-mode coupling model
+17,PS,poly(styrene)
+18,PTHF,poly(tetrahydrofurane)
+19,PU,phenylurazole
+20,RF,radio frequency
+21,RRM,renormalized Rouse model
+22,SGSE,steady gradient spin echo method
+23,ThRRM,three times renormalized Rouse model
+24,TRRM,twice renormalized Rouse model
+25,WLF,Williams/Landel/Ferry

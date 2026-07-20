@@ -1,0 +1,29 @@
+-------------- TABLE 2 EXTRACTION --------------
+**[Preceding Paragraphs]**
+To identify how the differences in the chemical structure of LMN , YBGS and PEA2 -SP can be accessed when submitted to the classical methods in carbohydrate chemistry, samples were first analyzed through methylation analysis and then NMR.
+
+The 1 H and 13 C NMR assignments were determined using HSQC, COSY, TOCSY, HSQC-TOCSY, NOESY, ROESY, HMBC and H2BC and were confirmed using the literature (Agrawal, 1992; Bhanja et al., 2014; Carbonero et al., 2006; Ellefsen et al., 2023; Lowman et al., 2011; Rout, Mondal, Chakraborty, &amp; Islam, 2008; Smiderle et al., 2013; Storseth, Kirkvold, Skjermo, &amp; Reitan, 2006; Tada, Adachi, Ishibashi, &amp; Ohno, 2009; Tada, Ohno, &amp; Adachi, 2023). The H2BC spectra were interpretated by overlapping them with the HSQC spectrum (Petersen et al.,
+
+Table 2 Apparent M w distribution and conformational parameters of the β samples.
+
+-glucans
+
+**[Table Data]**
+|   Peak | Sample   |   M w (kDa) | Đ ( M w / M n )           | Recovery (%) b    |
+|--------|----------|-------------|---------------------------|-------------------|
+|      1 | LMN YBGS |           5 | 1.002 1.1 1.8 1.1 1.3 1.5 | 92 36 69 28 15 19 |
+|        |          |           8 |                           |                   |
+|        | PEA2-SP  |          36 |                           |                   |
+|      2 | YBGS     |          35 |                           |                   |
+|        | PEA2-SP  |        2120 |                           |                   |
+|      3 | YBGS     |         240 |                           |                   |
+|        | PEA2-SP  |        2425 | 1.002                     | 6                 |
+
+**[Succeeding Paragraphs]**
+a de Carvalho et al., 2024, included for comparison. Total recovery for LMN , YBGS and PEA2 -SP was 92, 83 and 90 %, respectively.
+
+2006). The NMR assignments are presented in Table 3.
+
+## 3.3.1. LMN
+
+Methylation analysis of LMN (Table 1) showed that this fraction is composed mainly of → 3)-Glc p -(1 → (82 %) and lower amounts of → 3,6)Glc p -1( → (7 %), corresponding to the branching points. In accordance with the percentage of branching points, 9 % of Glc p -(1 → was identified, corresponding to glucose as non-reducing terminal (NRT). In addition, small amounts 6-linked glucose units were identified (2 %).

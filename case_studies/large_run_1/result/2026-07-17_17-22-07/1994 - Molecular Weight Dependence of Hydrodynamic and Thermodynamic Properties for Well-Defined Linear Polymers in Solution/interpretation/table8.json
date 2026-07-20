@@ -1,0 +1,99 @@
+{
+  "is_mark_houwink_data": true,
+  "is_flory_data": false,
+  "mh_entries": [
+    {
+      "polymer_name": "polyisobutylene",
+      "solvent": "ethylbenzene",
+      "temperature_k": null,
+      "raw_K_value": 0.0113,
+      "K_transformation": "none",
+      "K_value": 0.0113,
+      "raw_a_value": 0.715,
+      "a_transformation": "none",
+      "a_value": 0.715
+    },
+    {
+      "polymer_name": "polyisobutylene",
+      "solvent": "tetrahydrofuran",
+      "temperature_k": null,
+      "raw_K_value": 0.00996,
+      "K_transformation": "none",
+      "K_value": 0.00996,
+      "raw_a_value": 0.734,
+      "a_transformation": "none",
+      "a_value": 0.734
+    },
+    {
+      "polymer_name": "polyisobutylene",
+      "solvent": "toluene",
+      "temperature_k": null,
+      "raw_K_value": 0.00927,
+      "K_transformation": "none",
+      "K_value": 0.00927,
+      "raw_a_value": 0.734,
+      "a_transformation": "none",
+      "a_value": 0.734
+    },
+    {
+      "polymer_name": "polyisobutylene",
+      "solvent": "benzene",
+      "temperature_k": null,
+      "raw_K_value": 0.00987,
+      "K_transformation": "none",
+      "K_value": 0.00987,
+      "raw_a_value": 0.739,
+      "a_transformation": "none",
+      "a_value": 0.739
+    },
+    {
+      "polymer_name": "polyisobutylene",
+      "solvent": "cyclohexane",
+      "temperature_k": null,
+      "raw_K_value": 0.0844,
+      "K_transformation": "none",
+      "K_value": 0.0844,
+      "raw_a_value": 0.5,
+      "a_transformation": "none",
+      "a_value": 0.5
+    },
+    {
+      "polymer_name": "polyisobutylene",
+      "solvent": "cyclohexane",
+      "temperature_k": null,
+      "raw_K_value": 0.0768,
+      "K_transformation": "none",
+      "K_value": 0.0768,
+      "raw_a_value": 0.508,
+      "a_transformation": "none",
+      "a_value": 0.508
+    }
+  ],
+  "flory_entries": [],
+  "calculator_calls": [
+    {
+      "expression": "1.13 * 10**-2",
+      "result": "0.0113"
+    },
+    {
+      "expression": "9.27 * 10**-3",
+      "result": "0.00927"
+    },
+    {
+      "expression": "9.96 * 10**-3",
+      "result": "0.009960000000000002"
+    },
+    {
+      "expression": "9.87 * 10**-3",
+      "result": "0.009869999999999999"
+    },
+    {
+      "expression": "7.68 * 10**-2",
+      "result": "0.0768"
+    },
+    {
+      "expression": "8.44 * 10**-2",
+      "result": "0.0844"
+    }
+  ]
+}

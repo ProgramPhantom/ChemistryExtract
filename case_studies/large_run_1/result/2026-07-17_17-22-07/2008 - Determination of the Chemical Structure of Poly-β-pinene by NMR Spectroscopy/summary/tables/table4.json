@@ -1,0 +1,19 @@
+{
+  "description": "Percentage of 2,1 and 2,5 units, percentage of crosslink and type of structure obtained for various PBP samples synthesized via different methods (irradiation, free radical initiator, cationic catalysis, and Ziegler Natta catalyst).",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "PBP",
+    "$\\\\beta$-pinene"
+  ],
+  "other_statistics": [
+    {
+      "name": "Percentage of 2,1 and 2,5 units",
+      "value": "0-100, 10-90, 30-70, 35-65"
+    },
+    {
+      "name": "Percentage of crosslink",
+      "value": "4%, 9%, 13%, 12%, 23%, 30%, 15%"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "description": "Measurement of molecular weights (Mn and Mw) for polydisperse Poly(ethylene oxide) samples using DOSY NMR",
+  "temperature": "298 \u00b1 1 K",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "Poly(ethylene oxide)",
+    "D2O"
+  ],
+  "other_statistics": [
+    {
+      "name": "diffusion time (\u0394)",
+      "value": "105.5 ms"
+    },
+    {
+      "name": "eddy current delay time (T,)",
+      "value": "50 ms"
+    },
+    {
+      "name": "total concentration of PEO",
+      "value": "1 g/L in D2O"
+    }
+  ]
+}

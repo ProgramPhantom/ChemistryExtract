@@ -1,0 +1,19 @@
+{
+  "description": "Diffusion values and diffusion errors for PPG450 and PPG5000 polymers in a binary blend, calculated using dART, ITAMeD, and TRAIn methods at room temperature.",
+  "temperature": "294 K",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "poly(propylene glycol) (PPG)",
+    "benzened 6"
+  ],
+  "other_statistics": [
+    {
+      "name": "Diffusion Values",
+      "value": "10^-9 m^2 s^-1"
+    },
+    {
+      "name": "Diffusion Errors",
+      "value": "%"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "title": "Quantitative Studies of Block Copolymers and Their Containing Homopolymer Components by Diffusion Ordered Spectroscopy",
+  "authors": [
+    "Wolf Hiller"
+  ],
+  "doi": "10.1002/macp.201900255",
+  "abstract": "Several polystyrene-b-poly(methyl methacrylate) (PS-b-PMMA) and polyisoprene-b-PMMA (PI-b-PMMA) block copolymers are studied with high-resolution diffusion ordered spectroscopy (DOSY) in order to quantify the amounts and molar masses of the copolymers and the containing homopolymers. These studies are particularly challenging because these homopolymers and one block of the copolymers consist of the same monomer type with different molar masses and compositions and cause a total overlap of these polymer components in the NMR spectra. However, DOSY can be proven as a powerful tool for separation and quantification of these moieties. Whereas exponential fittings only deliver averaged diffusion data, biexponential fittings of the individual magnetization curves can separate the overlapping polymer parts. This DOSY approach can be successfully tested for different blends of PS as well as PS and PS-b-PMMA of different molar masses and weighed compositions. The DOSY separation is also compared to size exclusion chromatography (SEC). In the case of the PS-b-PMMA and PI-b-PMMA block copolymers, DOSY identifies the contaminations with homopolymers, quantifies their individual amounts as well as determines the molar masses of both the copolymers and homopolymers. Two mathematical evaluations are used for quantifying these homopolymers with DOSY. These results are compared with the online coupling of SEC and NMR."
+}

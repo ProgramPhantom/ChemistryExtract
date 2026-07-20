@@ -1,0 +1,30 @@
+{
+  "description": "List of factors and their levels in the design for polystyrene (PS)",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "polystyrene"
+  ],
+  "other_statistics": [
+    {
+      "name": "MW [a] PS (Da)",
+      "value": "30,300; 68,900; 220,500; 629,500"
+    },
+    {
+      "name": "d1 (s)",
+      "value": "2; 5; 8; 10; 15; 20"
+    },
+    {
+      "name": "\u22ed E (\u00b5s)",
+      "value": "100; 150; 200; 250; 300; 350; 400; 450; 500; 550; 600; 640"
+    },
+    {
+      "name": "n",
+      "value": "120; 220; 320; 420; 520; 620"
+    },
+    {
+      "name": "wt%",
+      "value": "5; 7.5; 10"
+    }
+  ]
+}

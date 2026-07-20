@@ -1,0 +1,29 @@
+-------------- TABLE 1 EXTRACTION --------------
+**[Preceding Paragraphs]**
+Polystyrene (PS) commercial standards were selected to construct the calibration curve due to its general use as GPC standards. Narrowly dispersed polymers were used to generate the D -M w plot calibration to reduce the discrepancy of number-average molecular weight and weight-average molecular weight. Benzene was selected as the solvent due to its relatively high viscosity (0.603 cP at 25 ° C) 49 and its ability to solvate a wide variety of organic polymers.
+
+Considering the large molecular weights of polystyrene standards, full signal attenuation during DOSY experiments were achieved (&lt;5%) by prolonged di ff usion time to ensure valid values of di ff usion coe ffi cients. Table 1 and Figure 1 showed the detailed results of the PS calibration curve in benzene. The high r 2 value of 0.9991 demonstrated excellent linearality of the log D -log M w curve. Remarkably, if extrapolating the calibration curve from 9000 g/mol to low molecular range, the M w of benzene was predicted as 73 g/mol, with only 6.4% deviation of its calculated value. The successful establishment of the polystyrene-based calibration curve in organic system facilitated further kinetic analysis for living polymerization.
+
+## Table 1. D -M w Results of PS Standard Calibration Curve and Predictions
+
+a 1 H DOSY measurement was performed at 25 ° C in benzened 6 . b Equation of the PS standard calibration curve is y = -0.537 x -7.697 ( R 2 = 0.9991). M w(DOSY) was calculated from the calibration curve using the experimental values of D . c Calculated from M w(GPC) and M w(DOSY). d According to commercial samples. For more details please see Table S1.
+
+**[Table Data]**
+| samples   |   M w (GPC) (g/mol) | D (10 - 11 )   |   av M w (DOSY) (g/mol) | di ff (%)   |   PDI |
+|-----------|---------------------|----------------|-------------------------|-------------|-------|
+| PS        |                9000 | 15.02 ± 0.03   |                    9100 | 1.1         |  1.06 |
+| PS        |               30000 | 8.08 ± 0.01    |                   29000 | - 3.3       |  1.06 |
+| PS        |               60000 | 5.40 ± 0.02    |                   61000 | 1.7         |  1.04 |
+| PS        |               80000 | 4.69 ± 0.02    |                   80000 | 0.0         |  1.07 |
+| PS        |              156000 | 3.31 ± 0.03    |                  153000 | - 1.9       |  1.06 |
+| PS        |              200000 | 3.00 ± 0.03    |                  183000 | - 8.5       |  1.06 |
+| BEN       |                  78 | 200.0          |                      73 | - 6.4       |       |
+
+**[Succeeding Paragraphs]**
+Figure 1. PS calibration curve in benzened 6 for M w prediction. Black solid square: PS standards; blue open square: benzene.
+
+<!-- image -->
+
+We then performed a model ATRP experiment to examine our method. ATRP is the most widely used living radical polymerization because of its high control in polymerization and versatile applications in material science. In ATRP, good control of radical polymerization can be obtained through reversible and repeatable activation/deactivation of dormant species containing propagating radicals in the presence of transition metal complex. 36 In our experiment, ATRP of styrene 1 took place with commonly used copper/nitrogen ligand complex, CuBr, and N,N , N ′ , N ″ , N ″ -pentamethyldiethylenetriamine (PMDETA), and alkyl halide, methyl 2-bromoisobutyrate in anisole. Kinetic aliquots were taken from the polymerization solution at each designated time interval. M w of each aliquot was determined by both GPC and DOSY. Di ff usion coe ffi cients were obtained after full attenuation of NMR signals. Di ff usion coe ffi cients of the samples were fi tted to the PS calibration curve (Figure 1) to calculate the M w. The aliquot was analyzed by GPC with multiangle laser light scattering in THF eluent to determine the molecular weights of polymers.
+
+The molecular weights of polystyrene 3 linearly increased with conversions showing a typical ATRP behavior (Table 2 and Figure 2). Between the range of 5500 -26 900 g/mol (data

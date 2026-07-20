@@ -1,0 +1,50 @@
+-------------- TABLE 17 EXTRACTION --------------
+**[Preceding Paragraphs]**
+TABLE  11.  Polystyrene in tetrahydrofuran
+
+[table omitted]
+
+## FETTERS ET AL.
+
+TABLE II. Polystyrene in tetrahydrofuran  Continued
+
+[table omitted]
+
+TABLE 11.  Polystyrene  in  tetrahydrofuran  Continued
+
+**[Table Data]**
+| Reference   |   M x 10- 5 (g mol-I) | [Tt] (cm3 g-l)   |   Rg (nm) |      |   A2 X 10 4 (cm 3 mol g-2) |
+|-------------|-----------------------|------------------|-----------|------|----------------------------|
+| 69,83       |                  0.94 |                  |           |      |                       5.91 |
+|             |                  3.20 |                  |           |      |                       4.10 |
+|             |                  6.30 |                  |           |      |                       3.69 |
+|             |                  9.20 |                  |      40.0 |      |                       3.09 |
+|             |                  18.2 |                  |           |      |                       2.56 |
+|             |                 18.35 |                  |      58.0 |      |                            |
+|             |                  37.7 |                  |      91.5 | 69.5 |                       2.19 |
+|             |                  54.7 |                  |       118 | 89.3 |                       2.01 |
+|             |                  83.2 |                  |       136 |  109 |                       1.83 |
+|             |                 220.0 |                  |       244 |  195 |                       1.41 |
+| 84          |                 0.204 |                  |           |  3.7 |                            |
+|             |                 0.510 |                  |           |  6.2 |                            |
+|             |                  0.97 |                  |           |  8.7 |                            |
+|             |                  1.60 |                  |           | 11.9 |                            |
+|             |                  4.11 |                  |           | 20.2 |                            |
+|             |                  8.60 |                  |           | 29.8 |                            |
+|             |                  18.0 |                  |           | 47.1 |                            |
+| 85          |                  0.48 |                  |           |      |                       6.83 |
+|             |                  0.90 |                  |           |      |                       5.40 |
+|             |                  1.57 |                  |           |      |                       5.15 |
+|             |                  4.05 |                  |           |      |                       3.94 |
+|             |                  8.06 |                  |           |      |                       3.53 |
+
+**[Succeeding Paragraphs]**
+FIG.  3. Rg  as  a function of M for  PS  in THF (x -Ref.  81;  A  Ref.  82;. Ref.  65  0  Ref.  68;  · -Refs. 69  and 83).
+
+<!-- image -->
+
+FETIERS ET AL. TABLE  12.  Poly(a-methylstyrene) in cyclohexane
+
+[table omitted]
+
+TABLE 13.  Poly(a-methylstyrene) in toluene

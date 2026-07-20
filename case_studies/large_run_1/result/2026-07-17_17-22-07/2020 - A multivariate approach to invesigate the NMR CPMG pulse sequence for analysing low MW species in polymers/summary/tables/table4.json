@@ -1,0 +1,19 @@
+{
+  "description": "Analysis of variance (ANOVA) for response surface reduced quadratic model for the % variation in signal-to-noise ratio (SNR) of H2 proton of dimethyl terephthalate (DMT) in polyethylene glycol (PEG)",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "dimethyl terephthalate (DMT)",
+    "polyethylene glycol (PEG)"
+  ],
+  "other_statistics": [
+    {
+      "name": "acquisition time",
+      "value": "2.7 s"
+    },
+    {
+      "name": "polymer concentration",
+      "value": "5 wt% or 10 wt%"
+    }
+  ]
+}

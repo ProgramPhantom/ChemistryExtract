@@ -1,0 +1,10 @@
+{
+  "description": "Poly(a-methylstyrene) in cyclohexane",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "Poly(a-methylstyrene)",
+    "cyclohexane"
+  ],
+  "other_statistics": []
+}

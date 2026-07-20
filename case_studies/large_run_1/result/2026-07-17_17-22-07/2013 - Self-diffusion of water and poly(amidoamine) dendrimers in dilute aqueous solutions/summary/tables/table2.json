@@ -1,0 +1,33 @@
+{
+  "description": "Measurement of relative diffusion rates and diffusion coefficients for PAMAM dendrimers (E5.NH2 and E5.SAH) in aqueous solutions, analyzing the effect of volume fractions (hydrodynamic, hard sphere, and specific volume) on the diffusion rate slopes.",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "PAMAM dendrimers (E5.NH2)",
+    "PAMAM dendrimers (E5.SAH)",
+    "D2O",
+    "water"
+  ],
+  "other_statistics": [
+    {
+      "name": "Volume fraction types",
+      "value": "Hydrodynamic, Hard sphere, Specific volume"
+    },
+    {
+      "name": "Concentration (E5.SAH)",
+      "value": "0.41 mmol kg-1"
+    },
+    {
+      "name": "Temperature (for E5.SAH/D2O solution)",
+      "value": "293 K"
+    },
+    {
+      "name": "Concentration (E5.NH2)",
+      "value": "0.37 mmol kg-1"
+    },
+    {
+      "name": "Temperature (for E5.NH2/D2O solution)",
+      "value": "300 K"
+    }
+  ]
+}

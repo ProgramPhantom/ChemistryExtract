@@ -1,0 +1,13 @@
+{
+  "description": "Molar masses (in g/mol) of PS-, PMMA, PI, P2VP and PEO homopolymers used for the DOSY calibration.",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "PS",
+    "PMMA",
+    "PI",
+    "P2VP",
+    "PEO"
+  ],
+  "other_statistics": []
+}

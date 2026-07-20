@@ -1,0 +1,26 @@
+-------------- TABLE 2 EXTRACTION --------------
+**[Preceding Paragraphs]**
+Figure 8. The polydispersity  kw/fin versus the width u of the simulated distribution obtained by standard CONTIN analysis (A), CONTIN with cm = 1 (0). and CONTIN with computed cm values (0). The solid line indicates the input values.
+
+<!-- image -->
+
+Table 1. Monodisperse Poly(ethy1ene oxide) Samples
+
+[table omitted]
+
+Table 2. Polydisperse Poly(ethy1ene  oxide)
+
+**[Table Data]**
+| sample type   |   M n (103g mol-') (manufacturer) |   n;rW (io3g mol-') (manufacturer) |   M" (io3g mol-') (DOSY) |   G W (io3g mol-') (DOSY) |
+|---------------|-----------------------------------|------------------------------------|--------------------------|---------------------------|
+| PE0200K       |                              47.0 |                                204 |                       46 |                       180 |
+| PE0120K       |                              36.5 |                                123 |                       35 |                       110 |
+
+**[Succeeding Paragraphs]**
+Systems,  Inc.,  with  actively  shielded  gradient  coils  (coil  constants: 0.156 T  m-'A-l and 0.1785 T  m-'A-') were  used  in  these  experiments.26 In all NMR experiments, the probe temperature was maintained at 298 i 1 K by the standard Bruker temperature control unit, and 5 mm sample tubes were used.
+
+From 20 to 40 FIDs, each associated with a different q value (1 x 104 to 3 x lo6  m-'),  were collected with an ASPECT-3000 computer in each ernrhment.  In  each case the maximum  attenuation reduced the  signal % or less of  its original  intensity so that polydisperse polymer samples could be completely characterized.  The LED pulse sequence2'  was employed with diffusion time (A = 105.5  ms) and eddy current delay time (T, = 50 ms). The data files were transferred via Bruknet  from the ASPECT-3000 to a  Silicon Graphics (SGI) workstation; and software package FELIX  (Hare Research, Inc.) was used for Fourier transformations, phasing, and polynomial baseline corrections.  All the analysis programs were written in FORTRAN on SGI workstations, and the diffusion coefficients and their distributions were determined with a version of CONTIN modified in-house.
+
+## Results and Discussion
+
+Microaveraging. In order to test for microaveraging effects under our experimental conditions, a mixture of equal weights of  the PEOSK (Mw = 5000) and PEOlOOK (Mw GZ 100 000) samples at a total concentration of  1 g/L in D2O  was studied with PFGNMR.  The best fit to a plot of InMq)] versus q2(A -6/3) for the methylene peak of PEO was found to contain fast and slow components with the diffusion coefficients 1.3 x 1O-Io and 1.9 x lo-" m2 s-I, respectively.  This result matches within experimental  error the diffusion coefficients obtained  for samples  containing  only  PEOSK  (1.1 x 1O-Io m2 s-l)  and PEOlOOK (1.9 x lo-"  m2  s-')  at the same total weight percent of PEO.  Therefore, we conclude that the microaveraging effect on diffusion coefficients resulting from intermolecular interactions is insignificant at concentrations of  1 g/L or lower.

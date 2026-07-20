@@ -1,0 +1,31 @@
+{
+  "description": "Diffusion constants of various n-alkane solutes (n-Ci) in different solvents at specified temperatures.",
+  "temperature": "20.0, 20.5, 22.2, 25.0, 35.0, 50.0, 64.0, 75.0, 100.0 \u00b0C",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "n-alkanes (n-Ci)",
+    "n-C6",
+    "n-C7",
+    "n-C8",
+    "n-C10",
+    "n-C12",
+    "n-C14",
+    "n-C16",
+    "benzene",
+    "toluene",
+    "tetralin",
+    " \uacbd\ub85c 1: n-alkanes (solutes)",
+    "decalin",
+    "CCl4"
+  ],
+  "other_statistics": [
+    {
+      "name": "hydrodynamic radius",
+      "value": "\u03c3 / b varied from 0.0654 to 0.490"
+    },
+    {
+      "name": "separation between elements",
+      "value": "b = 1.53 \u00c5"
+    }
+  ]
+}

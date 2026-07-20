@@ -1,0 +1,22 @@
+{
+  "description": "Experimental details of commercial polymers used for molecular weight calculation via MaDDOSY.",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "Calcitonin",
+    "Lysozyme",
+    "PSCMA",
+    "Poly(vinyl pyridine)",
+    "SEBS Polymer Source"
+  ],
+  "other_statistics": [
+    {
+      "name": "Solvent",
+      "value": "D2O (for Calcitonin and Lysozyme), Acetone-d6 (for PSCMA), Dimethylformamide (for Poly(vinyl pyridine)), CDCl3 (for SEBS Polymer Source)"
+    },
+    {
+      "name": "Concentration",
+      "value": "15 mg mL-1 (for Calcitonin, Lysozyme, and PSCMA), 7 mg mL-1 (for Poly(vinyl pyridine)), 10 mg mL-1 (for SEBS Polymer Source)"
+    }
+  ]
+}

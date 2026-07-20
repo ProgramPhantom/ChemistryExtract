@@ -1,0 +1,426 @@
+{
+  "is_mark_houwink_data": true,
+  "is_flory_data": true,
+  "mh_entries": [
+    {
+      "polymer_name": "PS",
+      "solvent": "THF-d8",
+      "temperature_k": 298.15,
+      "raw_K_value": 0.0141,
+      "K_transformation": "none",
+      "K_value": 0.0141,
+      "raw_a_value": 0.7,
+      "a_transformation": "none",
+      "a_value": 0.7
+    },
+    {
+      "polymer_name": "PS",
+      "solvent": "CDCl3",
+      "temperature_k": 298.15,
+      "raw_K_value": 0.00732,
+      "K_transformation": "none",
+      "K_value": 0.00732,
+      "raw_a_value": 0.74596,
+      "a_transformation": "none",
+      "a_value": 0.74596
+    },
+    {
+      "polymer_name": "PS",
+      "solvent": "C6D6",
+      "temperature_k": 298.15,
+      "raw_K_value": 0.01077,
+      "K_transformation": "none",
+      "K_value": 0.01077,
+      "raw_a_value": 0.72682,
+      "a_transformation": "none",
+      "a_value": 0.72682
+    },
+    {
+      "polymer_name": "PS",
+      "solvent": "toluene-d8",
+      "temperature_k": 298.15,
+      "raw_K_value": 0.0098,
+      "K_transformation": "none",
+      "K_value": 0.0098,
+      "raw_a_value": 0.73512,
+      "a_transformation": "none",
+      "a_value": 0.73512
+    },
+    {
+      "polymer_name": "PS",
+      "solvent": "CD2Cl2",
+      "temperature_k": 298.15,
+      "raw_K_value": 0.01155,
+      "K_transformation": "none",
+      "K_value": 0.01155,
+      "raw_a_value": 0.70628,
+      "a_transformation": "none",
+      "a_value": 0.70628
+    },
+    {
+      "polymer_name": "PS",
+      "solvent": "acetone-d6",
+      "temperature_k": 298.15,
+      "raw_K_value": 0.07135,
+      "K_transformation": "none",
+      "K_value": 0.07135,
+      "raw_a_value": 0.49819,
+      "a_transformation": "none",
+      "a_value": 0.49819
+    },
+    {
+      "polymer_name": "PEO",
+      "solvent": "CD3OD",
+      "temperature_k": 298.15,
+      "raw_K_value": 0.03563,
+      "K_transformation": "none",
+      "K_value": 0.03563,
+      "raw_a_value": 0.65424,
+      "a_transformation": "none",
+      "a_value": 0.65424
+    },
+    {
+      "polymer_name": "PEO",
+      "solvent": "D2O",
+      "temperature_k": 298.15,
+      "raw_K_value": 0.02554,
+      "K_transformation": "none",
+      "K_value": 0.02554,
+      "raw_a_value": 0.67839,
+      "a_transformation": "none",
+      "a_value": 0.67839
+    },
+    {
+      "polymer_name": "PEO",
+      "solvent": "THF-d8",
+      "temperature_k": 298.15,
+      "raw_K_value": 0.02417,
+      "K_transformation": "none",
+      "K_value": 0.02417,
+      "raw_a_value": 0.6831,
+      "a_transformation": "none",
+      "a_value": 0.6831
+    },
+    {
+      "polymer_name": "PEO",
+      "solvent": "CD3CN",
+      "temperature_k": 298.15,
+      "raw_K_value": 0.02456,
+      "K_transformation": "none",
+      "K_value": 0.02456,
+      "raw_a_value": 0.68948,
+      "a_transformation": "none",
+      "a_value": 0.68948
+    },
+    {
+      "polymer_name": "PEO",
+      "solvent": "acetone-d6",
+      "temperature_k": 298.15,
+      "raw_K_value": 0.06862,
+      "K_transformation": "none",
+      "K_value": 0.06862,
+      "raw_a_value": 0.56535,
+      "a_transformation": "none",
+      "a_value": 0.56535
+    },
+    {
+      "polymer_name": "PMMA",
+      "solvent": "THF-d8",
+      "temperature_k": 298.15,
+      "raw_K_value": 0.01061,
+      "K_transformation": "none",
+      "K_value": 0.01061,
+      "raw_a_value": 0.69474,
+      "a_transformation": "none",
+      "a_value": 0.69474
+    },
+    {
+      "polymer_name": "PMMA",
+      "solvent": "CDCl3",
+      "temperature_k": 298.15,
+      "raw_K_value": 0.00517,
+      "K_transformation": "none",
+      "K_value": 0.00517,
+      "raw_a_value": 0.77158,
+      "a_transformation": "none",
+      "a_value": 0.77158
+    },
+    {
+      "polymer_name": "PMMA",
+      "solvent": "C6D6",
+      "temperature_k": 298.15,
+      "raw_K_value": 0.00848,
+      "K_transformation": "none",
+      "K_value": 0.00848,
+      "raw_a_value": 0.7331,
+      "a_transformation": "none",
+      "a_value": 0.7331
+    },
+    {
+      "polymer_name": "PMMA",
+      "solvent": "CD2Cl2",
+      "temperature_k": 298.15,
+      "raw_K_value": 0.00702,
+      "K_transformation": "none",
+      "K_value": 0.00702,
+      "raw_a_value": 0.75226,
+      "a_transformation": "none",
+      "a_value": 0.75226
+    },
+    {
+      "polymer_name": "PMMA",
+      "solvent": "DMSO",
+      "temperature_k": 298.15,
+      "raw_K_value": 0.05265,
+      "K_transformation": "none",
+      "K_value": 0.05265,
+      "raw_a_value": 0.47463,
+      "a_transformation": "none",
+      "a_value": 0.47463
+    }
+  ],
+  "flory_entries": [
+    {
+      "polymer_name": "PS",
+      "solvent": "THF-d8",
+      "temperature_k": null,
+      "raw_v_value": 0.519361,
+      "v_transformation": "none",
+      "v_value": 0.519361,
+      "raw_c_value": 2.20882,
+      "c_transformation": "linear to log10",
+      "c_value": -7.655839673984551
+    },
+    {
+      "polymer_name": "PS",
+      "solvent": "CDCl3",
+      "temperature_k": null,
+      "raw_v_value": 0.534677,
+      "v_transformation": "none",
+      "v_value": 0.534677,
+      "raw_c_value": 2.34303,
+      "c_transformation": "linear to log10",
+      "c_value": -7.630222150689829
+    },
+    {
+      "polymer_name": "PS",
+      "solvent": "C6D6",
+      "temperature_k": null,
+      "raw_v_value": 0.5283,
+      "v_transformation": "none",
+      "v_value": 0.5283,
+      "raw_c_value": 1.91203,
+      "c_transformation": "linear to log10",
+      "c_value": -7.718505297869414
+    },
+    {
+      "polymer_name": "PS",
+      "solvent": "toluene-d8",
+      "temperature_k": null,
+      "raw_v_value": 0.531065,
+      "v_transformation": "none",
+      "v_value": 0.531065,
+      "raw_c_value": 2.13758,
+      "c_transformation": "linear to log10",
+      "c_value": -7.6700776226075575
+    },
+    {
+      "polymer_name": "PS",
+      "solvent": "CD2Cl2",
+      "temperature_k": null,
+      "raw_v_value": 0.521453,
+      "v_transformation": "none",
+      "v_value": 0.521453,
+      "raw_c_value": 2.74368,
+      "c_transformation": "linear to log10",
+      "c_value": -7.56166654250548
+    },
+    {
+      "polymer_name": "PS",
+      "solvent": "acetone-d6",
+      "temperature_k": null,
+      "raw_v_value": 0.452089,
+      "v_transformation": "none",
+      "v_value": 0.452089,
+      "raw_c_value": 2.0934,
+      "c_transformation": "linear to log10",
+      "c_value": -7.679147780168245
+    },
+    {
+      "polymer_name": "PEO",
+      "solvent": "CD3OD",
+      "temperature_k": null,
+      "raw_v_value": 0.504105,
+      "v_transformation": "none",
+      "v_value": 0.504105,
+      "raw_c_value": 1.43345,
+      "c_transformation": "linear to log10",
+      "c_value": -7.843617451027789
+    },
+    {
+      "polymer_name": "PEO",
+      "solvent": "D2O",
+      "temperature_k": null,
+      "raw_v_value": 0.512155,
+      "v_transformation": "none",
+      "v_value": 0.512155,
+      "raw_c_value": 0.792177,
+      "c_transformation": "linear to log10",
+      "c_value": -8.101177771017927
+    },
+    {
+      "polymer_name": "PEO",
+      "solvent": "THF-d8",
+      "temperature_k": null,
+      "raw_v_value": 0.513725,
+      "v_transformation": "none",
+      "v_value": 0.513725,
+      "raw_c_value": 1.8457,
+      "c_transformation": "linear to log10",
+      "c_value": -7.733838887780599
+    },
+    {
+      "polymer_name": "PEO",
+      "solvent": "CD3CN",
+      "temperature_k": null,
+      "raw_v_value": 0.515853,
+      "v_transformation": "none",
+      "v_value": 0.515853,
+      "raw_c_value": 2.56919,
+      "c_transformation": "linear to log10",
+      "c_value": -7.590203777049215
+    },
+    {
+      "polymer_name": "PEO",
+      "solvent": "acetone-d6",
+      "temperature_k": null,
+      "raw_v_value": 0.474477,
+      "v_transformation": "none",
+      "v_value": 0.474477,
+      "raw_c_value": 2.12079,
+      "c_transformation": "linear to log10",
+      "c_value": -7.673502333065918
+    },
+    {
+      "polymer_name": "PMMA",
+      "solvent": "THF-d8",
+      "temperature_k": null,
+      "raw_v_value": 0.517608,
+      "v_transformation": "none",
+      "v_value": 0.517608,
+      "raw_c_value": 2.42854,
+      "c_transformation": "linear to log10",
+      "c_value": -7.61465473895388
+    },
+    {
+      "polymer_name": "PMMA",
+      "solvent": "CDCl3",
+      "temperature_k": null,
+      "raw_v_value": 0.543219,
+      "v_transformation": "none",
+      "v_value": 0.543219,
+      "raw_c_value": 2.63117,
+      "c_transformation": "linear to log10",
+      "c_value": -7.579851091223765
+    },
+    {
+      "polymer_name": "PMMA",
+      "solvent": "C6D6",
+      "temperature_k": null,
+      "raw_v_value": 0.530394,
+      "v_transformation": "none",
+      "v_value": 0.530394,
+      "raw_c_value": 2.07035,
+      "c_transformation": "linear to log10",
+      "c_value": -7.683956229316216
+    },
+    {
+      "polymer_name": "PMMA",
+      "solvent": "CD2Cl2",
+      "temperature_k": null,
+      "raw_v_value": 0.53678,
+      "v_transformation": "none",
+      "v_value": 0.53678,
+      "raw_c_value": 3.23833,
+      "c_transformation": "linear to log10",
+      "c_value": -7.48967889681907
+    },
+    {
+      "polymer_name": "PMMA",
+      "solvent": "DMSO",
+      "temperature_k": null,
+      "raw_v_value": 0.444236,
+      "v_transformation": "none",
+      "v_value": 0.444236,
+      "raw_c_value": 0.312052,
+      "c_transformation": "linear to log10",
+      "c_value": -8.505773029599105
+    }
+  ],
+  "calculator_calls": [
+    {
+      "expression": "log10(2.20882 * 10**-8)",
+      "result": "-7.655839673984551"
+    },
+    {
+      "expression": "log10(2.34303 * 10**-8)",
+      "result": "-7.630222150689829"
+    },
+    {
+      "expression": "log10(1.91203 * 10**-8)",
+      "result": "-7.718505297869414"
+    },
+    {
+      "expression": "log10(2.13758 * 10**-8)",
+      "result": "-7.6700776226075575"
+    },
+    {
+      "expression": "log10(2.74368 * 10**-8)",
+      "result": "-7.56166654250548"
+    },
+    {
+      "expression": "log10(2.0934 * 10**-8)",
+      "result": "-7.679147780168245"
+    },
+    {
+      "expression": "log10(1.43345 * 10**-8)",
+      "result": "-7.843617451027789"
+    },
+    {
+      "expression": "log10(0.792177 * 10**-8)",
+      "result": "-8.101177771017927"
+    },
+    {
+      "expression": "log10(1.8457 * 10**-8)",
+      "result": "-7.733838887780599"
+    },
+    {
+      "expression": "log10(2.56919 * 10**-8)",
+      "result": "-7.590203777049215"
+    },
+    {
+      "expression": "log10(2.12079 * 10**-8)",
+      "result": "-7.673502333065918"
+    },
+    {
+      "expression": "log10(2.42854 * 10**-8)",
+      "result": "-7.61465473895388"
+    },
+    {
+      "expression": "log10(2.63117 * 10**-8)",
+      "result": "-7.579851091223765"
+    },
+    {
+      "expression": "log10(2.07035 * 10**-8)",
+      "result": "-7.683956229316216"
+    },
+    {
+      "expression": "log10(3.23833 * 10**-8)",
+      "result": "-7.48967889681907"
+    },
+    {
+      "expression": "log10(0.312052 * 10**-8)",
+      "result": "-8.505773029599105"
+    }
+  ]
+}

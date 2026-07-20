@@ -1,0 +1,19 @@
+{
+  "description": "Sources of benzene data for polystyrene Mark-Houwink relation",
+  "temperature": "25, 30, 35, 40 \u00b0C",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "polystyrene",
+    "benzene"
+  ],
+  "other_statistics": [
+    {
+      "name": "molecular weight range",
+      "value": "540 to 44 X 10^6"
+    },
+    {
+      "name": "MW method",
+      "value": "light scattering, osometry, various methods cyclohexane viscosity"
+    }
+  ]
+}

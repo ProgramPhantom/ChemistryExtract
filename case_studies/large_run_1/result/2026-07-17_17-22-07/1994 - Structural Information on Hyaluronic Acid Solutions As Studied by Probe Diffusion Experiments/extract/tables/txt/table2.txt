@@ -1,0 +1,32 @@
+-------------- TABLE 2 EXTRACTION --------------
+**[Preceding Paragraphs]**
+For calculating 5 from eq 14  it is necessary to know the size of  the FITC-dextrans. The diameters of the FITCdextrans were calculated from the measured &amp;-values using the Stokes-Einstein  relation making the following assumptions:
+
+- (a) The geometry of  the  FITC-dextrans  can  be  approximated as spherical.
+
+(b)  The  FITC-dextran  concentration in the solution is low enough to avoid intermolecular interactions between a Probe:  FITC-dextran  71 200. Probe:  FITC-dextran  148 OOO. Probe: FITC-dextran 487 OOO. Results from  the  rheological measurements.
+
+Table 2.  &amp;Values  Calculated on the Basis of the Diffusion Exueriments and the Rheolodoal Exueriments
+
+**[Table Data]**
+|   HA concn (mg/mL) | 6 (nm)   | E * ab (nm)   | 6 uc (nm)   | 5 * ad (nm)   |
+|--------------------|----------|---------------|-------------|---------------|
+|                0.5 | 99 i 9   | 83f10         | 107f 11     |               |
+|                  3 | 33 f 3   | 27 i 3        | 44 f 5      |               |
+|                  6 | 22 f 2   | 1 7 f 2       | 31 f 4      |               |
+|                  8 | 1 8 f 2  | 1 4 f 2       | 27 4        |               |
+|                 10 | 16 f 2   | 13i2          | 24 f 3      | 37 f 2        |
+|                 14 | 13 f 2   | 1 o i 1       | 20 f 3      | 28 f 2        |
+|                 17 | 1 2 i l  | 9 f l         | 18 f 3      |               |
+|                 19 |          |               |             | 2 6 i 2       |
+|                 24 |          |               |             | 22 f 2        |
+|                 28 |          |               |             | 20f 2         |
+
+**[Succeeding Paragraphs]**
+100
+
+Figure  3. Average mesh size (5) as a  function  of H A  concentration (c). The  letters  A  and  B  indicate  the  [-values  calculated respectively  from the diffusion  and the rheological  experiments.
+
+<!-- image -->
+
+the FITC-dextran  molecules so that the measured DOvalue  approximates  the  diffusion coefficient for an  infinite diluted solution.

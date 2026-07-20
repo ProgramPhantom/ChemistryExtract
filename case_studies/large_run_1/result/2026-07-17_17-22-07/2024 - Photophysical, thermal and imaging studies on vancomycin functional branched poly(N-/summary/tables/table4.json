@@ -1,0 +1,17 @@
+{
+  "description": "Fluorescence intensity, excited state lifetime and polarised anisotropy of polymers 1-4 in H2O and PBS",
+  "temperature": "20 \u00b0C, 40 \u00b0C",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "H2O",
+    "PBS",
+    "polymers 1-4",
+    "Nile red"
+  ],
+  "other_statistics": [
+    {
+      "name": "concentration of polymers",
+      "value": "1 mg mL-1"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+-------------- TABLE 3 EXTRACTION --------------
+**[Preceding Paragraphs]**
+Fig. 3. Calibration of Agilent PolarGel columns with linear PNIPAM polymers.
+
+<!-- image -->
+
+repeat deviation;
+
+Table 2 Molar mass moments of linear PNIPAM prepared using Fe ATRP over nine measurements using SEC with methanol as eluent. S.D. = standard C.V. = coefficient of variation.
+
+**[Table Data]**
+| Repeat   |   M N |   M w |   M z |     Ð |   k/dlg - 1 |     𝛂 |
+|----------|-------|-------|-------|-------|-------------|-------|
+| 1.1      | 18.74 | 28.75 | 37.56 |  1.53 |     0.00408 |  0.66 |
+| 1.2      | 18.53 | 27.76 | 37.05 |  1.50 |     0.00378 |  0.67 |
+| 1.3      | 18.07 | 27.61 | 37.32 |  1.53 |     0.00398 |  0.67 |
+| 2.1      | 17.85 | 27.93 | 37.81 |  1.56 |     0.00412 |  0.66 |
+| 2.2      | 18.81 | 28.26 | 37.76 |  1.50 |     0.00398 |  0.67 |
+| 2.3      | 18.29 |  28.5 | 37.75 |  1.56 |     0.00384 |  0.66 |
+| 3.1      | 18.41 | 27.31 | 36.74 |  1.48 |    0.003999 |  0.67 |
+| 3.2      | 18.55 | 28.12 | 37.57 |  1.52 |     0.00391 |  0.66 |
+| 3.3      | 18.55 | 27.53 | 37.24 |  1.48 |     0.00377 |  0.66 |
+| Mean     | 18.42 | 27.97 | 37.42 |  1.48 |     0.00394 | 0.664 |
+| S.D.     |  0.31 |  0.47 |  0.36 |  0.02 |     0.00012 | 0.005 |
+| C.V      | 0.017 | 0.017 | 0.010 | 0.014 |       0.031 | 0.008 |
+
+**[Succeeding Paragraphs]**
+equivalent weight distributions of log RH. Therefore, PEG standards were used to obtain the plot shown in Fig. 2 and PNIPAM standards were prepared using ATRP.
+
+The THF SEC system was used to provide Mp and the DOSY data provided the corresponding [ 𝛈 ]p for each PNIPAM standard in methanol. For calibration of the methanol system each sample was analyzed at a concentration of 1 mg ml -1 with a 100 𝛍 l injection loop. The peak retention time of these polymers was then used to calibrate the system to afford both a SEC calibration plot (see Supporting information) and a Universal calibration (Fig. 3) by plotting log(M[ 𝛈 ]) versus retention time [34].
+
+Fig. 3 shows that the data provided a linear Universal calibration plot, which was an indication that these PNIPAM standards were fractionated by size exclusion with minimal adsorption of the polymer to the column. Full data is shown in the electronic Supporting information.
+
+To validate the technique a PNIPAM standard was purchased from Sigma Aldrich (quoted MV 63,200, Ð 2.13) and was analyzed by Methanol SEC. The SEC indicated that the MV was 66,000 g mol -1 and Ð = 1.96. Therefore, the data derived from methanol based SEC are in good agreement with the previously obtained values for this standard.

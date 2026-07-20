@@ -1,0 +1,33 @@
+-------------- TABLE 3 EXTRACTION --------------
+**[Preceding Paragraphs]**
+Initially the samples were analyzed by FTIR spectral analysis in order to examine the type of the linkages and functional groups present in native dextran produced by L. mesenteroides KIBGE-IB26 and its hydrolyzed fractions (data not shown). Both native and hydrolyzed products showed similar spectra. Structural analysis of the samples was carried out in the region between 500 cm -1 to 4000 cm -1 . The signal at 1008.2 cm -1 , 1005.8 cm -1 , 1003.3 cm -1 , 1000.9 cm -1 and 993.3 cm -1 represents the presence of 𝛂 -(1 → 6) linkage in D1, D4, D5, D6 and D7, respectively. The signals around this region depict the chain flexibility in the dextran due to the presence of glycosidic bonds [34]. The specific signal peaks representing different functional groups (C O C, C H, C O, og(m2/s)
+
+Fig. 1. NMR spectroscopic analysis of native and hydrolyzed low molecular weight fractions. A and B: Molecular weight determination of dextran using diffusion-ordered spectroscopy (DOSY); C: Total correlation spectroscopy (TOCSY) &amp; Homonuclear correlation spectroscopy (COSY); D: Heteronuclear single-quantum correlation spectroscopy (HSQC) &amp; Heteronuclear multiple-bond correlation spectroscopy (HMBC).
+
+<!-- image -->
+
+Table 3 Chemical analysis of native and different fractions of dextran.
+
+**[Table Data]**
+| Sample               | Total Sugar (%)      | Total Protein (%)   | Reducing sugar (%)   | Optical Rotation [ 𝛂 ] D 20   |
+|----------------------|----------------------|---------------------|----------------------|-------------------------------|
+| D1                   | 78 ± 3.9             | 3.3 ± 0.16          | 0.0005 ±             | +3.50 ◦                       |
+| Acid Hydrolysis      |                      |                     |                      |                               |
+| D4                   | 80 ± 4.0             | 2.5 ± 0.12          | 0.003 ± 0.00001      | nd                            |
+| D5                   | 82 ± 4.1             | 1.6 ± 0.08          | 0.0005 ± 0.00002     | nd                            |
+| D6                   | 80 ± 4.0             | 2.5 ± 0.12          | 0.0005 ± 0.00002     | nd                            |
+| Enzymatic Hydrolysis | Enzymatic Hydrolysis |                     |                      |                               |
+| D7                   | 81 ± 4.0             | 2.5 ± 0.12          | 0.0005 ± 0.00002     | nd                            |
+| D3                   | 79 ± 3.9             | 3.8 ± 0.19          | 0.36 ± 0.01          | nd                            |
+
+**[Succeeding Paragraphs]**
+nd: Not determined.
+
+- a Total sugar (g) in 100.0 g of dextran.
+- b Total protein (g) in 100.0 g of dextran.
+- c Reducing sugar(g) in 100.0 g of dextran.
+- d Reading taken on ATAGO Polax 2L.
+
+OH stretching) relating to dextran were noticed and were almost similar in all samples. The absorbance peak at 1147.6 cm -1 was due to the covalent vibration of C O C bond and glycosidic bridge [34]. The hydroxyl stretching vibration of dextran was recorded in the region of 3286.8 cm -1 while; in all other hydrolyzed products the hydroxyl stretching was in same region. C H stretching vibration presented the band around 2993.5 cm -1 regions and a peak at 1650 cm -1 was observed due to the existence of carboxyl group in dextran [35,36].
+
+The average molecular weight of native and different dextran fractions (D1-D7) were estimated using Diffusion Ordered NMR Spectroscopy (DOSY) experiments. It is well established that the diffusion coefficient of a certain molecule in a solution, under specific conditions (solvent and/or temperature), is closely related to its molecular size, as shown in the Stokes -Einstein equation:

@@ -1,0 +1,10 @@
+{
+  "description": "Measurement of the radius of gyration (Rg) and hydrodynamic radius (RH) for polystyrene in cyclohexane across various molecular weights.",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "polystyrene",
+    "cyclohexane"
+  ],
+  "other_statistics": []
+}

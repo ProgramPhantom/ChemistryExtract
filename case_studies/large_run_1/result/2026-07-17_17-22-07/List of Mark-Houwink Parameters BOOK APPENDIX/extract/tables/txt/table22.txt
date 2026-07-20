@@ -1,0 +1,140 @@
+-------------- TABLE 22 EXTRACTION --------------
+**[Preceding Paragraphs]**
+1.  ANDERSON RI (1976) Am Lab 8(5}: 95
+2.  HADJICHRISTIDIS N, FETTERS LJ (1982) J Polym Sci Polym Phys Ed 20: 2163
+3.  JORDAN RC, SILVER SF, SEHON RD, RIVARD RJ (1984) In: PROVDER T (ed) Size Exclusion Chromatography, ACS Symposium Series 245, American Chemical Society, Washington, DC,p 295
+4.  SEGUDOVIC N, KARASZ FE, MACKNIGHT WJ (1990) J Liq Chromatogr 13:2581
+5.  YUNAN W, ZHONGDE X, LI J, ROSENBLUM WM, MAYS JW (1993) J Appl Polym Sci 49: 967
+6.  MALI HI FB, Kuo CY, PROVDER T (1984) J Appl Polym Sci 29: 925
+7.  FRANK  R,  FRANK  L,  FORD  NC  (1995)  In:  PROVDER  T,  BARTH  HG, URBAN  MW  (eds) Chromatographic Characterization of  Polymers,  Ad  V  Chern Ser 247, American Chemical Society, Washington, DC, plIO
+8.  WAGNER HL, HOEVE CAJ (1971) J Polym Sci A-2, 9: 1763
+9.  KHAN HU, GUPTA VK, YAMIN M (1983) J Macromol Sci - Chern A20: 503
+10.  BRANDRUP J, IMMERGUT EH (1972) Polymer Handbook, Wiley, New York
+11.  JORDAN  RC,  MCCONNELL  ML  (1980)  In:  PROVDER  T  (ed)  Size  Exclusion  Chromatography, ACS Symposium Series 138, Americal Chemical Society, Washington, DC, p  107
+12.  JENG L, BALKE ST, MOUREY TH, WHEELER L, ROMEO P (1993) J Appl Polym Sci 49: 1359
+13.  MOUREY TH, MILLER SM, BALKE ST (1990) J Liq Chromatogr 13: 435
+14.  LEE HC,REE M,CHANG T (1995) Polymer 36:2215
+15.  JENG  L, BALKE ST (1993) J Appl Polym Sci 49: 1375
+16.  MOUREY TH, COLL H (1995) In: PROVDER T, BARTH  HG, URBAN MW (eds) Chromato­ graphic Characterization of Polymers, Adv Chern Ser 247, American Chemical Society, Washington, DC, p 123
+17.  OUANO AC, KAYE W (1974) J Polym Sci Polym Chern Ed 12: 1151
+18.  MOUREY TH, BRYAN TG, GREENER J (1993) J Chromatogr A 657: 377
+19.  KENT  MS, TIRRELL  M, LODGE  TP  (1994) J Polym Sci  Part B Polym Phys Ed 32:1927 (1994)
+20.  Wyatt Technology, Data Sheet, Santa Barbara, CA
+21.  DUMELOW T (1989) J Macromol Sci-Chern A26: 125
+22.  SUN SF, CHAO D, LIN S (1989) Polym Commun 24:84
+23.  FORGET JL, BOOTH C, CANHAM PH, DUGGLEBY H, KING TA, PRICE C (1979) J  Polym Sci Polym Phys Ed 17: 1403
+24.  AMBLER MR, McINTYRE D (1977) J Appl Polym Sci 21: 3237
+25.  LEE S,KWON O-S (1995) In: PROVDER T,BARTH HG, URBAN MW (eds) Chromatographic Characterization  of  Polymers,  Adv Chern  Ser 247,  Americal  Chemical  Society, Washington, DC, p 93
+26.  PODZIMEK S (1994) J Appl Polym Sci 54: 91
+27.  BERKOWITZ SA (1983) J Liq Chromatogr 6: 1359 (1983)
+28.  DEGOULET C, NICOLAI T, DURAND D, BUSNEL JP (1995) Macromolecules 28: 6819
+29.  EVANS  JM (1973) Polym Eng Sci 13: 401
+30.  REMSEN EE (1991) J Appl Polym Sci 42: 503
+31.  ASADUZZAMAN AKM, RAKSHIT AK, DEVI S (1993) J Appl Polym Sci 47: 1813
+32.  MRKVICKOVA J, DANHELKA J (1990) J Appl Polym Sci 41: 1929
+33.  HATTORI S, ENDOH H, NAKAHARA H, KAMATA T, HAMASHIMA M (1978) Polym J 10: 173
+34.  RUDIN A, BENSCHOP-HENDRYCHOVA I (1974) J Appl Polym Sci 15: 2881  (1971)
+
+35.  GEERISSEN H, Roos J, WOLF  BA (1985) Makromol Chern 186: 735
+36.  CHEN X, Xu Z, HADJICHRISTIDIS  N, FETTERS  LJ, CARELLA J, GRAESSLEY WW (1984) J Polym Sci Polym Phys Ed 22 : 777
+37.  HORSKA J, STEJSKAL J, KRATOCHVIL P (1983) J Appl Polym Sci 28: 3873
+38.  HUBER CH, LEDERER K (1980) J Polym Sci Polym Let Ed 18: 535
+39.  MRKVICKOVA L,LoPOUR P,POKORNY S,JANCA J (1980) Angew Makromol Chern 90:217
+40.  GRINSHPUN V, O'DRISCOLL KF, RUDIN A (1984) J Appl Polym Sci 29: 1071
+41.  PANG  S,  RUDIN  A  (1993)  In:  PROVDER  T  (ed)  Chromatography  of  Polymers,  ACS Symposium Series 521, American Chemical Society, Washington, DC, p 254
+42.  WILD L, RANGANATH R, RYLE T (1971) J Polym Sci A-2 9:2137
+43.  BOEHN LL, LANVER U, LECHNER MD (1983) Makromol Chern 184:585
+44.  GRINSHPUN V, O'DRISCOLL  KF,  RUDIN  A  (1984)  In:  PROVDER  T  (ed)  Size  Exclusion Chromatography, ACS Symposium Series 245, American Chemical Society, Washington, DC,p 273
+45.  MACRuRY TB, MCCONNELL ML (1979) J Appl Polym Sci 24:651
+46.  HORSKA J, STEJSKA J, KRATOCHVIL P (1979) J Appl Polym Sci 24: 1845
+47.  RAM A, MILTZ J (1971) J Appl Polym Sci 35: 2639
+48.  DROTT EE, MENDELSON RA (1970) J Polym Sci Part A-2, 8: 1373
+49.  GRINSHPUN V, RUDIN A (1985) Makromol Chern Rapid Commun 6: 219
+50.  BILLIANI J, LEDERER K (1990) J Liq Chromatogr 13: 3013
+51.  GRINSHPUN, RUDIN A (1985) J Appl Polym Sci 30 :2413
+52.  OGAWA T (1990) J Liq Chromatogr 13: 51
+53.  BERKOWITZ S (1984) J Appl Polym Sci 29:4353
+54.  OHOYA S, MATSUO T (1989) Chern Expr (JPN) 4: 761
+55.  SCHORN H, KOSFELD R, HESS M (1983) J Chromatogr 282: 579
+56.  MOUREY TH, BRYAN TG (1994) J Chromatogr A 679: 201
+57.  TERAN CC, MACCHI EM, FIGINI RV (1987) J Appl Polym Sci 34:2433
+58.  OGAWA T, SAKAI M (1985) J Polym Sci Polym Chern Ed 23: 1109
+59.  HAMMEL R, GERTH CH (1977) Makromol Chern 178:2697
+60.  SAMANTA SR (1992) J Appl Polym Sci 45: 1635
+61.  JACKSON C, O'BRIEN JP (1995) Macromolecules 28: 5975
+62.  PETROVIC ZS, MACKNIGHT WJ (1991) Polym Bui127: 281
+63.  PETRI HM, STAMMER A, WOLF  BA (1995) Makromol Chern Phys 196: 1453
+64.  Wu CS, SENKA L, MALAWER EG (1989) J Liq Chromatogr 12: 2919
+65.  SEDLACK J, VOHLIDE J (1993) Makromol Chern Rapid Commun 14:51
+66.  DE JAEGER R, LECACHEUX D, POTIN PH (1990) J Appl Polym Sci 39: 1793
+67.  MOUREY TH, MILLER SM, FERRAR WT, MOLAIRE TR (1989) Macromolecules 22: 4286
+68.  KONAS M, Moy TM, ROGERS ME, SCHULTZ AR, WARD TC, MCGRATH JE (1995) J Polym Sci Part B Polym Phys 33: 1441
+69.  DEVAUX  J,  DELIMOY  D, DAOUST  D, LEGRAS  R, MERCIER  JP, NIELD  E  (1985)  Polymer 26: 1994
+70.  STACY CJ (1986) J Appl Polym Sci 32: 3959
+71.  TALLEY CP, BOWMAN LM (1979) Anal Chern 51:2239
+72.  KONAS  M, Moy TM, ROGERS  ME, SHULTZ AR, WARD  TC, MCGRATH JE  (1995) J Polym Sci Part B Polym Phys 33:1441
+73.  OLSON ES, DIEHL JW (1985) J Chromatogr 349: 337
+74.  Wu C, SIDDIG M, JIANG S, HUANG Y (1995) J Appl Polym Sci 58: 1779
+75.  NAGY DJ (1995) In: Wu C-S (ed) Handbook of Size Exclusion Chromatography, Dekker, New York, p 279
+76.  NAGY DJ (1986) J Polym Sci Part C Polym Let Ed 24: 87
+77.  LESEC J, VOLET G (1989) International GPC Symposium, Massachusetts, p 386
+78.  LANGHORST MA, STANLEY FW Jr, CUTIE SS, SUGARMAN JH, WILSON LR, HOAGLAND DA, PRUD'HOMME RK (1986) Anal Chem 58: 2242
+79.  KIM CJ, HAMIELEC AE, BENEDEK A (1982) J Liq Chromatogr 5: 1277
+80.  MULLER G, YON NET C (1984) Makromol Chem Rapid Commun 5: 197
+
+81.  PAPAZIAN LA (1990) J Liq Chromatogr 13: 3389
+82.  KATO T, TOKUYA T, NOZAKI T, TAKAHASHI A (1984) Polymer 25: 218
+83.  LACIK I, SELB J, CANDAN F (1995) Polymer 36: 3197
+84.  NAGY DJ,  TERWILLIGER  DA,  LAWREY  BD,  TIEDGE  WF  (1989)  International  GPC Symposium, Massachusetts, p 637
+85.  PARK IH, CHOJ EJ (1996) Polymer 37: 313
+86.  KINUGASA S, NAKAHARA H, KAWAHARA J, KOGA Y, TAKAYA H (1996) J Polym Sci Part B Polym Phys 34 : 583
+87.  LDC/Milton Roy/Chromatix Technical Note LS 7 (1979)
+88.  VAN  DIJK  JAPP, VARKEVISSER  FA,  SMIT  JAM  (1987)  J  Polym Sci  Part B  Polym  Phys 25: 149
+89.  JACKSON  C, NILSSON L, WYATT  PJ (1989) J Appl Polym Sci Appl Polym Symp 43: 99
+90.  KIM  CJ, HAMIELEC AE, BENEDEK A (1982) J Liq Chromatogr 5 :425
+91.  VINK H, DAHLSTROM G (1967) Makromol Chem 109:249
+92.  BAHARY WS, HOGAN MP, JILANI  M, ARONSON  MP (1995) In: PROVDER T, BARTH  HG, URBAN MW (eds) Chromatographic Characterization of Polymers, Adv Chem Ser 247, American Chemical Society, Washington, DC, p  151
+93.  HANSEL MANN R, BURCHARD W  (1995) Makromol Chem Phys 196: 2259
+94.  KATO T, OKAMOTO T, TOKUYA T, TAKAHASHI A (1982) Biopolymers 29: 1623
+95.  Yu LP, ROLLINGS JE (1988) J Appl Polym Sci 35: 1085
+96.  CAPRON I, GRISEL M, MULLER G (1995) Int J Polym Anal &amp; Charact 2: 9
+97.  REED WF (1995) Makromol Chem Phys 196: 1539
+98.  MIKLAUTS H, RIEMANN J, VIDIC HJ (1986) J Liq Chromatogr 9:2073
+99.  HOLZWARTH G, SONI L, SCHULZ DN (1986) Macromolecules 19: 422
+100.  TIELKING H, KULICKE WM (1996) Anal Chem 68: 1169
+101.  PEIGJANG W, SIDDIG M, HUIYING C, DI Q, Wu C (1996) Macromolecules 29: 277
+102.  PICTON L, MERLE L, MULLER G (1996) Int J Polym Anal &amp; Character 2: 103 (1996)
+103.  KONISHI  K (1988) In: DUBIN P (ed) Aqueous Size Exclusion Chromatography, Elsevier, Amsterdam, p 327
+104.  MHATRE R, KRULL IS, STUTING HH (1990) J Chromatogr 502: 21
+105.  KRULL IR, STUTING HH, KRZYSKO SC (1988) J Chromatogr 442: 29
+106.  BINDELS JG, DE MAN BM, HOENDERS HJ (1982) J Chromatogr 252: 255
+107.  NICOLAI T, VAN DIJK L, VAN DIJK JAPP, SMIT JAM (1987) J Chromatogr 389:286
+
+## Subject Index
+
+[table omitted]
+
+**[Table Data]**
+| extended chain length 105-106 extra-column band broadening 32 F flame ionization detector 42 Flory constant 20 most probable distribution function - temperature 55 - universal constant 20,104 Flory-Fox equation 20 flow meters 83 - rate dependence of retention volume flow-rate fluctation 83 Fourier-transform infrared (FTIR) photometer 44 Fresnel's law 40 G Gaussian distribution 24 -, function 85 gel filtration chromatography (GFC) 4 - permeation chromatography (GPC) geometric models 14 Gladstone-Dale rule 121 good solvent 55,101 H height equivalent to a theoretical plate (HETP) 24 hemicelluloses 181 heparin 182 high-temperature SEC 155 -, (HTSEC) systems 33 HPLC setup 32 Huggins equation 108 Huggins' constant 108 hyaluronic acid 182 hydrodynamic radius 103 - volume 20,61,103,126 -, concept 17 hydrogen bonding 169 hydrophobic interaction 169 infrared (IR) detector 44 inherent viscosity 107 injection volume 69-71 injector 34 instrumental spreading function 90   | 99 intrinsic viscosity 20, 76, 108,23 ion exchange 168 - exclusion 168 -, effect 71 - inclusion 168 ionic strength 68 lonol 155 Irganox 1010 156                                                                                                                                                                    |     |                                          |
+|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----|------------------------------------------|
+| spectro­ 4                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | 71 isoelectric point 172 iterative methods 92 K Kraemer constant 108 - equation 108 L lag time, detector 149 LALLS U8 light scattering 4 linear calibration curve 97 logarithmic-normal distribution 85 long-chain branching 157-160 low-angle laser LS U8 M MALLS 118                                              |     |                                          |
+|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Mark-Houwink constants 108,148-149 - equation 21,108                                                                                                                                                                                                                                                                |     |                                          |
+|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | -, for copolymers 215 -, for homopolymers 199 -, for polar polymers 209 measurement of flow rate 83 melamine-formaldehyde resin 141 membrane osmometry 3 molar absorption coefficient 43 molecular hydrodynamic volume 11 - size 11, 101-105 - weight distribution 85- 88 monomer unit 106 multi-angle laser LS 118 |     |                                          |
+|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | MW-sensitive detector 38                                                                                                                                                                                                                                                                                            |     |                                          |
+| integralMWD 85, 86- 88 - operator 91                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | narrow-molecular weight distribution standards 95 non-aqueous SEC column 47-50 - SEC columns 64- 65 nonionic polymers 169 nonlinear calibration curve 98 non-size exclusion effects 168 non-solvent 55                                                                                                              |     |                                          |
+| interferometer 40 internal marker 83 interstitial volume 11                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | nucleic acids 180 number of theoretical plates N 24                                                                                                                                                                                                                                                                 |     |                                          |
+|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | number-average molecular weight                                                                                                                                                                                                                                                                                     |     |                                          |
+|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | - MW 77                                                                                                                                                                                                                                                                                                             |     |                                          |
+|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | N                                                                                                                                                                                                                                                                                                                   |     |                                          |
+|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                                                                                                                                                                                                                                     | 169 | intramolecular electrostatic interaction |
+
+**[Succeeding Paragraphs]**
+[table omitted]
+
+starch hydrolysate 180 Stokes-Einstein equation 104 Stokes' radius 103 structure-selective detectors 43 - 44 system peaks 13
+
+T TALLS 118
+
+thermodynamic model 16
+
+theta solvent

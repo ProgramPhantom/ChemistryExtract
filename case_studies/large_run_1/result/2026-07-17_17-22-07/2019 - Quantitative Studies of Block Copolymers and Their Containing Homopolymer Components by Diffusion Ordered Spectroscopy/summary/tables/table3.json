@@ -1,0 +1,10 @@
+{
+  "description": "Molar masses and chemical compositions of blends of PS-b-PMMA and PS analyzed via DOSY measurements",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "PS-b-PMMA",
+    "PS"
+  ],
+  "other_statistics": []
+}

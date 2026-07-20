@@ -1,0 +1,12 @@
+{
+  "title": "Quantifying the Biodegradation of Water-Soluble Polymer Mixtures with Diffusion NMR Spectroscopy",
+  "authors": [
+    "Louisa T. Brenninkmeijer",
+    "Jacob L. Golding",
+    "Arianna Brandolese",
+    "Melanie M. Britton",
+    "Andrew P. Dove"
+  ],
+  "doi": "10.1002/anie.202514235",
+  "abstract": "Polymers in liquid formulations result in 36 million tons of waste each year. It is estimated that 13% of these polymers directly enter, and accumulate in, natural environments, however, their fate is poorly understood; in part as a consequence of challenges in characterizing how the polymers biodegrade. Multiple analytical techniques have been used to quantify polymer biodegradation but require extensive sample preparation and can only measure one species accurately at a time, inhibiting the measurement of water-soluble polymer mixtures. Here, we report the application of diffusion nuclear magnetic resonance spectroscopy as an alternative method to enable the facile monitoring of polymer biodegradation. This technique uniquely aids the understanding of biodegradation mechanisms, by measuring chemical as well as molar mass changes, concurrently, for both the polymer and degradation products. Furthermore, the ability to detect and measure the molar mass of multiple separate species enables the measurement of simultaneous biodegradation of polymer mixtures, including polymers with different chemical structures but the same molar mass."
+}

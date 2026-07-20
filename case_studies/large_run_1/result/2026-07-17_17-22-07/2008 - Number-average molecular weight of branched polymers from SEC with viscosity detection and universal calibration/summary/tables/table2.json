@@ -1,0 +1,15 @@
+{
+  "description": "Radical polymerization of divinylbenzene in the presence of TEMPO",
+  "temperature": "125 \u00b0C",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "divinylbenzene (DVB)",
+    "\u060c"
+  ],
+  "other_statistics": [
+    {
+      "name": "initial concentration of nitroxide TEMPO",
+      "value": "0.03 mol L-1"
+    }
+  ]
+}

@@ -1,0 +1,239 @@
+{
+  "is_mark_houwink_data": true,
+  "is_flory_data": false,
+  "mh_entries": [
+    {
+      "polymer_name": "Compact Spheres (CS)",
+      "solvent": "THF-d8",
+      "temperature_k": null,
+      "raw_K_value": 0.066084,
+      "K_transformation": "none",
+      "K_value": 0.066084,
+      "raw_a_value": 0.52138,
+      "a_transformation": "none",
+      "a_value": 0.52138
+    },
+    {
+      "polymer_name": "Compact Spheres (CS)",
+      "solvent": "C6D6",
+      "temperature_k": null,
+      "raw_K_value": 0.057471,
+      "K_transformation": "none",
+      "K_value": 0.057471,
+      "raw_a_value": 0.41888,
+      "a_transformation": "none",
+      "a_value": 0.41888
+    },
+    {
+      "polymer_name": "Compact Spheres (CS)",
+      "solvent": "CDCl3",
+      "temperature_k": null,
+      "raw_K_value": 0.098118,
+      "K_transformation": "none",
+      "K_value": 0.098118,
+      "raw_a_value": 0.4093,
+      "a_transformation": "none",
+      "a_value": 0.4093
+    },
+    {
+      "polymer_name": "Compact Spheres (CS)",
+      "solvent": "CD2Cl2",
+      "temperature_k": null,
+      "raw_K_value": 0.080843,
+      "K_transformation": "none",
+      "K_value": 0.080843,
+      "raw_a_value": 0.46991,
+      "a_transformation": "none",
+      "a_value": 0.46991
+    },
+    {
+      "polymer_name": "Compact Spheres (CS)",
+      "solvent": "Toluene-d8",
+      "temperature_k": null,
+      "raw_K_value": 0.041199,
+      "K_transformation": "none",
+      "K_value": 0.041199,
+      "raw_a_value": 0.53831,
+      "a_transformation": "none",
+      "a_value": 0.53831
+    },
+    {
+      "polymer_name": "Compact Spheres (CS)",
+      "solvent": "DMSO-d6",
+      "temperature_k": null,
+      "raw_K_value": 0.0052678,
+      "K_transformation": "none",
+      "K_value": 0.0052678,
+      "raw_a_value": 0.87833,
+      "a_transformation": "none",
+      "a_value": 0.87833
+    },
+    {
+      "polymer_name": "Compact Spheres (CS)",
+      "solvent": "C6D12",
+      "temperature_k": null,
+      "raw_K_value": 0.0093535,
+      "K_transformation": "none",
+      "K_value": 0.0093535,
+      "raw_a_value": 0.78574,
+      "a_transformation": "none",
+      "a_value": 0.78574
+    },
+    {
+      "polymer_name": "Dissipated Spheres and Ellipsoids (DSE)",
+      "solvent": "THF-d8",
+      "temperature_k": null,
+      "raw_K_value": 0.011091,
+      "K_transformation": "none",
+      "K_value": 0.011091,
+      "raw_a_value": 0.85752,
+      "a_transformation": "none",
+      "a_value": 0.85752
+    },
+    {
+      "polymer_name": "Dissipated Spheres and Ellipsoids (DSE)",
+      "solvent": "C6D6",
+      "temperature_k": null,
+      "raw_K_value": 0.0048527,
+      "K_transformation": "none",
+      "K_value": 0.0048527,
+      "raw_a_value": 0.90806,
+      "a_transformation": "none",
+      "a_value": 0.90806
+    },
+    {
+      "polymer_name": "Dissipated Spheres and Ellipsoids (DSE)",
+      "solvent": "CDCl3",
+      "temperature_k": null,
+      "raw_K_value": 0.018219,
+      "K_transformation": "none",
+      "K_value": 0.018219,
+      "raw_a_value": 0.75695,
+      "a_transformation": "none",
+      "a_value": 0.75695
+    },
+    {
+      "polymer_name": "Dissipated Spheres and Ellipsoids (DSE)",
+      "solvent": "CD2Cl2",
+      "temperature_k": null,
+      "raw_K_value": 0.021919,
+      "K_transformation": "none",
+      "K_value": 0.021919,
+      "raw_a_value": 0.7266,
+      "a_transformation": "none",
+      "a_value": 0.7266
+    },
+    {
+      "polymer_name": "Dissipated Spheres and Ellipsoids (DSE)",
+      "solvent": "Toluene-d8",
+      "temperature_k": null,
+      "raw_K_value": 0.0077827,
+      "K_transformation": "none",
+      "K_value": 0.0077827,
+      "raw_a_value": 0.87588,
+      "a_transformation": "none",
+      "a_value": 0.87588
+    },
+    {
+      "polymer_name": "Dissipated Spheres and Ellipsoids (DSE)",
+      "solvent": "DMSO-d6",
+      "temperature_k": null,
+      "raw_K_value": 0.00098646,
+      "K_transformation": "none",
+      "K_value": 0.00098646,
+      "raw_a_value": 1.1805,
+      "a_transformation": "none",
+      "a_value": 1.1805
+    },
+    {
+      "polymer_name": "Dissipated Spheres and Ellipsoids (DSE)",
+      "solvent": "C6D12",
+      "temperature_k": null,
+      "raw_K_value": 0.0011657,
+      "K_transformation": "none",
+      "K_value": 0.0011657,
+      "raw_a_value": 1.1263,
+      "a_transformation": "none",
+      "a_value": 1.1263
+    },
+    {
+      "polymer_name": "Expanded Discs (ED)",
+      "solvent": "THF-d8",
+      "temperature_k": null,
+      "raw_K_value": 0.00064684,
+      "K_transformation": "none",
+      "K_value": 0.00064684,
+      "raw_a_value": 1.3592,
+      "a_transformation": "none",
+      "a_value": 1.3592
+    },
+    {
+      "polymer_name": "Expanded Discs (ED)",
+      "solvent": "C6D6",
+      "temperature_k": null,
+      "raw_K_value": 0.00049889,
+      "K_transformation": "none",
+      "K_value": 0.00049889,
+      "raw_a_value": 1.3137,
+      "a_transformation": "none",
+      "a_value": 1.3137
+    },
+    {
+      "polymer_name": "Expanded Discs (ED)",
+      "solvent": "CDCl3",
+      "temperature_k": null,
+      "raw_K_value": 0.0076064,
+      "K_transformation": "none",
+      "K_value": 0.0076064,
+      "raw_a_value": 0.86571,
+      "a_transformation": "none",
+      "a_value": 0.86571
+    },
+    {
+      "polymer_name": "Expanded Discs (ED)",
+      "solvent": "CD2Cl2",
+      "temperature_k": null,
+      "raw_K_value": 0.0057885,
+      "K_transformation": "none",
+      "K_value": 0.0057885,
+      "raw_a_value": 0.91822,
+      "a_transformation": "none",
+      "a_value": 0.91822
+    },
+    {
+      "polymer_name": "Expanded Discs (ED)",
+      "solvent": "Toluene-d8",
+      "temperature_k": null,
+      "raw_K_value": 0.00025459,
+      "K_transformation": "none",
+      "K_value": 0.00025459,
+      "raw_a_value": 1.4893,
+      "a_transformation": "none",
+      "a_value": 1.4893
+    },
+    {
+      "polymer_name": "Expanded Discs (ED)",
+      "solvent": "DMSO-d6",
+      "temperature_k": null,
+      "raw_K_value": 5.603e-05,
+      "K_transformation": "none",
+      "K_value": 5.603e-05,
+      "raw_a_value": 1.7066,
+      "a_transformation": "none",
+      "a_value": 1.7066
+    },
+    {
+      "polymer_name": "Expanded Discs (ED)",
+      "solvent": "C6D12",
+      "temperature_k": null,
+      "raw_K_value": 2.68e-06,
+      "K_transformation": "none",
+      "K_value": 2.68e-06,
+      "raw_a_value": 2.2114,
+      "a_transformation": "none",
+      "a_value": 2.2114
+    }
+  ],
+  "flory_entries": [],
+  "calculator_calls": []
+}

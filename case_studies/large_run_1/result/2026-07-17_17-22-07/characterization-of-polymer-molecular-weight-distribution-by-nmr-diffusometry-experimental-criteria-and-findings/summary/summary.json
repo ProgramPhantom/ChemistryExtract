@@ -1,0 +1,9 @@
+{
+  "title": "Characterization of Polymer Molecular Weight Distribution by NMR Di ff usometry: Experimental Criteria and Findings",
+  "authors": [
+    "Jianbo Hou",
+    "Eric Pearce"
+  ],
+  "doi": "10.1021/acs.analchem.1c00793",
+  "abstract": "NMR di ff usometry fi nds useful applications in characterizing molecular weight ( M ) and molecular weight distribution(MWD) for polymers due to its unique advantages in generic detection, chemical selectivity, and quantitation. Here, we present a fundamental study to explore how the condition of di ff usion measurement impacts the determined MWD. We use the critical dilute concentration C dilute * to explicitly delineate the boundary of the su ffi ciently dilute condition, below which chain interactions have a negligible impact on polymer di ff usion. We present solid evidence to validate the postulated theory that links C dilute * to molecular weight, polydispersity, and chain conformation. Quantitative analysis reveals the consequence of violating the su ffi ciently dilute condition with M /MWD characterization. These fi ndings provide useful guidance for M /MWDcharacterization by NMR di ff usion and help to rationalize the data disparity that exists in the literature. The results further provide new insights into the interplay between chain conformations and di ff usion for globular structure, such as proteins, and provide a di ff erent approach toward characterizing polymer architecture and molecular weight."
+}

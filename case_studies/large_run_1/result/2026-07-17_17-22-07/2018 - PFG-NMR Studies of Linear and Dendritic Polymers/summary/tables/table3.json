@@ -1,0 +1,10 @@
+{
+  "description": "Diffusion Analysis of PAMAM Dendrimers in Methanol",
+  "temperature": "298 K",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "PAMAM Dendrimers",
+    "Methanol"
+  ],
+  "other_statistics": []
+}

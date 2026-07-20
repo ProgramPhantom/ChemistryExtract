@@ -1,0 +1,29 @@
+{
+  "description": "Literature results of spectroscopic methods used for lignin molecular weight determination",
+  "temperature": "297 K",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "kraft lignins",
+    "organosolv lignins",
+    "dioxasolv lignins",
+    "Miscanthus x giganteus lignin",
+    "Paulownia tomentosa lignin",
+    "Silphium perfoliatum lignin",
+    "wheat straw lignin",
+    "beech wood lignin"
+  ],
+  "other_statistics": [
+    {
+      "name": "n (sample size)",
+      "value": "54, 28, 151, 5 ?>"
+    },
+    {
+      "name": "M w",
+      "value": "Range: 29,984 Da to 8,700 Da"
+    },
+    {
+      "name": "relative error",
+      "value": "5.8% to 11%"
+    }
+  ]
+}

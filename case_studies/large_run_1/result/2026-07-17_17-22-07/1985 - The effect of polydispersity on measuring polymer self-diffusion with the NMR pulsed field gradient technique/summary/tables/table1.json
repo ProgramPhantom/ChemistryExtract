@@ -1,0 +1,11 @@
+{
+  "description": "Measurement of self-diffusion coefficients of radically polymerized polystyrene and mixtures of polystyrene standards in solvents.",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "polystyrene",
+    "toluene-d8",
+    "benzene-d6"
+  ],
+  "other_statistics": []
+}

@@ -1,0 +1,10 @@
+{
+  "title": "Polymer Molecular Weights via DOSY NMR",
+  "authors": [
+    "Eric Ruzicka",
+    "Perry Pellechia",
+    "Brian C. Benicewicz"
+  ],
+  "doi": "Not found",
+  "abstract": "Diffusion-ordered spectroscopy (DOSY) 1 H nuclear magnetic resonance ( 1 H NMR) has become a powerful tool to characterize the molecular weights of polymers. Compared to common characterization techniques, such as size exclusion chromatography (SEC), DOSY is faster, uses less solvent, and does not require a purified polymer sample. Poly(methyl methacrylate) (PMMA), polystyrene (PS), and polybutadiene (PB) molecular weights were determined by the linear correlation between the logarithm of their diffusion coefficients (D) and the logarithm of their molecular weights based on SEC molecular weights. Here, we emphasize the importance of the preparation needed to generate the calibration curves, which includes choosing the correct pulse sequence, optimizing parameters, and sample preparation. The limitation of the PMMA calibration curve was investigated by increasing the dispersity of PMMA. Additionally, by accounting for viscosity in the Stokes -Einstein equation, a variety of solvents were used to produce a 'universal' calibration curve for PMMA to determine molecular weight. Furthermore, we place a spotlight on the increasing importance of DOSY NMR being incorporated into the polymer chemist's toolbox."
+}

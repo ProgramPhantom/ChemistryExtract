@@ -1,0 +1,31 @@
+{
+  "description": "Molar masses and chemical compositions of polystyrene (PS) blends analyzed via DOSY NMR experiments to compare manufacturer data with experimental measurements.",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "polystyrene",
+    "PS1920",
+    "PS27500",
+    "PS51500",
+    "PS5620",
+    "PS12500"
+  ],
+  "other_statistics": [
+    {
+      "name": "Molar mass (Manufacturer)",
+      "value": "1920, 27500, 51500, 5620, 12500 g mol-1"
+    },
+    {
+      "name": "Composition (weighed)",
+      "value": "Various ratios (e.g., 0.25/0.75 to 0.75/0.25)"
+    },
+    {
+      "name": "Diffusion coefficients (D1 / D2)",
+      "value": "4.67/1.15 to 1.13/0.70 x 10^-10 m^2 s^-1"
+    },
+    {
+      "name": "Molar mass (DOSY Equation 2)",
+      "value": "1960 to 49 650 g mol-1"
+    }
+  ]
+}

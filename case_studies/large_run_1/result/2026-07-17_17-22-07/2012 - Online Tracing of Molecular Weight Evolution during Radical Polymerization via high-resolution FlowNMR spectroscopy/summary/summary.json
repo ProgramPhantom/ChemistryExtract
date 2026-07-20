@@ -1,0 +1,14 @@
+{
+  "title": "Online Tracing of Molecular Weight Evolution during Radical Polymerization via high-resolution FlowNMR spectroscopy",
+  "authors": [
+    "Jeroen H. Vrijsen",
+    "Isabel A. Thomlinson",
+    "Martin E. Levere",
+    "Catherine L. Lyall",
+    "Matthew G. Davidson",
+    "Ulrich Hintermair",
+    "Tanja Junkers"
+  ],
+  "doi": "10.1039/D0PY00475H",
+  "abstract": "High-resolution FlowNMR was coupled to a continuous flow reactor to monitor polymer molecular weight evolution online by diffusion ordered NMR spectroscopy. Polymers were synthesized by reversible addition fragmentation chain transfer polymerization in continuous flow. The setup allows to target various polymer chain lengths in a dynamic manner without requiring additional purification or sample preparation. Obtaining molecular weight information in this manner is shown to be more accurate than classical SEC analysis at comparable measurement times, with relative errors around 5%."
+}

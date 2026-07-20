@@ -1,0 +1,13 @@
+{
+  "title": "All Polymer Diffusion Regimes Covered by Combining Field-Cycling and Field-Gradient 1 H NMR",
+  "authors": [
+    "B. Kresse",
+    "M. Hofmann",
+    "A. F. Privalov",
+    "N. Fatkullin",
+    "F. Fujara",
+    "E. A. R\u00f6ssler"
+  ],
+  "doi": "Not found",
+  "abstract": "Field-cycling and fi eld-gradient 1 H NMR experiments were combined to reveal the segmental mean-square displacement as a function of time for polydimethylsiloxane (PDMS) and polybutadiene (PB). Together, more than 10 decades in time are covered, and all four power-law regimes of the tube-reptation (TR) model are identi fi ed with exponents rather close to the predicted ones. Characteristic polymer properties like the tube diameter a 0 , the Kuhn length b , the mean-square end-to-end distance \u27e8 R 0 2 \u27e9 , the segmental correlation time \u03c4 s ( T ), the entanglement time \u03c4 e ( T ), and the disengagement\n\n<!-- image -->\n\ntime \u03c4 d ( T ) are estimated from the measurements and compared to results from literature. Concerning \u03c4 d ( T ), fair agreement is found. In the case of \u03c4 e , agreement with rheological data is achieved when the time constant is extracted from the minimum in the shear modulus G \u201d ( \u03c9 ). Concerning the TR predictions the molar mass ( M ) dependence of \u03c4 d is essentially reproduced. Yet, calculating \u03c4 e from \u03c4 d for PDMS yields agreement with experimental data while for PB it gets by 2 orders of magnitude too short. In no case \u03c4 e is correctly reproduced from \u03c4 s ( T ). Segmental and shortest Rouse times appear to coincide for PB, while in the case of PDMS the latter turns out to be longer by 1 decade."
+}

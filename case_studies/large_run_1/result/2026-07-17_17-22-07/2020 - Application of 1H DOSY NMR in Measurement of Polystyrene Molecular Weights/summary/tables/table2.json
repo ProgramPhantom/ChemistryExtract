@@ -1,0 +1,10 @@
+{
+  "description": "Calibration curve for the diffusion coefficients (D) versus molecular weight (Mw) of polystyrene (PS) standards in chloroform.",
+  "temperature": "Not applicable",
+  "pressure": "Not applicable",
+  "chemicals": [
+    "polystyrene (PS)",
+    "chloroform"
+  ],
+  "other_statistics": []
+}
