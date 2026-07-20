@@ -577,9 +577,11 @@ class PDFProcessor:
                 # Check if this table has categorisation "coeff"
                 cat_data = self.cat_data_list[i] if i < len(self.cat_data_list) else None
                 is_coeff = cat_data and (
-                    cat_data.get("contains_diffusion_coeff") in ["coeff", True] or
-                    cat_data.get("contains_mark_houwink_parameters", False) or
-                    cat_data.get("contains_flory_parameters", False)
+                    cat_data.get("contains_scientific_data", False) and
+                    cat_data.get("contains_polymer_diffusion_coeff", False) and (
+                        cat_data.get("contains_mark_houwink_parameters", False) or
+                        cat_data.get("contains_flory_parameters", False)
+                    )
                 )
                 
                 if not is_coeff:

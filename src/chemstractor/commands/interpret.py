@@ -30,9 +30,11 @@ def run_interpret(processor: PDFProcessor, tree: Tree):
     for i in range(processor.num_tables):
         cat_data = processor.cat_data_list[i] if i < len(processor.cat_data_list) else None
         if cat_data and (
-            cat_data.get("contains_diffusion_coeff") == "coeff" or
-            cat_data.get("contains_mark_houwink_parameters") is True or
-            cat_data.get("contains_flory_parameters") is True
+            cat_data.get("contains_scientific_data", False) and
+            cat_data.get("contains_polymer_diffusion_coeff", False) and (
+                cat_data.get("contains_mark_houwink_parameters", False) or
+                cat_data.get("contains_flory_parameters", False)
+            )
         ):
             has_coeff = True
             break

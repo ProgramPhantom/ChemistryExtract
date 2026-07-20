@@ -9,6 +9,9 @@ from chemstractor.commands.extract import run_extract
 from chemstractor.commands.categorise import run_categorise
 from chemstractor.commands.summarise import run_summarise
 from chemstractor.commands.metadata import run_metadata
+from chemstractor.commands.interpret import run_interpret
+from chemstractor.commands.report import report_command
+
 
 def run_process_single(
     pdf_path: str,
@@ -59,7 +62,6 @@ def run_process_single(
             
         # 5. Interpret (if flag is present)
         if interpret:
-            from chemstractor.commands.interpret import run_interpret
             run_interpret(processor, tree)
             
         processor.save_all()
@@ -71,7 +73,6 @@ def run_process_single(
     processor.cleanup()
     
     if report:
-        from chemstractor.commands.report import report_command
         report_command(process_output_dir=processor.output_dir)
     
     return {
@@ -79,6 +80,7 @@ def run_process_single(
         "tables": num_tables,
         "time": elapsed_time
     }
+
 
 def process_command(
     pdf_path: str,
