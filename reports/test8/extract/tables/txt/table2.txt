@@ -1,0 +1,31 @@
+-------------- TABLE 2 EXTRACTION --------------
+**[Preceding Paragraphs]**
+The  DOSY  experiments  were  performed  on  several  polystyrene  blends.  The  molar  masses  and  chemical  compositions  of  the  blends  are  summarized  in Table 2 .  This  table shows blends where either the molar mass of only one PS is changing  by  keeping  the  chemical  composition  constant  to the  other  PS  (1:1)  or  both  PS  components  keep  their  molar masses  but  the  chemical  compositions  are  continuously changing.
+
+The  2D-DOSY  experiment  of  the  third  sample  of  Table  2 using  the  one-  and  two-component  DOSY  processing  of  the TopSpin software is presented in Figure 2 . It shows already that two components can be separated.
+
+To  obtain  both  the  diffusion  coefficients  and  the  chemical compositions,  Equation  (4)  was  used  for  fitting  the  signal decays. Figure 3 is  showing  the  experimental  and  calculated curves for the third blend PS1920/PS27500 using a mono- and biexponential fitting of the signal intensities of the aromatics. It
+
+Table 2. Molar masses and chemical compositions of the polystyrene blends: comparison of weighed compositions and molar masses of the manufacturer with the DOSY measurements processed via Equations (2) and (4) (biexponential fitting of D 1 , D 2 , A = X wt , B = 1 -X wt , and I 0  with a square error of R 2 = 1); M wi  are rounded to the nearest ten.
+
+**[Table Data]**
+| M w / M w [g mol - 1 ] Manufacturer   | Composition (weighed)   | Composition A / B (DOSY) Equation (4)   | D 1 / D 2 [ × 10 - 10 m 2 s - 1 ] (DOSY) Equation (4)   | M w1 / M w2 [g mol - 1 ] (DOSY) Equation (2)   |
+|---------------------------------------|-------------------------|-----------------------------------------|---------------------------------------------------------|------------------------------------------------|
+| 1920/27500                            | 0.25/0.75               | 0.26/0.74                               | 4.67/1.15                                               | 2140/26 980                                    |
+| 1920/27500                            | 0.33/0.67               | 0.33/0.67                               | 4.63/1.17                                               | 2170/26 250                                    |
+| 1920/27500                            | 0.49/0.51               | 0.49/0.51                               | 4.72/1.20                                               | 2100/25 060                                    |
+| 1920/27500                            | 0.67/0.33               | 0.65/0.35                               | 4.90/1.27                                               | 1960/22 520                                    |
+| 1920/27500                            | 0.75/0.25               | 0.75/0.25                               | 4.86/1.24                                               | 1990/23 600                                    |
+| 1920/51500                            | 0.51/0.49               | 0.50/0.50                               | 4.71/0.77                                               | 2100/44 640                                    |
+| 5620/51500                            | 0.49/0.51               | 0.51/0.49                               | 2.69/0.74                                               | 5820/46 530                                    |
+| 12500/51500                           | 0.49/0.51               | 0.50/0.50                               | 1.77/0.74                                               | 12 330/46 630                                  |
+| 27500/51500                           | 0.49/0.51               | 0.44/0.56                               | 1.13/0.70                                               | 27 730/49 650                                  |
+
+**[Succeeding Paragraphs]**
+<!-- image -->
+
+www.advancedsciencenews.com
+
+Figure 2. 2D-DOSY of the blend PS1920/PS27500 using the A) one- and B) two-component processing of Topspin.
+
+<!-- image -->
