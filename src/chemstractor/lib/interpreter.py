@@ -174,7 +174,8 @@ def get_flory_interpret_prompt(table_text: str, title: str | None = None, abstra
     where:
     - "v" (or nu, alpha, a, b, V, or a_D) is the Flory coefficient / scaling exponent representing the Molar Mass Dependency. It typically lies between 0.33 (spherical particles/highly branched) and 1.0 (rigid rods), and is most commonly around 0.40 to 0.60 for linear polymers in solution.
     - The pre-exponential factor (e.g., A, c, b', K, or D_0) is the Flory constant. It represents the intercept of the relation in logarithmic space:
-      log(D) = log(b') - v * log(M)
+      log(D) = log(b') - v * log(M). CRITICAL: Please be aware that the equation above has the minus sign built in, meaning we ALWAYS
+      expect the v value to be positive. Make sure the v value you return is always positive by making the appropriate transformation.
     
     ### Deduction & Extraction Guidelines:
     1. **Analyze Context & Formulas**: Look at the Paper Title, Abstract, and Extracted Mathematical Formulae. Identify the specific equation form used by the authors for diffusion calibration (e.g., whether they use uncorrected constants like b' or viscosity-corrected constants like c).
@@ -191,6 +192,7 @@ def get_flory_interpret_prompt(table_text: str, title: str | None = None, abstra
        - Since the table text is parsed from PDFs, characters (especially minus signs `-`) are sometimes omitted or corrupted during parsing.
        - The log of the polymer diffusion constant (e.g., log10(b') or log10(c)) is expected to be a negative number, typically between `-8` and `-7` (for diffusion in standard SI units m^2/s).
        - If you read a positive constant value (e.g., `7.70`, `8`, or `7.94`) under a log-constant column (like `lg(b')`), this is clearly a parsing error where the minus sign was omitted. You **MUST** correct this by adding a minus sign (e.g. `7.70` becomes `-7.70`, `7.94` becomes `-7.94`).
+       - Similarly, we expect the returned v value to ALWAYS be positive. Sometimes the diffusion equation being used may not have -v built in, so be aware of this.
 
     {context_str}
     
