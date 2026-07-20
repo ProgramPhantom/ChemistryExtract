@@ -22,7 +22,9 @@ def run_process_single(
     interpret: bool = False,
     report: bool = False,
     metadata: bool = False,
-    summarise: bool = False
+    summarise: bool = False,
+    flory: bool = True,
+    mark_houwink: bool = False
 ) -> dict:
     """Runs extraction, categorisation, and summarisation on a single PDF."""
     if console is None:
@@ -62,7 +64,7 @@ def run_process_single(
             
         # 5. Interpret (if flag is present)
         if interpret:
-            run_interpret(processor, tree)
+            run_interpret(processor, tree, flory=flory, mark_houwink=mark_houwink)
             
         processor.save_all()
         elapsed_time = time.time() - timer
@@ -90,7 +92,9 @@ def process_command(
     interpret: bool = False,
     report: bool = False,
     metadata: bool = False,
-    summarise: bool = False
+    summarise: bool = False,
+    flory: bool = True,
+    mark_houwink: bool = False
 ):
     console = Console(file=sys.__stdout__)
     run_process_single(
@@ -102,5 +106,7 @@ def process_command(
         interpret=interpret,
         report=report,
         metadata=metadata,
-        summarise=summarise
+        summarise=summarise,
+        flory=flory,
+        mark_houwink=mark_houwink
     )

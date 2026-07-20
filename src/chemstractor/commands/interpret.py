@@ -9,7 +9,7 @@ from rich.live import Live
 from chemstractor.lib.processor import PDFProcessor
 from chemstractor.AI import AI, pricing_matrix
 
-def run_interpret(processor: PDFProcessor, tree: Tree):
+def run_interpret(processor: PDFProcessor, tree: Tree, flory: bool = True, mark_houwink: bool = False):
     """Executes the interpretation process on the processor and updates the rich Tree with status/pricing/calculator calls."""
     interpret_node = tree.add(Spinner("dots", text="[bold cyan]Interpreting coeff tables...[/bold cyan]"))
     model = AI.get_instance().selected_model
@@ -43,7 +43,7 @@ def run_interpret(processor: PDFProcessor, tree: Tree):
         interpret_node.label = "[yellow]⚠[/yellow] No tables categorized as containing required parameters. Skipping interpretation."
         return
 
-    for event in processor.interpret():
+    for event in processor.interpret(flory=flory, mark_houwink=mark_houwink):
         if event["status"] == "working" or event["status"] == "table_start":
             interpret_node.label = Spinner("dots", text=f"[bold cyan]{event['message']}[/bold cyan]")
         elif event["status"] == "complete":
@@ -108,7 +108,9 @@ def interpret_command(
     pdf_path: str,
     output_dir: str,
     direct: bool = False,
-    same_folder: bool = True
+    same_folder: bool = True,
+    flory: bool = True,
+    mark_houwink: bool = False
 ):
     console = Console(file=sys.__stdout__)
     
@@ -139,7 +141,7 @@ def interpret_command(
             
     timer = time.time()
     with Live(tree, console=console, auto_refresh=True, refresh_per_second=12) as live:
-        run_interpret(processor, tree)
+        run_interpret(processor, tree, flory=flory, mark_houwink=mark_houwink)
         processor.save_all()
         elapsed_time = time.time() - timer
         tree.add(f"Total time taken for interpretation: [yellow]{elapsed_time:.2f}s[/yellow]")

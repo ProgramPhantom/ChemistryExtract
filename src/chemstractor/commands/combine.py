@@ -476,8 +476,10 @@ def combine_command(input_dir: str, output_path: str = None, cache_path: str = N
             try:
                 proc = PDFProcessor()
                 proc.load_output(sf)
-                # Check if there is actual interpretation data
-                has_interp = any(item is not None for item in proc.interpretation_data_list)
+                has_interp = (
+                    any(item is not None for item in proc.interpretation_flory_data_list) or
+                    any(item is not None for item in proc.interpretation_mh_data_list)
+                )
                 if has_interp:
                     processors.append(proc)
             except Exception as e:

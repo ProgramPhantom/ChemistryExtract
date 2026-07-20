@@ -84,15 +84,20 @@ def cli():
 @click.option('--direct', '-d', is_flag=True, help="Input is a process output folder rather than a PDF.")
 @click.option('--interpret', '-i', is_flag=True, help="Interpret coeff tables.")
 @click.option('--report', '-r', is_flag=True, help="Generate report after process completes.")
-@click.option('--metadata', '-m', is_flag=True, help="Extract paper metadata.")
+@click.option('--metadata', is_flag=True, help="Extract paper metadata.")
 @click.option('--summarise', '-s', is_flag=True, help="Summarise table conditions.")
 @click.option('--all', '-a', is_flag=True, help="Run all stages (metadata, summarise, interpret).")
-def process(pdf_path, output_dir, model, direct, interpret, report, metadata, summarise, all):
+@click.option('--flory', '-f', is_flag=True, default=False, help="Interpret Flory parameters.")
+@click.option('--mark-houwink', '-m', is_flag=True, default=False, help="Interpret Mark-Houwink parameters.")
+def process(pdf_path, output_dir, model, direct, interpret, report, metadata, summarise, all, flory, mark_houwink):
     """Process a single PDF file (extract, categorise, and summarise)."""
     if all:
         metadata = True
         summarise = True
         interpret = True
+    if not flory and not mark_houwink:
+        flory = True
+        mark_houwink = False
     if output_dir is None and not direct:
         output_dir = "."
     if model is None:
@@ -124,7 +129,9 @@ def process(pdf_path, output_dir, model, direct, interpret, report, metadata, su
         interpret=interpret,
         report=report,
         metadata=metadata,
-        summarise=summarise
+        summarise=summarise,
+        flory=flory,
+        mark_houwink=mark_houwink
     )
 
 
@@ -136,16 +143,21 @@ def process(pdf_path, output_dir, model, direct, interpret, report, metadata, su
 @click.option('--interpret', '-i', is_flag=True, help="Interpret coeff tables.")
 @click.option('--report', '-r', is_flag=True, help="Generate report after process completes.")
 @click.option('--combine', '-c', is_flag=True, help="Run combine process after processing completes.")
-@click.option('--metadata', '-m', is_flag=True, help="Extract paper metadata.")
+@click.option('--metadata', is_flag=True, help="Extract paper metadata.")
 @click.option('--summarise', '-s', is_flag=True, help="Summarise table conditions.")
 @click.option('--all', '-a', is_flag=True, help="Run all stages (metadata, summarise, interpret, combine).")
-def process_all(pdf_dir, output_dir, model, direct, interpret, report, combine, metadata, summarise, all):
+@click.option('--flory', '-f', is_flag=True, default=False, help="Interpret Flory parameters.")
+@click.option('--mark-houwink', '-m', is_flag=True, default=False, help="Interpret Mark-Houwink parameters.")
+def process_all(pdf_dir, output_dir, model, direct, interpret, report, combine, metadata, summarise, all, flory, mark_houwink):
     """Process all PDF files in a directory."""
     if all:
         metadata = True
         summarise = True
         interpret = True
         combine = True
+    if not flory and not mark_houwink:
+        flory = True
+        mark_houwink = False
     if not direct and pdf_dir is None:
         pdf_dir = prompt_for_corpus()
     if model is None:
@@ -166,7 +178,9 @@ def process_all(pdf_dir, output_dir, model, direct, interpret, report, combine, 
         report=report,
         combine=combine,
         metadata=metadata,
-        summarise=summarise
+        summarise=summarise,
+        flory=flory,
+        mark_houwink=mark_houwink
     )
 
 
@@ -413,11 +427,16 @@ def clean_all(outputs_dir, model):
 
 @cli.command()
 @click.argument('pdf_path', type=click.Path(exists=True))
-@click.argument('output_dir', required=False)
+@click.option('--output-dir', default="./", help="Directory where the output folder appears.")
 @click.option('--model', type=click.Choice(CLEAN_CHOICES), default=None, help="Model to use.")
 @click.option('--direct', '-d', is_flag=True, help="Input is a process output folder rather than a PDF.")
-def interpret(pdf_path, output_dir, model, direct):
+@click.option('--flory', '-f', is_flag=True, default=False, help="Interpret Flory parameters.")
+@click.option('--mark-houwink', '-m', is_flag=True, default=False, help="Interpret Mark-Houwink parameters.")
+def interpret(pdf_path, output_dir, model, direct, flory, mark_houwink):
     """Interpret coeff tables extracted from a PDF or process output folder."""
+    if not flory and not mark_houwink:
+        flory = True
+        mark_houwink = False
     if model is None:
         model = prompt_for_model()
     selected_model = choices_map[model]
@@ -443,7 +462,9 @@ def interpret(pdf_path, output_dir, model, direct):
         pdf_path=pdf_path,
         output_dir=output_dir,
         direct=direct,
-        same_folder=same_folder
+        same_folder=same_folder,
+        flory=flory,
+        mark_houwink=mark_houwink
     )
 
 
@@ -452,8 +473,13 @@ def interpret(pdf_path, output_dir, model, direct):
 @click.argument('output_dir', required=False)
 @click.option('--model', type=click.Choice(CLEAN_CHOICES), default=None, help="Model to use.")
 @click.option('--direct', '-d', is_flag=True, help="Input is a directory of process output folders rather than PDFs.")
-def interpret_all(pdf_dir, output_dir, model, direct):
+@click.option('--flory', '-f', is_flag=True, default=False, help="Interpret Flory parameters.")
+@click.option('--mark-houwink', '-m', is_flag=True, default=False, help="Interpret Mark-Houwink parameters.")
+def interpret_all(pdf_dir, output_dir, model, direct, flory, mark_houwink):
     """Interpret all tables in a directory of PDFs or process output folders."""
+    if not flory and not mark_houwink:
+        flory = True
+        mark_houwink = False
     if model is None:
         model = prompt_for_model()
     selected_model = choices_map[model]
@@ -467,7 +493,9 @@ def interpret_all(pdf_dir, output_dir, model, direct):
     interpret_all_command(
         pdf_dir=pdf_dir,
         output_parent_dir=output_dir,
-        direct=direct
+        direct=direct,
+        flory=flory,
+        mark_houwink=mark_houwink
     )
 
 

@@ -7,7 +7,8 @@ from chemstractor.lib.extractor import TableExtractor
 from chemstractor.lib.categoriser import categorise_table
 from chemstractor.lib.summariser import summarise_table_conditions
 from chemstractor.lib.metadata import extract_paper_metadata
-from chemstractor.lib.interpreter import interpret_table
+from chemstractor.lib.interpreter_flory import interpret_flory_table
+from chemstractor.lib.interpreter_mh import interpret_mh_table
 
 
 class MetadataResult:
@@ -36,7 +37,8 @@ class PDFProcessor:
         self.summary_dir = None
         self.summary_json_path = None
         self.interpretation_dir = None
-        self.interpretation_data_list = []
+        self.interpretation_flory_data_list = []
+        self.interpretation_mh_data_list = []
         self.interpret_results = []
         
         # State
@@ -68,7 +70,8 @@ class PDFProcessor:
         self.summary_dir = os.path.join(self.output_dir, "summary")
         self.summary_json_path = os.path.join(self.summary_dir, "summary.json")
         self.interpretation_dir = os.path.join(self.output_dir, "interpretation")
-        self.interpretation_data_list = []
+        self.interpretation_flory_data_list = []
+        self.interpretation_mh_data_list = []
         self.interpret_results = []
         
         self.extractor = None
@@ -99,7 +102,8 @@ class PDFProcessor:
         self.summary_dir = os.path.join(self.output_dir, "summary")
         self.summary_json_path = os.path.join(self.summary_dir, "summary.json")
         self.interpretation_dir = os.path.join(self.output_dir, "interpretation")
-        self.interpretation_data_list = []
+        self.interpretation_flory_data_list = []
+        self.interpretation_mh_data_list = []
         self.interpret_results = []
         
         # State initialization
@@ -119,7 +123,8 @@ class PDFProcessor:
             "summary_tables": [],
             "tables_csv": [],
             "tables_txt": [],
-            "interpretation": []
+            "interpretation_flory": [],
+            "interpretation_mh": []
         }
         
         # 1. Load Extract Data
@@ -204,17 +209,29 @@ class PDFProcessor:
                     self._log_error(f"Error loading text table {txt_path}: {e}")
             self.command_outputs["tables_txt"].append(txt_content)
             
-            # Interpretation
-            interp_path = os.path.join(self.interpretation_dir, f"table{i + 1}.json")
-            interp_data = None
-            if os.path.exists(interp_path):
+            # Interpretation Flory
+            interp_flory_path = os.path.join(self.interpretation_dir, f"table{i + 1}_flory.json")
+            interp_flory_data = None
+            if os.path.exists(interp_flory_path):
                 try:
-                    with open(interp_path, 'r', encoding='utf-8') as f:
-                        interp_data = json.load(f)
+                    with open(interp_flory_path, 'r', encoding='utf-8') as f:
+                        interp_flory_data = json.load(f)
                 except Exception as e:
-                    self._log_error(f"Error loading interpretation JSON {interp_path}: {e}")
-            self.interpretation_data_list.append(interp_data)
-            self.command_outputs["interpretation"].append(interp_data)
+                    self._log_error(f"Error loading Flory interpretation JSON {interp_flory_path}: {e}")
+            self.interpretation_flory_data_list.append(interp_flory_data)
+            self.command_outputs["interpretation_flory"].append(interp_flory_data)
+            
+            # Interpretation Mark-Houwink
+            interp_mh_path = os.path.join(self.interpretation_dir, f"table{i + 1}_mh.json")
+            interp_mh_data = None
+            if os.path.exists(interp_mh_path):
+                try:
+                    with open(interp_mh_path, 'r', encoding='utf-8') as f:
+                        interp_mh_data = json.load(f)
+                except Exception as e:
+                    self._log_error(f"Error loading Mark-Houwink interpretation JSON {interp_mh_path}: {e}")
+            self.interpretation_mh_data_list.append(interp_mh_data)
+            self.command_outputs["interpretation_mh"].append(interp_mh_data)
 
 
     def load_extract_data(self):
@@ -530,7 +547,7 @@ class PDFProcessor:
             "results": self.sum_results
         }
 
-    def interpret(self):
+    def interpret(self, flory: bool = True, mark_houwink: bool = False):
         """Interprets each table categorized as 'coeff' in-memory and yields status events."""
         if not self.extractor:
             yield {
@@ -556,7 +573,8 @@ class PDFProcessor:
         yield {"status": "working", "message": "Interpreting 'coeff' tables..."}
         
         self.interpret_results = []
-        self.interpretation_data_list = []
+        self.interpretation_flory_data_list = []
+        self.interpretation_mh_data_list = []
         
         title = None
         abstract = None
@@ -584,54 +602,126 @@ class PDFProcessor:
                     )
                 )
                 
-                if not is_coeff:
-                    # Skip tables that are not "coeff"
-                    self.interpret_results.append((table_name, True, "Skipped (not coeff)", None, []))
-                    self.interpretation_data_list.append(None)
+                # Determine targets based on flags and cat_data
+                run_this_flory = False
+                run_this_mh = False
+                
+                if is_coeff:
+                    if flory:
+                        if cat_data:
+                            if cat_data.get("contains_flory_parameters", False) or (not cat_data.get("contains_flory_parameters", False) and not cat_data.get("contains_mark_houwink_parameters", False)):
+                                run_this_flory = True
+                        else:
+                            run_this_flory = True
+                            
+                    if mark_houwink:
+                        if cat_data:
+                            if cat_data.get("contains_mark_houwink_parameters", False) or (not cat_data.get("contains_flory_parameters", False) and not cat_data.get("contains_mark_houwink_parameters", False)):
+                                run_this_mh = True
+                        else:
+                            run_this_mh = True
+
+                if not is_coeff or (not run_this_flory and not run_this_mh):
+                    # Skip or not requested/matched
+                    if not run_this_flory:
+                        self.interpretation_flory_data_list.append(None)
+                        if is_coeff:
+                            self.interpret_results.append((f"{table_name} (Flory)", True, "Skipped (not requested/matched)", None, []))
+                        else:
+                            self.interpret_results.append((f"{table_name} (Flory)", True, "Skipped (not coeff)", None, []))
+                    if not run_this_mh:
+                        self.interpretation_mh_data_list.append(None)
+                        if is_coeff:
+                            self.interpret_results.append((f"{table_name} (Mark-Houwink)", True, "Skipped (not requested/matched)", None, []))
+                        else:
+                            self.interpret_results.append((f"{table_name} (Mark-Houwink)", True, "Skipped (not coeff)", None, []))
                     continue
-                    
-                yield {
-                    "status": "table_start",
-                    "table_idx": i,
-                    "table_name": table_name,
-                    "message": f"Interpreting table {i + 1}/{self.num_tables}..."
-                }
                 
                 table_text = self.extractor.tables_markdown[i]
                 formulae = self.extractor.formulae if hasattr(self.extractor, 'formulae') else []
-                res = interpret_table(table_text, title=title, abstract=abstract, cat_data=cat_data, formulae=formulae)
                 
-                if res.success:
-                    data_dict = res.data.model_dump()
-                    data_dict["calculator_calls"] = res.calculator_calls
-                    
-                    self.interpretation_data_list.append(data_dict)
-                    status_msg = "Successfully interpreted"
-                    self.interpret_results.append((table_name, True, status_msg, res.usage_metadata, res.calculator_calls))
-                    
+                # Run Flory interpretation if requested
+                if run_this_flory:
                     yield {
-                        "status": "table_complete",
+                        "status": "table_start",
                         "table_idx": i,
-                        "table_name": table_name,
-                        "success": True,
-                        "status_message": status_msg,
-                        "usage_metadata": res.usage_metadata,
-                        "calculator_calls": res.calculator_calls
+                        "table_name": f"{table_name} (Flory)",
+                        "message": f"Interpreting table {i + 1}/{self.num_tables} (Flory)..."
                     }
+                    res_fl = interpret_flory_table(table_text, title=title, abstract=abstract, formulae=formulae)
+                    if res_fl.success:
+                        data_dict = res_fl.data.model_dump()
+                        data_dict["calculator_calls"] = res_fl.calculator_calls
+                        self.interpretation_flory_data_list.append(data_dict)
+                        status_msg = "Successfully interpreted (Flory)"
+                        self.interpret_results.append((f"{table_name} (Flory)", True, status_msg, res_fl.usage_metadata, res_fl.calculator_calls))
+                        yield {
+                            "status": "table_complete",
+                            "table_idx": i,
+                            "table_name": f"{table_name} (Flory)",
+                            "success": True,
+                            "status_message": status_msg,
+                            "usage_metadata": res_fl.usage_metadata,
+                            "calculator_calls": res_fl.calculator_calls
+                        }
+                    else:
+                        status_msg = f"Failed (Flory): {res_fl.error}"
+                        self.interpret_results.append((f"{table_name} (Flory)", False, status_msg, None, res_fl.calculator_calls))
+                        self.interpretation_flory_data_list.append(None)
+                        yield {
+                            "status": "table_complete",
+                            "table_idx": i,
+                            "table_name": f"{table_name} (Flory)",
+                            "success": False,
+                            "status_message": status_msg,
+                            "usage_metadata": None,
+                            "calculator_calls": res_fl.calculator_calls
+                        }
                 else:
-                    status_msg = f"Failed: {res.error}"
-                    self.interpret_results.append((table_name, False, status_msg, None, res.calculator_calls))
-                    self.interpretation_data_list.append(None)
-                    
+                    self.interpretation_flory_data_list.append(None)
+                    self.interpret_results.append((f"{table_name} (Flory)", True, "Skipped (not requested/matched)", None, []))
+                        
+                # Run Mark-Houwink interpretation if requested
+                if run_this_mh:
                     yield {
-                        "status": "table_complete",
+                        "status": "table_start",
                         "table_idx": i,
-                        "table_name": table_name,
-                        "success": False,
-                        "status_message": status_msg,
-                        "usage_metadata": None,
-                        "calculator_calls": res.calculator_calls
+                        "table_name": f"{table_name} (Mark-Houwink)",
+                        "message": f"Interpreting table {i + 1}/{self.num_tables} (Mark-Houwink)..."
                     }
+                    res_mh = interpret_mh_table(table_text, title=title, abstract=abstract, formulae=formulae)
+                    if res_mh.success:
+                        data_dict = res_mh.data.model_dump()
+                        data_dict["calculator_calls"] = res_mh.calculator_calls
+                        self.interpretation_mh_data_list.append(data_dict)
+                        status_msg = "Successfully interpreted (Mark-Houwink)"
+                        self.interpret_results.append((f"{table_name} (Mark-Houwink)", True, status_msg, res_mh.usage_metadata, res_mh.calculator_calls))
+                        yield {
+                            "status": "table_complete",
+                            "table_idx": i,
+                            "table_name": f"{table_name} (Mark-Houwink)",
+                            "success": True,
+                            "status_message": status_msg,
+                            "usage_metadata": res_mh.usage_metadata,
+                            "calculator_calls": res_mh.calculator_calls
+                        }
+                    else:
+                        status_msg = f"Failed (Mark-Houwink): {res_mh.error}"
+                        self.interpret_results.append((f"{table_name} (Mark-Houwink)", False, status_msg, None, res_mh.calculator_calls))
+                        self.interpretation_mh_data_list.append(None)
+                        yield {
+                            "status": "table_complete",
+                            "table_idx": i,
+                            "table_name": f"{table_name} (Mark-Houwink)",
+                            "success": False,
+                            "status_message": status_msg,
+                            "usage_metadata": None,
+                            "calculator_calls": res_mh.calculator_calls
+                        }
+                else:
+                    self.interpretation_mh_data_list.append(None)
+                    self.interpret_results.append((f"{table_name} (Mark-Houwink)", True, "Skipped (not requested/matched)", None, []))
+
         except BaseException as e:
             if isinstance(e, (KeyboardInterrupt, SystemExit)):
                 raise e
@@ -690,9 +780,13 @@ class PDFProcessor:
                     except Exception as e:
                         csv_error = str(e)
                         
-            interp_data = None
-            if self.interpretation_data_list and i < len(self.interpretation_data_list):
-                interp_data = self.interpretation_data_list[i] or {}
+            interp_data = {}
+            if self.interpretation_flory_data_list and i < len(self.interpretation_flory_data_list):
+                flory_data = self.interpretation_flory_data_list[i] or {}
+                interp_data["flory_entries"] = flory_data.get("flory_entries", [])
+            if self.interpretation_mh_data_list and i < len(self.interpretation_mh_data_list):
+                mh_data = self.interpretation_mh_data_list[i] or {}
+                interp_data["mh_entries"] = mh_data.get("mh_entries", [])
 
             tables_data.append({
                 "table_data": table_data,
@@ -826,11 +920,19 @@ class PDFProcessor:
                             json.dump(sum_data, jf, indent=2)
                             
             # 4. Save interpretation JSONs if available
-            if self.interpretation_data_list:
+            if self.interpretation_flory_data_list:
                 os.makedirs(self.interpretation_dir, exist_ok=True)
-                for i, interp_data in enumerate(self.interpretation_data_list):
+                for i, interp_data in enumerate(self.interpretation_flory_data_list):
                     if interp_data is not None:
-                        json_file_path = os.path.join(self.interpretation_dir, f"table{i + 1}.json")
+                        json_file_path = os.path.join(self.interpretation_dir, f"table{i + 1}_flory.json")
+                        with open(json_file_path, 'w', encoding='utf-8') as jf:
+                            json.dump(interp_data, jf, indent=2)
+                            
+            if self.interpretation_mh_data_list:
+                os.makedirs(self.interpretation_dir, exist_ok=True)
+                for i, interp_data in enumerate(self.interpretation_mh_data_list):
+                    if interp_data is not None:
+                        json_file_path = os.path.join(self.interpretation_dir, f"table{i + 1}_mh.json")
                         with open(json_file_path, 'w', encoding='utf-8') as jf:
                             json.dump(interp_data, jf, indent=2)
                             

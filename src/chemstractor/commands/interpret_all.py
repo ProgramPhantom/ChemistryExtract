@@ -8,7 +8,9 @@ from chemstractor.commands.interpret import interpret_command
 def interpret_all_command(
     pdf_dir: str = None,
     output_parent_dir: str = None,
-    direct: bool = False
+    direct: bool = False,
+    flory: bool = True,
+    mark_houwink: bool = False
 ):
     console = Console(file=sys.__stdout__)
     
@@ -27,12 +29,16 @@ def interpret_all_command(
                 pdf_path=dest_subdir_path,
                 output_dir=dest_subdir_path,
                 direct=True,
-                same_folder=True
+                same_folder=True,
+                flory=flory,
+                mark_houwink=mark_houwink
             )
     else:
         for pdf_path in items:
             interpret_command(
                 pdf_path=pdf_path,
                 output_dir=run_dir,
-                direct=False
+                direct=False,
+                flory=flory,
+                mark_houwink=mark_houwink
             )

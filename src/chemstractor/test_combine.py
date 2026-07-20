@@ -38,9 +38,8 @@ class TestCombinePipeline(unittest.TestCase):
         with open(os.path.join(self.paper1_dir, 'extract/tables/csv/table1.csv'), 'w') as f:
             f.write("a,b\n1,2")
             
-        table1_data = {
+        table1_mh_data = {
             "is_mark_houwink_data": True,
-            "is_flory_data": False,
             "mh_entries": [
                 {
                     "polymer_name": "PMMA",
@@ -53,11 +52,13 @@ class TestCombinePipeline(unittest.TestCase):
                     "a_transformation": "none",
                     "a_value": 0.7
                 }
-            ],
-            "flory_entries": []
+            ]
         }
-        with open(os.path.join(self.paper1_dir, 'interpretation/table1.json'), 'w') as f:
-            json.dump(table1_data, f)
+        with open(os.path.join(self.paper1_dir, 'interpretation/table1_mh.json'), 'w') as f:
+            json.dump(table1_mh_data, f)
+        with open(os.path.join(self.paper1_dir, 'interpretation/table1_flory.json'), 'w') as f:
+            json.dump({"is_flory_data": False, "flory_entries": []}, f)
+            
         # Paper 2
         self.paper2_dir = os.path.join(self.test_dir, 'test_paper2')
         os.makedirs(os.path.join(self.paper2_dir, 'interpretation'))
@@ -71,10 +72,8 @@ class TestCombinePipeline(unittest.TestCase):
         with open(os.path.join(self.paper2_dir, 'extract/tables/csv/table1.csv'), 'w') as f:
             f.write("a,b\n1,2")
             
-        table2_data = {
-            "is_mark_houwink_data": False,
+        table2_flory_data = {
             "is_flory_data": True,
-            "mh_entries": [],
             "flory_entries": [
                 {
                     "polymer_name": "Poly(methyl methacrylate)",
@@ -100,8 +99,10 @@ class TestCombinePipeline(unittest.TestCase):
                 }
             ]
         }
-        with open(os.path.join(self.paper2_dir, 'interpretation/table1.json'), 'w') as f:
-            json.dump(table2_data, f)
+        with open(os.path.join(self.paper2_dir, 'interpretation/table1_flory.json'), 'w') as f:
+            json.dump(table2_flory_data, f)
+        with open(os.path.join(self.paper2_dir, 'interpretation/table1_mh.json'), 'w') as f:
+            json.dump({"is_mark_houwink_data": False, "mh_entries": []}, f)
     def tearDown(self):
         if os.path.exists(self.test_dir):
             shutil.rmtree(self.test_dir)

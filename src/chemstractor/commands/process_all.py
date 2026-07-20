@@ -53,7 +53,9 @@ def process_all_command(
     report: bool = False,
     combine: bool = False,
     metadata: bool = False,
-    summarise: bool = False
+    summarise: bool = False,
+    flory: bool = True,
+    mark_houwink: bool = False
 ):
     console = Console(file=sys.__stdout__)
     
@@ -81,7 +83,9 @@ def process_all_command(
                 interpret=interpret,
                 report=report,
                 metadata=metadata,
-                summarise=summarise
+                summarise=summarise,
+                flory=flory,
+                mark_houwink=mark_houwink
             )
             summary_data.append(res)
     else:
@@ -94,7 +98,9 @@ def process_all_command(
                 interpret=interpret,
                 report=report,
                 metadata=metadata,
-                summarise=summarise
+                summarise=summarise,
+                flory=flory,
+                mark_houwink=mark_houwink
             )
             summary_data.append(res)
             

@@ -213,105 +213,107 @@ def gather_and_homogenise(processors: list[PDFProcessor], cache_path: str, ai_in
         paper_name = proc.base_no_ext
 
         # Check if interpretation results are present
-        if not proc.interpretation_data_list:
+        if not proc.interpretation_flory_data_list and not proc.interpretation_mh_data_list:
             continue
 
         try:
-            for i, interp_data in enumerate(proc.interpretation_data_list):
-                if not interp_data:
-                    continue
-
+            num_tables = max(len(proc.interpretation_flory_data_list), len(proc.interpretation_mh_data_list))
+            for i in range(num_tables):
                 table_name = f"table{i + 1}"
 
                 # Process Mark-Houwink entries
-                mh_entries = interp_data.get("mh_entries", [])
-                for entry in mh_entries:
-                    polymer_raw = entry.get("polymer_name", "")
-                    solvent_raw = entry.get("solvent", "")
+                mh_data = proc.interpretation_mh_data_list[i] if i < len(proc.interpretation_mh_data_list) else None
+                if mh_data:
+                    mh_entries = mh_data.get("mh_entries", [])
+                    for entry in mh_entries:
+                        polymer_raw = entry.get("polymer_name", "")
+                        solvent_raw = entry.get("solvent", "")
 
-                    poly_clean, poly_source, poly_fail_reason = homogenise_and_track(
-                        polymer_raw, cache, ai_instance, stats
-                    )
-                    failed_fields = []
-                    if poly_fail_reason:
-                        failed_fields.append("polymer_name")
-                        failures.append({
-                            "source_paper": paper_name,
-                            "table": table_name,
-                            "field": "polymer_name",
-                            "value": polymer_raw,
-                            "reason": poly_fail_reason
-                        })
+                        poly_clean, poly_source, poly_fail_reason = homogenise_and_track(
+                            polymer_raw, cache, ai_instance, stats
+                        )
+                        failed_fields = []
+                        if poly_fail_reason:
+                            failed_fields.append("polymer_name")
+                            failures.append({
+                                "source_paper": paper_name,
+                                "table": table_name,
+                                "field": "polymer_name",
+                                "value": polymer_raw,
+                                "reason": poly_fail_reason
+                            })
 
-                    solv_clean, solv_source, solv_fail_reason = homogenise_and_track(
-                        solvent_raw, cache, ai_instance, stats
-                    )
-                    if solv_fail_reason:
-                        failed_fields.append("solvent")
-                        failures.append({
-                            "source_paper": paper_name,
-                            "table": table_name,
-                            "field": "solvent",
-                            "value": solvent_raw,
-                            "reason": solv_fail_reason
-                        })
+                        solv_clean, solv_source, solv_fail_reason = homogenise_and_track(
+                            solvent_raw, cache, ai_instance, stats
+                        )
+                        if solv_fail_reason:
+                            failed_fields.append("solvent")
+                            failures.append({
+                                "source_paper": paper_name,
+                                "table": table_name,
+                                "field": "solvent",
+                                "value": solvent_raw,
+                                "reason": solv_fail_reason
+                            })
 
-                    # Create clean entry
-                    clean_entry = entry.copy()
-                    clean_entry["polymer_name_original"] = polymer_raw
-                    clean_entry["polymer_name"] = poly_clean
-                    clean_entry["solvent_original"] = solvent_raw
-                    clean_entry["solvent"] = solv_clean
-                    clean_entry["source_paper"] = paper_name
-                    clean_entry["table_name"] = table_name
-                    clean_entry["failed_fields"] = ", ".join(failed_fields) if failed_fields else "None"
+                        # Create clean entry
+                        clean_entry = entry.copy()
+                        clean_entry["polymer_name_original"] = polymer_raw
+                        clean_entry["polymer_name"] = poly_clean
+                        clean_entry["solvent_original"] = solvent_raw
+                        clean_entry["solvent"] = solv_clean
+                        clean_entry["source_paper"] = paper_name
+                        clean_entry["table_name"] = table_name
+                        clean_entry["failed_fields"] = ", ".join(failed_fields) if failed_fields else "None"
 
-                    mh_results.append(clean_entry)
+                        mh_results.append(clean_entry)
 
                 # Process Flory entries
-                flory_entries = interp_data.get("flory_entries", [])
-                for entry in flory_entries:
-                    polymer_raw = entry.get("polymer_name", "")
-                    solvent_raw = entry.get("solvent", "")
+                flory_data = proc.interpretation_flory_data_list[i] if i < len(proc.interpretation_flory_data_list) else None
+                if flory_data:
+                    flory_entries = flory_data.get("flory_entries", [])
+                    for entry in flory_entries:
+                        polymer_raw = entry.get("polymer_name", "")
+                        solvent_raw = entry.get("solvent", "")
 
-                    poly_clean, poly_source, poly_fail_reason = homogenise_and_track(
-                        polymer_raw, cache, ai_instance, stats
-                    )
-                    failed_fields = []
-                    if poly_fail_reason:
-                        failed_fields.append("polymer_name")
-                        failures.append({
-                            "source_paper": paper_name,
-                            "table": table_name,
-                            "field": "polymer_name",
-                            "value": polymer_raw,
-                            "reason": poly_fail_reason
-                        })
+                        poly_clean, poly_source, poly_fail_reason = homogenise_and_track(
+                            polymer_raw, cache, ai_instance, stats
+                        )
+                        failed_fields = []
+                        if poly_fail_reason:
+                            failed_fields.append("polymer_name")
+                            failures.append({
+                                "source_paper": paper_name,
+                                "table": table_name,
+                                "field": "polymer_name",
+                                "value": polymer_raw,
+                                "reason": poly_fail_reason
+                            })
 
-                    solv_clean, solv_source, solv_fail_reason = homogenise_and_track(
-                        solvent_raw, cache, ai_instance, stats
-                    )
-                    if solv_fail_reason:
-                        failed_fields.append("solvent")
-                        failures.append({
-                            "source_paper": paper_name,
-                            "table": table_name,
-                            "field": "solvent",
-                            "value": solvent_raw,
-                            "reason": solv_fail_reason
-                        })
+                        solv_clean, solv_source, solv_fail_reason = homogenise_and_track(
+                            solvent_raw, cache, ai_instance, stats
+                        )
+                        if solv_fail_reason:
+                            failed_fields.append("solvent")
+                            failures.append({
+                                "source_paper": paper_name,
+                                "table": table_name,
+                                "field": "solvent",
+                                "value": solvent_raw,
+                                "reason": solv_fail_reason
+                            })
 
-                    # Create clean entry
-                    clean_entry = entry.copy()
-                    clean_entry["polymer_name_original"] = polymer_raw
-                    clean_entry["polymer_name"] = poly_clean
-                    clean_entry["solvent_original"] = solvent_raw
-                    clean_entry["solvent"] = solv_clean
-                    clean_entry["source_paper"] = paper_name
-                    clean_entry["table_name"] = table_name
-                    clean_entry["failed_fields"] = ", ".join(failed_fields) if failed_fields else "None"
+                        # Create clean entry
+                        clean_entry = entry.copy()
+                        clean_entry["polymer_name_original"] = polymer_raw
+                        clean_entry["polymer_name"] = poly_clean
+                        clean_entry["solvent_original"] = solvent_raw
+                        clean_entry["solvent"] = solv_clean
+                        clean_entry["source_paper"] = paper_name
+                        clean_entry["table_name"] = table_name
+                        clean_entry["failed_fields"] = ", ".join(failed_fields) if failed_fields else "None"
 
-                    flory_results.append(clean_entry)
+                        flory_results.append(clean_entry)
         except BaseException as e:
             if isinstance(e, (KeyboardInterrupt, SystemExit)):
                 raise e
