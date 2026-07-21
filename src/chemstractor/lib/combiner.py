@@ -108,6 +108,7 @@ def select_from_existing_names(dirty_name: str, clean_names: list[str], ai_insta
     else:
         return "not found"
 
+
 def generate_new_clean_name(dirty_name: str, ai_instance) -> str:
     """Uses the AI to generate a new canonical name for a chemical string, or 'N/A' if it is not a chemical."""
     class ChemicalGeneration(BaseModel):
@@ -140,7 +141,8 @@ def generate_new_clean_name(dirty_name: str, ai_instance) -> str:
     else:
         return "N/A"
 
-def homogenise_and_track(raw_name: str, cache: dict, ai_instance, stats: dict) -> tuple[str, str, str]:
+
+def homogenise_chemical(raw_name: str, cache: dict, ai_instance, stats: dict) -> tuple[str, str, str]:
     """
     Homogenises a raw name and updates stats.
     Returns:
@@ -271,7 +273,7 @@ def gather_and_homogenise(processors: list[PDFProcessor], cache_path: str, ai_in
                         polymer_raw = entry.get("polymer_name", "")
                         solvent_raw = entry.get("solvent", "")
 
-                        poly_clean, poly_source, poly_fail_reason = homogenise_and_track(
+                        poly_clean, poly_source, poly_fail_reason = homogenise_chemical(
                             polymer_raw, cache, ai_instance, stats
                         )
                         failed_fields = []
@@ -285,7 +287,7 @@ def gather_and_homogenise(processors: list[PDFProcessor], cache_path: str, ai_in
                                 "reason": poly_fail_reason
                             })
 
-                        solv_clean, solv_source, solv_fail_reason = homogenise_and_track(
+                        solv_clean, solv_source, solv_fail_reason = homogenise_chemical(
                             solvent_raw, cache, ai_instance, stats
                         )
                         if solv_fail_reason:
@@ -319,7 +321,7 @@ def gather_and_homogenise(processors: list[PDFProcessor], cache_path: str, ai_in
                         polymer_raw = entry.get("polymer_name", "")
                         solvent_raw = entry.get("solvent", "")
 
-                        poly_clean, poly_source, poly_fail_reason = homogenise_and_track(
+                        poly_clean, poly_source, poly_fail_reason = homogenise_chemical(
                             polymer_raw, cache, ai_instance, stats
                         )
                         failed_fields = []
@@ -333,7 +335,7 @@ def gather_and_homogenise(processors: list[PDFProcessor], cache_path: str, ai_in
                                 "reason": poly_fail_reason
                             })
 
-                        solv_clean, solv_source, solv_fail_reason = homogenise_and_track(
+                        solv_clean, solv_source, solv_fail_reason = homogenise_chemical(
                             solvent_raw, cache, ai_instance, stats
                         )
                         if solv_fail_reason:
