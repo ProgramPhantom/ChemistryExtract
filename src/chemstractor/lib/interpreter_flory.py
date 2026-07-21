@@ -10,11 +10,13 @@ class FloryEntry(BaseModel):
     polymer_name: str = Field(description="The name or acronym of the polymer. If missing or omitted in the table, set to 'Not found'.")
     solvent: str = Field(description="The solvent used. If missing or omitted in the table, set to 'Not found'.")
     temperature_k: Optional[float | str] = Field(None, description="Temperature in Kelvin, if stated in the text or table. If missing or omitted in the table, set to 'Not found'.")
+    
     raw_v_value: float | str = Field(description="The raw value representing the Flory scaling exponent / molar mass dependency parameter (often represented as v, nu, a, b, or alpha in different equation forms). Do not include any uncertainty/ranges (like ±0.02) in this number. If missing or omitted in the table, set to 'Not found'.")
-    v_transformation: str = Field(description="Transformation applied to v. E.g. 'none', 'reciprocal', 'unknown', or any custom scaling expression. If v is missing or omitted in the table, set to 'Not found'.")
+    v_transformation: str = Field(description="Transformation applied to v (optional). E.g. 'none', 'log', 'ln', or any custom scaling expression.")
     v_value: float | str = Field(description="The standard, calculated/converted value of the coefficient v. If v is scaled or transformed in the table, you MUST call the calculate_math tool to compute the standard value and store that returned result here. If no transformation is applied, v_value = raw_v_value. If v is missing or omitted in the table, set to 'Not found'.")
+    
     raw_c_value: float | str = Field(description="The raw value of the constant representing the Flory constant / pre-exponential factor (often represented as c, C, b', K, or A in different equation forms) as written in the table, before log conversion or error correction. Do not include any uncertainty/ranges (like ±0.02) in this number. If missing or omitted in the table, set to 'Not found'.")
-    c_transformation: str = Field(description="Transformation applied to c. E.g. 'none', 'log', 'ln', or any custom scaling/exponent expression. If c is missing or omitted in the table, set to 'Not found'.")
+    c_transformation: str = Field(description="Transformation applied to c (optional). E.g. 'none', 'log', 'ln', or any custom scaling/exponent expression.")
     c_value: float | str = Field(description="The log-form (base-10 logarithm) value of the Flory constant. If the constant in the table is already in log form (e.g. under a log(b') or lg(c) header), store the corrected log value here (fixing omitted minus signs if any). If the constant is in linear form, convert it to its base-10 log value and store that here. If c is missing or omitted in the table, set to 'Not found'.")
 
 
