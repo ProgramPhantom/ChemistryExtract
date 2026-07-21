@@ -2,6 +2,7 @@ import os
 import sys
 import json
 import time
+from datetime import datetime
 import openpyxl
 import pandas as pd
 from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
@@ -656,15 +657,17 @@ def combine_command(input_dir: str, output_path: str = None, cache_path: str = N
     if cache_path is None:
         cache_path = os.path.join(input_dir, "chemical_cache.json")
         
-    # Default output_path to input_dir/combined_data if not specified
+    dateTime = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        
+    # Default output_path to input_dir/combined_data_{dateTime} if not specified
     if output_path is None:
-        output_prefix = os.path.join(input_dir, "combined_data")
+        output_prefix = os.path.join(input_dir, f"combined_data_{dateTime}")
     else:
         # Check if it has extension or represents a folder
         if output_path.endswith(".json") or output_path.endswith(".xlsx"):
-            output_prefix = os.path.splitext(output_path)[0]
+            output_prefix = f"{os.path.splitext(output_path)[0]}_{dateTime}"
         else:
-            output_prefix = os.path.join(output_path, "combined_data")
+            output_prefix = os.path.join(output_path, f"combined_data_{dateTime}")
             
     # Resolve exact file paths
     json_out = f"{output_prefix}.json"
