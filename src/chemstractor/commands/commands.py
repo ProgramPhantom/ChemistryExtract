@@ -102,6 +102,9 @@ def process(pdf_path, output_dir, model, direct, interpret, report, metadata, su
         output_dir = "."
     if model is None:
         model = prompt_for_model()
+    if flory or mark_houwink:
+        interpret = True
+    
     selected_model = choices_map[model]
     AI.get_instance().set_selected_model(selected_model)
     
@@ -173,6 +176,9 @@ def process_all(pdf_dir, output_dir, model, direct, interpret, report, combine, 
         pdf_dir = prompt_for_corpus()
     if model is None:
         model = prompt_for_model()
+    if mark_houwink or flory:
+        interpret = True
+
     selected_model = choices_map[model]
     AI.get_instance().set_selected_model(selected_model)
 
