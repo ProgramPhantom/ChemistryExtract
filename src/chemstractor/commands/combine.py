@@ -237,7 +237,7 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
         c_val = entry.get("c_value")
         v_val = entry.get("v_value")
         has_failed = entry.get("failed_fields", "None") != "None" or entry.get("polymer_name") == "N/A" or entry.get("solvent") == "N/A"
-        if c_val is not None and v_val is not None and not has_failed:
+        if isinstance(c_val, (int, float)) and isinstance(v_val, (int, float)) and not has_failed:
             valid_flory_poly.append(entry)
 
     # Sort Flory entries polymer-centric
@@ -255,13 +255,13 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
         ws_poly.cell(row=r, column=2, value=entry.get("solvent", "")).font = val_font
 
         temp = entry.get("temperature_k")
-        ws_poly.cell(row=r, column=3, value=float(temp) if temp is not None else None).font = val_font
+        ws_poly.cell(row=r, column=3, value=float(temp) if isinstance(temp, (int, float)) else temp).font = val_font
 
         c_val = entry.get("c_value")
-        ws_poly.cell(row=r, column=4, value=float(c_val) if c_val is not None else None).font = val_font
+        ws_poly.cell(row=r, column=4, value=float(c_val) if isinstance(c_val, (int, float)) else c_val).font = val_font
 
         v_val = entry.get("v_value")
-        ws_poly.cell(row=r, column=5, value=float(v_val) if v_val is not None else None).font = val_font
+        ws_poly.cell(row=r, column=5, value=float(v_val) if isinstance(v_val, (int, float)) else v_val).font = val_font
 
         ws_poly.cell(row=r, column=6, value=f"=D{r}-E{r}*3").font = val_font
         ws_poly.cell(row=r, column=7, value=f"=D{r}-E{r}*6").font = val_font
@@ -317,15 +317,15 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
         ws_flory.cell(row=r, column=6, value=entry.get("solvent", "")).font = val_font
         
         temp = entry.get("temperature_k")
-        ws_flory.cell(row=r, column=7, value=float(temp) if temp is not None else None).font = val_font
+        ws_flory.cell(row=r, column=7, value=float(temp) if isinstance(temp, (int, float)) else temp).font = val_font
         
         c_val = entry.get("c_value")
-        ws_flory.cell(row=r, column=8, value=float(c_val) if c_val is not None else None).font = val_font
+        ws_flory.cell(row=r, column=8, value=float(c_val) if isinstance(c_val, (int, float)) else c_val).font = val_font
         
         ws_flory.cell(row=r, column=9, value=entry.get("c_transformation", "")).font = val_font
         
         v_val = entry.get("v_value")
-        ws_flory.cell(row=r, column=10, value=float(v_val) if v_val is not None else None).font = val_font
+        ws_flory.cell(row=r, column=10, value=float(v_val) if isinstance(v_val, (int, float)) else v_val).font = val_font
         
         ws_flory.cell(row=r, column=11, value=entry.get("v_transformation", "")).font = val_font
         ws_flory.cell(row=r, column=12, value=entry.get("failed_fields", "None")).font = val_font

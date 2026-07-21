@@ -7,21 +7,21 @@ from chemstractor.AI import AI
 
 # Define the schema for a SINGLE equation/row (Flory)
 class FloryEntry(BaseModel):
-    polymer_name: str = Field(description="The name or acronym of the polymer.")
-    solvent: str = Field(description="The solvent used.")
-    temperature_k: Optional[float] = Field(None, description="Temperature in Kelvin, if stated in the text or table.")
-    raw_v_value: float = Field(description="The raw value representing the Flory scaling exponent / molar mass dependency parameter (often represented as v, nu, a, b, or alpha in different equation forms). Do not include any uncertainty/ranges (like ±0.02) in this number.")
-    v_transformation: str = Field(description="Transformation applied to v. E.g. 'none', 'reciprocal', 'unknown', or any custom scaling expression.")
-    v_value: float = Field(description="The standard, calculated/converted value of the coefficient v. If v is scaled or transformed in the table, you MUST call the calculate_math tool to compute the standard value and store that returned result here. If no transformation is applied, v_value = raw_v_value.")
-    raw_c_value: float = Field(description="The raw value of the constant representing the Flory constant / pre-exponential factor (often represented as c, C, b', K, or A in different equation forms) as written in the table, before log conversion or error correction. Do not include any uncertainty/ranges (like ±0.02) in this number.")
-    c_transformation: str = Field(description="Transformation applied to c. E.g. 'none', 'log', 'ln', or any custom scaling/exponent expression.")
-    c_value: float = Field(description="The log-form (base-10 logarithm) value of the Flory constant. If the constant in the table is already in log form (e.g. under a log(b') or lg(c) header), store the corrected log value here (fixing omitted minus signs if any). If the constant is in linear form, convert it to its base-10 log value and store that here.")
+    polymer_name: str = Field(description="The name or acronym of the polymer. If missing or omitted in the table, set to 'Not found'.")
+    solvent: str = Field(description="The solvent used. If missing or omitted in the table, set to 'Not found'.")
+    temperature_k: Optional[float | str] = Field(None, description="Temperature in Kelvin, if stated in the text or table. If missing or omitted in the table, set to 'Not found'.")
+    raw_v_value: float | str = Field(description="The raw value representing the Flory scaling exponent / molar mass dependency parameter (often represented as v, nu, a, b, or alpha in different equation forms). Do not include any uncertainty/ranges (like ±0.02) in this number. If missing or omitted in the table, set to 'Not found'.")
+    v_transformation: str = Field(description="Transformation applied to v. E.g. 'none', 'reciprocal', 'unknown', or any custom scaling expression. If v is missing or omitted in the table, set to 'Not found'.")
+    v_value: float | str = Field(description="The standard, calculated/converted value of the coefficient v. If v is scaled or transformed in the table, you MUST call the calculate_math tool to compute the standard value and store that returned result here. If no transformation is applied, v_value = raw_v_value. If v is missing or omitted in the table, set to 'Not found'.")
+    raw_c_value: float | str = Field(description="The raw value of the constant representing the Flory constant / pre-exponential factor (often represented as c, C, b', K, or A in different equation forms) as written in the table, before log conversion or error correction. Do not include any uncertainty/ranges (like ±0.02) in this number. If missing or omitted in the table, set to 'Not found'.")
+    c_transformation: str = Field(description="Transformation applied to c. E.g. 'none', 'log', 'ln', or any custom scaling/exponent expression. If c is missing or omitted in the table, set to 'Not found'.")
+    c_value: float | str = Field(description="The log-form (base-10 logarithm) value of the Flory constant. If the constant in the table is already in log form (e.g. under a log(b') or lg(c) header), store the corrected log value here (fixing omitted minus signs if any). If the constant is in linear form, convert it to its base-10 log value and store that here. If c is missing or omitted in the table, set to 'Not found'.")
 
 
 # Define the extraction schema for flory parameters
 class FloryExtraction(BaseModel):
     is_flory_data: bool = Field(
-        description="True if the table contains Flory coefficient and constant parameters (v and c). False otherwise."
+        description="True if the table contains Flory coefficient or constant parameters (v or c, or both). False otherwise."
     )
     flory_entries: List[FloryEntry] = Field(
         default=[],
@@ -124,6 +124,10 @@ def get_flory_interpret_prompt(table_text: str, title: str | None = None, abstra
        - The log of the polymer diffusion constant (e.g., log10(b') or log10(c)) is expected to be a negative number, typically between `-8` and `-7` (for diffusion in standard SI units m^2/s).
        - If you read a positive constant value (e.g., `7.70`, `8`, or `7.94`) under a log-constant column (like `lg(b')`), this is clearly a parsing error where the minus sign was omitted. You **MUST** correct this by adding a minus sign (e.g. `7.70` becomes `-7.70`, `7.94` becomes `-7.94`).
        - Similarly, we expect the returned v value to ALWAYS be positive. Sometimes the diffusion equation being used may not have -v built in, so be aware of this.
+    6. **Missing Data & Partial Flory Entries**:
+       - Sometimes only part of the Flory data structure is present in a table (for example, the exponent `v` value is present but the constant `c` value is missing, or vice-versa).
+       - If any specific field or parameter of `FloryEntry` is missing or not present in the table, set that field's value to `"Not found"`.
+       - CRITICAL: Do NOT hallucinate, guess, or fabricate missing values or constants if they are not explicitly present in the table.
 
     {context_str}
     
@@ -140,7 +144,8 @@ def interpret_flory_table(table_text: str, title: str | None = None, abstract: s
         "You are a precise chemistry data extractor. You must NEVER do math in your head. "
         "For the exponent/v value, if it is scaled or transformed, you MUST call calculate_math to compute the standard value. "
         "For the constant/c value, we require it in log form (base-10 logarithm). If the constant is already in log form (e.g. lg(b') or log(c)), keep it as is (fixing any omitted minus signs so it is negative, e.g. 7.70 becomes -7.70). "
-        "If the constant is in linear/normal form, convert it to its base-10 log form"
+        "If the constant is in linear/normal form, convert it to its base-10 log form. "
+        "CRITICAL: If any part of the FloryEntry data structure is missing or not present in the table (e.g. the v value is present but the c value is missing, or vice versa), set that missing field to 'Not found'. You MUST respond with 'Not found' if a certain part of the FloryEntry data structure is missing in the table. Do NOT hallucinate or guess missing values. "
         "CRITICAL: When calling calculate_math, formulate the mathematical expression using only raw numbers and mathematical functions (like log10, lg, ln, exp). "
         "Do NOT include variable names (such as 'c', 'K', 'a', 'v') in the expression. You must substitute the actual raw numerical value into the expression."
     )
