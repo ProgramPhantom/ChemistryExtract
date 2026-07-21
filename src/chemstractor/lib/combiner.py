@@ -4,6 +4,7 @@ import difflib
 import typing
 from pydantic import BaseModel
 from chemstractor.lib.processor import PDFProcessor
+from chemstractor.lib.validate import validate_flory_entry, validate_mark_houwink_entry
 
 def load_cache(cache_path: str) -> dict:
     """Loads the chemical cache from a JSON file."""
@@ -356,6 +357,12 @@ def process_mark_houwink_entries(
             )
             failed_fields.extend(data_failed)
 
+            # Numerical bounds outlier checking for Mark-Houwink coefficients
+            bounds_failed = validate_mark_houwink_entry(entry, paper_name, table_name, failures)
+            for f in bounds_failed:
+                if f not in failed_fields:
+                    failed_fields.append(f)
+
             # Create clean entry
             clean_entry = entry.copy()
             clean_entry["polymer_name_original"] = polymer_raw
@@ -431,6 +438,12 @@ def process_flory_entries(
                 failures
             )
             failed_fields.extend(data_failed)
+
+            # Numerical bounds outlier checking for Flory coefficients
+            bounds_failed = validate_flory_entry(entry, paper_name, table_name, failures)
+            for f in bounds_failed:
+                if f not in failed_fields:
+                    failed_fields.append(f)
 
             # Create clean entry
             clean_entry = entry.copy()
