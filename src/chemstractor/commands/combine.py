@@ -14,7 +14,7 @@ from rich.live import Live
 
 from chemstractor.lib.processor import PDFProcessor
 from chemstractor.AI import AI, pricing_matrix
-from chemstractor.lib.combiner import gather_and_homogenise
+from chemstractor.lib.combiner import gather_and_homogenise, sort_papers
 
 import os
 import sys
@@ -36,7 +36,7 @@ from rich.console import Group
 
 from chemstractor.lib.processor import PDFProcessor
 from chemstractor.AI import AI, pricing_matrix
-from chemstractor.lib.combiner import gather_and_homogenise
+from chemstractor.lib.combiner import gather_and_homogenise, sort_papers
 
 def get_field_error(entry: dict, field_key: str) -> str:
     """Returns the failure reason for a specific field, or 'None' if no error."""
@@ -724,10 +724,10 @@ def combine_command(input_dir: str, output_path: str = None, cache_path: str = N
     json_out = f"{output_prefix}.json"
     xlsx_out = f"{output_prefix}.xlsx"
     
-    # 1. Grab all subdirectories in input_dir
+    # 1. Grab all subdirectories in input_dir (ignoring the 'sorted' directory if present)
     subfolders = [
         os.path.join(input_dir, d) for d in os.listdir(input_dir)
-        if os.path.isdir(os.path.join(input_dir, d))
+        if os.path.isdir(os.path.join(input_dir, d)) and d != "sorted"
     ]
     
     # 2. Filter directories that look like process outputs
@@ -748,12 +748,14 @@ def combine_command(input_dir: str, output_path: str = None, cache_path: str = N
     console.print()
     
     # 3. Load PDFProcessor instances
+    all_processors = []
     processors = []
     with console.status("[bold green]Loading process outputs into PDFProcessors...", spinner="dots"):
         for sf in sorted(valid_subfolders):
             try:
                 proc = PDFProcessor()
                 proc.load_output(sf)
+                all_processors.append(proc)
                 has_interp = (
                     any(item is not None for item in proc.interpretation_flory_data_list) or
                     any(item is not None for item in proc.interpretation_mh_data_list)
@@ -881,6 +883,9 @@ def combine_command(input_dir: str, output_path: str = None, cache_path: str = N
             
         create_combined_excel(xlsx_out, results)
         
+        # Sort papers into sorted/ {noData, unhealthy, healthy}
+        sort_counts = sort_papers(all_processors=all_processors, input_dir=input_dir, results=results)
+        
     except Exception as e:
         console.print(f"[bold red]Error saving outputs: {e}[/bold red]")
         sys.exit(1)
@@ -892,6 +897,8 @@ def combine_command(input_dir: str, output_path: str = None, cache_path: str = N
     console.print(f"Excel report saved to: [cyan]{xlsx_out}[/cyan]")
     console.print(f"Flory database saved to: [cyan]{output_prefix}_flory_database.pkl / .csv[/cyan]")
     console.print(f"Mark-Houwink database saved to: [cyan]{output_prefix}_mh_database.pkl / .csv[/cyan]")
+    sorted_path = os.path.join(input_dir, "sorted")
+    console.print(f"Sorted papers saved to: [cyan]{sorted_path}[/cyan] (healthy: [green]{sort_counts.get('healthy', 0)}[/green], unhealthy: [yellow]{sort_counts.get('unhealthy', 0)}[/yellow], noData: [magenta]{sort_counts.get('noData', 0)}[/magenta])")
     console.print()
     
     # Statistics Table

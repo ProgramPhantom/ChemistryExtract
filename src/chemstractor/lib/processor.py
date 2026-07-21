@@ -896,7 +896,6 @@ class PDFProcessor:
             
             # 1. Save extraction files
             self.save_cleaned_pdf()
-            self.save_pdf_copy()
             self.save_outputs()
             self.save_logs()
             

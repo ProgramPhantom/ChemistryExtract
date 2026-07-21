@@ -621,3 +621,162 @@ def gather_and_homogenise(processors: list[PDFProcessor], cache_path: str, ai_in
         "status": "complete",
         "results": results
     }
+
+
+INTERPRETATION_SUCCESS_THRESHOLD = 0.70
+
+
+def sort_papers(
+    all_processors: list[PDFProcessor],
+    input_dir: str,
+    results: dict | None = None,
+    pdf_dir: str | None = None
+) -> dict[str, int]:
+    """
+    Sorts papers processed by PDFProcessors into 'noData', 'unhealthy', and 'healthy' subfolders
+    inside a 'sorted' directory created within input_dir.
+
+    - noData: Papers that were not categorised such that they continued to the interpretation stage.
+    - unhealthy: Papers with any interpreted table having < 70% successfully interpreted rows.
+    - healthy: Papers where all interpreted tables have >= 70% successfully interpreted rows.
+
+    Copies the original PDF file of each paper into its corresponding category folder.
+    """
+    import shutil
+
+    sorted_dir = os.path.join(input_dir, "sorted")
+    no_data_dir = os.path.join(sorted_dir, "noData")
+    unhealthy_dir = os.path.join(sorted_dir, "unhealthy")
+    healthy_dir = os.path.join(sorted_dir, "healthy")
+
+    for d in [no_data_dir, unhealthy_dir, healthy_dir]:
+        os.makedirs(d, exist_ok=True)
+
+    counts = {
+        "noData": 0,
+        "unhealthy": 0,
+        "healthy": 0
+    }
+
+    flory_entries = results.get("flory_entries", []) if results else []
+    mh_entries = results.get("mark_houwink_entries", []) if results else []
+
+    # Map paper_name -> table_name -> list of entries
+    paper_tables_map = {}
+    for entry in flory_entries + mh_entries:
+        paper_name = entry.get("source_paper")
+        table_name = entry.get("table_name", "table1")
+        if not paper_name:
+            continue
+        if paper_name not in paper_tables_map:
+            paper_tables_map[paper_name] = {}
+        if table_name not in paper_tables_map[paper_name]:
+            paper_tables_map[paper_name][table_name] = []
+        paper_tables_map[paper_name][table_name].append(entry)
+
+    for proc in all_processors:
+        paper_name = proc.base_no_ext
+
+        # Check if proc has interpretation data
+        has_interp_data = (
+            any(item is not None for item in proc.interpretation_flory_data_list) or
+            any(item is not None for item in proc.interpretation_mh_data_list)
+        )
+
+        category = "noData"
+
+        if has_interp_data:
+            tables_data = paper_tables_map.get(paper_name, {})
+
+            if not tables_data:
+                # Fallback to inspecting raw proc interpretation data lists
+                tables_data = {}
+                for i, flory_data in enumerate(proc.interpretation_flory_data_list):
+                    if flory_data and isinstance(flory_data, dict):
+                        t_name = f"table{i + 1}"
+                        entries = flory_data.get("flory_entries", [])
+                        if entries:
+                            if t_name not in tables_data:
+                                tables_data[t_name] = []
+                            for e in entries:
+                                is_fail = (
+                                    e.get("polymer_name") in ("Not found", "Invalid chemical", "N/A") or
+                                    e.get("solvent") in ("Not found", "Invalid chemical", "N/A") or
+                                    e.get("v_value") == "Not found" or
+                                    e.get("c_value") == "Not found"
+                                )
+                                tables_data[t_name].append({"failed": is_fail})
+
+                for i, mh_data in enumerate(proc.interpretation_mh_data_list):
+                    if mh_data and isinstance(mh_data, dict):
+                        t_name = f"table{i + 1}"
+                        entries = mh_data.get("mh_entries", [])
+                        if entries:
+                            if t_name not in tables_data:
+                                tables_data[t_name] = []
+                            for e in entries:
+                                is_fail = (
+                                    e.get("polymer_name") in ("Not found", "Invalid chemical", "N/A") or
+                                    e.get("solvent") in ("Not found", "Invalid chemical", "N/A") or
+                                    e.get("K_value") == "Not found" or
+                                    e.get("a_value") == "Not found"
+                                )
+                                tables_data[t_name].append({"failed": is_fail})
+
+            if not tables_data:
+                category = "unhealthy"
+            else:
+                is_healthy = True
+                for t_name, entries in tables_data.items():
+                    if not entries:
+                        is_healthy = False
+                        break
+                    total_rows = len(entries)
+                    successful_rows = 0
+                    for entry in entries:
+                        if "failed" in entry:
+                            if not entry["failed"]:
+                                successful_rows += 1
+                        else:
+                            ff = entry.get("failed_fields", "None")
+                            poly = entry.get("polymer_name")
+                            solv = entry.get("solvent")
+                            if ff == "None" and poly and poly != "N/A" and solv and solv != "N/A":
+                                successful_rows += 1
+
+                    success_rate = successful_rows / total_rows if total_rows > 0 else 0.0
+                    if success_rate < INTERPRETATION_SUCCESS_THRESHOLD:
+                        is_healthy = False
+                        break
+
+                category = "healthy" if is_healthy else "unhealthy"
+
+        counts[category] += 1
+        dest_dir = os.path.join(sorted_dir, category)
+
+        # Copy PDF file to dest_dir
+        src_pdf = None
+        if proc.pdf_path and os.path.isfile(proc.pdf_path):
+            src_pdf = proc.pdf_path
+        else:
+            candidates = [
+                os.path.join(input_dir, f"{paper_name}.pdf"),
+                os.path.join(input_dir, paper_name, f"{paper_name}.pdf"),
+                os.path.join(proc.output_dir, f"{paper_name}.pdf")
+            ]
+            if pdf_dir:
+                candidates.append(os.path.join(pdf_dir, f"{paper_name}.pdf"))
+
+            for cand in candidates:
+                if os.path.isfile(cand):
+                    src_pdf = cand
+                    break
+
+        if src_pdf:
+            try:
+                shutil.copy2(src_pdf, os.path.join(dest_dir, f"{paper_name}.pdf"))
+            except Exception:
+                pass
+
+    return counts
+
