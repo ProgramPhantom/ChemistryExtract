@@ -79,8 +79,16 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
         solv = entry.get("solvent", "")
         if ff != "None" or poly == "N/A" or solv == "N/A":
             total_mh_failed += 1
-            reason_str = ff if ff != "None" else "Unresolved chemical name (N/A)"
-            failure_reasons_count[reason_str] = failure_reasons_count.get(reason_str, 0) + 1
+            if ff != "None":
+                for item in ff.split(","):
+                    item_clean = item.strip()
+                    if item_clean and item_clean != "None":
+                        failure_reasons_count[item_clean] = failure_reasons_count.get(item_clean, 0) + 1
+            else:
+                if poly == "N/A":
+                    failure_reasons_count["polymer_name"] = failure_reasons_count.get("polymer_name", 0) + 1
+                if solv == "N/A":
+                    failure_reasons_count["solvent"] = failure_reasons_count.get("solvent", 0) + 1
 
     total_flory_failed = 0
     for entry in flory_entries:
@@ -89,15 +97,27 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
         solv = entry.get("solvent", "")
         if ff != "None" or poly == "N/A" or solv == "N/A":
             total_flory_failed += 1
-            reason_str = ff if ff != "None" else "Unresolved chemical name (N/A)"
-            failure_reasons_count[reason_str] = failure_reasons_count.get(reason_str, 0) + 1
+            if ff != "None":
+                for item in ff.split(","):
+                    item_clean = item.strip()
+                    if item_clean and item_clean != "None":
+                        failure_reasons_count[item_clean] = failure_reasons_count.get(item_clean, 0) + 1
+            else:
+                if poly == "N/A":
+                    failure_reasons_count["polymer_name"] = failure_reasons_count.get("polymer_name", 0) + 1
+                if solv == "N/A":
+                    failure_reasons_count["solvent"] = failure_reasons_count.get("solvent", 0) + 1
 
+    paper_level_failures = 0
     for fail in failures:
-        r_str = fail.get("reason", "Unknown failure")
-        failure_reasons_count[r_str] = failure_reasons_count.get(r_str, 0) + 1
+        field = fail.get("field", "")
+        reason = fail.get("reason", "Unknown failure")
+        if field in ("Paper processing", "Mark-Houwink processing", "Flory processing"):
+            paper_level_failures += 1
+            failure_reasons_count[reason] = failure_reasons_count.get(reason, 0) + 1
 
     total_collected = len(flory_entries) + len(mh_entries)
-    total_failures_all = total_flory_failed + total_mh_failed + len(failures)
+    total_failures_all = total_flory_failed + total_mh_failed + paper_level_failures
 
     # ---------------------------------------------------------
     # 1. Summary Sheet

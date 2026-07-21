@@ -109,24 +109,90 @@ def select_from_existing_names(dirty_name: str, clean_names: list[str], ai_insta
         return "not found"
 
 
-def generate_new_clean_name(dirty_name: str, ai_instance) -> str:
-    """Uses the AI to generate a new canonical name for a chemical string, or 'N/A' if it is not a chemical."""
+CHEMICAL_ERROR_TYPES = ["Not found", "Invalid chemical"]
+DATA_ERROR_TYPES = ["Not found", "Derivation too complex", "Out of range"]
+ALL_ERROR_TYPES = ["Not found", "Invalid chemical", "Derivation too complex", "Out of range"]
+
+
+ERROR_TARGET_MAP = {
+    "not found": "Not found",
+    "not_found": "Not found",
+    "n/a": "Not found",
+    "none": "Not found",
+    "null": "Not found",
+    "missing": "Not found",
+    "invalid chemical": "Invalid chemical",
+    "invalid_chemical": "Invalid chemical",
+    "invalid": "Invalid chemical",
+    "invalid chemical name": "Invalid chemical",
+    "derivation too complex": "Derivation too complex",
+    "derivation_too_complex": "Derivation too complex",
+    "too complex": "Derivation too complex",
+    "complex derivation": "Derivation too complex",
+    "out of range": "Out of range",
+    "out_of_range": "Out of range",
+    "outside range": "Out of range"
+}
+
+
+def check_prepopulated_error(val: typing.Any, valid_errors: list[str] = ALL_ERROR_TYPES) -> str | None:
+    """
+    Checks if a field value is a pre-populated error message from an earlier stage using fuzzy matching.
+    Returns the canonical error string if matched, or None.
+    """
+    if val is None:
+        return None
+
+    val_str = str(val).strip()
+    if not val_str:
+        return "Not found" if "Not found" in valid_errors else valid_errors[0]
+
+    # Normalize punctuation, underscores, and hyphens
+    normalized_val = val_str.lower().replace("_", " ").replace("-", " ").strip()
+
+    # 1. Direct match against normalized alias map
+    if normalized_val in ERROR_TARGET_MAP:
+        err = ERROR_TARGET_MAP[normalized_val]
+        if err in valid_errors:
+            return err
+
+    # 2. Direct match against canonical valid errors
+    for err in valid_errors:
+        if normalized_val == err.lower():
+            return err
+
+    # 3. Fuzzy similarity match against all alias targets for valid errors
+    relevant_targets = [t for t, err in ERROR_TARGET_MAP.items() if err in valid_errors]
+    matches = difflib.get_close_matches(normalized_val, relevant_targets, n=1, cutoff=0.7)
+    if matches:
+        return ERROR_TARGET_MAP[matches[0]]
+
+    # 4. Fallback fuzzy match against canonical valid_errors strings directly
+    canonical_matches = difflib.get_close_matches(val_str, valid_errors, n=1, cutoff=0.7)
+    if canonical_matches:
+        return canonical_matches[0]
+
+    return None
+
+
+def generate_new_clean_chemical_name(dirty_name: str, ai_instance) -> str:
+    """Uses the AI to generate a new canonical name for a chemical string, or 'Invalid chemical' if it is not a valid chemical."""
     class ChemicalGeneration(BaseModel):
         clean_name: str
 
     prompt = (
         f"You are an expert chemist. You will be given a raw, dirty, or abbreviated chemical name extracted from scientific literature.\n"
-        f"Your task is to convert it into a standard, clean, and canonical name. E.g., expand acronyms where clear (like 'PMMA' to 'poly(methyl methacrylate)'), "
+        f"Your task is to convert it into a standard, clean, and canonical polymer or solvent chemical name. E.g., expand acronyms where clear (like 'PMMA' to 'poly(methyl methacrylate)'), "
         f"or correct typos/formatting issues (like 'T0luene' to 'toluene' or 'THF-d8' to 'THF-d8' or 'CDCl3' to 'chloroform-d').\n\n"
         f"Raw chemical name: '{dirty_name}'\n\n"
         f"Rules:\n"
         f"1. Create a clean, nicely formatted chemical name using standard nomenclature.\n"
-        f"2. If the input is not a chemical name or compound (e.g. it is noise, a page number, a citation, or completely ambiguous text that does not represent a chemical), you MUST respond exactly with 'N/A'.\n"
+        f"2. If the input is not a specific polymer or solvent chemical compound—for instance, if it refers to general material or biological categories (e.g., 'globular proteins', 'finite rods', 'polyelectrolytes'), non-chemical text (e.g. noise, page numbers, citations), or ambiguous non-specific classes—you MUST respond exactly with 'Invalid chemical'.\n"
         f"3. Do not include extra text, explanations, or quotes."
     )
 
     system_instruction = (
-        "Generate a clean, standard chemical name. Use 'N/A' if the text does not represent a chemical compound."
+        "Generate a clean, standard chemical name. Respond with 'Invalid chemical' if the text does not represent a specific polymer or solvent chemical compound."
     )
 
     res = ai_instance.prompt(
@@ -139,7 +205,7 @@ def generate_new_clean_name(dirty_name: str, ai_instance) -> str:
     if res.success and res.data:
         return res.data.clean_name.strip()
     else:
-        return "N/A"
+        return "Invalid chemical"
 
 
 def homogenise_chemical(raw_name: str, cache: dict, ai_instance, stats: dict) -> tuple[str, str, str]:
@@ -150,12 +216,21 @@ def homogenise_chemical(raw_name: str, cache: dict, ai_instance, stats: dict) ->
     source is one of "cache", "ai_match", "ai_generate", or "fail".
     """
     try:
-        if not raw_name or not raw_name.strip():
+        if not raw_name or not str(raw_name).strip():
             stats["total_processed"] += 1
             stats["failed"] += 1
-            return "N/A", "fail", "Empty input string"
+            return "N/A", "fail", "Not found"
 
-        raw_name_clean = raw_name.strip()
+        raw_name_clean = str(raw_name).strip()
+
+        # Check if raw_name is a pre-populated error message
+        pre_err = check_prepopulated_error(raw_name_clean, CHEMICAL_ERROR_TYPES + ["Derivation too complex", "Out of range"])
+        if pre_err:
+            stats["total_processed"] += 1
+            stats["failed"] += 1
+            err_reason = pre_err if pre_err in CHEMICAL_ERROR_TYPES else "Not found"
+            return raw_name_clean, "fail", err_reason
+
         stats["total_processed"] += 1
 
         # 1. Check cache (including fuzzy matches)
@@ -166,7 +241,7 @@ def homogenise_chemical(raw_name: str, cache: dict, ai_instance, stats: dict) ->
 
         # 2. Select from existing clean names in the cache
         clean_names = sorted(list(set(cache.values())))
-        clean_names = [n for n in clean_names if n and n.upper() != "N/A"]
+        clean_names = [n for n in clean_names if n and n.upper() not in ("N/A", "INVALID CHEMICAL")]
 
         match_val = "not found"
         if clean_names:
@@ -178,10 +253,11 @@ def homogenise_chemical(raw_name: str, cache: dict, ai_instance, stats: dict) ->
             return match_val, "ai_match", ""
 
         # 3. Generate new clean name
-        generated_val = generate_new_clean_name(raw_name_clean, ai_instance)
-        if generated_val == "N/A" or not generated_val:
+        generated_val = generate_new_clean_chemical_name(raw_name_clean, ai_instance)
+        if not generated_val or generated_val.lower() in ("invalid chemical", "n/a", "not found"):
             stats["failed"] += 1
-            return raw_name_clean, "fail", "AI marked as N/A"
+            err_reason = "Invalid chemical" if (generated_val and generated_val.lower() in ("invalid chemical", "n/a")) else "Not found"
+            return raw_name_clean, "fail", err_reason
 
         # Save the generated name to the cache
         cache[raw_name_clean] = generated_val
@@ -192,6 +268,35 @@ def homogenise_chemical(raw_name: str, cache: dict, ai_instance, stats: dict) ->
             raise e
         stats["failed"] += 1
         return raw_name, "fail", f"Unexpected error during name homogenisation: {str(e)}"
+
+
+def check_entry_data_errors(entry: dict, data_fields: list[str], paper_name: str, table_name: str, failures: list) -> list[str]:
+    """
+    Checks numerical data point fields in an entry for pre-populated error messages (e.g. 'Not found', 'Derivation too complex', 'Out of range').
+    Appends failure objects to failures list and returns a list of failed field names.
+    """
+    failed_data_fields = []
+    checked_base_fields = set()
+
+    for field in data_fields:
+        val = entry.get(field)
+        if val is None:
+            continue
+
+        base_field = field.replace("raw_", "")
+        err = check_prepopulated_error(val, DATA_ERROR_TYPES)
+        if err:
+            if base_field not in checked_base_fields:
+                checked_base_fields.add(base_field)
+                failed_data_fields.append(base_field)
+                failures.append({
+                    "source_paper": paper_name,
+                    "table": table_name,
+                    "field": base_field,
+                    "value": str(val),
+                    "reason": err
+                })
+    return failed_data_fields
 
 
 def process_mark_houwink_entries(
@@ -241,6 +346,16 @@ def process_mark_houwink_entries(
                     "reason": solv_fail_reason
                 })
 
+            # Check numerical data point fields for errors
+            data_failed = check_entry_data_errors(
+                entry,
+                ["K_value", "raw_K_value", "a_value", "raw_a_value", "temperature_k"],
+                paper_name,
+                table_name,
+                failures
+            )
+            failed_fields.extend(data_failed)
+
             # Create clean entry
             clean_entry = entry.copy()
             clean_entry["polymer_name_original"] = polymer_raw
@@ -268,11 +383,13 @@ def process_flory_entries(
 ) -> int:
     """Processes Flory interpretation data for a single paper, homogenising chemical names."""
     paper_flory_count = 0
+
     for i, flory_data in enumerate(proc.interpretation_flory_data_list):
         if not flory_data:
             continue
         table_name = f"table{i + 1}"
         flory_entries = flory_data.get("flory_entries", [])
+
         for entry in flory_entries:
             polymer_raw = entry.get("polymer_name", "")
             solvent_raw = entry.get("solvent", "")
@@ -280,6 +397,7 @@ def process_flory_entries(
             poly_clean, poly_source, poly_fail_reason = homogenise_chemical(
                 polymer_raw, cache, ai_instance, stats
             )
+
             failed_fields = []
             if poly_fail_reason:
                 failed_fields.append("polymer_name")
@@ -303,6 +421,16 @@ def process_flory_entries(
                     "value": solvent_raw,
                     "reason": solv_fail_reason
                 })
+
+            # Check numerical data point fields for errors
+            data_failed = check_entry_data_errors(
+                entry,
+                ["v_value", "raw_v_value", "c_value", "raw_c_value", "temperature_k"],
+                paper_name,
+                table_name,
+                failures
+            )
+            failed_fields.extend(data_failed)
 
             # Create clean entry
             clean_entry = entry.copy()
