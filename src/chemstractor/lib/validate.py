@@ -52,19 +52,19 @@ def validate_flory_entry(
     paper_name: str = "",
     table_name: str = "",
     failures: list = None
-) -> list[str]:
+) -> dict[str, str]:
     """
     Validates numerical Flory coefficients (v_value and calculated D values).
     Attaches 'Out of range' error to failures list if any coefficient is out of bounds.
-    Returns a list of failed field names.
+    Returns a dict mapping failed field name -> 'Out of range'.
     """
-    failed_fields = []
+    failed_fields = {}
 
     # Check v_value range
     v_val = entry.get("v_value")
     if isinstance(v_val, (int, float)):
         if not (FLORY_V_MIN <= abs(v_val) <= FLORY_V_MAX):
-            failed_fields.append("v_value")
+            failed_fields["v_value"] = "Out of range"
             if failures is not None:
                 failures.append({
                     "source_paper": paper_name,
@@ -82,7 +82,7 @@ def validate_flory_entry(
             for d in d_vals:
                 if not (FLORY_D_MIN <= d <= FLORY_D_MAX):
                     if "c_value" not in failed_fields:
-                        failed_fields.append("c_value")
+                        failed_fields["c_value"] = "Out of range"
                         if failures is not None:
                             failures.append({
                                 "source_paper": paper_name,
@@ -103,19 +103,19 @@ def validate_mark_houwink_entry(
     paper_name: str = "",
     table_name: str = "",
     failures: list = None
-) -> list[str]:
+) -> dict[str, str]:
     """
     Validates numerical Mark-Houwink coefficients (a_value, K_value, and calculated log10([eta])).
     Attaches 'Out of range' error to failures list if any coefficient is out of bounds.
-    Returns a list of failed field names.
+    Returns a dict mapping failed field name -> 'Out of range'.
     """
-    failed_fields = []
+    failed_fields = {}
 
     # Check a_value range
     a_val = entry.get("a_value")
     if isinstance(a_val, (int, float)):
         if not (MH_A_MIN <= a_val <= MH_A_MAX):
-            failed_fields.append("a_value")
+            failed_fields["a_value"] = "Out of range"
             if failures is not None:
                 failures.append({
                     "source_paper": paper_name,
@@ -129,7 +129,7 @@ def validate_mark_houwink_entry(
     k_val = entry.get("K_value")
     if isinstance(k_val, (int, float)):
         if not (MH_K_MIN <= k_val <= MH_K_MAX):
-            failed_fields.append("K_value")
+            failed_fields["K_value"] = "Out of range"
             if failures is not None:
                 failures.append({
                     "source_paper": paper_name,
@@ -146,7 +146,7 @@ def validate_mark_houwink_entry(
             for log_eta in log_eta_vals:
                 if not (MH_LOG_ETA_MIN <= log_eta <= MH_LOG_ETA_MAX):
                     if "K_value" not in failed_fields:
-                        failed_fields.append("K_value")
+                        failed_fields["K_value"] = "Out of range"
                         if failures is not None:
                             failures.append({
                                 "source_paper": paper_name,

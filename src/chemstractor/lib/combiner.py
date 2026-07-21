@@ -271,12 +271,12 @@ def homogenise_chemical(raw_name: str, cache: dict, ai_instance, stats: dict) ->
         return raw_name, "fail", f"Unexpected error during name homogenisation: {str(e)}"
 
 
-def check_entry_data_errors(entry: dict, data_fields: list[str], paper_name: str, table_name: str, failures: list) -> list[str]:
+def check_entry_data_errors(entry: dict, data_fields: list[str], paper_name: str, table_name: str, failures: list) -> dict[str, str]:
     """
     Checks numerical data point fields in an entry for pre-populated error messages (e.g. 'Not found', 'Derivation too complex', 'Out of range').
-    Appends failure objects to failures list and returns a list of failed field names.
+    Appends failure objects to failures list and returns a dict mapping base field name -> error reason.
     """
-    failed_data_fields = []
+    failed_data_dict = {}
     checked_base_fields = set()
 
     for field in data_fields:
@@ -289,7 +289,7 @@ def check_entry_data_errors(entry: dict, data_fields: list[str], paper_name: str
         if err:
             if base_field not in checked_base_fields:
                 checked_base_fields.add(base_field)
-                failed_data_fields.append(base_field)
+                failed_data_dict[base_field] = err
                 failures.append({
                     "source_paper": paper_name,
                     "table": table_name,
@@ -297,7 +297,7 @@ def check_entry_data_errors(entry: dict, data_fields: list[str], paper_name: str
                     "value": str(val),
                     "reason": err
                 })
-    return failed_data_fields
+    return failed_data_dict
 
 
 def process_mark_houwink_entries(
@@ -323,9 +323,7 @@ def process_mark_houwink_entries(
             poly_clean, poly_source, poly_fail_reason = homogenise_chemical(
                 polymer_raw, cache, ai_instance, stats
             )
-            failed_fields = []
             if poly_fail_reason:
-                failed_fields.append("polymer_name")
                 failures.append({
                     "source_paper": paper_name,
                     "table": table_name,
@@ -338,7 +336,6 @@ def process_mark_houwink_entries(
                 solvent_raw, cache, ai_instance, stats
             )
             if solv_fail_reason:
-                failed_fields.append("solvent")
                 failures.append({
                     "source_paper": paper_name,
                     "table": table_name,
@@ -346,6 +343,14 @@ def process_mark_houwink_entries(
                     "value": solvent_raw,
                     "reason": solv_fail_reason
                 })
+
+            field_errors = {
+                "polymer_name": poly_fail_reason if poly_fail_reason else "None",
+                "solvent": solv_fail_reason if solv_fail_reason else "None",
+                "temperature_k": "None",
+                "K_value": "None",
+                "a_value": "None"
+            }
 
             # Check numerical data point fields for errors
             data_failed = check_entry_data_errors(
@@ -355,13 +360,15 @@ def process_mark_houwink_entries(
                 table_name,
                 failures
             )
-            failed_fields.extend(data_failed)
+            for f_name, f_err in data_failed.items():
+                field_errors[f_name] = f_err
 
             # Numerical bounds outlier checking for Mark-Houwink coefficients
             bounds_failed = validate_mark_houwink_entry(entry, paper_name, table_name, failures)
-            for f in bounds_failed:
-                if f not in failed_fields:
-                    failed_fields.append(f)
+            for f_name, f_err in bounds_failed.items():
+                field_errors[f_name] = f_err
+
+            failed_fields = [f for f, err in field_errors.items() if err != "None"]
 
             # Create clean entry
             clean_entry = entry.copy()
@@ -371,6 +378,7 @@ def process_mark_houwink_entries(
             clean_entry["solvent"] = solv_clean
             clean_entry["source_paper"] = paper_name
             clean_entry["table_name"] = table_name
+            clean_entry["field_errors"] = field_errors
             clean_entry["failed_fields"] = ", ".join(failed_fields) if failed_fields else "None"
 
             mh_results.append(clean_entry)
@@ -404,10 +412,7 @@ def process_flory_entries(
             poly_clean, poly_source, poly_fail_reason = homogenise_chemical(
                 polymer_raw, cache, ai_instance, stats
             )
-
-            failed_fields = []
             if poly_fail_reason:
-                failed_fields.append("polymer_name")
                 failures.append({
                     "source_paper": paper_name,
                     "table": table_name,
@@ -420,7 +425,6 @@ def process_flory_entries(
                 solvent_raw, cache, ai_instance, stats
             )
             if solv_fail_reason:
-                failed_fields.append("solvent")
                 failures.append({
                     "source_paper": paper_name,
                     "table": table_name,
@@ -428,6 +432,14 @@ def process_flory_entries(
                     "value": solvent_raw,
                     "reason": solv_fail_reason
                 })
+
+            field_errors = {
+                "polymer_name": poly_fail_reason if poly_fail_reason else "None",
+                "solvent": solv_fail_reason if solv_fail_reason else "None",
+                "temperature_k": "None",
+                "c_value": "None",
+                "v_value": "None"
+            }
 
             # Check numerical data point fields for errors
             data_failed = check_entry_data_errors(
@@ -437,13 +449,15 @@ def process_flory_entries(
                 table_name,
                 failures
             )
-            failed_fields.extend(data_failed)
+            for f_name, f_err in data_failed.items():
+                field_errors[f_name] = f_err
 
             # Numerical bounds outlier checking for Flory coefficients
             bounds_failed = validate_flory_entry(entry, paper_name, table_name, failures)
-            for f in bounds_failed:
-                if f not in failed_fields:
-                    failed_fields.append(f)
+            for f_name, f_err in bounds_failed.items():
+                field_errors[f_name] = f_err
+
+            failed_fields = [f for f, err in field_errors.items() if err != "None"]
 
             # Create clean entry
             clean_entry = entry.copy()
@@ -453,6 +467,7 @@ def process_flory_entries(
             clean_entry["solvent"] = solv_clean
             clean_entry["source_paper"] = paper_name
             clean_entry["table_name"] = table_name
+            clean_entry["field_errors"] = field_errors
             clean_entry["failed_fields"] = ", ".join(failed_fields) if failed_fields else "None"
 
             flory_results.append(clean_entry)
