@@ -788,7 +788,7 @@ def combine_command(input_dir: str, output_path: str = None, cache_path: str = N
     
     results = None
     with Live(group, console=console, auto_refresh=True, refresh_per_second=12):
-        for event in gather_and_homogenise(processors, cache_path, ai_instance):
+        for event in load_and_homogenise(processors, cache_path, ai_instance):
             status = event.get("status")
             if status == "paper_start":
                 paper_name = event["paper_name"]
