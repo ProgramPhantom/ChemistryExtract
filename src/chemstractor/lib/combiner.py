@@ -184,19 +184,25 @@ def generate_new_clean_chemical_name(dirty_name: str, ai_instance) -> str:
     class ChemicalGeneration(BaseModel):
         clean_name: str
 
+    dirty_name_str = str(dirty_name).strip() if dirty_name else ""
+    if not dirty_name_str:
+        return "Invalid chemical"
+
     prompt = (
         f"You are an expert chemist. You will be given a raw, dirty, or abbreviated chemical name extracted from scientific literature.\n"
-        f"Your task is to convert it into a standard, clean, and canonical polymer or solvent chemical name. E.g., expand acronyms where clear (like 'PMMA' to 'poly(methyl methacrylate)'), "
-        f"or correct typos/formatting issues (like 'T0luene' to 'toluene' or 'THF-d8' to 'THF-d8' or 'CDCl3' to 'chloroform-d').\n\n"
-        f"Raw chemical name: '{dirty_name}'\n\n"
+        f"CRITICAL WARNING: The input text may contain hallucinations, corrupt OCR fragments, noise, or nonsense text fragments (e.g., 'uma') resulting from previous extraction steps.\n\n"
+        f"Raw chemical name: '{dirty_name_str}'\n\n"
         f"Rules:\n"
-        f"1. Create a clean, nicely formatted chemical name using standard nomenclature.\n"
-        f"2. If the input is not a specific polymer or solvent chemical compound—for instance, if it refers to general material or biological categories (e.g., 'globular proteins', 'finite rods', 'polyelectrolytes'), non-chemical text (e.g. noise, page numbers, citations), or ambiguous non-specific classes—you MUST respond exactly with 'Invalid chemical'.\n"
-        f"3. Do not include extra text, explanations, or quotes."
+        f"1. Create a clean, nicely formatted chemical name using standard nomenclature ONLY IF the input string clearly and unambiguously represents a specific polymer or solvent compound (or standard acronym/variant, e.g., 'PMMA' to 'poly(methyl methacrylate)', 'T0luene' to 'toluene', 'CDCl3' to 'chloroform-d').\n"
+        f"2. DO NOT GUESS OR HALLUCINATE: You MUST NOT invent, hallucinate, or extrapolate a chemical name from a corrupt string, nonsense fragment, or unrecognized word. For example, if given a hallucinated fragment like 'uma', DO NOT guess '1,2,4-trichlorobenzene' or any other solvent/polymer. You MUST respond exactly with 'Invalid chemical'.\n"
+        f"3. If the input is not a specific polymer or solvent chemical compound—for instance, if it refers to general material or biological categories (e.g., 'globular proteins', 'finite rods', 'polyelectrolytes'), non-chemical text (e.g. noise, page numbers, citations), corrupt text fragments (e.g. 'uma'), or ambiguous non-specific classes—you MUST respond exactly with 'Invalid chemical'.\n"
+        f"4. Do not include extra text, explanations, or quotes."
     )
 
     system_instruction = (
-        "Generate a clean, standard chemical name. Respond with 'Invalid chemical' if the text does not represent a specific polymer or solvent chemical compound."
+        "Generate a clean, standard chemical name if the input is a valid chemical or standard acronym. "
+        "Strictly respond with 'Invalid chemical' if the text is a hallucinated fragment (e.g. 'uma'), corrupt/nonsense string, or non-specific category. "
+        "NEVER invent or guess a chemical compound for ambiguous or corrupt text."
     )
 
     res = ai_instance.prompt(
@@ -207,7 +213,10 @@ def generate_new_clean_chemical_name(dirty_name: str, ai_instance) -> str:
     )
 
     if res.success and res.data:
-        return res.data.clean_name.strip()
+        clean_val = res.data.clean_name.strip()
+        if clean_val.lower() in ("invalid chemical", "n/a", "none", "null", "not found", ""):
+            return "Invalid chemical"
+        return clean_val
     else:
         return "Invalid chemical"
 
