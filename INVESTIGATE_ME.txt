@@ -21,3 +21,11 @@ https://github.com/sciknoworg/scikgextract
 https://pubs.acs.org/doi/10.1021/acs.jcim.6c00374
 https://github.com/arwalkerlab/LoA-Stable
 
+
+
+Try model
+Qwen3.6 35B A3B (Non-reasoning) Intelligence, Performance & Price Analysis
+Compare
+API Provider Benchmarks
+Model summary
+IntelligenceUpdated

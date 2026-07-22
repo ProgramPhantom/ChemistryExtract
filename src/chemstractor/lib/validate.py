@@ -35,16 +35,6 @@ def compute_flory_d_values(c_value: float, v_value: float, log_m_list: list[floa
     return [compute_flory_d_value(c_value, v_value, m) for m in log_m_list]
 
 
-def compute_mh_log_eta_value(k_value: float, a_value: float, log_m: float = 3.0) -> float:
-    """Computes log10([eta]) for a given log10(M) from Mark-Houwink parameters K and a."""
-    if k_value <= 0:
-        raise ValueError("K_value must be positive")
-    return math.log10(k_value) + a_value * log_m
-
-
-def compute_mh_log_eta_values(k_value: float, a_value: float, log_m_list: list[float] = (3.0, 6.0)) -> list[float]:
-    """Computes log10([eta]) values for a list of log10(M) values."""
-    return [compute_mh_log_eta_value(k_value, a_value, m) for m in log_m_list]
 
 
 def validate_flory_entry(
@@ -98,6 +88,19 @@ def validate_flory_entry(
     return failed_fields
 
 
+
+def compute_mh_log_eta_value(k_value: float, a_value: float, log_m: float = 3.0) -> float:
+    """Computes log10([eta]) for a given log10(M) from Mark-Houwink parameters K and a."""
+    if k_value <= 0:
+        raise ValueError("K_value must be positive")
+    return math.log10(k_value) + a_value * log_m
+
+
+def compute_mh_log_eta_values(k_value: float, a_value: float, log_m_list: list[float] = (3.0, 6.0)) -> list[float]:
+    """Computes log10([eta]) values for a list of log10(M) values."""
+    return [compute_mh_log_eta_value(k_value, a_value, m) for m in log_m_list]
+
+
 def validate_mark_houwink_entry(
     entry: dict,
     paper_name: str = "",
@@ -145,13 +148,13 @@ def validate_mark_houwink_entry(
             log_eta_vals = compute_mh_log_eta_values(k_val, a_val)
             for log_eta in log_eta_vals:
                 if not (MH_LOG_ETA_MIN <= log_eta <= MH_LOG_ETA_MAX):
-                    if "K_value" not in failed_fields:
-                        failed_fields["K_value"] = "Out of range"
+                    if "general_err" not in failed_fields:
+                        failed_fields["general_err"] = "Out of range"
                         if failures is not None:
                             failures.append({
                                 "source_paper": paper_name,
                                 "table": table_name,
-                                "field": "K_value",
+                                "field": "general_err",
                                 "value": f"log_eta={log_eta:.2f}",
                                 "reason": "Out of range"
                             })

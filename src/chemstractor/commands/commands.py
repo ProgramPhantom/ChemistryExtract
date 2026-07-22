@@ -522,7 +522,8 @@ def interpret_all(pdf_dir, output_dir, model, direct, flory, mark_houwink):
 @click.option('--output', '-o', type=click.Path(), default=None, help="Output save location of the combined Excel/JSON document.")
 @click.option('--model', type=click.Choice(CLEAN_CHOICES), default=None, help="Model to use.")
 @click.option('--cache-path', type=click.Path(), default=None, help="Path to the chemical cache JSON file.")
-def combine(input_dir, output, model, cache_path):
+@click.option('--pdf-dir', type=click.Path(), default=None, help="Path to directory containing source PDF files.")
+def combine(input_dir, output, model, cache_path, pdf_dir):
     """Combine and homogenise interpreted chemistry data from multiple papers."""
     if model is None:
         model = prompt_for_model()
@@ -537,7 +538,8 @@ def combine(input_dir, output, model, cache_path):
     combine_command(
         input_dir=input_dir,
         output_path=output,
-        cache_path=cache_path
+        cache_path=cache_path,
+        pdf_dir=pdf_dir
     )
 
 

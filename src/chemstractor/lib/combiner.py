@@ -6,6 +6,34 @@ from pydantic import BaseModel
 from chemstractor.lib.processor import PDFProcessor
 from chemstractor.lib.validate import validate_flory_entry, validate_mark_houwink_entry
 
+
+INTERPRETATION_SUCCESS_THRESHOLD = 0.70
+
+CHEMICAL_ERROR_TYPES = ["Not found", "Invalid chemical"]
+DATA_ERROR_TYPES = ["Not found", "Derivation too complex", "Out of range"]
+ALL_ERROR_TYPES = ["Not found", "Invalid chemical", "Derivation too complex", "Out of range"]
+
+
+ERROR_TARGET_MAP = {
+    "not found": "Not found",
+    "not_found": "Not found",
+    "n/a": "Not found",
+    "none": "Not found",
+    "null": "Not found",
+    "missing": "Not found",
+    "invalid chemical": "Invalid chemical",
+    "invalid_chemical": "Invalid chemical",
+    "invalid": "Invalid chemical",
+    "invalid chemical name": "Invalid chemical",
+    "derivation too complex": "Derivation too complex",
+    "derivation_too_complex": "Derivation too complex",
+    "too complex": "Derivation too complex",
+    "complex derivation": "Derivation too complex",
+    "out of range": "Out of range",
+    "out_of_range": "Out of range",
+    "outside range": "Out of range"
+}
+
 def load_cache(cache_path: str) -> dict:
     """Loads the chemical cache from a JSON file."""
     if not cache_path or not os.path.exists(cache_path):
@@ -70,6 +98,7 @@ def find_fuzzy_match(dirty_name: str, cache: dict, threshold: float = 0.9) -> st
 
     return None
 
+
 def select_from_existing_names(dirty_name: str, clean_names: list[str], ai_instance) -> str:
     """Uses the AI to match the dirty name against existing clean names using a dynamic Literal schema."""
     if not clean_names:
@@ -108,32 +137,6 @@ def select_from_existing_names(dirty_name: str, clean_names: list[str], ai_insta
         return res.data.match
     else:
         return "not found"
-
-
-CHEMICAL_ERROR_TYPES = ["Not found", "Invalid chemical"]
-DATA_ERROR_TYPES = ["Not found", "Derivation too complex", "Out of range"]
-ALL_ERROR_TYPES = ["Not found", "Invalid chemical", "Derivation too complex", "Out of range"]
-
-
-ERROR_TARGET_MAP = {
-    "not found": "Not found",
-    "not_found": "Not found",
-    "n/a": "Not found",
-    "none": "Not found",
-    "null": "Not found",
-    "missing": "Not found",
-    "invalid chemical": "Invalid chemical",
-    "invalid_chemical": "Invalid chemical",
-    "invalid": "Invalid chemical",
-    "invalid chemical name": "Invalid chemical",
-    "derivation too complex": "Derivation too complex",
-    "derivation_too_complex": "Derivation too complex",
-    "too complex": "Derivation too complex",
-    "complex derivation": "Derivation too complex",
-    "out of range": "Out of range",
-    "out_of_range": "Out of range",
-    "outside range": "Out of range"
-}
 
 
 def check_prepopulated_error(val: typing.Any, valid_errors: list[str] = ALL_ERROR_TYPES) -> str | None:
@@ -301,7 +304,7 @@ def check_entry_data_errors(entry: dict, data_fields: list[str], paper_name: str
 
 
 def process_mark_houwink_entries(
-    proc: PDFProcessor,
+    processor: PDFProcessor,
     paper_name: str,
     cache: dict,
     ai_instance,
@@ -311,7 +314,7 @@ def process_mark_houwink_entries(
 ) -> int:
     """Processes Mark-Houwink interpretation data for a single paper, homogenising chemical names."""
     paper_mh_count = 0
-    for i, mh_data in enumerate(proc.interpretation_mh_data_list):
+    for i, mh_data in enumerate(processor.interpretation_mh_data_list):
         if not mh_data:
             continue
         table_name = f"table{i + 1}"
@@ -349,7 +352,8 @@ def process_mark_houwink_entries(
                 "solvent": solv_fail_reason if solv_fail_reason else "None",
                 "temperature_k": "None",
                 "K_value": "None",
-                "a_value": "None"
+                "a_value": "None",
+                "general_err": "None"
             }
 
             # Check numerical data point fields for errors
@@ -388,7 +392,7 @@ def process_mark_houwink_entries(
 
 
 def process_flory_entries(
-    proc: PDFProcessor,
+    processor: PDFProcessor,
     paper_name: str,
     cache: dict,
     ai_instance,
@@ -399,7 +403,7 @@ def process_flory_entries(
     """Processes Flory interpretation data for a single paper, homogenising chemical names."""
     paper_flory_count = 0
 
-    for i, flory_data in enumerate(proc.interpretation_flory_data_list):
+    for i, flory_data in enumerate(processor.interpretation_flory_data_list):
         if not flory_data:
             continue
         table_name = f"table{i + 1}"
@@ -438,7 +442,8 @@ def process_flory_entries(
                 "solvent": solv_fail_reason if solv_fail_reason else "None",
                 "temperature_k": "None",
                 "c_value": "None",
-                "v_value": "None"
+                "v_value": "None",
+                "general_err": "None"
             }
 
             # Check numerical data point fields for errors
@@ -476,7 +481,7 @@ def process_flory_entries(
     return paper_flory_count
 
 
-def gather_and_homogenise(processors: list[PDFProcessor], cache_path: str, ai_instance):
+def load_and_homogenise(processors: list[PDFProcessor], cache_path: str, ai_instance):
     """
     Processes all loaded PDFProcessor instances, extracts polymer and solvent names from their interpretation
     data, homogenises them using the 4-stage pipeline, updates the cache, and aggregates the results.
@@ -623,10 +628,8 @@ def gather_and_homogenise(processors: list[PDFProcessor], cache_path: str, ai_in
     }
 
 
-INTERPRETATION_SUCCESS_THRESHOLD = 0.70
 
-
-def sort_papers(
+def sort_and_save(
     all_processors: list[PDFProcessor],
     input_dir: str,
     results: dict | None = None,
@@ -758,17 +761,19 @@ def sort_papers(
         src_pdf = None
         if proc.pdf_path and os.path.isfile(proc.pdf_path):
             src_pdf = proc.pdf_path
-        else:
+        
+        if not src_pdf:
             candidates = [
-                os.path.join(input_dir, f"{paper_name}.pdf"),
-                os.path.join(input_dir, paper_name, f"{paper_name}.pdf"),
-                os.path.join(proc.output_dir, f"{paper_name}.pdf")
+                os.path.join(proc.extract_dir, proc.base_name),
+                os.path.join(proc.extract_dir, f"{paper_name}.pdf")
             ]
             if pdf_dir:
-                candidates.append(os.path.join(pdf_dir, f"{paper_name}.pdf"))
-
+                candidates.extend([
+                    os.path.join(pdf_dir, f"{paper_name}.pdf"),
+                    os.path.join(pdf_dir, paper_name, f"{paper_name}.pdf"),
+                ])
             for cand in candidates:
-                if os.path.isfile(cand):
+                if cand and os.path.isfile(cand):
                     src_pdf = cand
                     break
 

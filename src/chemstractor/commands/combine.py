@@ -14,7 +14,7 @@ from rich.live import Live
 
 from chemstractor.lib.processor import PDFProcessor
 from chemstractor.AI import AI, pricing_matrix
-from chemstractor.lib.combiner import gather_and_homogenise, sort_papers
+from chemstractor.lib.combiner import gather_and_homogenise, sort_and_save
 
 import os
 import sys
@@ -33,10 +33,6 @@ from rich.live import Live
 from rich.progress import Progress, SpinnerColumn, BarColumn, TextColumn, TaskProgressColumn, TimeElapsedColumn, MofNCompleteColumn
 from rich.tree import Tree
 from rich.console import Group
-
-from chemstractor.lib.processor import PDFProcessor
-from chemstractor.AI import AI, pricing_matrix
-from chemstractor.lib.combiner import gather_and_homogenise, sort_papers
 
 def get_field_error(entry: dict, field_key: str) -> str:
     """Returns the failure reason for a specific field, or 'None' if no error."""
@@ -321,7 +317,7 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
         "Source Paper", "Table", "Polymer (Original)", "Polymer (Clean)", 
         "Solvent (Original)", "Solvent (Clean)", "Temperature (K)", 
         "c Value (log Constant)", "c Transformation", "v Value (Scaling Exponent)", "v Transformation", 
-        "Polymer Error", "Solvent Error", "Temperature Error", "c_value Error"
+        "Polymer Error", "Solvent Error", "Temperature Error", "c_value Error", "General Error"
     ]
     
     for col_idx, h in enumerate(headers_flory):
@@ -331,7 +327,7 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
         cell.alignment = table_header_align
         cell.border = data_border
         
-    for val, col in [(3, 16), (6, 17)]:
+    for val, col in [(3, 17), (6, 18)]:
         cell = ws_flory.cell(row=1, column=col, value=val)
         cell.font = table_header_font
         cell.fill = table_header_fill
@@ -362,7 +358,7 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
         
         ws_flory.cell(row=r, column=11, value=entry.get("v_transformation", "")).font = val_font
         
-        # 4 distinct field failure columns
+        # 5 distinct field failure columns
         ws_flory.cell(row=r, column=12, value=get_field_error(entry, "polymer_name")).font = val_font
         ws_flory.cell(row=r, column=13, value=get_field_error(entry, "solvent")).font = val_font
         ws_flory.cell(row=r, column=14, value=get_field_error(entry, "temperature_k")).font = val_font
@@ -371,57 +367,58 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
         v_err = get_field_error(entry, "v_value")
         coeff_err = c_err if c_err != "None" else v_err
         ws_flory.cell(row=r, column=15, value=coeff_err).font = val_font
+        ws_flory.cell(row=r, column=16, value=get_field_error(entry, "general_err")).font = val_font
         
         has_failed = entry.get("failed_fields", "None") != "None" or entry.get("polymer_name") == "N/A" or entry.get("solvent") == "N/A"
         if c_val is not None and v_val is not None and not has_failed:
-            ws_flory.cell(row=r, column=16, value=f"=H{r}-J{r}*3").font = val_font
-            ws_flory.cell(row=r, column=17, value=f"=H{r}-J{r}*6").font = val_font
+            ws_flory.cell(row=r, column=17, value=f"=H{r}-J{r}*3").font = val_font
+            ws_flory.cell(row=r, column=18, value=f"=H{r}-J{r}*6").font = val_font
             
             pair = (entry.get("solvent"), entry.get("polymer_name"))
             flory_counts[pair] = flory_counts.get(pair, 0) + 1
             
-        for c in [1, 2, 3, 4, 5, 6, 9, 11, 12, 13, 14, 15]:
+        for c in [1, 2, 3, 4, 5, 6, 9, 11, 12, 13, 14, 15, 16]:
             cell = ws_flory.cell(row=r, column=c)
             cell.alignment = left_align
             cell.border = data_border
             if has_failed:
                 cell.fill = fail_row_fill
-        for c in [7, 8, 10, 16, 17]:
+        for c in [7, 8, 10, 17, 18]:
             cell = ws_flory.cell(row=r, column=c)
             cell.alignment = right_align
             cell.border = data_border
             if has_failed:
                 cell.fill = fail_row_fill
             
-    # Write Flory Summary Table starting at Column S (19)
-    ws_flory.cell(row=1, column=19, value="Solvent").font = table_header_font
-    ws_flory.cell(row=1, column=19).fill = table_header_fill
-    ws_flory.cell(row=1, column=19).alignment = table_header_align
-    ws_flory.cell(row=1, column=19).border = data_border
-    
-    ws_flory.cell(row=1, column=20, value="Polymer").font = table_header_font
+    # Write Flory Summary Table starting at Column T (20)
+    ws_flory.cell(row=1, column=20, value="Solvent").font = table_header_font
     ws_flory.cell(row=1, column=20).fill = table_header_fill
     ws_flory.cell(row=1, column=20).alignment = table_header_align
     ws_flory.cell(row=1, column=20).border = data_border
     
-    ws_flory.cell(row=1, column=21, value="Count").font = table_header_font
+    ws_flory.cell(row=1, column=21, value="Polymer").font = table_header_font
     ws_flory.cell(row=1, column=21).fill = table_header_fill
     ws_flory.cell(row=1, column=21).alignment = table_header_align
     ws_flory.cell(row=1, column=21).border = data_border
     
+    ws_flory.cell(row=1, column=22, value="Count").font = table_header_font
+    ws_flory.cell(row=1, column=22).fill = table_header_fill
+    ws_flory.cell(row=1, column=22).alignment = table_header_align
+    ws_flory.cell(row=1, column=22).border = data_border
+    
     for summary_idx, (pair, count) in enumerate(sorted(flory_counts.items())):
         sr = summary_idx + 2
-        ws_flory.cell(row=sr, column=19, value=pair[0]).font = val_font
-        ws_flory.cell(row=sr, column=19).alignment = left_align
-        ws_flory.cell(row=sr, column=19).border = data_border
-        
-        ws_flory.cell(row=sr, column=20, value=pair[1]).font = val_font
+        ws_flory.cell(row=sr, column=20, value=pair[0]).font = val_font
         ws_flory.cell(row=sr, column=20).alignment = left_align
         ws_flory.cell(row=sr, column=20).border = data_border
         
-        ws_flory.cell(row=sr, column=21, value=count).font = val_font
-        ws_flory.cell(row=sr, column=21).alignment = right_align
+        ws_flory.cell(row=sr, column=21, value=pair[1]).font = val_font
+        ws_flory.cell(row=sr, column=21).alignment = left_align
         ws_flory.cell(row=sr, column=21).border = data_border
+        
+        ws_flory.cell(row=sr, column=22, value=count).font = val_font
+        ws_flory.cell(row=sr, column=22).alignment = right_align
+        ws_flory.cell(row=sr, column=22).border = data_border
         
     # Generate and embed Flory Line Chart
     if flory_entries:
@@ -459,11 +456,11 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
                 v_val = entry.get("v_value")
                 has_failed = entry.get("failed_fields", "None") != "None" or entry.get("polymer_name") == "N/A" or entry.get("solvent") == "N/A"
                 if c_val is not None and v_val is not None and not has_failed:
-                    series_ref = Reference(ws_flory, min_col=16, max_col=17, min_row=r, max_row=r)
+                    series_ref = Reference(ws_flory, min_col=17, max_col=18, min_row=r, max_row=r)
                     series = Series(series_ref, title=f"{entry.get('polymer_name')} in {entry.get('solvent')}")
                     chart_flory.append(series)
                     
-            cats_ref = Reference(ws_flory, min_col=16, max_col=17, min_row=1, max_row=1)
+            cats_ref = Reference(ws_flory, min_col=17, max_col=18, min_row=1, max_row=1)
             chart_flory.set_categories(cats_ref)
             
             colors = ["1F497D", "C0504D", "9BBB59", "8064A2", "F79646", "4BACC6", "E26B0A", "7030A0", "00B0F0"]
@@ -491,7 +488,7 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
         "Source Paper", "Table", "Polymer (Original)", "Polymer (Clean)", 
         "Solvent (Original)", "Solvent (Clean)", "Temperature (K)", 
         "K Value (mL/g)", "K Transformation", "a Value", "a Transformation", 
-        "Polymer Error", "Solvent Error", "Temperature Error", "K_value Error"
+        "Polymer Error", "Solvent Error", "Temperature Error", "K_value Error", "General Error"
     ]
     
     for col_idx, h in enumerate(headers_mh):
@@ -501,7 +498,7 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
         cell.alignment = table_header_align
         cell.border = data_border
         
-    for val, col in [(3, 16), (6, 17)]:
+    for val, col in [(3, 17), (6, 18)]:
         cell = ws_mh.cell(row=1, column=col, value=val)
         cell.font = table_header_font
         cell.fill = table_header_fill
@@ -532,7 +529,7 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
         
         ws_mh.cell(row=r, column=11, value=entry.get("a_transformation", "")).font = val_font
         
-        # 4 distinct field failure columns
+        # 5 distinct field failure columns
         ws_mh.cell(row=r, column=12, value=get_field_error(entry, "polymer_name")).font = val_font
         ws_mh.cell(row=r, column=13, value=get_field_error(entry, "solvent")).font = val_font
         ws_mh.cell(row=r, column=14, value=get_field_error(entry, "temperature_k")).font = val_font
@@ -541,57 +538,58 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
         a_err = get_field_error(entry, "a_value")
         param_err = k_err if k_err != "None" else a_err
         ws_mh.cell(row=r, column=15, value=param_err).font = val_font
+        ws_mh.cell(row=r, column=16, value=get_field_error(entry, "general_err")).font = val_font
         
         has_failed = entry.get("failed_fields", "None") != "None" or entry.get("polymer_name") == "N/A" or entry.get("solvent") == "N/A"
         if k_val is not None and isinstance(k_val, (int, float)) and k_val > 0 and isinstance(a_val, (int, float)) and not has_failed:
-            ws_mh.cell(row=r, column=16, value=f"=LOG10(H{r})+J{r}*3").font = val_font
-            ws_mh.cell(row=r, column=17, value=f"=LOG10(H{r})+J{r}*6").font = val_font
+            ws_mh.cell(row=r, column=17, value=f"=LOG10(H{r})+J{r}*3").font = val_font
+            ws_mh.cell(row=r, column=18, value=f"=LOG10(H{r})+J{r}*6").font = val_font
             
             pair = (entry.get("solvent"), entry.get("polymer_name"))
             mh_counts[pair] = mh_counts.get(pair, 0) + 1
             
-        for c in [1, 2, 3, 4, 5, 6, 9, 11, 12, 13, 14, 15]:
+        for c in [1, 2, 3, 4, 5, 6, 9, 11, 12, 13, 14, 15, 16]:
             cell = ws_mh.cell(row=r, column=c)
             cell.alignment = left_align
             cell.border = data_border
             if has_failed:
                 cell.fill = fail_row_fill
-        for c in [7, 8, 10, 16, 17]:
+        for c in [7, 8, 10, 17, 18]:
             cell = ws_mh.cell(row=r, column=c)
             cell.alignment = right_align
             cell.border = data_border
             if has_failed:
                 cell.fill = fail_row_fill
             
-    # Write Mark-Houwink Summary Table starting at Column S (19)
-    ws_mh.cell(row=1, column=19, value="Solvent").font = table_header_font
-    ws_mh.cell(row=1, column=19).fill = table_header_fill
-    ws_mh.cell(row=1, column=19).alignment = table_header_align
-    ws_mh.cell(row=1, column=19).border = data_border
-    
-    ws_mh.cell(row=1, column=20, value="Polymer").font = table_header_font
+    # Write Mark-Houwink Summary Table starting at Column T (20)
+    ws_mh.cell(row=1, column=20, value="Solvent").font = table_header_font
     ws_mh.cell(row=1, column=20).fill = table_header_fill
     ws_mh.cell(row=1, column=20).alignment = table_header_align
     ws_mh.cell(row=1, column=20).border = data_border
     
-    ws_mh.cell(row=1, column=21, value="Count").font = table_header_font
+    ws_mh.cell(row=1, column=21, value="Polymer").font = table_header_font
     ws_mh.cell(row=1, column=21).fill = table_header_fill
     ws_mh.cell(row=1, column=21).alignment = table_header_align
     ws_mh.cell(row=1, column=21).border = data_border
     
+    ws_mh.cell(row=1, column=22, value="Count").font = table_header_font
+    ws_mh.cell(row=1, column=22).fill = table_header_fill
+    ws_mh.cell(row=1, column=22).alignment = table_header_align
+    ws_mh.cell(row=1, column=22).border = data_border
+    
     for summary_idx, (pair, count) in enumerate(sorted(mh_counts.items())):
         sr = summary_idx + 2
-        ws_mh.cell(row=sr, column=19, value=pair[0]).font = val_font
-        ws_mh.cell(row=sr, column=19).alignment = left_align
-        ws_mh.cell(row=sr, column=19).border = data_border
-        
-        ws_mh.cell(row=sr, column=20, value=pair[1]).font = val_font
+        ws_mh.cell(row=sr, column=20, value=pair[0]).font = val_font
         ws_mh.cell(row=sr, column=20).alignment = left_align
         ws_mh.cell(row=sr, column=20).border = data_border
         
-        ws_mh.cell(row=sr, column=21, value=count).font = val_font
-        ws_mh.cell(row=sr, column=21).alignment = right_align
+        ws_mh.cell(row=sr, column=21, value=pair[1]).font = val_font
+        ws_mh.cell(row=sr, column=21).alignment = left_align
         ws_mh.cell(row=sr, column=21).border = data_border
+        
+        ws_mh.cell(row=sr, column=22, value=count).font = val_font
+        ws_mh.cell(row=sr, column=22).alignment = right_align
+        ws_mh.cell(row=sr, column=22).border = data_border
         
     # Generate and embed Mark-Houwink Line Chart
     if mh_entries:
@@ -692,7 +690,7 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
     wb.save(dest_path)
 
 
-def combine_command(input_dir: str, output_path: str = None, cache_path: str = None) -> None:
+def combine_command(input_dir: str, output_path: str = None, cache_path: str = None, pdf_dir: str = None) -> None:
     """Executes the combine & homogenisation process across all process output folders in input_dir."""
     console = Console(file=sys.__stdout__)
     
@@ -724,10 +722,10 @@ def combine_command(input_dir: str, output_path: str = None, cache_path: str = N
     json_out = f"{output_prefix}.json"
     xlsx_out = f"{output_prefix}.xlsx"
     
-    # 1. Grab all subdirectories in input_dir (ignoring the 'sorted' directory if present)
+    # 1. Grab all subdirectories in input_dir
     subfolders = [
         os.path.join(input_dir, d) for d in os.listdir(input_dir)
-        if os.path.isdir(os.path.join(input_dir, d)) and d != "sorted"
+        if os.path.isdir(os.path.join(input_dir, d))
     ]
     
     # 2. Filter directories that look like process outputs
@@ -748,14 +746,12 @@ def combine_command(input_dir: str, output_path: str = None, cache_path: str = N
     console.print()
     
     # 3. Load PDFProcessor instances
-    all_processors = []
     processors = []
     with console.status("[bold green]Loading process outputs into PDFProcessors...", spinner="dots"):
         for sf in sorted(valid_subfolders):
             try:
                 proc = PDFProcessor()
                 proc.load_output(sf)
-                all_processors.append(proc)
                 has_interp = (
                     any(item is not None for item in proc.interpretation_flory_data_list) or
                     any(item is not None for item in proc.interpretation_mh_data_list)
@@ -883,13 +879,13 @@ def combine_command(input_dir: str, output_path: str = None, cache_path: str = N
             
         create_combined_excel(xlsx_out, results)
         
-        # Sort papers into sorted/ {noData, unhealthy, healthy}
-        sort_counts = sort_papers(all_processors=all_processors, input_dir=input_dir, results=results)
-        
     except Exception as e:
         console.print(f"[bold red]Error saving outputs: {e}[/bold red]")
         sys.exit(1)
         
+    # Sort papers and copy PDFs into sorted/healthy, sorted/unhealthy, sorted/noData
+    sort_counts = sort_and_save(processors, input_dir, results=results, pdf_dir=pdf_dir)
+
     # 6. Report results and statistics
     console.print()
     console.print(f"[bold green]✓[/bold green] Combining process completed in [yellow]{elapsed:.2f}s[/yellow].")
@@ -897,8 +893,11 @@ def combine_command(input_dir: str, output_path: str = None, cache_path: str = N
     console.print(f"Excel report saved to: [cyan]{xlsx_out}[/cyan]")
     console.print(f"Flory database saved to: [cyan]{output_prefix}_flory_database.pkl / .csv[/cyan]")
     console.print(f"Mark-Houwink database saved to: [cyan]{output_prefix}_mh_database.pkl / .csv[/cyan]")
-    sorted_path = os.path.join(input_dir, "sorted")
-    console.print(f"Sorted papers saved to: [cyan]{sorted_path}[/cyan] (healthy: [green]{sort_counts.get('healthy', 0)}[/green], unhealthy: [yellow]{sort_counts.get('unhealthy', 0)}[/yellow], noData: [magenta]{sort_counts.get('noData', 0)}[/magenta])")
+    sorted_dir = os.path.join(input_dir, "sorted")
+    console.print(f"Sorted paper PDFs saved to: [cyan]{sorted_dir}[/cyan]")
+    console.print(f"  - Healthy: [green]{sort_counts.get('healthy', 0)}[/green]")
+    console.print(f"  - Unhealthy: [yellow]{sort_counts.get('unhealthy', 0)}[/yellow]")
+    console.print(f"  - No Data: [dim]{sort_counts.get('noData', 0)}[/dim]")
     console.print()
     
     # Statistics Table

@@ -98,6 +98,11 @@ class PDFProcessor:
         self.clean_md_path = os.path.join(self.extract_dir, "output_clean.md")
         self.log_file_path = os.path.join(self.extract_dir, f"log_{self.base_name}.log")
         
+        # Locate PDF file if present in the extract directory
+        pdf_candidate = os.path.join(self.extract_dir, self.base_name)
+        if os.path.isfile(pdf_candidate):
+            self.pdf_path = pdf_candidate
+        
         self.categorisation_dir = os.path.join(self.output_dir, "categorisation")
         self.summary_dir = os.path.join(self.output_dir, "summary")
         self.summary_json_path = os.path.join(self.summary_dir, "summary.json")
@@ -825,10 +830,10 @@ class PDFProcessor:
             clean_file.write(self.extractor.clean_pdf_bytes)
 
     def save_pdf_copy(self):
-        """Saves a copy of the original processed PDF to the output directory."""
+        """Saves a copy of the original processed PDF to the extract directory."""
         if not self.pdf_path or not os.path.exists(self.pdf_path):
             return
-        dest = os.path.join(self.output_dir, self.base_name)
+        dest = os.path.join(self.extract_dir, self.base_name)
         import shutil
         shutil.copy2(self.pdf_path, dest)
 
@@ -898,6 +903,7 @@ class PDFProcessor:
             self.save_cleaned_pdf()
             self.save_outputs()
             self.save_logs()
+            self.save_pdf_copy()
             
             # 2. Save categorisation JSONs if available
             if self.cat_data_list:
