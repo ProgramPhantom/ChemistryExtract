@@ -14,7 +14,7 @@ from rich.live import Live
 
 from chemstractor.lib.processor import PDFProcessor
 from chemstractor.AI import AI, pricing_matrix
-from chemstractor.lib.combiner import gather_and_homogenise, sort_and_save
+from chemstractor.lib.combiner import load_and_homogenise, sort_and_save
 
 import os
 import sys
