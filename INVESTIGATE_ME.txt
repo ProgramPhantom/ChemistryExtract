@@ -29,3 +29,5 @@ Compare
 API Provider Benchmarks
 Model summary
 IntelligenceUpdated
+
+https://qudt.org/
