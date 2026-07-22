@@ -71,15 +71,15 @@ def validate_flory_entry(
             d_vals = compute_flory_d_values(c_val, v_val)
             for d in d_vals:
                 if not (FLORY_D_MIN <= d <= FLORY_D_MAX):
-                    if "c_value" not in failed_fields:
-                        failed_fields["c_value"] = "Out of range"
+                    if "general_err" not in failed_fields:
+                        failed_fields["general_err"] = "D out of range"
                         if failures is not None:
                             failures.append({
                                 "source_paper": paper_name,
                                 "table": table_name,
-                                "field": "c_value",
+                                "field": "general_err",
                                 "value": f"D={d:.2f}",
-                                "reason": "Out of range"
+                                "reason": "D out of range"
                             })
                     break
         except Exception:

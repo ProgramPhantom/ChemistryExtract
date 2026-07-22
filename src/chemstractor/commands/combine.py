@@ -25,7 +25,7 @@ import pandas as pd
 import math
 from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
 from openpyxl.utils import get_column_letter
-from openpyxl.chart import LineChart, Reference
+from openpyxl.chart import LineChart, Reference, Series
 from rich.console import Console
 from rich.table import Table
 from rich.rule import Rule
@@ -628,11 +628,11 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
                 a_val = entry.get("a_value")
                 has_failed = entry.get("failed_fields", "None") != "None" or entry.get("polymer_name") == "N/A" or entry.get("solvent") == "N/A"
                 if K_val is not None and isinstance(K_val, (int, float)) and K_val > 0 and isinstance(a_val, (int, float)) and not has_failed:
-                    series_ref = Reference(ws_mh, min_col=16, max_col=17, min_row=r, max_row=r)
+                    series_ref = Reference(ws_mh, min_col=17, max_col=18, min_row=r, max_row=r)
                     series = Series(series_ref, title=f"{entry.get('polymer_name')} in {entry.get('solvent')}")
                     chart_mh.append(series)
                     
-            cats_ref = Reference(ws_mh, min_col=16, max_col=17, min_row=1, max_row=1)
+            cats_ref = Reference(ws_mh, min_col=17, max_col=18, min_row=1, max_row=1)
             chart_mh.set_categories(cats_ref)
             
             colors = ["1F497D", "C0504D", "9BBB59", "8064A2", "F79646", "4BACC6", "E26B0A", "7030A0", "00B0F0"]
