@@ -29,7 +29,7 @@ pricing_matrix = {
 }
 
 OnlineModels = Literal["gemini-2.5-flash", "gemini-2.5-pro", "gemini-3.5-flash"]
-OfflineModels = Literal["llama3.1", "llama3", "gemma4:31b"]
+OfflineModels = Literal["qwen3.6:35b", "gemma4:31b"]
 AllSupportedModels = Union[OnlineModels, OfflineModels]
 
 ONLINE_MODELS = list(pricing_matrix.keys())
