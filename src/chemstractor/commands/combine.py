@@ -122,15 +122,80 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
     ws_sum = wb.create_sheet(title="Summary")
     ws_sum.views.sheetView[0].showGridLines = True
 
-    ws_sum.cell(row=1, column=1, value="Extraction & Homogenisation Statistics").font = section_title_font
+    # Main Header Banner
+    ws_sum.merge_cells("A1:B1")
+    title_cell = ws_sum.cell(row=1, column=1, value="CHEMSTRACTOR BATCH PROCESSING REPORT")
+    title_cell.font = Font(name=font_family, size=13, bold=True, color="FFFFFF")
+    title_cell.fill = PatternFill(start_color="1F497D", end_color="1F497D", fill_type="solid")
+    title_cell.alignment = Alignment(horizontal="center", vertical="center")
+    ws_sum.row_dimensions[1].height = 28
     
-    headers_sum_kpi = ["Metric", "Value"]
-    for c_idx, h in enumerate(headers_sum_kpi):
-        cell = ws_sum.cell(row=2, column=c_idx + 1, value=h)
+    ws_sum.merge_cells("A2:B2")
+    sub_cell = ws_sum.cell(row=2, column=1, value=f"Report Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    sub_cell.font = Font(name=font_family, size=9.5, italic=True, color="595959")
+    sub_cell.alignment = Alignment(horizontal="center", vertical="center")
+    ws_sum.row_dimensions[2].height = 18
+
+    run_info = combined_data.get("run_info", {})
+    current_row = 4
+
+    # --- Section 1: Run & Environment Information ---
+    ws_sum.cell(row=current_row, column=1, value="1. Run Execution & System Information").font = section_title_font
+    current_row += 1
+
+    headers_meta = ["Property", "Details"]
+    for c_idx, h in enumerate(headers_meta):
+        cell = ws_sum.cell(row=current_row, column=c_idx + 1, value=h)
         cell.font = table_header_font
         cell.fill = table_header_fill
         cell.alignment = table_header_align
         cell.border = data_border
+    current_row += 1
+
+    total_tables_checked = sum(p.get("total_tables", 0) for p in papers_summary)
+    total_tables_selected = sum(p.get("selected_tables", 0) for p in papers_summary)
+
+    metadata_rows = [
+        ("Run Start Time", run_info.get("start_time", "N/A")),
+        ("Run End Time", run_info.get("end_time", "N/A")),
+        ("Total Execution Time", run_info.get("duration_seconds", "N/A")),
+        ("AI Model Selected", run_info.get("model_used", "N/A")),
+        ("Input Directory / Run", run_info.get("input_directory", "N/A")),
+        ("Papers Processed", run_info.get("num_papers", len(papers_summary))),
+        ("Total Tables Inspected", run_info.get("total_tables", total_tables_checked)),
+        ("Tables Selected for Extraction", run_info.get("selected_tables", total_tables_selected)),
+        ("Operating System", run_info.get("os", "N/A")),
+        ("CPU Architecture & Cores", f"{run_info.get('architecture', '')} ({run_info.get('cpu_cores', '')} Cores)".strip() if run_info.get("architecture") else "N/A"),
+        ("Python Environment", run_info.get("python_version", "N/A")),
+        ("Host Machine Name", run_info.get("node_hostname", "N/A"))
+    ]
+
+    for item_label, item_val in metadata_rows:
+        c1 = ws_sum.cell(row=current_row, column=1, value=item_label)
+        c1.font = val_font
+        c1.alignment = left_align
+        c1.border = data_border
+
+        c2 = ws_sum.cell(row=current_row, column=2, value=str(item_val))
+        c2.font = val_font
+        c2.alignment = left_align if isinstance(item_val, str) else right_align
+        c2.border = data_border
+        current_row += 1
+
+    current_row += 1  # Spacing
+
+    # --- Section 2: Extraction Statistics & KPIs ---
+    ws_sum.cell(row=current_row, column=1, value="2. Extraction & Homogenisation Statistics").font = section_title_font
+    current_row += 1
+
+    headers_sum_kpi = ["Metric", "Value"]
+    for c_idx, h in enumerate(headers_sum_kpi):
+        cell = ws_sum.cell(row=current_row, column=c_idx + 1, value=h)
+        cell.font = table_header_font
+        cell.fill = table_header_fill
+        cell.alignment = table_header_align
+        cell.border = data_border
+    current_row += 1
 
     success_rate = ((total_collected - total_failures_all) / total_collected * 100) if total_collected > 0 else 0.0
 
@@ -139,60 +204,65 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
         ("Flory Data Points", len(flory_entries)),
         ("Mark-Houwink Data Points", len(mh_entries)),
         ("Total Failures / Issues", total_failures_all),
-        ("Success Rate (%)", f"{success_rate:.1f}%")
+        ("Overall Success Rate (%)", f"{success_rate:.1f}%")
     ]
 
-    for r_idx, (m, v) in enumerate(kpis):
-        r = r_idx + 3
-        c1 = ws_sum.cell(row=r, column=1, value=m)
+    for m, v in kpis:
+        c1 = ws_sum.cell(row=current_row, column=1, value=m)
         c1.font = val_font
         c1.alignment = left_align
         c1.border = data_border
         
-        c2 = ws_sum.cell(row=r, column=2, value=v)
+        c2 = ws_sum.cell(row=current_row, column=2, value=v)
         c2.font = val_font
         c2.alignment = right_align
         c2.border = data_border
+        current_row += 1
 
-    # Failure Reasons breakdown table
-    ws_sum.cell(row=10, column=1, value="Failure Reasons Breakdown").font = section_title_font
+    current_row += 1  # Spacing
+
+    # --- Section 3: Failure Reasons Breakdown ---
+    ws_sum.cell(row=current_row, column=1, value="3. Failure Reasons Breakdown").font = section_title_font
+    current_row += 1
 
     headers_sum_fail = ["Failure Reason / Field", "Count"]
     for c_idx, h in enumerate(headers_sum_fail):
-        cell = ws_sum.cell(row=11, column=c_idx + 1, value=h)
+        cell = ws_sum.cell(row=current_row, column=c_idx + 1, value=h)
         cell.font = table_header_font
         cell.fill = table_header_fill
         cell.alignment = table_header_align
         cell.border = data_border
+    current_row += 1
 
     if failure_reasons_count:
         sorted_reasons = sorted(failure_reasons_count.items(), key=lambda x: x[1], reverse=True)
-        for r_idx, (reason, count) in enumerate(sorted_reasons):
-            r = r_idx + 12
-            c1 = ws_sum.cell(row=r, column=1, value=reason)
+        for reason, count in sorted_reasons:
+            c1 = ws_sum.cell(row=current_row, column=1, value=reason)
             c1.font = val_font
             c1.alignment = left_align
             c1.border = data_border
 
-            c2 = ws_sum.cell(row=r, column=2, value=count)
+            c2 = ws_sum.cell(row=current_row, column=2, value=count)
             c2.font = val_font
             c2.alignment = right_align
             c2.border = data_border
+            current_row += 1
     else:
-        c1 = ws_sum.cell(row=12, column=1, value="None (All extractions succeeded)")
+        c1 = ws_sum.cell(row=current_row, column=1, value="None (All extractions succeeded)")
         c1.font = val_font
         c1.alignment = left_align
         c1.border = data_border
-        c2 = ws_sum.cell(row=12, column=2, value=0)
+        c2 = ws_sum.cell(row=current_row, column=2, value=0)
         c2.font = val_font
         c2.alignment = right_align
         c2.border = data_border
+        current_row += 1
 
     for col in ws_sum.columns:
         vals = [str(cell.value or '') for cell in col]
         max_len = max(len(v) for v in vals) if vals else 10
         col_letter = get_column_letter(col[0].column)
-        ws_sum.column_dimensions[col_letter].width = max(max_len + 4, 15)
+        ws_sum.column_dimensions[col_letter].width = max(max_len + 4, 18)
 
     # ---------------------------------------------------------
     # 2. Papers Sheet
@@ -1087,6 +1157,31 @@ def combine_command(input_dir: str, output_path: str = None, cache_path: str = N
                 
     elapsed = time.time() - start_time
     
+    import platform
+    end_time = time.time()
+    start_timestamp_str = datetime.fromtimestamp(start_time).strftime("%Y-%m-%d %H:%M:%S")
+    end_timestamp_str = datetime.fromtimestamp(end_time).strftime("%Y-%m-%d %H:%M:%S")
+    
+    papers_summary = results.get("papers_summary", [])
+    total_tables_checked = sum(p.get("total_tables", 0) for p in papers_summary)
+    total_tables_selected = sum(p.get("selected_tables", 0) for p in papers_summary)
+
+    results["run_info"] = {
+        "start_time": start_timestamp_str,
+        "end_time": end_timestamp_str,
+        "duration_seconds": f"{elapsed:.2f}s",
+        "model_used": selected_model,
+        "input_directory": input_dir,
+        "num_papers": len(processors),
+        "total_tables": total_tables_checked,
+        "selected_tables": total_tables_selected,
+        "os": f"{platform.system()} {platform.release()}",
+        "architecture": platform.machine(),
+        "cpu_cores": os.cpu_count() or 1,
+        "python_version": sys.version.split()[0],
+        "node_hostname": platform.node()
+    }
+
     # Build flat (unaggregated) pandas dataframes and export
     # 1. Flory flat database
     flory_entries = results.get("flory_entries", [])
