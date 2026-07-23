@@ -1,0 +1,29 @@
+-------------- TABLE 6 EXTRACTION --------------
+**[Preceding Paragraphs]**
+## pMMA-pPEGMEA block copolymer calibration
+
+pBA and pMA are relatively similar polymers and indeed, their individual calibrations are very close to each other; hence a joint calibration with a close fit between the homo and block copolymers is partly expected. Therefore, we tested a block copolymer composed of pMMA and poly(polyethylene glycol methyl ether acrylate), pPEGMEA, which is a significantly more complex case. The molecular weight of PEGMEA is 480 g mol -1 . These polymers are much more complex due to being the mixture of acrylate and methacrylate blocks, containing pendant PEG side chains. Furthermore, these block copolymers are amphiphilic and are regularly used for biomedical application. In contrast to the pMAb -pBA system, the blocks have very di ff erent solubility. PEGMEA is easily polymerized via RAFT. A reasonable progression in the molecular weight and comparatively low dispersities (for a brush polymer) were obtained (see Table 5), and the polymers obtained for a higher target DP also showed lower conversions, and hence yielded quite similar molecular weights.
+
+Table 5 MALLS and SEC results of PEGMEA samples with various DPs
+
+[table omitted]
+
+Table 6 DOSY molecular weight calibration parameters for pPEGMEA in di ff erent solvents
+
+**[Table Data]**
+| Sample          | lg( b ′ /m 2 s - 1 )   |    v |
+|-----------------|------------------------|------|
+| Water           | - 8.31                 | 0.47 |
+| Acetone         | - 8.01                 | 0.39 |
+| D × η corrected | - 8.39                 | 0.43 |
+
+**[Succeeding Paragraphs]**
+Table 7 MALLS and DOSY results of pMMA-pPEGMEA block copolymer samples with various degrees of polymerization
+
+[table omitted]
+
+Again, before studying the block copolymers via DOSY, we first obtained a DOSY calibration for the homopolymer pPEGMEA. All samples fall in line, and a clear calibration can be obtained; see Fig. S2. † Table 6 summarizes the calibration results for water and acetone, and the solvent-independent calibration.
+
+As mentioned, for pMMAb -pPEGMEA polymers it is more challenging to obtain a single calibration, even if the individual calibration parameters look similar. Table 7 summarizes the molecular weights obtained from MALLS and DOSY. The di ff usion coe ffi cients were measured in deuterated acetone, which is a suitable solvent for both blocks. The same polymers were also measured in deuterated chloroform, which qualitatively showed the same results (see Table S4 † ). For the DOSY data, three di ff erent calibrations were applied, that is the two individual homopolymer calibrations discussed above, and a joint calibration that is constructed from all data being fitted jointly, as given in Fig. 4.
+
+The error analysis, being the deviation between the DOSY result and the original MALLS measurement, reveals interesting insights. A pure pMMA calibration yields an overall errorprone result for the block copolymers, averaging at around 18%, but going up as high as almost 30% for individual measurements. By applying the mixed calibration as given in Fig. 4, much better results are obtained, with an average error of only 9%, when only the block copolymers are considered. Most interestingly though, the best results are obtained when a pure pPEGMEA calibration is applied: in this case, the average error amounts to only 6%.

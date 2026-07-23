@@ -1,0 +1,10 @@
+solvent,polymer,c_value,v_value,source_paper,table_name
+toluene,poly(methyl methacrylate),-8.11,0.43,2023 - A fast and efficient way of obtaining the average molecular weight of block copolymers via DOSY,table1
+benzene,poly(methyl methacrylate),-7.91,0.48,2023 - A fast and efficient way of obtaining the average molecular weight of block copolymers via DOSY,table1
+acetone,poly(methyl methacrylate),-7.74,0.44,2023 - A fast and efficient way of obtaining the average molecular weight of block copolymers via DOSY,table1
+"1,2,4-trichlorobenzene",poly(methyl methacrylate),-8.02,0.43,2023 - A fast and efficient way of obtaining the average molecular weight of block copolymers via DOSY,table1
+benzene,poly(butyl acrylate),-7.83,0.51,2023 - A fast and efficient way of obtaining the average molecular weight of block copolymers via DOSY,table3
+acetone,poly(butyl acrylate),-7.56,0.5,2023 - A fast and efficient way of obtaining the average molecular weight of block copolymers via DOSY,table3
+chloroform,poly(butyl acrylate),-7.86,0.5,2023 - A fast and efficient way of obtaining the average molecular weight of block copolymers via DOSY,table3
+water,poly(ethylene glycol) methyl ether acrylate,-8.31,0.47,2023 - A fast and efficient way of obtaining the average molecular weight of block copolymers via DOSY,table6
+acetone,poly(ethylene glycol) methyl ether acrylate,-8.01,0.39,2023 - A fast and efficient way of obtaining the average molecular weight of block copolymers via DOSY,table6

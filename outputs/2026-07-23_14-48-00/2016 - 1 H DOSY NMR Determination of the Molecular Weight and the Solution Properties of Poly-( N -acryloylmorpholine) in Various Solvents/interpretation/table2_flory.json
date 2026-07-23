@@ -1,0 +1,67 @@
+{
+  "is_flory_data": true,
+  "flory_entries": [
+    {
+      "polymer_name": "PNAM",
+      "solvent": "D2O",
+      "temperature_k": null,
+      "raw_v_value": "0.48",
+      "v_transformation": "none",
+      "v_value": 0.48,
+      "raw_c_value": "Not found",
+      "c_transformation": "Not found",
+      "c_value": "Not found"
+    },
+    {
+      "polymer_name": "PNAM",
+      "solvent": "CDCl3",
+      "temperature_k": null,
+      "raw_v_value": "0.48",
+      "v_transformation": "none",
+      "v_value": 0.48,
+      "raw_c_value": "Not found",
+      "c_transformation": "Not found",
+      "c_value": "Not found"
+    },
+    {
+      "polymer_name": "PNAM",
+      "solvent": "PBS, pH7.4",
+      "temperature_k": null,
+      "raw_v_value": "0.45",
+      "v_transformation": "none",
+      "v_value": 0.45,
+      "raw_c_value": "Not found",
+      "c_transformation": "Not found",
+      "c_value": "Not found"
+    },
+    {
+      "polymer_name": "PNAM",
+      "solvent": "D2O/MeOD 80/20",
+      "temperature_k": null,
+      "raw_v_value": "0.41",
+      "v_transformation": "none",
+      "v_value": 0.41,
+      "raw_c_value": "Not found",
+      "c_transformation": "Not found",
+      "c_value": "Not found"
+    }
+  ],
+  "calculator_calls": [
+    {
+      "expression": "log10(1.283 * 10**8) / 2.088",
+      "result": "3.8832503143558084"
+    },
+    {
+      "expression": "log10(5.154 * 10**8) / 2.096",
+      "result": "4.156557449530003"
+    },
+    {
+      "expression": "log10(1.754 * 10**8) / 2.223",
+      "result": "3.7085153346963664"
+    },
+    {
+      "expression": "log10(5.939 * 10**8) / 2.464",
+      "result": "3.5607602781156746"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+-------------- TABLE 1 EXTRACTION --------------
+**[Preceding Paragraphs]**
+-8.57
+
+Fig. 2 Di ff usion coe ffi cients determined via DOSY for pMMA standards in a series of solvents (top) and viscosity-corrected data for the same measurements (bottom).
+
+<!-- image -->
+
+Table 1 Calibration curves for pMMA in di ff erent solvents. The last line refers to a fi t of log ( D × η ) vs. log( M )
+
+**[Table Data]**
+| Sample          | lg( b ′ /m 2 s - 1 )   |    v |
+|-----------------|------------------------|------|
+| Toluene         | - 8.11                 | 0.43 |
+| Benzene         | - 7.91                 | 0.48 |
+| Acetone         | - 7.74                 | 0.44 |
+| THF             | - 8.02                 | 0.43 |
+| D × η corrected | - 8.27                 | 0.45 |
+
+**[Succeeding Paragraphs]**
+study is the highest for the high molecular weight polymers. This may be due to di ff erences in the solvent a ffi nity and hence the coil size of the polymers in each medium, as well as the variation in the processing parameters, as the experimental error generally increases with the molecular weight. Compared to the data reported by Ruzicka et al. , 19 an error with a maximum deviation of 24% was found over the same range in which our pMMA standards were measured. This di ff erence is still in an acceptable range, knowing that SEC is equally associated with an error of 10 -20%. Some more refinement might, however, be required in the future to establish a better instrument-independent calibration, as di ff erent approaches in the measurement might still cause discrepancies between labs. At this stage, it is not fully clear what causes occasional discrepancies between laboratories, yet this and other interlabora- tory exercises provide enough evidence for the hypothesis that the DOSY calibrations are independent of the field strength or the NMR manufacturer. It is more likely that di ff erences in detail in the pulse sequence are responsible, as much as the temperature for which the calibration is provided.
+
+With these data, we further tested our hypothesis of interlaboratory/inter-polymer consistency. The pMMA calibration was obtained on an NMR system in Germany and we applied this calibration to di ff usion coe ffi cients obtained in Australia for a polystyrene sample with an M n value of 18 000 g mol -1 . The di ff usion coe ffi cient of the said sample is 1.32 10 -10 m 2 s -1 . The THF pMMA calibration (Table 1) yields an estimate of 19 840 g mol -1 . This represents an error of a mere 10% and is hence equal to or better than the estimation obtained using a directly calibrated SEC system. 20 This confirms the use of a DOSY system to predict the molecular weight, independent of where a calibration was obtained and at the same time underpins that the actual type of polymer is not as important in DOSY compared to SEC.
+
+## Block copolymer pBA-pMA
+
+Next, we turned to an all-acrylate block copolymer, namely p(butyl acrylate)b -p(methyl acrylate), pBA-pMA. Homopolymer calibrations of poly(methyl acrylate), pMA, are available in the literature (lg( b ′ / m 2 s -1 ) = -7.72, v = 0.5, measured in toluene). 21,22 For the second block, poly(butyl acrylate), pBA, no DOSY calibration is available so far. Hence, we measured the di ff usion coe ffi cients of RAFT-synthesized pBA homopolymers via DOSY and calibrated against weight average molecular weight results obtained using SEC-MALLS for the same samples. Absolute molecular weights are given in Table 2 in comparison with the results typically obtained from universal calibration SEC employing MHKS values for pBA. As one can see, conventionally calibrated SEC does not perform overly well in comparison to light scattering detection. The RAFT polymerization was well controlled achieving a low dispersity (see the conventional SEC results in Table 2). Di ff erent degrees of polymerization were targeted in the range of 30 to 100. In line with all other polymers tested, the di ff usion coe ffi cients from DOSY exhibit a linear relation with the weight average molecular weight of the pBA homopolymers, obtained via SEC-MALLS. The DOSY calibration shows excellent linearity and an evenly low error in the entire covered molecular weight range. The individual di ff usion coe ffi cients and information on the RAFT polymerizations are found in the ESI. † The calibration fit results for various solvents are given in Table 3 (and plotted in Fig. S7 † ). Part of the pBA samples used for calibration were successively chain extended with pMA. This created a library of di ff erent block copolymers that can be comprehensively tested for their di ff usion coe ffi cients and DOSY calibration behaviour. The results for this series are given in Table 4 and Fig. 3. It should be noted that here (and all other instances in this work), MALLS refers to weightaverage molecular weight M w, while for DOSY it is not 100%

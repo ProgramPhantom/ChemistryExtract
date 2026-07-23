@@ -1,0 +1,30 @@
+-------------- TABLE 1 EXTRACTION --------------
+**[Preceding Paragraphs]**
+The aim of this work consisted in a comparison of different methods for the determination of the coeffi/hyphenminus cient  of  self/hyphenminusdiffusion D of  HES  macromolecules  as whole and in the determination of a functional depen/hyphenminus dence between the main MWD parameters of HESs and D .
+
+## EXPERIMENTAL
+
+The objects of study were standard HES samples (American  polymer  standards  corporation,  United States).  Their  MWD  parameters  are  presented  in Table 1. 1 H and 1 H DOSY spectra were recorded on an Agilent  DD2  NMR  System  600  NMR/hyphenminusspectrometr with  a  5/hyphenminusmm  inverse  multinuclear  sensor  equipped with a gradient coil at 300 K. The test samples in 5/hyphenminusmg portions were dissolved in 0.5 mL of D2O (Cambridge Isotope  Laboratories).  The  solutions  obtained  were 10/hyphenminusfold  diluted  with D2O to  concentrations  of  1 mg/mL and transferred into Shigemi NMR ampoules with glass plungers for the minimization of the effects of convection and pulse heterogeneity of the magnetic field gradient. The coefficients of self/hyphenminusdiffusion  were measured  using  the  DBPPSTE  sequence  (DOSY bipolar pulse pair stimulated echo) [21]. Curves of dif/hyphenminus fuse  attenuation  were  obtained  at  a  consecutive  15/hyphenminus step linear increase in the pulse amplitude of magnetic field gradient in the range 1.82-53 G/cm at diffusion times ∆ = 285 ms constant for all HESs, gradient pulse duration δ puls = 2.0 ms, and relaxation time d 1 = 5 s. The mathematical processing of the results was done using the DISCRETE method (discrete sum of expo/hyphenminus nential decays) [22], within which each curve of diffu/hyphenminus sion decay of a two/hyphenminuscomponent water-HES mixture was represented by a sum of two exponential compo/hyphenminus nents. The correlation equations were derived and sta/hyphenminus tistical parameters (coefficients of  determination, actual and table values of the Fisher F /hyphenminustest, Student t /hyphenminus test) were calculated using the MS Excel 2007 software at the significance P = 0.95 and sample size n = 12.
+
+Table 1. MWD parameters (kDa) of the studied HES samples
+
+**[Table Data]**
+| Sample    |    M p |    M w |   M n | Sample   |   M p |   M w |   M n |
+|-----------|--------|--------|-------|----------|-------|-------|-------|
+| HETA 6    |    5.5 |    6.0 |   4.0 | HETA 9   |   8.9 |   9.4 |   5.6 |
+| HETA 18   |   16.1 |   18.3 |  13.0 | HETA 60  |  52.8 |  59.7 |  38.1 |
+| HETA 88   |   80.0 |   88.0 |  55.1 | HETA 130 | 121.1 | 130.6 |  78.4 |
+| HETA 160  |  153.6 |  159.2 |  85.9 | HETA 175 | 176.1 | 206.5 |  88.9 |
+| HETA 230  |  201.0 |  229.0 | 113.8 | HETA 250 | 219.3 | 250.4 | 130.5 |
+| HETA 337  |  374.0 |  337.6 | 162.6 | HETA 380 | 330.2 | 379.8 | 178.6 |
+| HETA 460  |  396.9 |  459.4 | 188.5 | HETA 600 | 468.7 | 608.1 | 288.0 |
+| HETA 1300 | 1004.0 | 1312.0 | 690.3 |          |       |       |       |
+
+**[Succeeding Paragraphs]**
+## RESULTS AND DISCUSSION
+
+By self/hyphenminusdiffusion is meant the spatial movement of molecules in a medium under a thermodynamic equi/hyphenminus librium due to chaotic thermal movement [23]. Self/hyphenminus diffusion is characterized by the coefficient of self/hyphenminusdif/hyphenminus fusion D ,  which  is  numerically  equal  to  the  root/hyphenminus mean/hyphenminussquare  displacement  of  a  molecule  within  the diffusion time t d . In the DOSY method, the data on the value of D for  a  molecular system are obtained from the analysis of diffusion decay , the dependence of the spin echo signal amplitude on the parameters of mag/hyphenminus netic field gradient, described by the Stejskal-Tanner function [24]:
+
+$$I ( \delta _ { p u l s } , \Delta ) = I _ { 0 } \exp [ - D \gamma ^ { 2 } g ^ { 2 } \delta _ { p u l s } ^ { 2 } ( \Delta - \delta _ { p u l s } / 3 ) ] ,$$
+
+where I and I 0 are spin echo signal amplitudes in the presence and absence of a pulse of magnetic field gra/hyphenminus dient; ∆ is  diffusion time, ms; δ puls is  the duration of gradient pulse, ms; γ is the nuclear gyromagnetic ratio, Hz T -1 ; and g is magnetic field gradient, T m -1 .
