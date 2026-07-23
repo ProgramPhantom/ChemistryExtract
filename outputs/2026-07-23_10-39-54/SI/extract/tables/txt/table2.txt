@@ -1,0 +1,32 @@
+-------------- TABLE 2 EXTRACTION --------------
+**[Preceding Paragraphs]**
+## Contents
+
+[table omitted]
+
+## 1. Materials
+
+Polystyrene (PS) standards, obtained from PSS, were used to gather calibration curves in different temperatures. The molar mass range studied was 1200 to 280000 g ∙ mol -1 , Table S1 presents  all  materials  and  their M n, M w, M p  and Ð .  The  samples  were  prepared  in  a concentration of 2 mg ∙ mL -1 on toluened 8.
+
+Table S1: Polystyrene standard in a molar mass range of 1200 to 280000 g ∙ mol -1 .
+
+**[Table Data]**
+| Sample   |   M n (g ∙ mol -1 ) |   M w (g ∙ mol -1 ) |   M p (g ∙ mol -1 ) |    Ð |
+|----------|---------------------|---------------------|---------------------|------|
+| PS1200   |                1120 |                1220 |                1306 | 1.09 |
+| PS3200   |                3350 |                3510 |                3500 | 1.05 |
+| PS9k     |                8420 |                8670 |                8680 | 1.03 |
+| PS18k    |               16900 |               17300 |               17600 | 1.03 |
+| PS33k    |               32700 |               34000 |               34800 | 1.04 |
+| PS62k    |               59300 |               62500 |               66000 | 1.05 |
+| PS120k   |              120000 |              125000 |              130000 | 1.04 |
+| PS280k   |              282000 |              294000 |              304000 | 1.04 |
+
+**[Succeeding Paragraphs]**
+## 2. Diffusion-ordered NMR spectroscopy (DOSY-NMR) procedure
+
+The experiments were run in Bruker Neo nanobay NMR spectrometer with a 5 nm broadband BB-H/D probe operating at 400.14 MHz for 1 H with a ~50 G ∙ cm -1 z-gradient and a BCUII cooling unit. Samples were made up at 0.5 mL and placed in 5 mm NMR tubes. A reduced  volume  was  used  for  3  mm  NMR  tubes.  Measurements  were  conducted  in  10  K increments in the range 273-343 K. Sample were kept stationary (not rotating) throughout the measurement unless otherwise stated. The gas flow was set to 550 L ∙ h -1 to minimise convection artefacts. Samples were maintained at the desired temperature inside the magnet for at least 20 min for the sample to reach thermal equilibrium before any measurements were conducted. Measured temperature values from the thermocouple in the probehead were corrected utilising the temperature-dependent chemical shifts, of the OH group in 99.8% perdeuterated methanol. 1
+
+The bipolar pulse longitudinal eddy current delay (ledbgp2s) pulse program or the double-stimulated-echo  (dstebpgp3s)  pulse  program  were  used, 2 with  a  smoothed  square shaped (SMSQ) pulse. 3 Experiments were performed as pseudo-2D with a linear ramping of the gradient from 2 to 98% of maximum intensity in 32 steps. For each step, 8 transients were acquired  following  8  dummy  transients.  The  diffusion  time, Δ (d20),  was  100  ms,  unless otherwise stated, the spoil gradient (p19) was set to 600 µs, the recycle delay (d1) was 3 s and the eddy current delay (d21) was 5 ms. The gradient pulse length, the δ /2 (p30), was optimized on a per-sample basis, see Table S2. i
+
+The data were processed using Topspin 4.1.4 and the peak areas, I , were used to fit the  Stejskal-Tanner  formula,  Eq.  (1),  as  single-component  fits,  to  determine  the  diffusion coefficient, D , using Dynamics Center 2.8.3.

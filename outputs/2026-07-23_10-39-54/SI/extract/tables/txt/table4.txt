@@ -1,0 +1,32 @@
+-------------- TABLE 4 EXTRACTION --------------
+**[Preceding Paragraphs]**
+<!-- image -->
+
+Figure S5. Logarithmic DOSY signal intensities of the polymer signals against the square of gradient strength acquired by ledbpgp2s, no rotation of the sample (a), ledbpgp2s rotating the sample (b), ledbpgp2s using 3 mm NMR tubes (c) and dstebpgp3s no rotation and using 5 mm NMR tubes (d) in temperatures, which demonstrate convection artefacts.
+
+<!-- image -->
+
+Table S2. Gradient pulse lengths ( δ /2; p30, µs) for standard PS samples in different temperatures ( ledbpgp2s ).
+
+[table omitted]
+
+**[Table Data]**
+| Samples   |   273 K |   283 K |   293 K |   303 K |   313 K |   323 K |   333 K |   343 K |
+|-----------|---------|---------|---------|---------|---------|---------|---------|---------|
+| PS1200    |     900 |     900 |     900 |     900 |     900 |     800 |     800 |     800 |
+| PS3200    |    1000 |    1000 |    1000 |    1000 |    1000 |    1000 |    1000 |    1000 |
+| PS9k      |    1600 |    1600 |    2000 |    1600 |    1600 |    1600 |    1600 |    1400 |
+| PS18k     |    1600 |    1600 |    2000 |    1800 |    1800 |    1800 |    1600 |    1600 |
+| PS33k     |    1600 |    1600 |    2000 |    2000 |    2000 |    1800 |    1600 |    1600 |
+| PS62k     |    1600 |    2000 |    2000 |    2000 |    2000 |    1800 |    1800 |    1600 |
+| PS120k    |    2000 |    2200 |    2200 |    2200 |    2200 |    2000 |    2000 |    2000 |
+| PS280k    |    2200 |    2200 |    2200 |    2200 |    2200 |    2200 |    2200 |    2200 |
+
+**[Succeeding Paragraphs]**
+## 3. Temperature dependence of viscosity
+
+Figure S6 shows temperature dependence data of viscosity 12 (solid squares) used to build a third-order polynomial fitting function of η ( T ) ( r 2 = 0.99997). The values used in this work (open squares) were taken from this fitting function. The exact values of η used for each temperature can be checked in Table S4 (on the right).
+
+Figure S6. Viscosity ( η )  of  toluene in the function of temperature (T), where solid squares are data from the reference 12 , open squares are the temperatures used in DOSY-NMR, and the red line is 3-order polynomial fitting of the reference data.
+
+<!-- image -->

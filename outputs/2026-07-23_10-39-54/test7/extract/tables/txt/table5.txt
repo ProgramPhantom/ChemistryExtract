@@ -1,0 +1,32 @@
+-------------- TABLE 5 EXTRACTION --------------
+**[Preceding Paragraphs]**
+The di ff usion coe ffi cients of the parent pBA homopolymers and their pMA chain extensions are plotted in Fig. 3 as a function of their molecular weight as determined by MALLS. It is clearly evident that all fit very well onto a single linear fit, indicating that they follow the same molecular weight calibration, irrespective of whether they are on a homo or block copolymer calibration. Due to the variation in conversions of di ff erent polymerizations, the homopolymer pBA with a targeted degree of polymerization (DP) of 55 and the block copolymer pBAb -pMA with a targeted DP of 35 for the first block and 60 for the polymer extension have similar molecular weights and comparable di ff usion coe ffi cients. This again shows the power of this technique in which calibration curves can be used interchangeably.
+
+## pMMA-pPEGMEA block copolymer calibration
+
+pBA and pMA are relatively similar polymers and indeed, their individual calibrations are very close to each other; hence a joint calibration with a close fit between the homo and block copolymers is partly expected. Therefore, we tested a block copolymer composed of pMMA and poly(polyethylene glycol methyl ether acrylate), pPEGMEA, which is a significantly more complex case. The molecular weight of PEGMEA is 480 g mol -1 . These polymers are much more complex due to being the mixture of acrylate and methacrylate blocks, containing pendant PEG side chains. Furthermore, these block copolymers are amphiphilic and are regularly used for biomedical application. In contrast to the pMAb -pBA system, the blocks have very di ff erent solubility. PEGMEA is easily polymerized via RAFT. A reasonable progression in the molecular weight and comparatively low dispersities (for a brush polymer) were obtained (see Table 5), and the polymers obtained for a higher target DP also showed lower conversions, and hence yielded quite similar molecular weights.
+
+Table 5 MALLS and SEC results of PEGMEA samples with various DPs
+
+**[Table Data]**
+| Sample     | MALLS M w (g mol - 1 )   | SEC M w a (g mol - 1 )   |   SEC Đ |
+|------------|--------------------------|--------------------------|---------|
+| pPEGMEA15  | 6500                     | 7800                     |    1.33 |
+| pPEGMEA20  | 10 500                   | 7800                     |    1.23 |
+| pPEGMEA40  | 16 200                   | 10 100                   |    1.36 |
+| pPEGMEA60  | 19 700                   | 10 900                   |    1.37 |
+| pPEGMEA80  | 19 600                   | 11 100                   |    1.35 |
+| pPEGMEA100 | 19 800                   | 11 600                   |    1.38 |
+
+**[Succeeding Paragraphs]**
+Table 6 DOSY molecular weight calibration parameters for pPEGMEA in di ff erent solvents
+
+[table omitted]
+
+Table 7 MALLS and DOSY results of pMMA-pPEGMEA block copolymer samples with various degrees of polymerization
+
+[table omitted]
+
+Again, before studying the block copolymers via DOSY, we first obtained a DOSY calibration for the homopolymer pPEGMEA. All samples fall in line, and a clear calibration can be obtained; see Fig. S2. † Table 6 summarizes the calibration results for water and acetone, and the solvent-independent calibration.
+
+As mentioned, for pMMAb -pPEGMEA polymers it is more challenging to obtain a single calibration, even if the individual calibration parameters look similar. Table 7 summarizes the molecular weights obtained from MALLS and DOSY. The di ff usion coe ffi cients were measured in deuterated acetone, which is a suitable solvent for both blocks. The same polymers were also measured in deuterated chloroform, which qualitatively showed the same results (see Table S4 † ). For the DOSY data, three di ff erent calibrations were applied, that is the two individual homopolymer calibrations discussed above, and a joint calibration that is constructed from all data being fitted jointly, as given in Fig. 4.

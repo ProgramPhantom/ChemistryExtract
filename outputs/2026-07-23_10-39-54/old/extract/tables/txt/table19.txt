@@ -1,0 +1,78 @@
+-------------- TABLE 19 EXTRACTION --------------
+**[Preceding Paragraphs]**
+FIG.  3. Rg  as  a function of M for  PS  in THF (x -Ref.  81;  A  Ref.  82;. Ref.  65  0  Ref.  68;  · -Refs. 69  and 83).
+
+<!-- image -->
+
+FETIERS ET AL. TABLE  12.  Poly(a-methylstyrene) in cyclohexane
+
+[table omitted]
+
+TABLE 13.  Poly(a-methylstyrene) in toluene
+
+**[Table Data]**
+|   Reference | M X 10- 5 (g mol-I)   |   [1)] (cm g-I) |   Rg (nm) |   RH (nm) |   Al X 10 4 (cm 3 mol g-2) |
+|-------------|-----------------------|-----------------|-----------|-----------|----------------------------|
+|          86 | 2.04                  |            62.1 |           |           |                            |
+|             | 3.42                  |            89.5 |           |           |                            |
+|             | 4.44                  |             104 |           |           |                            |
+|             | 7.68                  |             159 |           |           |                            |
+|             | 11.9                  |             242 |           |           |                            |
+|             | 18.2                  |             317 |           |           |                            |
+|             | 33.0                  |             465 |           |           |                            |
+|             | 74.7                  |             940 |           |           |                            |
+|          95 | 0.59                  |            24.1 |           |      5.33 |                            |
+|             | 0.76                  |            28.7 |           |      6.49 |                            |
+|             | 1.18                  |            40.3 |           |      8.32 |                            |
+|             | 1.77                  |            52.2 |           |      10.1 |                            |
+|             | 3.05                  |            79.5 |           |      14.3 |                            |
+|             | 3.13                  |            82.1 |           |      14.2 |                            |
+|             | 6.65                  |             139 |           |      21.9 |                            |
+|             |                       |             170 |           |           |                            |
+|             | 9.03                  |                 |           |      26.4 |                            |
+|          91 | 2.04                  |                 |           |           |                       3.24 |
+|             | 3.42                  |                 |      22.3 |           |                       2.80 |
+|             | 4.44                  |                 |      27.0 |           |                       2.65 |
+|             | 6.94                  |                 |      34.5 |           |                       2.20 |
+|             | 11.9                  |                 |      48.0 |           |                       1.85 |
+|             | 12.4                  |                 |      45.7 |           |                       1.94 |
+|             | 14.6                  |                 |      55.4 |           |                       1.82 |
+|             | 18.2                  |                 |      63.0 |           |                       1.67 |
+|             | 33.0                  |                 |      85.6 |           |                       1.48 |
+|             | 74.7                  |                 |       137 |           |                       1.17 |
+|          96 | 0.69                  |                 |           |           |                       4.07 |
+|             | 1.14                  |                 |           |           |                       3.55 |
+|             | 2.97                  |                 |           |           |                       2.71 |
+|             | 6.11                  |                 |           |           |                       2.29 |
+|             | 7.79                  |                 |           |           |                       2.18 |
+|             | 10.5                  |                 |           |           |                       2.00 |
+|             |                       |                 |           |           |                       1.56 |
+|             | 30.0 6.51             |                 |      29.1 |           |                            |
+|             | 10.8                  |                 |      41.4 |           |                            |
+|             | 28.0                  |                 |      88.7 |           |                            |
+|          97 | 5.71                  |                 |      28.1 |      19.1 |                       2.42 |
+|             | 11.7                  |                 |      41.1 |      28.1 |                       2.00 |
+|             | 29.6                  |                 |      74.0 |      50.2 |                       1.48 |
+|          92 | 0.71                  |                 |           |      6.44 |                       4.13 |
+|             | 1.09                  |                 |           |      8.25 |                       3.78 |
+|             | 2.93                  |                 |           |      14.2 |                       2.89 |
+|             | 5.84                  |                 |           |      21.8 |                       2.30 |
+|             | 7.26                  |                 |           |      24.4 |                       2.23 |
+|             | 10.1                  |                 |           |      28.9 |                       1.98 |
+|             | 29.0                  |                 |           |      52.1 |                       1.56 |
+|          93 | 2.04                  |                 |           |      11.9 |                            |
+|             | 4.44                  |                 |           |      18.5 |                            |
+|             | 7.68                  |                 |           |      25.4 |                            |
+|             | 11.9                  |                 |           |      32.0 |                            |
+|             | 18.2                  |                 |           |      41.4 |                            |
+|             | 33.0                  |                 |           |      57.8 |                            |
+|             | 74.7                  |                 |           |      87.5 |                            |
+
+**[Succeeding Paragraphs]**
+FIG.  4. Rg  as  a function of M for  PaMS in toluene (e Ref.  91; x -Ref.  96; 0  Ref. 97)
+
+<!-- image -->
+
+## Acknowledgements
+
+We thank the Reviewers for their thorough readings  and insightful  comments.  NH  thanks  Exxon  Research  &amp;  Engi­ neering Company and Exxon Chemical Company for finan­ cial support. JSL acknowledges with gratitude support by the Diagnostic Instrumentation and Analysis Laboratory of  MSU. JWM thanks ·the  National  Science  Foundation  for  support (Grant crs-9107025. DMR and CTS Divisions) during the time this review was written. .

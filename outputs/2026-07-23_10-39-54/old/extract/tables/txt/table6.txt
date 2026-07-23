@@ -1,0 +1,48 @@
+-------------- TABLE 6 EXTRACTION --------------
+**[Preceding Paragraphs]**
+In the  good solvent cyclohexane [TIl data for  33  samples covering the molecular weight range from 4.3 X 10 4 to  1.41 X 10 7 lead to (corr. coeff. 0.9988)
+
+FETTERS ET AL.
+
+## TABLE 4.  Polyisoprene in cyclohexane
+
+BMulti-angle light scattering.
+
+**[Table Data]**
+|   Reference |   M X 10- 5 (g mol-I) |   [111 (cm g-l) |   Rs (om) | RH (run)   | A2 X 104 (cm 3 mol g-2)   |
+|-------------|-----------------------|-----------------|-----------|------------|---------------------------|
+|          31 |                 0.152 |                 |           | 3.49       | 14.5                      |
+|             |                 0.234 |                 |           | 4.42       | 12.8                      |
+|             |                 0.620 |            63.7 |           | 7.72       | 10.2                      |
+|             |                  1.01 |                 |           |            | 9.1                       |
+|             |                  1.56 |             129 |           | 13.3       | 8.0                       |
+|             |                  1.64 |                 |      19.4 |            | 7.9 a                     |
+|             |                  2.31 |                 |      24.3 |            | 7.0 8                     |
+|             |                  2.97 |                 |      26.2 |            | 6.8 8                     |
+|             |                  3.02 |             201 |           |            | 6.6                       |
+|             |                  3.16 |                 |      28.0 |            | 6.5 8                     |
+|             |                  3.50 |                 |      31.2 |            | 5.~                       |
+|             |                  5.00 |                 |      37.0 |            | 5.5 8                     |
+|             |                  5.81 |             335 |      41.0 | 28.6       | 6.5(5.5 3 )               |
+|             |                  9.20 |             466 |           | 30.3       | 5.4                       |
+|             |                  9.42 |                 |      48.0 |            | 4.7 8                     |
+|             |                  13.9 |                 |      65.0 |            | 4.6 a                     |
+|             |                  16.0 |                 |      68.0 |            | 3.7 8                     |
+|             |                  16.7 |             702 |           | 54.6       | 4.8                       |
+|             |                  34.2 |            1120 |           | ~3.0       | 4.1                       |
+|          30 |                  3.26 |             212 |      31.6 | 20.9       | 8.04                      |
+|             |                  5.68 |             333 |      43.3 | 29.3       | 7.03                      |
+|             |                  5.78 |             340 |      43.5 | 29.4       | 6.77                      |
+|             |                  24.4 |             918 |       105 | 70.0       | 4.74                      |
+|             |                  72.4 |            2174 |       210 | 140        | 4.37                      |
+
+**[Succeeding Paragraphs]**
+FIG.  2. A2  as a function  of M for  1,4-poJyisoprene in cyc10hexane (e Ref.  31 via low angle light scattering; x -Ref. 31  v-ia  multi-angle tight ~attering:
+
+<!-- image -->
+
+TABLE 5.  Polyisobutylene in benzene or isoamylisovalerate
+
+[table omitted]
+
+## 5.2.  Radius of Gyration

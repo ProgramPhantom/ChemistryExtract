@@ -1,0 +1,57 @@
+-------------- TABLE 14 EXTRACTION --------------
+**[Preceding Paragraphs]**
+TABLE 9.  Polystyrene in toluene
+
+[table omitted]
+
+FETTERS ET AL.
+
+TABLE 9.  Polystyrene in toluene  Continued
+
+[table omitted]
+
+TABLE 10.  PS in ethylbenzene
+
+**[Table Data]**
+|   Reference |   M X 10- 5 (g mol-I) |   [TI] (cm 3 g-I) |   Rg (run) |   RH (nm) |   A2 X 10 4 (cm 3 mol g-2) |
+|-------------|-----------------------|-------------------|------------|-----------|----------------------------|
+|          68 |                  0.93 |              41.5 |            |       7.8 |                            |
+|             |                  3.07 |                   |            |      14.7 |                       3.58 |
+|             |                  6.20 |                   |            |      21.5 |                       3.10 |
+|             |                  8.95 |               206 |       43.5 |      26.0 |                       2.48 |
+|             |                  18.5 |               355 |       62.0 |      40.1 |                       2.10 |
+|             |                  38.8 |               575 |       95.0 |      56.0 |                       1.70 |
+|             |                  56.3 |                   |        118 |      78.0 |                       1.61 |
+|             |                  84.6 |                   |        161 |           |                       1.40 |
+|          69 |                  84.2 |                   |        161 |       107 |                            |
+|             |                   220 |                   |        246 |       159 |                            |
+|          70 |                  37.1 |                   |       92.5 |           |                       1.74 |
+|          43 |                  0.50 |              26.1 |            |           |                            |
+|             |                  1.00 |              41.7 |            |           |                            |
+|          71 |                  6.00 |                   |       34.8 |           |                            |
+|             |                  18.0 |                   |       60.8 |           |                            |
+|          72 |                  0.50 |              26.0 |            |           |                            |
+|             |                  1.11 |              48.3 |            |           |                            |
+|             |                  2.07 |              70.3 |            |           |                            |
+|             |                  2.16 |              70.6 |            |           |                            |
+|             |                  2.54 |              84.6 |            |           |                            |
+|             |                  3.92 |               114 |            |           |                            |
+|             |                  6.75 |               163 |            |           |                            |
+|             |                  9.50 |               225 |            |           |                            |
+|             |                  13.5 |               275 |            |           |                            |
+|          73 |                 0.944 |              39.3 |            |           |                            |
+|             |                  2.16 |              69.7 |            |           |                            |
+|             |                  4.14 |               115 |            |           |                            |
+|             |                  7.57 |               178 |            |           |                            |
+|             |                  8.67 |               189 |            |           |                            |
+|             |                  13.5 |               266 |            |           |                            |
+|             |                  33.7 |               519 |            |           |                            |
+
+**[Succeeding Paragraphs]**
+## 8.  Conclusions
+
+Values  of the  hydrodynamic  and thennodynamic  proper­ ties, [11], Rg, RH and A2, have been collected for five common linear, flexible chains in theta solvents and in good solvents. It  is  believed  that  all  of the  pertinent  literature  results  on studies of  narrow polydispersity (M J  M n :!S;  1.1) chains using reliable  instrumental methods,  where  all of the  above  men­ tioned parameters are reported, have been examined. Linear power law expressions were observed for all parameters as a function  of molecular weight.  This  work  appears  to  be  the first major effort in critically analyzing such data and compil.;. , ing  the  corresponding  power  laws  for  narrow  distribution chains.
+
+Some conclusions  are  directly  obtainable  from  the  data. First, it appears that in some cases the estimated unperturbed dimensions of chains may depend on whether measurements are made on samples in solution or in the bulk99-10l.  Second, it appears  that,  in  most instances,  the  results  from  different investigators,  in  some  cases  using  different  methods,  are consistent.  For example the  results  from  photon  correlation spectroscopy  and  sedimentation velocity  provide similar diffusion coefficients and RH values. Third, in contrast to the claim  102  that the MHS relationship breaks down at very high molecular  weights (M~ 10 6 ), the  extensive  viscosity  data presented herein show no such deviations. Finally, the need for  additional  measurements  on  certain  systems  has  been noted in the text.
+
+TABLE  11.  Polystyrene in tetrahydrofuran

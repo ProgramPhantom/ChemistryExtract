@@ -1,0 +1,17 @@
+{
+  "is_flory_data": true,
+  "flory_entries": [
+    {
+      "polymer_name": "PS",
+      "solvent": "benzene",
+      "temperature_k": null,
+      "raw_v_value": "0.54",
+      "v_transformation": "none",
+      "v_value": "0.54",
+      "raw_c_value": "7.70",
+      "c_transformation": "sign_correction",
+      "c_value": "-7.70"
+    }
+  ],
+  "calculator_calls": []
+}

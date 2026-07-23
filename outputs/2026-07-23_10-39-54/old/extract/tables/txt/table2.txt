@@ -1,0 +1,30 @@
+-------------- TABLE 2 EXTRACTION --------------
+**[Preceding Paragraphs]**
+Received November 12,1993;·revised manuscript received June 24.  1994
+
+Data on hydrodynamic  and  thermodynamic properties  of several  well-defined,  linear flexible polymer chains in thermodynamically good solvents and theta solvents are tabu­ lated and critically evaluated.  The polymers considered are 1,4-polybutadiene, 1,4-poly­ isoprene,  polyisobutylene, polystyrene, and  poly(a-methylstyrene). Extensive data, ob­ tained as  a function of molecular weight, are evaluated for  the  intrinsic viscosity, radius of gyration, hydrodynamic radius, and second virial coefficient.  The resulting power law relationships between the measured properties and polymer molecular weight are reported.
+
+Key words:  hydrodynamic radius;  intrinsic viscosity;  linear polymers;  power laws;  radius of gyration;  second virial coefficient.
+
+## Contents
+
+[table omitted]
+
+**[Table Data]**
+| 12. Poly(a-methylstyrene) in cyc1ohexane. . . . . . . . .                                                                        |   636 |
+|----------------------------------------------------------------------------------------------------------------------------------|-------|
+| 13. Poly(a-methylstyrene) in toluene. . . . . . . . . . . . .                                                                    |   637 |
+| List of Figures                                                                                                                  |       |
+| 1. Intrinsic ciscosity of 1,4-polybutadiene in cyclo- hexane. .......... .......................                                 |   622 |
+| 2. Second virial coefficient of 1,4-polyisoprene in cy- clohexane. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . |   624 |
+| 3. Radius of gyration of polystyrene in tetrahydro- furan... ..... ..................... .......                                 |   635 |
+| 4. Radius of gyration of poly(a-methylstyrene) in toluene . . . . . . . . . . . . . . . • . . . . . . . . . . . . . . . . . .    |   638 |
+
+**[Succeeding Paragraphs]**
+## 1.  Introduction
+
+Properties and processing characteristics of macro­ molecules  depend  not  only  on  polymer  type  but  also  fre­ quently exhibit a strong dependence on mole~ular weight or molecular size. In many instances polymer scientists and en­ gineers  also  need  to  be  able  to  predict  molecular  size  or thermodynamic interactions as a function of  molecular weight for a given type of macromolecule. The Polymer Handbook l provides an exhaustive listing of  relationships between molecular weight and parameters such  as  intrinsic  viscosity ['l')], radius of gyration Rg,  hydrodynamic radius R H, and sec­ ond virial coefficient Az · Unfortunately, large differences fre­ quently  are  seen on comparing results reported by  different groups  for  the  same  polymer/solvent  system.  These  differ­ ences may reflect variations in polydispersity, methods used for molecular weight determination, molecular weight range investigated,  tacticity,  branching,  etc.  The  Polymer  Hand­ book l sometimes makes recommendations on preferred prop­ erty/molecular weight relationships when discrepancies exist.
+
+In  this  paper.  we  compile  and  critically  evaluate  data  on ['l')], Rg,  R H, and A2 for several·linear, flexible polymer chains in  both  "ideal"  (theta  condition)  and  thermodynamically good solvents. We restrict our attention to the relatively few polymers where complete data sets (['l')], Rg,  R H , and A 2 ) exist for well-defined, narrow molecular weight distribution mate­ rials e.g.  polybutadiene (PBD),  polyisoprene  (PI),  poly­ isobutylene (PIB), and poly(a-methylstyrene) (PaMS). When care is  taken to  exclude data which appear to be anomalous, it  is  generally  seen  that  results  from  various  groups  can be compiled to generate power law relationships of the form
+
+$$P = C M ^ { \nu } \quad \text { (1)} \quad \text { in }$$

@@ -1,0 +1,28 @@
+-------------- TABLE 1 EXTRACTION --------------
+**[Preceding Paragraphs]**
+or, in its logarithmic form, as (6)
+
+$$\log ( D ) + \log ( \eta ) = \log ( c ) - v \log ( M ) & & ( 6 ) & \text {iffer} & & \\$$
+
+Use of this form allows us to account for the solvent viscosity. A different derivation can be found in literature. Since DOSY is typically performed under highly dilute conditions (typically around 1 mgmL 1 concentrations), influences of the polymer on bulk viscosity can be largely neglected. This opens the possibility to compare DOSY mass calibrations between different solvents. SEC does not offer such a simple correlation, and comparison of SEC data obtained for different solvents is difficult, if not impossible. When analyzing the literature, it is obvious that individual diffusion coefficients can be quite different from each other
+
+Table 1: Literature data on DOSY molecular weight calibrations.
+
+**[Table Data]**
+| Polymer   |   lg(b ' /m 2 s 1 ) |    v | Solvent, ref   |
+|-----------|---------------------|------|----------------|
+| PS        |                7.70 | 0.54 | benzene, [11]  |
+| pMA       |                7.72 | 0.50 | toluene, [13]  |
+| pMMA      |                7.53 | 0.56 | CDCl 3 , [11]  |
+| dextrane  |                8.14 | 0.47 | D 2 O, [11]    |
+| pullane   |                 8.2 | 0.49 | D 2 O, [15]    |
+| PEG [a]   |                8.39 | 0.47 | D 2 O, [14]    |
+
+**[Succeeding Paragraphs]**
+Angew. Chem. Int. Ed. 2022 , 61 , e202114536 (3 of 5)
+
+<!-- image -->
+
+for given molecular weights of different polymers. This is unsurprising, as r h will depend on polymer solubility, and the specific ability of a polymer chain to coil in said solvent. On the other hand, though, it is surprising that viscosity effects seem to outweigh the solvent quality influence (see Supporting Information for a comparison of diffusion and viscositycorrected literature values). Table 1 summarizes the literature values discussed above. The variation of different polymers even across solvents is lower than what is typically found for polymers in the MHKS equation. MHKS parameters allow for correlation of hydrodynamic volumes with molecular weight, yet the same principle can be applied to DOSY (due to the resemblance of the MHKS equation to the Rouse-Zimm relation). This indicates that even when an unknown analyte is subjected to DOSY on the basis of a calibration with a different type of standard, a reasonable approximation of molecular weight can be obtained that is as accurate (or inaccurate) as a corresponding SEC analysis. Since DOSY data can be corrected for viscosity influences, it appears reasonable that DOSY can potentially even outperform classical SEC for molecular weight determination. In fact, when, for example viscosity-corrected diffusion coefficients between PMMA and aqueous solutions of PEG are compared, measurement of PEG in water evaluated on the basis of a PMMA calibration in deuterochloroform would yield an error of just 10-15% in the range of 1000 to 100000 Da (determined by the relative gap for any given molecular weight when applying the calibration of the other polymer).
+
+Literature data is, however, too scattered to allow for clear conclusions if viscosity effects are indeed sufficient to explain the differences between various solvents. ArrabalCampos et al. had previously shown that a reasonable molecular weight calibration can be obtained between different NMR solvents, yet this was only shown for two individual samples, which did not yet allow for a conclusion of broad applicability. [11b]

@@ -1,0 +1,28 @@
+-------------- TABLE 2 EXTRACTION --------------
+**[Preceding Paragraphs]**
+The results indicate that resolving the Stokes Einstein equation for two different components (solvent and polymer) in solution, can be used to determine solution viscosity in the presence of polymer. This can be used to accurately determine hydrodynamic radii of larger molar mass samples.  The  data  correction  enables  the  accurate  measurement  of polymers at a higher concentration and a higher molar mass than was previously  possible.  Depending  on  the  experimental  method  used  to determine D and η it has commonly been seen in the prior literature that the Stokes-Einstein equation can break down, with probes exhibiting significantly faster diffusion than expected from the macroscopic solution viscosity [68]. That the correction factor employed in this study at least partially overcomes this obstacle requires consideration in future work.
+
+Fig. 6. Viscosity corrected hydrodynamic radii vs molar mass of PNIPAM, PS and PMMA samples analysed in deuterated ACN (green), D2O (blue), CDCL3 (red), MeOD (orange) and deuterated DMSO (brown). (For interpretation of the references  to  colour  in  this  figure  legend,  the  reader  is  referred  to  the  Web version of this article.)
+
+<!-- image -->
+
+Table 2 Average absolute % error in apparent Hydrodynamic radii of PEG polymers compared to literature data trends varying the number of gradient steps across the DOSY measurement (i.e. measurement resolution).
+
+**[Table Data]**
+|            |   16 steps |   64 steps |
+|------------|------------|------------|
+| D 2 O      |       3.88 |       0.51 |
+| MeOD       |       18.1 |       20.2 |
+| CDCL 3     |       3.44 |       0.96 |
+| ACN-D 3    |       12.4 |       1.47 |
+| Average a  |       6.58 |       0.98 |
+| Std. Dev a |       5.06 |       0.47 |
+
+**[Succeeding Paragraphs]**
+We have demonstrated that it is inappropriate to use the viscosity of the solvent, in the absence of the solute, for measuring polymer size via diffusion and it is necessary to use the solvent-in-solution viscosity. We have determined this by measuring the changing diffusion of the solvent experimentally to provide η of the solvent in the presence of the polymer. According to the polymer/solvent free volume theories of Duda et al. For a polymer/solvent binary mixture the diffusion of the solvent in the solution (D1s) can be calculated from the diffusion of the pure solvent (Ds) via Equation (10).
+
+$$D _ { 1 S } = D _ { s } ( 1 - \varnothing ) ^ { 2 } ( 1 - 2 x \varnothing ) ^ { 2 }$$
+
+where ∅ represents the solute volume fraction and x is  the  polymer solvent interaction parameter. However if we considered the case where we approach the lower limit of concentration ∅ will tend to zero, indicating it is appropriate to consider D1S as equal to DS. This explains the accurate results previously reported in the literature for extrapolating molar  mass  of  low  concentration,  low  molar  mass  polymers  from diffusion experiments, but this will not hold true for high molar mass
+
+■

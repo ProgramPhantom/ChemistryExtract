@@ -1,0 +1,26 @@
+{
+  "is_flory_data": true,
+  "flory_entries": [
+    {
+      "polymer_name": "HES",
+      "solvent": "unknown",
+      "temperature_k": null,
+      "raw_v_value": "-1 / (-2.6136)",
+      "v_transformation": "Derived from regression slope a in log M = a log D + b (v = -1/a)",
+      "v_value": 0.3826140189776553,
+      "raw_c_value": "-(-25.154) / (-2.6136)",
+      "c_transformation": "Derived from regression intercept b in log M = a log D + b (log(b') = -b/a)",
+      "c_value": -9.62427303336394
+    }
+  ],
+  "calculator_calls": [
+    {
+      "expression": "-1 / (-2.6136)",
+      "result": "0.38261401897765535"
+    },
+    {
+      "expression": "-(-25.154) / (-2.6136)",
+      "result": "-9.624273033363943"
+    }
+  ]
+}
