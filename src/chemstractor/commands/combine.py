@@ -2,30 +2,16 @@ import os
 import sys
 import json
 import time
+import math
 from datetime import datetime
 import openpyxl
 import pandas as pd
 from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
 from openpyxl.utils import get_column_letter
-from rich.console import Console
-from rich.table import Table
-from rich.rule import Rule
-from rich.live import Live
-
-from chemstractor.lib.processor import PDFProcessor
-from chemstractor.AI import AI, pricing_matrix
-from chemstractor.lib.combiner import load_and_homogenise, sort_and_save
-
-import os
-import sys
-import json
-import time
-import openpyxl
-import pandas as pd
-import math
-from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
-from openpyxl.utils import get_column_letter
 from openpyxl.chart import LineChart, Reference, Series
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
 from rich.console import Console
 from rich.table import Table
 from rich.rule import Rule
@@ -33,6 +19,10 @@ from rich.live import Live
 from rich.progress import Progress, SpinnerColumn, BarColumn, TextColumn, TaskProgressColumn, TimeElapsedColumn, MofNCompleteColumn
 from rich.tree import Tree
 from rich.console import Group
+
+from chemstractor.lib.processor import PDFProcessor
+from chemstractor.AI import AI, pricing_matrix
+from chemstractor.lib.combiner import load_and_homogenise, sort_and_save
 
 def get_field_error(entry: dict, field_key: str) -> str:
     """Returns the failure reason for a specific field, or 'None' if no error."""
@@ -692,6 +682,265 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
     wb.save(dest_path)
 
 
+def create_plots(output_dir: str, combined_data: dict) -> list[str]:
+    """Generates publication-quality Matplotlib charts saved into a 'plots' subfolder under output_dir."""
+    plots_dir = os.path.join(output_dir, "plots")
+    os.makedirs(plots_dir, exist_ok=True)
+    
+    generated_plots = []
+    
+    # Publication-ready matplotlib aesthetic settings
+    plt.rcParams.update({
+        "font.family": "sans-serif",
+        "font.sans-serif": ["DejaVu Sans", "Arial", "Helvetica", "sans-serif"],
+        "font.size": 10,
+        "axes.titlesize": 12,
+        "axes.titleweight": "bold",
+        "axes.labelsize": 11,
+        "axes.labelweight": "medium",
+        "xtick.labelsize": 9.5,
+        "ytick.labelsize": 9.5,
+        "legend.fontsize": 9,
+        "figure.titlesize": 13,
+        "axes.edgecolor": "#2d3748",
+        "axes.linewidth": 1.0,
+        "grid.color": "#e2e8f0",
+        "grid.linestyle": "--",
+        "grid.alpha": 0.7,
+        "savefig.dpi": 300,
+        "savefig.bbox": "tight"
+    })
+    
+    flory_entries = combined_data.get("flory_entries", [])
+    mh_entries = combined_data.get("mark_houwink_entries", [])
+    failures = combined_data.get("failures", [])
+    
+    # Pre-calculate failure stats for Summary plots
+    failure_reasons_count = {}
+    total_mh_failed = 0
+    for entry in mh_entries:
+        ff = entry.get("failed_fields", "None")
+        poly = entry.get("polymer_name", "")
+        solv = entry.get("solvent", "")
+        if ff != "None" or poly == "N/A" or solv == "N/A":
+            total_mh_failed += 1
+            if ff != "None":
+                for item in ff.split(","):
+                    item_clean = item.strip()
+                    if item_clean and item_clean != "None":
+                        failure_reasons_count[item_clean] = failure_reasons_count.get(item_clean, 0) + 1
+            else:
+                if poly == "N/A":
+                    failure_reasons_count["polymer_name"] = failure_reasons_count.get("polymer_name", 0) + 1
+                if solv == "N/A":
+                    failure_reasons_count["solvent"] = failure_reasons_count.get("solvent", 0) + 1
+
+    total_flory_failed = 0
+    for entry in flory_entries:
+        ff = entry.get("failed_fields", "None")
+        poly = entry.get("polymer_name", "")
+        solv = entry.get("solvent", "")
+        if ff != "None" or poly == "N/A" or solv == "N/A":
+            total_flory_failed += 1
+            if ff != "None":
+                for item in ff.split(","):
+                    item_clean = item.strip()
+                    if item_clean and item_clean != "None":
+                        failure_reasons_count[item_clean] = failure_reasons_count.get(item_clean, 0) + 1
+            else:
+                if poly == "N/A":
+                    failure_reasons_count["polymer_name"] = failure_reasons_count.get("polymer_name", 0) + 1
+                if solv == "N/A":
+                    failure_reasons_count["solvent"] = failure_reasons_count.get("solvent", 0) + 1
+
+    paper_level_failures = 0
+    for fail in failures:
+        field = fail.get("field", "")
+        reason = fail.get("reason", "Unknown failure")
+        if field in ("Paper processing", "Mark-Houwink processing", "Flory processing"):
+            paper_level_failures += 1
+            failure_reasons_count[reason] = failure_reasons_count.get(reason, 0) + 1
+
+    total_collected = len(flory_entries) + len(mh_entries)
+    total_failures_all = total_flory_failed + total_mh_failed + paper_level_failures
+    total_successes = max(0, total_collected - (total_flory_failed + total_mh_failed))
+
+    # -------------------------------------------------------------
+    # 1. Summary: Success vs Failure Rate Donut Plot
+    # -------------------------------------------------------------
+    if total_collected > 0:
+        try:
+            fig, ax = plt.subplots(figsize=(6.5, 5), dpi=300)
+            
+            counts = [total_successes, total_failures_all]
+            labels = [f"Successful ({total_successes})", f"Failed ({total_failures_all})"]
+            colors = ["#2b6cb0", "#e53e3e"]
+            
+            if sum(counts) > 0:
+                wedges, texts, autotexts = ax.pie(
+                    counts,
+                    labels=labels,
+                    autopct="%1.1f%%",
+                    startangle=140,
+                    colors=colors,
+                    wedgeprops=dict(width=0.4, edgecolor="white", linewidth=2),
+                    pctdistance=0.75,
+                    textprops=dict(fontsize=10.5, color="#2d3748")
+                )
+                for autotext in autotexts:
+                    autotext.set_color("white")
+                    autotext.set_weight("bold")
+                    autotext.set_fontsize(11)
+                    
+                success_rate = (total_successes / total_collected * 100)
+                ax.text(
+                    0, 0, f"Success Rate\n{success_rate:.1f}%",
+                    ha="center", va="center", fontsize=13, fontweight="bold", color="#1a202c"
+                )
+                ax.set_title("Extraction & Interpretation Success Rate", pad=15)
+                
+                p1 = os.path.join(plots_dir, "summary_success_rate.png")
+                fig.savefig(p1, bbox_inches="tight")
+                generated_plots.append(p1)
+            plt.close(fig)
+        except Exception:
+            pass
+
+    # -------------------------------------------------------------
+    # 2. Summary: Failure Reasons Breakdown (Horizontal Bar Chart)
+    # -------------------------------------------------------------
+    if failure_reasons_count:
+        try:
+            fig, ax = plt.subplots(figsize=(8, 4.5), dpi=300)
+            sorted_reasons = sorted(failure_reasons_count.items(), key=lambda x: x[1])
+            reasons = [r[0] for r in sorted_reasons]
+            val_counts = [r[1] for r in sorted_reasons]
+            
+            bars = ax.barh(reasons, val_counts, color="#dd6b20", height=0.55, edgecolor="#c05621", linewidth=0.8)
+            ax.spines["top"].set_visible(False)
+            ax.spines["right"].set_visible(False)
+            ax.set_xlabel("Count of Failures")
+            ax.set_title("Failure Reasons Breakdown", pad=12)
+            ax.xaxis.grid(True, linestyle="--", alpha=0.5, color="#cbd5e0")
+            ax.set_axisbelow(True)
+            
+            max_c = max(val_counts) if val_counts else 1
+            for bar in bars:
+                w = bar.get_width()
+                ax.text(w + max_c * 0.015, bar.get_y() + bar.get_height() / 2,
+                        f"{int(w)}", va="center", ha="left", fontsize=9.5, fontweight="bold", color="#2d3748")
+                
+            p2 = os.path.join(plots_dir, "summary_failure_reasons.png")
+            fig.savefig(p2, bbox_inches="tight")
+            generated_plots.append(p2)
+            plt.close(fig)
+        except Exception:
+            pass
+
+    # Academic line plot color palette & markers
+    palette = [
+        "#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd",
+        "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf",
+        "#319795", "#d69e2e", "#805ad5", "#dd6b20", "#3182ce"
+    ]
+    markers = ["o", "s", "^", "D", "v", "P", "X", "*", "<", ">"]
+
+    # -------------------------------------------------------------
+    # 3. Flory Calibration Curves Plot
+    # -------------------------------------------------------------
+    if flory_entries:
+        try:
+            fig, ax = plt.subplots(figsize=(7.5, 5.5), dpi=300)
+            valid_flory_idx = 0
+            
+            x_vals = [3, 6]
+            for idx, entry in enumerate(flory_entries):
+                c_val = entry.get("c_value")
+                v_val = entry.get("v_value")
+                has_failed = entry.get("failed_fields", "None") != "None" or entry.get("polymer_name") == "N/A" or entry.get("solvent") == "N/A"
+                if isinstance(c_val, (int, float)) and isinstance(v_val, (int, float)) and not has_failed:
+                    y3 = c_val - v_val * 3
+                    y6 = c_val - v_val * 6
+                    
+                    label = f"{entry.get('polymer_name')} in {entry.get('solvent')}"
+                    color = palette[valid_flory_idx % len(palette)]
+                    marker = markers[valid_flory_idx % len(markers)]
+                    
+                    ax.plot(x_vals, [y3, y6], label=label, color=color, marker=marker,
+                            linewidth=2.0, markersize=6, alpha=0.9)
+                    valid_flory_idx += 1
+                    
+            if valid_flory_idx > 0:
+                ax.set_title("Flory Calibration Curves (log-log Plot)", pad=12)
+                ax.set_xlabel(r"$\log_{10}(M\ /\ \mathrm{g\ mol^{-1}})$")
+                ax.set_ylabel(r"$\log_{10}(D\ /\ \mathrm{m^2\ s^{-1}})$")
+                ax.set_xticks([3, 4, 5, 6])
+                ax.grid(True, linestyle="--", alpha=0.6, color="#cbd5e0")
+                ax.spines["top"].set_visible(False)
+                ax.spines["right"].set_visible(False)
+                
+                ax.legend(
+                    bbox_to_anchor=(1.04, 1), loc="upper left",
+                    frameon=True, facecolor="#f7fafc", edgecolor="#e2e8f0", fontsize=8.5
+                )
+                
+                p3 = os.path.join(plots_dir, "flory_calibration_curves.png")
+                fig.savefig(p3, bbox_inches="tight")
+                generated_plots.append(p3)
+            plt.close(fig)
+        except Exception:
+            pass
+
+    # -------------------------------------------------------------
+    # 4. Mark-Houwink Calibration Curves Plot
+    # -------------------------------------------------------------
+    if mh_entries:
+        try:
+            fig, ax = plt.subplots(figsize=(7.5, 5.5), dpi=300)
+            valid_mh_idx = 0
+            
+            x_vals = [3, 6]
+            for idx, entry in enumerate(mh_entries):
+                K_val = entry.get("K_value")
+                a_val = entry.get("a_value")
+                has_failed = entry.get("failed_fields", "None") != "None" or entry.get("polymer_name") == "N/A" or entry.get("solvent") == "N/A"
+                if isinstance(K_val, (int, float)) and K_val > 0 and isinstance(a_val, (int, float)) and not has_failed:
+                    log_K = math.log10(K_val)
+                    y3 = log_K + a_val * 3
+                    y6 = log_K + a_val * 6
+                    
+                    label = f"{entry.get('polymer_name')} in {entry.get('solvent')}"
+                    color = palette[valid_mh_idx % len(palette)]
+                    marker = markers[valid_mh_idx % len(markers)]
+                    
+                    ax.plot(x_vals, [y3, y6], label=label, color=color, marker=marker,
+                            linewidth=2.0, markersize=6, alpha=0.9)
+                    valid_mh_idx += 1
+                    
+            if valid_mh_idx > 0:
+                ax.set_title("Mark-Houwink Calibration Curves (log-log Plot)", pad=12)
+                ax.set_xlabel(r"$\log_{10}(M\ /\ \mathrm{g\ mol^{-1}})$")
+                ax.set_ylabel(r"$\log_{10}([\eta]\ /\ \mathrm{mL\ g^{-1}})$")
+                ax.set_xticks([3, 4, 5, 6])
+                ax.grid(True, linestyle="--", alpha=0.6, color="#cbd5e0")
+                ax.spines["top"].set_visible(False)
+                ax.spines["right"].set_visible(False)
+                
+                ax.legend(
+                    bbox_to_anchor=(1.04, 1), loc="upper left",
+                    frameon=True, facecolor="#f7fafc", edgecolor="#e2e8f0", fontsize=8.5
+                )
+                
+                p4 = os.path.join(plots_dir, "mark_houwink_calibration_curves.png")
+                fig.savefig(p4, bbox_inches="tight")
+                generated_plots.append(p4)
+            plt.close(fig)
+        except Exception:
+            pass
+
+    return generated_plots
+
+
 def combine_command(input_dir: str, output_path: str = None, cache_path: str = None, pdf_dir: str = None) -> None:
     """Executes the combine & homogenisation process across all process output folders in input_dir."""
     console = Console(file=sys.__stdout__)
@@ -881,6 +1130,10 @@ def combine_command(input_dir: str, output_path: str = None, cache_path: str = N
             
         create_combined_excel(xlsx_out, results)
         
+        # Generate publication-ready matplotlib charts in plots subfolder
+        plots_out_dir = out_dir if out_dir else input_dir
+        generated_plots = create_plots(plots_out_dir, results)
+        
     except Exception as e:
         console.print(f"[bold red]Error saving outputs: {e}[/bold red]")
         sys.exit(1)
@@ -893,6 +1146,9 @@ def combine_command(input_dir: str, output_path: str = None, cache_path: str = N
     console.print(f"[bold green]✓[/bold green] Combining process completed in [yellow]{elapsed:.2f}s[/yellow].")
     console.print(f"JSON data saved to: [cyan]{json_out}[/cyan]")
     console.print(f"Excel report saved to: [cyan]{xlsx_out}[/cyan]")
+    if generated_plots:
+        plots_folder = os.path.dirname(generated_plots[0])
+        console.print(f"Matplotlib plots saved to: [cyan]{plots_folder}[/cyan] ({len(generated_plots)} PNG charts generated)")
     console.print(f"Flory database saved to: [cyan]{output_prefix}_flory_database.pkl / .csv[/cyan]")
     console.print(f"Mark-Houwink database saved to: [cyan]{output_prefix}_mh_database.pkl / .csv[/cyan]")
     sorted_dir = os.path.join(input_dir, "sorted")
