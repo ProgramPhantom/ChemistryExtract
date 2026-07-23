@@ -370,12 +370,13 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
         ws_flory.cell(row=r, column=16, value=get_field_error(entry, "general_err")).font = val_font
         
         has_failed = entry.get("failed_fields", "None") != "None" or entry.get("polymer_name") == "N/A" or entry.get("solvent") == "N/A"
-        if c_val is not None and v_val is not None and not has_failed:
+        if isinstance(c_val, (int, float)) and isinstance(v_val, (int, float)):
             ws_flory.cell(row=r, column=17, value=f"=H{r}-J{r}*3").font = val_font
             ws_flory.cell(row=r, column=18, value=f"=H{r}-J{r}*6").font = val_font
             
-            pair = (entry.get("solvent"), entry.get("polymer_name"))
-            flory_counts[pair] = flory_counts.get(pair, 0) + 1
+            if not has_failed:
+                pair = (entry.get("solvent"), entry.get("polymer_name"))
+                flory_counts[pair] = flory_counts.get(pair, 0) + 1
             
         for c in [1, 2, 3, 4, 5, 6, 9, 11, 12, 13, 14, 15, 16]:
             cell = ws_flory.cell(row=r, column=c)
@@ -541,12 +542,13 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
         ws_mh.cell(row=r, column=16, value=get_field_error(entry, "general_err")).font = val_font
         
         has_failed = entry.get("failed_fields", "None") != "None" or entry.get("polymer_name") == "N/A" or entry.get("solvent") == "N/A"
-        if k_val is not None and isinstance(k_val, (int, float)) and k_val > 0 and isinstance(a_val, (int, float)) and not has_failed:
+        if isinstance(k_val, (int, float)) and k_val > 0 and isinstance(a_val, (int, float)):
             ws_mh.cell(row=r, column=17, value=f"=LOG10(H{r})+J{r}*3").font = val_font
             ws_mh.cell(row=r, column=18, value=f"=LOG10(H{r})+J{r}*6").font = val_font
             
-            pair = (entry.get("solvent"), entry.get("polymer_name"))
-            mh_counts[pair] = mh_counts.get(pair, 0) + 1
+            if not has_failed:
+                pair = (entry.get("solvent"), entry.get("polymer_name"))
+                mh_counts[pair] = mh_counts.get(pair, 0) + 1
             
         for c in [1, 2, 3, 4, 5, 6, 9, 11, 12, 13, 14, 15, 16]:
             cell = ws_mh.cell(row=r, column=c)

@@ -8,10 +8,6 @@ from rich.rule import Rule
 from rich.tree import Tree
 
 
-def validate_extract(output_subfolder: str, validation_subfolder: str, parent: Tree):
-    """Placeholder function for validating extraction process."""
-    node = parent.add("[bold blue]Checking extraction (not implemented)...[/bold blue]")
-    node.add("[dim]Extraction validation logic will go here.[/dim]")
 
 
 def validate_categorise(output_subfolder: str, validation_subfolder: str, parent: Tree):
@@ -136,14 +132,13 @@ def validate_summarise(output_subfolder: str, validation_subfolder: str, parent:
         matcher = difflib.SequenceMatcher(None, str1, str2)
         return matcher.ratio()
 
-    node = parent.add("[bold blue]Checking summarisation...[/bold blue]")
-
     out_sum_dir = os.path.join(output_subfolder, "summary")
     val_sum_dir = os.path.join(validation_subfolder, "summary")
 
     if not os.path.exists(out_sum_dir):
-        node.add("[red]✗[/red] Output summary folder does not exist.")
         return
+
+    node = parent.add("[bold blue]Checking summarisation...[/bold blue]")
 
     if not os.path.exists(val_sum_dir):
         node.add("[red]✗[/red] Validation summary folder does not exist.")
@@ -215,13 +210,10 @@ def run_validate_single(output_subfolder: str, validation_subfolder: str, name: 
     timer = time.time()
     tree = Tree(f"[bold green]Validating {name}[/bold green]")
     
-    # 1. Validate extract
-    validate_extract(output_subfolder, validation_subfolder, tree)
-    
-    # 2. Validate categorise
+    # 1. Validate categorise
     validate_categorise(output_subfolder, validation_subfolder, tree)
     
-    # 3. Validate summarise
+    # 2. Validate summarise
     validate_summarise(output_subfolder, validation_subfolder, tree)
     
     elapsed_time = time.time() - timer
@@ -253,8 +245,8 @@ def validate_command(output_dir: str, validation_dir: str):
         return
 
     # Determine if they are leaf run directories directly
-    out_is_leaf = os.path.exists(os.path.join(output_dir, "categorisation")) or os.path.exists(os.path.join(output_dir, "extract"))
-    val_is_leaf = os.path.exists(os.path.join(validation_dir, "categorisation")) or os.path.exists(os.path.join(validation_dir, "extract"))
+    out_is_leaf = os.path.exists(os.path.join(output_dir, "categorisation")) or os.path.exists(os.path.join(output_dir, "summary"))
+    val_is_leaf = os.path.exists(os.path.join(validation_dir, "categorisation")) or os.path.exists(os.path.join(validation_dir, "summary"))
     
     if out_is_leaf and val_is_leaf:
         # Validate directly as a single run folder
