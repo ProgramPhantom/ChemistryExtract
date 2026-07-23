@@ -89,14 +89,14 @@ def run_interpret(processor: PDFProcessor, tree: Tree, flory: bool = True, mark_
                         cost_item_str = f"; Cost: ${cost_item:.6f}"
                     tokens_str = f" [dim](tokens: {in_t} in, {out_t} out{cost_item_str})[/dim]"
                     
+                if status.startswith("Skipped"):
+                    continue
+
                 if success:
-                    if status == "Skipped (not coeff)":
-                        interpret_node.add(f"{table_name}: [blue]{status}[/blue]")
-                    else:
-                        table_node = interpret_node.add(f"{table_name}: [bold green]Interpreted[/bold green]{tokens_str}")
-                        if calc_calls:
-                            for cc in calc_calls:
-                                table_node.add(f"[yellow]Calculator Call:[/yellow] [cyan]{cc['expression']}[/cyan] -> [green]{cc['result']}[/green]")
+                    table_node = interpret_node.add(f"{table_name}: [bold green]Interpreted[/bold green]{tokens_str}")
+                    if calc_calls:
+                        for cc in calc_calls:
+                            table_node.add(f"[yellow]Calculator Call:[/yellow] [cyan]{cc['expression']}[/cyan] -> [green]{cc['result']}[/green]")
                 else:
                     table_node = interpret_node.add(f"{table_name}: [red]{status}[/red]")
                     if calc_calls:
