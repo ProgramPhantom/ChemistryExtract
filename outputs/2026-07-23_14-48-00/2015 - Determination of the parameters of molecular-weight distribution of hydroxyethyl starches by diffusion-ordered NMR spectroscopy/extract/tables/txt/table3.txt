@@ -1,0 +1,28 @@
+-------------- TABLE 3 EXTRACTION --------------
+**[Preceding Paragraphs]**
+<!-- image -->
+
+(Fig. 1). The D s and D p values for HESs with different average MWs found using the parameters of a DOSY experiment and ensuring a high resolution for the val/hyphenminus ues  of D of  branched  polysaccharides  (dextrans  and HESs) are presented in Table 2 [26, 27]. As can be seen in Table 2, in most cases D s &gt; D p .
+
+The dependences of the MWD parameters of HESs ( M w, M n , and М р ) on diffusion parameters ( D p and D s ) were  investigated  after  subdividing  the  whole  data array  for  the  studied  HES  samples  into  a  training (HETA 6, 9, 18, 60, 88, 160, 230, 250, 380, 460, 600, 1300) and a reference (HETA 130, 175, 337) sample. The  regression  equations  obtained  are  presented  in Table 3 and their graphic views, in Figs. 2 and 3. As can be seen in Table 3, both quantitative characteristics of the  processes  of  self/hyphenminusdiffusion  ( D p and D s )  correlate with all MWD parameters with a high precision: the values  of  determination  coefficients R 2 in  all  cases were close to unity . The maximum values of R 2 = 0.994 were obtained for regressions I and IV. Therefore, D p and D s best correlate with M w . For the assessment of the importance of coefficients in regression equations, we calculated the values of the Student t /hyphenminustest for each coefficient and Fischer F /hyphenminustests (T able 3). Calculations of t and F were performed using linear regression equa/hyphenminus tions  obtained  by  the  logarithmic  conversion  of  the corresponding power dependences. The plots of linear dependences logMW = a log D + b (IV-VI, Table 3) are shown in Figs. 4 and 5. The calculated values of F and t for the coefficients t a and t b were compared with the tabular values. As can be seen in Table 3, the calcu/hyphenminus lated absolute values of F , t a , and t b were considerably greater than the table ones, which is indicative of the statistical importance of coefficients in the regression equations.
+
+Table 3. Regression equations for the dependence of MWD parameters on diffusion parameters of HESs (significance value P = 0.95, sample size n = 12)
+
+**[Table Data]**
+| Regression   | MM= aD x                | logMM= a log D + b              |   R 2 |    F |   t ( a ) |   t ( b ) |
+|--------------|-------------------------|---------------------------------|-------|------|-----------|-----------|
+| I            | M w =9.5948 D p 2.614 - | log M w =-2.6136log D p -25.154 | 0.994 | 1557 |    -39.46 |    -36.44 |
+| II           | M p =9.0314 D p 2.538 - | log M p =-2.5375log D p -24.419 | 0.990 |  978 |    -31.28 |    -28.89 |
+| III          | M n =6.3558 D p 2.419 - | log M n =-2.4185log D p -23.382 | 0.992 | 1319 |    -36.31 |    -33.69 |
+| IV           | M w =10.999 D s 2.620 - | log M w =-2.6201log D s -25.154 | 0.994 | 1517 |    -38.94 |    -35.97 |
+| V            | M p =10.313 D s 2.544 - | log M p =-2.5438log D s -24.425 | 0.990 |  958 |    -30.96 |    -28.59 |
+| VI           | M n =7.2215 D s 2.423 - | log M n =-2.4232log D s -23.373 | 0.991 | 1123 |    -33.51 |    -31.09 |
+
+**[Succeeding Paragraphs]**
+F tab = 4.96, t ( a ) tab  = t ( b ) tab  = 2.22.
+
+The obtained regression  equations  for  MWD parameters versus D (I-VI, Table 3) were used for the assessment of M w , M p , M n , and M w / M n values for HES samples  in  the  reference  sampling  (Table  4).  The errors  of  calculations  were  estimated  relative  to  the experimental  values  of  MWD  parameters  found  by GPC.  As  can  be  seen  in  Table  4,  as  a  whole  we observed a good correspondence between the MWD parameters of HESs determined by GPC (Table 1) and those calculated using the proposed regression equa/hyphenminus tions within the DOSY method. Irrespectively of the method of determination of the D value of HESs ( D s or D p ),  the  correlation  between  the  calculated  MWD parameters and the experimental values was improved in the series М n ≈ M p &lt; М w . The error in the determi/hyphenminus nation of M w of HESs by the DOSY method virtually
+
+Fig.  3. Average  molecular  weights  ( 1 ) M w ,  ( 2 ) M p ,  and ( 3 ) M n  of HESs as functions of D s .
+
+<!-- image -->

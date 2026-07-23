@@ -1,0 +1,341 @@
+Running: parse_pdf
+[32m[INFO] 2026-07-23 12:04:19,025 [RapidOCR] base.py:23: Using engine_name: onnxruntime[0m
+[32m[INFO] 2026-07-23 12:04:20,194 [RapidOCR] download_file.py:60: File exists and is valid: /mnt/iusers01/fatpou01/chem02/b07755hv/.local/lib/python3.12/site-packages/rapidocr/models/PP-OCRv6_det_small.onnx[0m
+[32m[INFO] 2026-07-23 12:04:20,194 [RapidOCR] main.py:63: Using /mnt/iusers01/fatpou01/chem02/b07755hv/.local/lib/python3.12/site-packages/rapidocr/models/PP-OCRv6_det_small.onnx[0m
+[32m[INFO] 2026-07-23 12:04:26,362 [RapidOCR] base.py:23: Using engine_name: onnxruntime[0m
+[32m[INFO] 2026-07-23 12:04:26,434 [RapidOCR] download_file.py:60: File exists and is valid: /mnt/iusers01/fatpou01/chem02/b07755hv/.local/lib/python3.12/site-packages/rapidocr/models/ch_ppocr_mobile_v2.0_cls_mobile.onnx[0m
+[32m[INFO] 2026-07-23 12:04:26,434 [RapidOCR] main.py:63: Using /mnt/iusers01/fatpou01/chem02/b07755hv/.local/lib/python3.12/site-packages/rapidocr/models/ch_ppocr_mobile_v2.0_cls_mobile.onnx[0m
+[32m[INFO] 2026-07-23 12:04:26,465 [RapidOCR] base.py:23: Using engine_name: onnxruntime[0m
+[32m[INFO] 2026-07-23 12:04:27,338 [RapidOCR] download_file.py:60: File exists and is valid: /mnt/iusers01/fatpou01/chem02/b07755hv/.local/lib/python3.12/site-packages/rapidocr/models/PP-OCRv6_rec_small.onnx[0m
+[32m[INFO] 2026-07-23 12:04:27,338 [RapidOCR] main.py:63: Using /mnt/iusers01/fatpou01/chem02/b07755hv/.local/lib/python3.12/site-packages/rapidocr/models/PP-OCRv6_rec_small.onnx[0m
+
+Loading weights:   0%|          | 0/770 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/770 [00:00<01:21,  9.49it/s]
+Loading weights:   4%|4         | 31/770 [00:00<00:04, 176.48it/s]
+Loading weights:   8%|8         | 65/770 [00:00<00:02, 243.28it/s]
+Loading weights:  12%|#1        | 90/770 [00:00<00:03, 223.96it/s]
+Loading weights:  15%|#4        | 113/770 [00:00<00:03, 178.04it/s]
+Loading weights:  17%|#7        | 133/770 [00:00<00:03, 175.08it/s]
+Loading weights:  20%|#9        | 152/770 [00:00<00:04, 153.05it/s]
+Loading weights:  23%|##2       | 174/770 [00:01<00:03, 168.38it/s]
+Loading weights:  28%|##8       | 216/770 [00:01<00:02, 226.42it/s]
+Loading weights:  31%|###1      | 240/770 [00:01<00:02, 184.28it/s]
+Loading weights:  34%|###3      | 261/770 [00:01<00:04, 121.54it/s]
+Loading weights:  36%|###5      | 277/770 [00:01<00:04, 117.26it/s]
+Loading weights:  48%|####8     | 370/770 [00:01<00:01, 267.09it/s]
+Loading weights:  53%|#####2    | 408/770 [00:02<00:01, 202.09it/s]
+Loading weights:  61%|######1   | 473/770 [00:02<00:01, 277.20it/s]
+Loading weights:  70%|######9   | 536/770 [00:02<00:00, 346.30it/s]
+Loading weights:  78%|#######7  | 597/770 [00:02<00:00, 397.12it/s]
+Loading weights:  87%|########6 | 668/770 [00:02<00:00, 458.04it/s]
+Loading weights:  94%|#########3| 722/770 [00:02<00:00, 455.16it/s]
+Loading weights: 100%|##########| 770/770 [00:02<00:00, 270.64it/s]
+[transformers] Model config: pad_token_id must be `None` or an integer within the vocabulary (between 0 and 31999), got 128002. This may result in unexpected behavior.
+
+Loading weights:   0%|          | 0/471 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/471 [00:01<11:41,  1.49s/it]
+Loading weights:   0%|          | 2/471 [00:01<05:33,  1.41it/s]
+Loading weights:   1%|          | 3/471 [00:02<06:34,  1.19it/s]
+Loading weights:   3%|2         | 13/471 [00:02<00:55,  8.25it/s]
+Loading weights:   5%|5         | 24/471 [00:02<00:26, 16.77it/s]
+Loading weights:   6%|6         | 29/471 [00:03<00:22, 20.05it/s]
+Loading weights:   7%|7         | 34/471 [00:03<00:19, 22.72it/s]
+Loading weights:   8%|8         | 39/471 [00:03<00:16, 25.94it/s]
+Loading weights:  11%|#         | 51/471 [00:03<00:10, 41.89it/s]
+Loading weights:  14%|#4        | 66/471 [00:03<00:06, 63.23it/s]
+Loading weights:  17%|#6        | 79/471 [00:03<00:05, 77.43it/s]
+Loading weights:  20%|#9        | 93/471 [00:03<00:04, 92.23it/s]
+Loading weights:  23%|##2       | 107/471 [00:03<00:03, 104.31it/s]
+Loading weights:  26%|##6       | 123/471 [00:03<00:02, 117.07it/s]
+Loading weights:  29%|##9       | 137/471 [00:04<00:02, 122.07it/s]
+Loading weights:  32%|###2      | 151/471 [00:04<00:02, 125.26it/s]
+Loading weights:  36%|###5      | 168/471 [00:04<00:02, 127.65it/s]
+Loading weights:  39%|###8      | 183/471 [00:04<00:02, 128.47it/s]
+Loading weights:  42%|####1     | 197/471 [00:04<00:02, 107.12it/s]
+Loading weights:  44%|####4     | 209/471 [00:04<00:02, 108.86it/s]
+Loading weights:  48%|####7     | 224/471 [00:04<00:02, 118.77it/s]
+Loading weights:  51%|#####     | 240/471 [00:04<00:01, 127.34it/s]
+Loading weights:  54%|#####4    | 255/471 [00:04<00:01, 132.19it/s]
+Loading weights:  57%|#####7    | 269/471 [00:05<00:01, 131.18it/s]
+Loading weights:  61%|######    | 285/471 [00:05<00:01, 127.37it/s]
+Loading weights:  63%|######3   | 298/471 [00:05<00:01, 116.98it/s]
+Loading weights:  67%|######6   | 315/471 [00:05<00:01, 105.17it/s]
+Loading weights:  69%|######9   | 326/471 [00:05<00:01, 84.35it/s] 
+Loading weights:  72%|#######1  | 337/471 [00:05<00:01, 87.91it/s]
+Loading weights:  74%|#######3  | 348/471 [00:05<00:01, 91.76it/s]
+Loading weights:  77%|#######7  | 364/471 [00:06<00:01, 101.73it/s]
+Loading weights:  81%|########  | 381/471 [00:06<00:00, 110.98it/s]
+Loading weights:  84%|########3 | 394/471 [00:06<00:00, 109.98it/s]
+Loading weights:  87%|########7 | 411/471 [00:06<00:00, 117.10it/s]
+Loading weights:  91%|######### | 427/471 [00:06<00:00, 127.06it/s]
+Loading weights:  94%|#########4| 443/471 [00:06<00:00, 128.48it/s]
+Loading weights:  97%|#########7| 457/471 [00:06<00:00, 115.55it/s]
+Loading weights: 100%|#########9| 469/471 [00:07<00:00, 98.63it/s] 
+Loading weights: 100%|##########| 471/471 [00:07<00:00, 66.96it/s]
+[transformers] The tied weights mapping and config for this model specifies to tie model.text_model.embed_tokens.weight to lm_head.weight, but both are present in the checkpoints with different values, so we will NOT tie them. You should update the config with `tie_word_embeddings=False` to silence this warning.
+[transformers] Passing `generation_config` together with generation-related arguments=({'do_sample', 'max_new_tokens', 'use_cache'}) is deprecated and will be removed in future versions. Please pass either a `generation_config` object OR all generation parameters explicitly, but not both.
+Raw PDF conversion timings:
+{
+  "pipeline_total": {
+    "scope": "document",
+    "count": 1,
+    "times": [
+      27.595361331943423
+    ],
+    "start_timestamps": [
+      "2026-07-23 11:04:59.605103+00:00"
+    ]
+  },
+  "page_parse": {
+    "scope": "page",
+    "count": 5,
+    "times": [
+      0.6805156379705295,
+      0.18065526196733117,
+      0.26816257601603866,
+      0.17334686394315213,
+      0.058509524911642075
+    ],
+    "start_timestamps": [
+      "2026-07-23 11:04:59.617673+00:00",
+      "2026-07-23 11:05:00.298290+00:00",
+      "2026-07-23 11:05:00.478991+00:00",
+      "2026-07-23 11:05:00.747195+00:00",
+      "2026-07-23 11:05:00.920586+00:00"
+    ]
+  },
+  "ocr": {
+    "scope": "page",
+    "count": 5,
+    "times": [
+      0.6843683019978926,
+      0.12080778297968209,
+      17.74905712599866,
+      0.12245243496727198,
+      0.12183157401159406
+    ],
+    "start_timestamps": [
+      "2026-07-23 11:05:00.298692+00:00",
+      "2026-07-23 11:05:00.983103+00:00",
+      "2026-07-23 11:05:01.103920+00:00",
+      "2026-07-23 11:05:18.853028+00:00",
+      "2026-07-23 11:05:18.975491+00:00"
+    ]
+  },
+  "layout": {
+    "scope": "page",
+    "count": 2,
+    "times": [
+      16.262159590027295,
+      0.0915115230018273
+    ],
+    "start_timestamps": [
+      "2026-07-23 11:05:00.983188+00:00",
+      "2026-07-23 11:05:19.097553+00:00"
+    ]
+  },
+  "table_structure": {
+    "scope": "page",
+    "count": 5,
+    "times": [
+      4.9893977120518684e-05,
+      2.166798705002293,
+      0.7556313710520044,
+      2.184102777391672e-05,
+      9.097042493522167e-06
+    ],
+    "start_timestamps": [
+      "2026-07-23 11:05:17.299425+00:00",
+      "2026-07-23 11:05:19.346400+00:00",
+      "2026-07-23 11:05:21.513214+00:00",
+      "2026-07-23 11:05:22.268862+00:00",
+      "2026-07-23 11:05:22.268887+00:00"
+    ]
+  },
+  "page_assemble": {
+    "scope": "page",
+    "count": 5,
+    "times": [
+      0.0009800679981708527,
+      0.0007824359927326441,
+      0.0002909080358222127,
+      0.0002991229994222522,
+      0.0001694100210443139
+    ],
+    "start_timestamps": [
+      "2026-07-23 11:05:17.299533+00:00",
+      "2026-07-23 11:05:22.269256+00:00",
+      "2026-07-23 11:05:22.270084+00:00",
+      "2026-07-23 11:05:22.271511+00:00",
+      "2026-07-23 11:05:22.271837+00:00"
+    ]
+  },
+  "doc_assemble": {
+    "scope": "document",
+    "count": 1,
+    "times": [
+      0.025767237995751202
+    ],
+    "start_timestamps": [
+      "2026-07-23 11:05:22.272333+00:00"
+    ]
+  },
+  "reading_order": {
+    "scope": "document",
+    "count": 1,
+    "times": [
+      0.02504582901019603
+    ],
+    "start_timestamps": [
+      "2026-07-23 11:05:22.272405+00:00"
+    ]
+  },
+  "doc_enrich": {
+    "scope": "document",
+    "count": 1,
+    "times": [
+      4.902266068034805
+    ],
+    "start_timestamps": [
+      "2026-07-23 11:05:22.298169+00:00"
+    ]
+  }
+}
+All hyperlinked elements redacted in-memory.
+Clean PDF conversion timings:
+{
+  "pipeline_total": {
+    "scope": "document",
+    "count": 1,
+    "times": [
+      6.048890290083364
+    ],
+    "start_timestamps": [
+      "2026-07-23 11:05:30.436474+00:00"
+    ]
+  },
+  "page_parse": {
+    "scope": "page",
+    "count": 5,
+    "times": [
+      0.12597315199673176,
+      0.17399733001366258,
+      0.1430998200085014,
+      0.22575916396453977,
+      0.059909254079684615
+    ],
+    "start_timestamps": [
+      "2026-07-23 11:05:30.440903+00:00",
+      "2026-07-23 11:05:30.566916+00:00",
+      "2026-07-23 11:05:30.740955+00:00",
+      "2026-07-23 11:05:30.884098+00:00",
+      "2026-07-23 11:05:31.109903+00:00"
+    ]
+  },
+  "ocr": {
+    "scope": "page",
+    "count": 5,
+    "times": [
+      0.1766489289002493,
+      0.14788010204210877,
+      2.7021095940144733,
+      0.120717903948389,
+      0.11674413294531405
+    ],
+    "start_timestamps": [
+      "2026-07-23 11:05:30.567159+00:00",
+      "2026-07-23 11:05:30.743843+00:00",
+      "2026-07-23 11:05:30.891769+00:00",
+      "2026-07-23 11:05:33.593977+00:00",
+      "2026-07-23 11:05:33.714710+00:00"
+    ]
+  },
+  "layout": {
+    "scope": "page",
+    "count": 4,
+    "times": [
+      0.16111838992219418,
+      0.06990129209589213,
+      0.031246436992660165,
+      0.11039535398595035
+    ],
+    "start_timestamps": [
+      "2026-07-23 11:05:30.743967+00:00",
+      "2026-07-23 11:05:31.112792+00:00",
+      "2026-07-23 11:05:33.594103+00:00",
+      "2026-07-23 11:05:33.831635+00:00"
+    ]
+  },
+  "table_structure": {
+    "scope": "page",
+    "count": 5,
+    "times": [
+      1.8144026398658752e-05,
+      0.36529721901752055,
+      0.8256376499775797,
+      1.9986997358500957e-05,
+      7.483991794288158e-06
+    ],
+    "start_timestamps": [
+      "2026-07-23 11:05:31.112892+00:00",
+      "2026-07-23 11:05:31.250128+00:00",
+      "2026-07-23 11:05:33.652555+00:00",
+      "2026-07-23 11:05:34.478725+00:00",
+      "2026-07-23 11:05:34.478747+00:00"
+    ]
+  },
+  "page_assemble": {
+    "scope": "page",
+    "count": 5,
+    "times": [
+      0.00029190105851739645,
+      0.0003945539938285947,
+      0.0002870409516617656,
+      0.00028435594867914915,
+      0.00016233604401350021
+    ],
+    "start_timestamps": [
+      "2026-07-23 11:05:31.112985+00:00",
+      "2026-07-23 11:05:31.615555+00:00",
+      "2026-07-23 11:05:34.478895+00:00",
+      "2026-07-23 11:05:34.479229+00:00",
+      "2026-07-23 11:05:34.479538+00:00"
+    ]
+  },
+  "doc_assemble": {
+    "scope": "document",
+    "count": 1,
+    "times": [
+      0.02196480892598629
+    ],
+    "start_timestamps": [
+      "2026-07-23 11:05:34.479945+00:00"
+    ]
+  },
+  "reading_order": {
+    "scope": "document",
+    "count": 1,
+    "times": [
+      0.021428388077765703
+    ],
+    "start_timestamps": [
+      "2026-07-23 11:05:34.480003+00:00"
+    ]
+  },
+  "doc_enrich": {
+    "scope": "document",
+    "count": 1,
+    "times": [
+      1.983392097055912
+    ],
+    "start_timestamps": [
+      "2026-07-23 11:05:34.501950+00:00"
+    ]
+  }
+}
+Function parse_pdf took 216.5022 seconds to execute.
+Running: get_tables
+Function get_tables took 0.0001 seconds to execute.
+Running: get_surrounding_paragraphs
+Function get_surrounding_paragraphs took 0.0001 seconds to execute.
+PROCESSOR ERROR: Error in save_all: '/mnt/iusers01/fatpou01/chem02/b07755hv/ChemistryExtract/tests/runs/2026-07-23_14-48-00/2009 - NMR Measure of Translational Diffusion and Fractal Dimension. Application to Molecular Mass Measurement/extract/2009 - NMR Measure of Translational Diffusion and Fractal Dimension. Application to Molecular Mass Measurement.pdf' and '/mnt/iusers01/fatpou01/chem02/b07755hv/ChemistryExtract/tests/runs/2026-07-23_14-48-00/2009 - NMR Measure of Translational Diffusion and Fractal Dimension. Application to Molecular Mass Measurement/extract/2009 - NMR Measure of Translational Diffusion and Fractal Dimension. Application to Molecular Mass Measurement.pdf' are the same file

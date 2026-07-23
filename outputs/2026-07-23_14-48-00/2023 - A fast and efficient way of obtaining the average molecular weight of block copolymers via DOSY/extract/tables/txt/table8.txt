@@ -1,0 +1,34 @@
+-------------- TABLE 8 EXTRACTION --------------
+**[Preceding Paragraphs]**
+The error analysis, being the deviation between the DOSY result and the original MALLS measurement, reveals interesting insights. A pure pMMA calibration yields an overall errorprone result for the block copolymers, averaging at around 18%, but going up as high as almost 30% for individual measurements. By applying the mixed calibration as given in Fig. 4, much better results are obtained, with an average error of only 9%, when only the block copolymers are considered. Most interestingly though, the best results are obtained when a pure pPEGMEA calibration is applied: in this case, the average error amounts to only 6%.
+
+Fig. 4 Mixed DOSY calibration of pMMA homopolymers and pMMApPEGMEA block copolymers in deuterated acetone. The black line represents the best fi t with all data combined with log( D ) = -0.4355 log( M ) -7.797.
+
+<!-- image -->
+
+Table 8 MALLS and DOSY results of pBA-pPEGMEA block copolymer samples with various degrees of polymerization
+
+**[Table Data]**
+| Sample           | MALLSM w (g mol - 1 )   | DOSY MW (g mol - 1 ) (pBA)   |   Error (%) | DOSY MW (g mol - 1 ) (pPEGMEA)   |   Error (%) | DOSY Mw (g mol - 1 ) (pBA-pPEGMEA)   |   Error (%) |
+|------------------|-------------------------|------------------------------|-------------|----------------------------------|-------------|--------------------------------------|-------------|
+| pBA60            | 5400                    | 5410                         |           1 | 4020                             |          34 | 4930                                 |          19 |
+| pBA80            | 7400                    | 7370                         |           1 | 5930                             |          25 | 6900                                 |          14 |
+| pBA100           | 11 800                  | 11 820                       |           1 | 10 770                           |          10 | 11 550                               |           7 |
+| pBA60-pPEGMEA25  | 13 600                  | 14 190                       |           4 | 13 560                           |           1 | 14 100                               |           4 |
+| pBA60-pPEGMEA50  | 22 700                  | 22 900                       |           1 | 24 820                           |           9 | 23 760                               |           4 |
+| pBA60-pPEGMEA75  | 30 900                  | 29 660                       |           4 | 34 410                           |          10 | 31 500                               |           9 |
+| pBA80-pPEGMEA25  | 14 700                  | 14 310                       |           3 | 13 700                           |           7 | 14 230                               |           4 |
+| pBA80-pPEGMEA50  | 24 300                  | 21 230                       |          15 | 22 560                           |           8 | 21 890                               |           3 |
+| pBA80-pPEGMEA75  | 33 400                  | 25 960                       |          29 | 29 070                           |          15 | 27 240                               |           7 |
+| pBA100-pPEGMEA25 | 15 100                  | 14 070                       |           7 | 13 410                           |          13 | 13 960                               |           4 |
+| pBA100-pPEGMEA50 | 25 400                  | 22 410                       |          13 | 24 150                           |           5 | 23 200                               |           4 |
+| pBA100-pPEGMEA75 | 35 500                  | 27 890                       |          27 | 31 830                           |          12 | 29 450                               |           8 |
+
+**[Succeeding Paragraphs]**
+Fig. 5 Mixed DOSY calibration of pBA homopolymers and pBApPEGMEA block copolymers in deuterated acetone. The black line represents the best fi t with all data combined with log( D ) = -0.4542 log( M ) -7.750.
+
+<!-- image -->
+
+## BA-PEGMEA block copolymer calibration
+
+To see if the same trend also holds for other block copolymers, we further carried out DOSY measurements on pBAb -pPEGMEA polymers. Table 8 and Fig. 5 summarize the respective results in the same order as for pMMAb -pPEGMEA polymers. In this case, the individual homopolymer calibrations show a larger discrepancy, which is directly evidenced when examining the data shown in Table 7. With increasing content of the second monomer, the homopolymer calibration of pBA fails. While some measurements show errors of only 3 -4%, the overall average is about 11%, and as high as 30% for individual measurements. However, for the block copolymer, the mixed calibration (see Fig. S6 † ) yields the best result, with an overall low average error of 5%. The pure pPEGMEA calibration yields an average error of 9%.
