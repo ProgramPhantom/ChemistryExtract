@@ -766,38 +766,69 @@ def create_plots(output_dir: str, combined_data: dict) -> list[str]:
     total_successes = max(0, total_collected - (total_flory_failed + total_mh_failed))
 
     # -------------------------------------------------------------
-    # 1. Summary: Success vs Failure Rate Donut Plot
+    # 1. Summary: Success vs Failure Rate Donut Plot (Detailed Errors)
     # -------------------------------------------------------------
     if total_collected > 0:
         try:
-            fig, ax = plt.subplots(figsize=(6.5, 5), dpi=300)
+            fig, ax = plt.subplots(figsize=(8.0, 5.5), dpi=300)
             
-            counts = [total_successes, total_failures_all]
-            labels = [f"Successful ({total_successes})", f"Failed ({total_failures_all})"]
-            colors = ["#2b6cb0", "#e53e3e"]
+            pie_counts = []
+            pie_labels = []
+            pie_colors = []
             
-            if sum(counts) > 0:
+            # Success category
+            if total_successes > 0:
+                pie_counts.append(total_successes)
+                pie_labels.append(f"Successful ({total_successes})")
+                pie_colors.append("#2b6cb0")  # Deep blue for success
+                
+            # Failure categories broken down by reason
+            fail_palette = ["#e53e3e", "#dd6b20", "#d69e2e", "#805ad5", "#c53030", "#b7791f", "#9b2c2c", "#742a2a"]
+            
+            if failure_reasons_count:
+                sorted_reasons = sorted(failure_reasons_count.items(), key=lambda x: x[1], reverse=True)
+                for idx, (reason, count) in enumerate(sorted_reasons):
+                    pie_counts.append(count)
+                    pie_labels.append(f"Fail: {reason} ({count})")
+                    pie_colors.append(fail_palette[idx % len(fail_palette)])
+            elif total_failures_all > 0:
+                pie_counts.append(total_failures_all)
+                pie_labels.append(f"Failed ({total_failures_all})")
+                pie_colors.append("#e53e3e")
+
+            if sum(pie_counts) > 0:
+                def autopct_format(pct):
+                    return f"{pct:.1f}%" if pct >= 3.0 else ""
+
                 wedges, texts, autotexts = ax.pie(
-                    counts,
-                    labels=labels,
-                    autopct="%1.1f%%",
+                    pie_counts,
+                    autopct=autopct_format,
                     startangle=140,
-                    colors=colors,
-                    wedgeprops=dict(width=0.4, edgecolor="white", linewidth=2),
-                    pctdistance=0.75,
-                    textprops=dict(fontsize=10.5, color="#2d3748")
+                    colors=pie_colors,
+                    wedgeprops=dict(width=0.4, edgecolor="white", linewidth=1.5),
+                    pctdistance=0.75
                 )
                 for autotext in autotexts:
                     autotext.set_color("white")
                     autotext.set_weight("bold")
-                    autotext.set_fontsize(11)
+                    autotext.set_fontsize(9.5)
                     
-                success_rate = (total_successes / total_collected * 100)
+                success_rate = (total_successes / total_collected * 100) if total_collected > 0 else 0
                 ax.text(
                     0, 0, f"Success Rate\n{success_rate:.1f}%",
-                    ha="center", va="center", fontsize=13, fontweight="bold", color="#1a202c"
+                    ha="center", va="center", fontsize=12, fontweight="bold", color="#1a202c"
                 )
-                ax.set_title("Extraction & Interpretation Success Rate", pad=15)
+                ax.set_title("Extraction & Interpretation Success Rate & Error Breakdown", pad=15)
+                ax.legend(
+                    wedges, pie_labels,
+                    title="Outcome / Failure Reason",
+                    loc="center left",
+                    bbox_to_anchor=(1, 0, 0.5, 1),
+                    frameon=True,
+                    facecolor="#f7fafc",
+                    edgecolor="#e2e8f0",
+                    fontsize=9
+                )
                 
                 p1 = os.path.join(plots_dir, "summary_success_rate.png")
                 fig.savefig(p1, bbox_inches="tight")
@@ -837,13 +868,12 @@ def create_plots(output_dir: str, combined_data: dict) -> list[str]:
         except Exception:
             pass
 
-    # Academic line plot color palette & markers
+    # Academic line plot color palette
     palette = [
         "#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd",
         "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf",
         "#319795", "#d69e2e", "#805ad5", "#dd6b20", "#3182ce"
     ]
-    markers = ["o", "s", "^", "D", "v", "P", "X", "*", "<", ">"]
 
     # -------------------------------------------------------------
     # 3. Flory Calibration Curves Plot
@@ -864,10 +894,9 @@ def create_plots(output_dir: str, combined_data: dict) -> list[str]:
                     
                     label = f"{entry.get('polymer_name')} in {entry.get('solvent')}"
                     color = palette[valid_flory_idx % len(palette)]
-                    marker = markers[valid_flory_idx % len(markers)]
                     
-                    ax.plot(x_vals, [y3, y6], label=label, color=color, marker=marker,
-                            linewidth=2.0, markersize=6, alpha=0.9)
+                    ax.plot(x_vals, [y3, y6], label=label, color=color,
+                            linewidth=2.0, alpha=0.9)
                     valid_flory_idx += 1
                     
             if valid_flory_idx > 0:
@@ -911,10 +940,9 @@ def create_plots(output_dir: str, combined_data: dict) -> list[str]:
                     
                     label = f"{entry.get('polymer_name')} in {entry.get('solvent')}"
                     color = palette[valid_mh_idx % len(palette)]
-                    marker = markers[valid_mh_idx % len(markers)]
                     
-                    ax.plot(x_vals, [y3, y6], label=label, color=color, marker=marker,
-                            linewidth=2.0, markersize=6, alpha=0.9)
+                    ax.plot(x_vals, [y3, y6], label=label, color=color,
+                            linewidth=2.0, alpha=0.9)
                     valid_mh_idx += 1
                     
             if valid_mh_idx > 0:
