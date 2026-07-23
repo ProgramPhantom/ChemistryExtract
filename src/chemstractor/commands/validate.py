@@ -84,12 +84,7 @@ def validate_categorise(output_subfolder: str, validation_subfolder: str, parent
             else:
                 only_out.append((key, out_data[key]))
                 
-        total_keys = len(all_keys)
-        match_count = len(matches)
-        match_pct = (match_count / total_keys * 100) if total_keys > 0 else 0.0
-        
-        table_node.add(f"Match Percentage: [bold]{match_pct:.1f}%[/bold] ({match_count}/{total_keys} fields)")
-        
+
         if matches:
             matches_node = table_node.add("[green]Matching fields:[/green]")
             for k, val in matches:
