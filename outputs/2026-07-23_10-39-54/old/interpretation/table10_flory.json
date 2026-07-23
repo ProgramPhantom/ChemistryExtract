@@ -1,0 +1,22 @@
+{
+  "is_flory_data": true,
+  "flory_entries": [
+    {
+      "polymer_name": "Polystyrene",
+      "solvent": "cyclohexane",
+      "temperature_k": null,
+      "raw_v_value": "0.512",
+      "v_transformation": "none",
+      "v_value": 0.512,
+      "raw_c_value": "2.42e-2",
+      "c_transformation": "linear_to_log10",
+      "c_value": -1.6161846340195687
+    }
+  ],
+  "calculator_calls": [
+    {
+      "expression": "log10(2.42 * 10**-2)",
+      "result": "-1.6161846340195687"
+    }
+  ]
+}

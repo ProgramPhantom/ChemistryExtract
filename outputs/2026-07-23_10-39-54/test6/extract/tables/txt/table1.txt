@@ -1,0 +1,27 @@
+-------------- TABLE 1 EXTRACTION --------------
+**[Preceding Paragraphs]**
+<!-- image -->
+
+The individual standards showed Lorentz-type distributions, which may be expected for radical polymerizations. These distributions showed accurate average values and were wellresolved when measured using 64 gradient steps. Comparatively, the distributions were less obviously normally distributed, inaccurate, and not resolvable from each other when measured with only 16 gradient steps. Furthermore, when measured using 64 gradient steps, the mixture of the different standards in one tube showed a multi-model distribution with two distant maxima at 14 and 120 kDa, as well as a shoulder toward higher MWs. In contrast, when the number of gradient steps was lowered to 16, the mixture showed a monomodal distribution, with an average value close to the calculated number-averaged MWfrom the mixture of the five polymers.
+
+This simple test demonstrates the potential of DOSY to resolve heterogeneous distributions of polymer MW within one sample. In particular, the resolution of different MWs is much clearer for a multimodal distribution when two average MWs are further apart (i.e., 12 vs 100 kDa, or roughly one order of magnitude). This resolution implies that DOSY may be used to differentiate between high and low MW polymers of the same identity, for instance, during polymer degradation where mixed distributions of polymer chain lengths may be formed. Finally, a higher number of gradient steps may be necessary to increase the resolution for calculating the MW distributions; here, changing the number of gradient steps improved the resolution for ILT analysis but had a minimal effect on the determination of average MW values (see Supporting Information Section S7 for more information).
+
+MW Standards of Different Polymers. In the literature, polymer MWs measured using GPC are often reported relative to PS standards, even when PS is not the sample polymer of interest. Similarly, in past DOSY applications, polymer MWs have been reported relative to a limited number of polymer standards. 11,14,19 Because NMR solvents are self-contained during analysis (i.e., no solvent mobile phase required as for GPC), different solvents can be readily analyzed in the same instrument. This suggests DOSY as a generally more universal MWdetermination method as compared to GPC.
+
+**[Table Data]**
+| polymer (solvent)   | slope          | y-intercept   |   R² |
+|---------------------|----------------|---------------|------|
+| 口 PS (CDCl{3)      | -0.79 (± 0.02) | -6.47 (±0.09) | 0.99 |
+| PE (C{2D2Cl4)       | -0.51 (± 0.04) | -7.7 (±0.2)   | 0.96 |
+| O (TFA-d) PET       | (± 0.01) -0.68 | (±0.07) -7.18 | 0.99 |
+| dextran (D2O)       | -0.55 (± 0.01) | -7.84 (±0.02) | 0.99 |
+| dextran (DMSO-d₆)   | -0.55 (± 0.01) | -8.13 (±0.06) | 0.99 |
+
+**[Succeeding Paragraphs]**
+Figure 3. Relationships between measured diffusivities and weight-averaged MWs for various polymers. All standards were dissolved in the indicated deuterated solvent at concentrations of 10 mg mL -1 . Points in the plot show replicate measurements for single samples prepared per standard (each sample was measured in duplicate for dextran and PE samples or triplicate for PS and PET samples). Low measurement variability often results in overlapping symbols per sample treatment. Lines show the linear least-squared models fit to measurements, with equations and R 2 values for each model listed in the table.
+
+<!-- image -->
+
+To demonstrate the universal applicability of DOSY for MW measurement of different polymers, we determined log( D ) vs log(MW) relationships for four different polymers: three thermoplastics (PS, PE, and PET) and one polysaccharide (dextran) that we additionally analyzed in two different solvents (DMSOd 6 and D2O). The values of signal intensity versus increasing gradient strength measured for the standards of the different polymers are presented in the Supporting Information (Section S8). Figure 3 shows the measured D data plotted against reported MWs from the manufacturers of individual polymer MW standards. Included are lines showing the linear least squares regression fits of the data, as well as their equations and coefficients of determination ( R 2 ) in the table to the right of the plot.
+
+All of the log( D ) vs log(MW) relationships showed linear fits with excellent R 2 values ( ≥ 0.99 for all polymers except PE, which showed an R 2 of 0.96). Therefore, each measurement would serve as a strong calibration curve for the determination of MW for unknowns in each polymer/solvent system. Each calibration curve shows a different response of D to changes in reported MW, with different slopes and y -intercepts for each. Interestingly, two calibration curves for dextran show the same slope, but different y -intercepts, when measured in D2O or DMSOd 6 . This result implies that differences in y -intercepts are strongly influenced by the use of different solvents, which changes only the intrinsic viscosity of the solutions. On the other hand, differences in slopes for the calibration curves are more likely influenced by differences in chemical structures, which cause different diffusivities for each polymer due to their shape in solution.
