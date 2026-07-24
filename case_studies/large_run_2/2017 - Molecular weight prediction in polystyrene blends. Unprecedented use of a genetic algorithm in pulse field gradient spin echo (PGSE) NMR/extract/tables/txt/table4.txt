@@ -1,0 +1,28 @@
+-------------- TABLE 4 EXTRACTION --------------
+**[Preceding Paragraphs]**
+The second approach was based on the proportion in which the two components coexist. In this sense, the ratio between the two components of fixed diffusion coefficients (0.032 and 0.113 -10  9 m 2 s  1 ) was varied from 1 : 0.1 to 1 : 1. Fig. 4b shows the errors committed after applying diffGA on these ten mixtures. Interestingly, our method provided excellent results when the two components were at ratios higher than 1: 0.6 ( D D rel o 0.035 -10  9 m 2 s  1 ), and could not solve the mixtures at ratios below this limit.
+
+Fig. 4 Relative errors committed varying (a) the separation within diffusion coefficients on a simulated 1: 1 mixture; and (b) the relative ratio (from 1 : 0.1 to 1:1) on a simulated mixture of two components at fixed diffusion coefficients.
+
+<!-- image -->
+
+Table 4 ITAMeD and diffGA diffusion values (10  9 m 2 s  1 ) a at room temperature (294 K) for a mixture of small molecules
+
+**[Table Data]**
+| Molecule   |   D , ITAMeD |   D , diffGA |   Diff (%) |
+|------------|--------------|--------------|------------|
+| Acetone    |         2.44 |         2.59 |        5.7 |
+| Toluene    |         2.26 |         2.37 |        4.4 |
+| Chloroform |         2.41 |         2.53 |        4.7 |
+| DCM        |         2.93 |         3.07 |        4.5 |
+| DMSO       |         1.90 |         1.99 |        4.5 |
+| ACN        |         2.71 |         2.87 |        5.5 |
+
+**[Succeeding Paragraphs]**
+- a 1 HPFG-STE measurements were performed at room temperature (294 K).
+
+In order to examine the scope of our method, the sample was also used in dynamic light scattering (DLS) routine experiments on a Malvern zetasizer instrument, a technique widely used for soft matter. The software enabled collection of particle size distribution data as well as the absolute measurement of intensity. Fig. S26 (ESI † ) is the intensity size distribution obtained from the sample constituted by the three polymers in benzened 6. The analysis showed two z -average radii (the mean radius based upon the intensity of scattered light) of 27.9 and 5.1 nm. The first size fits reasonably well with the hydrodynamic radii of 34.7 nm obtained (through StokesEinstein) 1 when using the D -value of 0.0090 -10  9 m 2 s  1 for PS1020000. The second radius corresponds to the mean value of 4.5 nm, estimated from the two radii deduced for PS5950 ( r H 1.8 nm) and PS60000 ( r H 7.1 nm). This bimodal distribution confirms that DLS routine analysis is not able to find the three components, and reinforces the applicability of diffusion NMR for solving these types of blends, no matter the size of the components.
+
+It is important to mention that when discovering discrete components, the diffGA shows outstanding results, comparable to ITAMeD, and remarkably, with computational times of the order of seconds. In fact, the application of both ITAMeD 6 and diffGA, on a sample constituted of equal amounts of small molecules, provided almost equal results with differences below 5.7% (Table 4 and Fig. S18-S22, ESI † ).
+
+The successful application to discrete resonances enables the use of our diffGA in routine analysis, but no apparent advantage is observed when compared to established methods.

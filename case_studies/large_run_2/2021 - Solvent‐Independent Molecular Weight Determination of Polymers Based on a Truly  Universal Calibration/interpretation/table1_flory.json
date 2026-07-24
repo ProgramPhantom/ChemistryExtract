@@ -1,0 +1,72 @@
+{
+  "is_flory_data": true,
+  "flory_entries": [
+    {
+      "polymer_name": "PS",
+      "solvent": "benzene",
+      "temperature_k": "Not found",
+      "raw_v_value": "0.54",
+      "v_transformation": "none",
+      "v_value": 0.54,
+      "raw_c_value": "7.70",
+      "c_transformation": "sign_correction",
+      "c_value": -7.7
+    },
+    {
+      "polymer_name": "pMA",
+      "solvent": "toluene",
+      "temperature_k": "Not found",
+      "raw_v_value": "0.50",
+      "v_transformation": "none",
+      "v_value": 0.5,
+      "raw_c_value": "7.72",
+      "c_transformation": "sign_correction",
+      "c_value": -7.72
+    },
+    {
+      "polymer_name": "pMMA",
+      "solvent": "CDCl 3",
+      "temperature_k": "Not found",
+      "raw_v_value": "0.56",
+      "v_transformation": "none",
+      "v_value": 0.56,
+      "raw_c_value": "7.53",
+      "c_transformation": "sign_correction",
+      "c_value": -7.53
+    },
+    {
+      "polymer_name": "dextrane",
+      "solvent": "D 2 O",
+      "temperature_k": "Not found",
+      "raw_v_value": "0.47",
+      "v_transformation": "none",
+      "v_value": 0.47,
+      "raw_c_value": "8.14",
+      "c_transformation": "sign_correction",
+      "c_value": -8.14
+    },
+    {
+      "polymer_name": "pullane",
+      "solvent": "D 2 O",
+      "temperature_k": "Not found",
+      "raw_v_value": "0.49",
+      "v_transformation": "none",
+      "v_value": 0.49,
+      "raw_c_value": "8.2",
+      "c_transformation": "sign_correction",
+      "c_value": -8.2
+    },
+    {
+      "polymer_name": "PEG [a]",
+      "solvent": "D 2 O",
+      "temperature_k": "Not found",
+      "raw_v_value": "0.47",
+      "v_transformation": "none",
+      "v_value": 0.47,
+      "raw_c_value": "8.39",
+      "c_transformation": "sign_correction",
+      "c_value": -8.39
+    }
+  ],
+  "calculator_calls": []
+}

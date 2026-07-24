@@ -1,0 +1,30 @@
+-------------- TABLE 2 EXTRACTION --------------
+**[Preceding Paragraphs]**
+Data Acquisition and Analysis. The microcapillary method used to determine the D values was developed by Bello and co-workers. 33 The acquisition of the solutes ' elution pro fi les was described in refs 31 and 32. The data acquisition system, including the microcapillary (76.5 μ mi.d.) and variable wavelength detector, was the same as that in ref 32; wavelengths of 260 and 192 nm were used for the 1-phenylalkanes and 1alkenes, respectively. The di ff usion constants were obtained by comparing the sigmoidal elution pro fi les with those calculated using Taylor ' s theory, 34 as described in refs 29, 31, and 32. All pro fi les were taken at room temperature, which was 22.50 ± 0.50 and 25.00 ± 0.25 ° Cfor the 1-alkenes and 1-phenylalkanes, respectively. Multiple determinations of D were made for each solute -solvent pair; their average values, with uncertainties of ± 2.5%, are given in Tables 1 and 2.
+
+Table 1. Di ff usion Constants of 1-C 16 and 1-C20 in Alkanes at 22.50 ± 0.50 ° C
+
+[table omitted]
+
+Solute -Solvent Systems. The solvents for the n -alkane, 10 -27 1-alkene, 28 and 1-phenylalkane 29,30 solutes are given in Tables 3 -5, respectively, as are the temperatures at which they were studied. A temperature near (or equal to) 25 ° C was used for all solutions; the solvents ' viscosities 25,35 -39 at those temperatures are given in Tables 6 -8 and will be used when discussing our results in the sections ' Solvent Dependence of σ ' and ' Solvent-Dependent Size Parameters ' . The n -alkanes in toluene, CCl 4 , and benzene (Table 3) and the 1-alkenes in the n -alkanes (Table 4) were studied at additional temperatures; the viscosities at those temperatures 25,35 -39 are not given but were used in our analyses. The di ff usion constants in refs 10 -27 were reported from two to four signi fi cant fi gures; the average di ff erences between the experimental and calculated D values reported here are given to two signi fi cant fi gures with a third subscripted fi gure.
+
+Table 2. Di ff usion Constants of Alkylbenzenes in n -C16 at 25.0 ± 0.25 ° C
+
+**[Table Data]**
+| solute       | 10 6 D (expt), cm 2 s - 1   |
+|--------------|-----------------------------|
+| ethylbenzene | 7.76 5                      |
+| 1-C 5 Ph     | 5.91                        |
+| 1-C 8 Ph     | 4.60                        |
+| 1-C 11 Ph    | 3.78                        |
+| 1-C 14 Ph    | 3.24                        |
+| 1-C 17 Ph    | 2.95                        |
+
+**[Succeeding Paragraphs]**
+## ■ RESULTS AND DISCUSSION
+
+Hydrodynamic Bead Model. Garcia de la Torre and coworkers 6,7 calculated values of ϕ ( r ) = f t * averaged over Monte Carlo-generated polymethylene conformers at 25 ° Cwith a 500 cal mol -1 energy di ff erence between t and g rotational isomers. Hydrodynamic interactions were taken into account using a modi fi ed Oseen tensor; translation -rotation coupling was included as was excluded volume. Stokes law
+
+$$e _ { S } = f _ { i } = 6 \pi \eta \sigma$$
+
+was used as the friction coe ffi cient for the N spherical chain elements (beads) with a common hydrodynamic radius, σ , and a separation b = 1.53 Å between elements. Values of f t * were reported as a function of σ / b for 0.0654 ≤ σ / b ≤ 0.490 and 50 ≥ N ≥ 5. 6,7 We calculated di ff usion constants using values of f t * interpolated from Table 2 of ref 7 and Figure 3 of ref 6; σ / b was varied to fi nd the smallest average di ff erence between the experimental and calculated D values for a given type of solute in a given solvent. The best values of σ / b and σ were solventdependent and are given in Tables 6, 7, and 8 for the n -alkanes, 1-alkenes, and 1-phenylalkanes, respectively; the corresponding average di ff erences are given in Table 9.

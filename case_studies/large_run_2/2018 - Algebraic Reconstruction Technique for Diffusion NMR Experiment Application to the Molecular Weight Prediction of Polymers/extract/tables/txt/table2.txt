@@ -1,0 +1,26 @@
+-------------- TABLE 2 EXTRACTION --------------
+**[Preceding Paragraphs]**
+This new relation represents the fi rst calibration curve for weight-average M w prediction of poly(propylene glycol) polymers with no dependence on the solvent used. A similar curve, in this case for polystyrene polymers has been already described, in which the β value found of 0.586 suggested that both type of systems induce a similar structuring pattern of the solvent molecules over these polymer chains.
+
+In addition, to estimate the feasibility of dART, results of PDIs retrieved by the three methods, i.e. dART, ITAMeD, and TRAIn, are illustrated in Tables S5 -S7, showing similar results in all the analyzed PPG samples with di ff erence errors between 1.8 and 12.1%.
+
+The performance of our dART method was additionally analyzed by using a binary blend of monodisperse PPG polymers in benzened 6 . The results a ff orded by the others regularization methods such as ITAMeD and TRAIn are also shown for comparison issues and proves the strength of our approach regarding the accurate calculation on D-values, and eventually the correct prediction of the corresponding molecular weights. We found that the PPG mixture was wellsuited for the tests of multiexponential fi tting methods, because all the protons in the two PPG systems are no-dependent on molecular weight and resonate at the same frequency. Thus, the only way of distinguishing between them using NMR is to perform PGSE experiments and solve their di ff usion coe ffi cients. Analysis of the overall intensity attenuation showed that dART, ITAMeD, and TRAIn work excellently well (Table 2), though dART recovered both D values with the lowest errors among them, below 1.3%.
+
+## Table 2. Di ff usion Values (10 -9 m 2 s -1 ) at Room Temperature (294 K) and Di ff Errors (%) Calculated through the Di ff erent Methods
+
+**[Table Data]**
+|           |   dART |   ITAMeD |   TRAIn |
+|-----------|--------|----------|---------|
+| PPG450    | 0.7566 |   0.7124 |  0.7157 |
+| di ff (%) |    0.4 |      5.4 |     4.9 |
+| PPG5000   | 0.1806 |   0.1817 |  0.1808 |
+| di ff (%) |    1.3 |      2.4 |     1.8 |
+
+**[Succeeding Paragraphs]**
+a With respect to D-values of 0.7475 and 0.1831 × 10 -9 m 2 s -1 for PPG450 and PPG5000, respectively.
+
+Assuming the error bars on the ' true ' di ff usion coe ffi cients are of the order of 10%, there is no real di ff erence between methods. The two D-values together with the already developed calibration curve for PPG samples (Figure 5), were employed for the weight-average M w predictions. To our delight, the estimated M w compared to real values fi tted excellently well with errors below 8.0% (Table 3). On the contrary, when the predictions are intended with alternative algorithms, less accurate weights are obtained (Table S4), supporting dART as the most reliable for this speci fi c poly(propylene glycol) blend.
+
+Importantly, the time of convergence for the proposed method was evaluated. For this purpose, the data set corresponding to PPG3200 was considered. The algorithm dART allowed the fastest convergence within 0.12 s in 20 iterations, whereas ITAMeD for example, needed fi ve seconds a 1 H PFG-STE measurements were performed at room temperature (294 K). b The viscosity value employed was η 0.646 × 10 -3 kg m -1 s -1 . c Estimated via the dART calibration curve y = -0.6071 x -1.7079 ( R 1 = 0.9989). d Considering commercial values of 450 and 5000 Da.
+
+Table 3. dART Di ff usion Values (10 -9 m 2 s -1 ) a and UCCPredicted Weight-Average M w

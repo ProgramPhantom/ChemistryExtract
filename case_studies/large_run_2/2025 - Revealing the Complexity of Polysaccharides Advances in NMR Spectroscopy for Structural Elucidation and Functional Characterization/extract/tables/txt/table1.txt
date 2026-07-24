@@ -1,0 +1,25 @@
+-------------- TABLE 1 EXTRACTION --------------
+**[Preceding Paragraphs]**
+The goal of the review is to put these advances together, focusing on how magnetic resonance spectroscopy can be used to figure out the structure, conformations, and dynamics of polysaccharides. The article provides an overview of the past development and basic methods of polysaccharide research using NMR. It thoroughly studies the solution-state and solid-state NMR methodologies, showing examples of using these techniques to figure out the complex structures and functional interactions of polysaccharides. The review thoroughly examines the application of NMR in biomedicine, food, and environmental science to highlight its revolutionary impact. It also explores challenges such as signal overlap and limited sensitivity, which drive advancements in NMR spectroscopy for polysaccharide research. By analyzing the key findings, we aim to emphasize the contribution of NMR to polysaccharide research and explore future directions in the developing field.
+
+## 2. Evolution of NMR Methodologies
+
+As NMR methodologies evolved from simple 1D experiments to advanced multidimensional approaches, they became increasingly optimized for specific polysaccharide states and research requirements. Table 1 provides a unified classification of these techniques, organized by their applicability to solution- or solid-state samples, while highlighting their unique capabilities for polysaccharide characterization.
+
+Table 1. NMRtechniques in solid-state and solution-based samples for polysaccharides.
+
+**[Table Data]**
+| Sample State   | Techniques                                   | Key Features                                                                                                                                                                                                      | Optimal Applications                                                                                                                                                                                                                                   |
+|----------------|----------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Solution-state | 1D 1 H/ 13 C 2D COSY/TOCSY 2D HSQC/HMBC DOSY | Rapid chemical shift assignment; simple operation 1 H- 1 Hcoupling networks; intra-ring connectivity 1 H- 13 C correlations; glycosidic linkage mapping Diffusion-based component separation; Hydrodynamic radius | Purity assessment, monosaccharide fingerprinting (e.g., herbal polysaccharides) Homopolysaccharide validation (e.g., starch, cellulose) Heteropolysaccharide structure (e.g., microbial EPS) interactions in mixtures (e.g., pectin-protein complexes) |
+
+**[Succeeding Paragraphs]**
+Table 1. Cont.
+
+[table omitted]
+
+## 2.1. Solution-State NMR for Polysaccharides
+
+Solution-state NMR techniques have proven to be important in polysaccharide research due to their ability to provide detailed information about the molecular composition, structure, and dynamics in the solution environment. These methods allow researchers to examine complex polysaccharides without requiring crystallization, making them a great choice for studying natural heterogeneous systems. Researchers can identify glycosidic bonds, branching patterns, and correlations between atoms by employing advanced 2D NMRexperiments, including COSY, HSQC, TOCSY, and NOESY [16-18].
+
+Recently, solution-state NMR has been applied in many fields, including the characterization of microbial extracellular polysaccharides. It is also helpful for identifying bioactive polysaccharides in metabolomics. Moreover, it can be used to evaluate polysaccharide interactions in traditional drugs and food matrices [19-21]. These advances show that the latest NMR is very important in bringing together basic research and practical uses in polysaccharide science.

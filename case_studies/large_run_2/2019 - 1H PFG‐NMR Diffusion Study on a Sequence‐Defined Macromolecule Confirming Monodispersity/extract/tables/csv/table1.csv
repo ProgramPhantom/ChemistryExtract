@@ -1,0 +1,14 @@
+,Parameter,PFG-STE,β -PFG-SE
+0,"Gradient pulse duration, δ [ms]",2,2
+1,"Maximum gradient amplitude, g max [Tm - 1 ]",3,3
+2,Gradient pulse stabilization time [ms],1,1
+3,Number of gradient steps,32,32
+4,"Diffusion time, ∆ [ms]",40,40
+5,"Delay between the first 2 RF pulses, τ [ms]",4.16,-
+6,"Repetition time, T R [s]",11,0.59
+7,Number of scans,128,128
+8,Number of dummy scans,2,4
+9,"Excitation pulse, a) P 1 [ µ s]",8.3 (90 ° ),3 ( β = 23 ° )
+10,"180 ° pulse, P 2 [ µ s]",-,24
+11,Spoiler gradient duration [ms],2,-
+12,Spoiler gradient amplitude [Tm - 1 ],0.083,-

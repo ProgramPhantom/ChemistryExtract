@@ -1,0 +1,36 @@
+-------------- TABLE 5 EXTRACTION --------------
+**[Preceding Paragraphs]**
+Table 3. n -Alkane Solutes and Their Solvents
+
+[table omitted]
+
+a The D value for 6 is the average of the values from ref 11; the rest are from ref 12. b The D value for 18 is from ref 13; that for 16 is from ref 14; those for 14, 12, and 10 are from ref 15; that for 8 is from ref 16; that for 7 is from ref 17; and that for 6 is the average of those from ref 13. c The D value for 8 is the average of the values in refs 18 -21; that for 12 is from ref 19; that for 14 is from ref 15; and those for 16, 24, and 32 are from ref 12. d The D value for 7 is from ref 15; the D value for 16 is from ref 11. e The D value for 6 is from 22, that for 7 is from ref 15, those for 8 and 18 are from ref 19, that for 12 is the average of the values in refs 23 and 18, and the value for 16 is from ref 12. f The D values for 7 and 8 are from ref 15. g The D values for 6, 7, and 8 are from ref 12; those for 10 and 12 are from ref 11; and that for 16 is the average of the values in refs 23 and 24. h All D values are from ref 25. i All D values are from ref 26. j All D values are from ref 10. k The D values for 28 and 32 are from ref 27; all others are from ref 11.
+
+Table 4. 1-Alkene Solutes and Their Solvents
+
+[table omitted]
+
+Table 5. 1-Phenylalkane Solutes and Their Solvents
+
+**[Table Data]**
+| solvent   | i for 1-C i Ph solutes            |   T ( ° C) |
+|-----------|-----------------------------------|------------|
+| n -C 9    | 17, 14, 11, 8, 5                  |       24.0 |
+| n -C 10   | 17, 14, 11, 8, 5                  |       23.5 |
+| n -C 12   | 17, 14, 11, 8, 5                  |       20.5 |
+| n -C 15   | 17, 14, 13, 12, 11, 9, 8, 7, 6, 5 |       24.5 |
+| n -C 16   | 17, 14, 11, 8, 5                  |       25.0 |
+| HPMN      | 17, 14, 11, 8, 5                  |       21.0 |
+| pristane  | 17, 14, 11, 8, 5                  |       25.5 |
+| squalane  | 17, 14, 13, 12, 11, 9, 8, 7, 6, 5 |       23.0 |
+
+**[Succeeding Paragraphs]**
+a The D values in n -C16 are from this work; those in n -C9, n -C10 , and n -C12 are from ref 29; and those in n -C15 , HPMN, pristane, and squalane are from ref 30.
+
+While the terminal groups of the 1-alkenes and 1-phenylalkanes are obviously di ff erent from the n -alkanes ' methyl groups, we found an average di ff erence of 1.88% for these solutes ' 76 di ff usion constants by assuming that the 1phenylalkanes ' phenyl ring and the 1-alkenes ' double bond added a single equivalent element to their chains of n c sp 3 carbon atoms ( N = n c + 1); solutes with n c ≥ 5 were considered with 17 ≥ n c ≥ 5 for the 1-phenylalkanes and 18 ≥ n c ≥ 6 for the 1-
+
+## Table 6. Values of the Solvents ' Viscosities, σ / b , σ , and c β for n -Alkane Solutes
+
+[table omitted]
+
+a See Table 3 for the list of solutes. b If the D values were analyzed at more than one temperature in a given solvent (see Table 3), the temperature closest to (if not at) 25 ° C and the corresponding viscosity are given. c Values of σ for b = 1.53 Å. d From ref 46 for benzene and CCl4 at 25 ° C, decalin and tetralin at 22.2 ° C. e From ref 35. f Viscosities for toluene, benzene, and CCl 4 at all temperatures in Table 3 are from ref 36. g From ref 25.

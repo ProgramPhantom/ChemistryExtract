@@ -1,0 +1,6 @@
+,D /m 2  s -1,Error,
+0,5.91 E-11,2.57E-12,
+1,log( D /m 2  s -1 ),log( M / g  mol -1 ),Error
+2,-10.23,4.09,0.02
+3,log( D /m 2  s -1 ) + log( / mPa  s),log( M / g  mol -1 ),Error
+4,-10.13,4.09,0.02

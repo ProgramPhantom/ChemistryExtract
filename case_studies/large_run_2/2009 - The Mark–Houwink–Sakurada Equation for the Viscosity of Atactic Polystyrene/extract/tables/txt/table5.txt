@@ -1,0 +1,38 @@
+-------------- TABLE 5 EXTRACTION --------------
+**[Preceding Paragraphs]**
+It has been noted by Spychaj et  al. 25 that the contamina­ tion of  THF with water lowers the viscosity values substan­ tially and the mixture behaves as a theta solvent. For a sam- . pIe of  2  X 10 6 molecular weight, tne viscosity decreased to as little as one-third of  the original value at a water content of 8%.
+
+## 2.5. o-Dichlorobenzene
+
+Several workers employ o-dichlorobenzene instead of 1,2,4-trichlorobenzene as the solvent for polyethylene in size exclusion  chromatography  and  thus  require  the  Mark­ Houwink relation for polystyrene in this solvent for calibra­ tion. The best available data are those of  Dawkins and Mad­ doek,26 who did not measure the molecular weights of the polystyrene directly but depended on the supplier's values.
+
+TADLn 4. Mark-Houwink constants for infrequently used :solvents
+
+**[Table Data]**
+| Solvent Author         | TiC                  | K/ (1O- 3 mL/g)      | a                    | Range                | Ref.                 |
+|------------------------|----------------------|----------------------|----------------------|----------------------|----------------------|
+| Dichloroethane         |                      |                      |                      |                      |                      |
+| Outer, Carr, and Zimm  | 22                   | 0.21                 | 0.66                 | 3 000-1.7X l(f       | 27                   |
+| Nakata                 | 35                   | 14.3                 | 0.69                 | 44 000-4.2X 1<f      | 17                   |
+| Chloroform             |                      |                      |                      |                      |                      |
+| Oth and Desreux        | 25                   | 7.16                 | 0.76                 | 115000-2.8X 10 6     | 16                   |
+| Bawnetal.              | 25                   | 11.2                 | 0.73                 | 72 000-1.8X1<f       | 9                    |
+| Dioxane                |                      |                      |                      |                      |                      |
+| Bianchi et al.         | 34                   | 15                   | 0.694                | 10 000-685 000       | 29                   |
+| N,N-dimethyl"formamide |                      |                      |                      |                      |                      |
+| Tsimpris et aJ.        | 25-45                | 31.8                 | 0.603                | 10 000-864 000       | 30                   |
+| Ethyl benzene          |                      |                      |                      |                      |                      |
+| Bawnetal.              | 25                   | 17.6                 | 0.68                 | 72 000-1.5X10 6      | 9                    |
+| N-methyl pyrrolidone   | N-methyl pyrrolidone | N-methyl pyrrolidone | N-methyl pyrrolidone | N-methyl pyrrolidone | N-methyl pyrrolidone |
+| Peureux and Lochon     | 85                   | 12                   | 0.72                 | 20000-2X 10 6        | 31                   |
+| Tetrachloroethane      | Tetrachloroethane    | Tetrachloroethane    | Tetrachloroethane    | Tetrachloroethane    | Tetrachloroethane    |
+| Peureux and Lochon     | 50 .                 | 11.5                 | 0.73                 | 20 000-2X 10 6       | 31                   |
+
+**[Succeeding Paragraphs]**
+FIG. 4.Log limiting viscosity number  vs log molecular weight of  polystyrene in butanone. Solid line, labeled 1, are data of  Outer, Carr and Zimm (Ref.  27).  Data of Nakata (Ref.  17), labeled 6,  are shown as dotted line. Data  ofBawn et  al. (Ref. 9), Oth  and  Desreux (Ref. 16), Oyama et al. (Ref. 28), and Bianchi et al. (Ref. 29) are shown as dashed lines.
+
+<!-- image -->
+
+They obtained
+
+$$[ \eta ] = 1 3 . 8 \times 1 0 ^ { - 3 } \, M ^ { 0 . 7 } \, \ m L / g \, a t \, 1 3 8 \, \mathcal { C } ,$$

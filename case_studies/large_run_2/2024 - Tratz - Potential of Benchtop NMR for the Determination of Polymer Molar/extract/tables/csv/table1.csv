@@ -1,0 +1,6 @@
+,Method/fit,M w [g · mol - 1 ],M n [g · mol - 1 ],Ð,Advantages,Drawbacks
+0,SEC,123 000,117 000,1.05,"distribution directly accessible from chromatogram, robust and simple data evaluation","frequent recalibration necessary, results depend on column quality"
+1,NMR-monoexp.,117 000,117 000,1.00,"simple and fast, numerically stable",no distribution information
+2,NMR-biexp.,117 000,117 000,1.00,"simple and fast, numerically stable, determination of 2 D s and weight fractions possible in bimodal samples","limited information about the distribution, especially for narrow distributions numerically ill defined"
+3,NMR-log-normal,148 000,128 000,1.16,"analytically solvable, distributions available","number of components must be known, specific distribution shape is assumed, high standard deviations related to the determination of Ð of narrowly dispersed samples"
+4,NMR-ILT,116 000,113 000,1.03,"distribution available, no assumption about distribution shape, regularization techniques possible","ill-posed problem, numerically unstable, and appearance of artifacts possible, dependent on ILT digitization and regularization parameters"

@@ -1,0 +1,43 @@
+-------------- TABLE 2 EXTRACTION --------------
+**[Preceding Paragraphs]**
+The NMR data is consistent with the reference data across a broad range of molar masses (10k to 500k) with deviations lower than 14 % for both the ILT and the monoexponential fit. To estimate the reproducibility of the molar mass determination sample PS123k was measured three times on three different days using both NMR and SEC. The coefficient of variation for NMR-ILT measurements was between 3 and 13 % for M w , M n , and Ð , showing a reproducibility slightly worse than for SEC measurements (1-7 %) or M w calculations with a monoexponential fit (4 %). Discrepancies between the results derived with ILT and the reference data may occur due to the limited number of data points www.advancedsciencenews.com www.mrc-journal.de describing the distributions' shape and the fact that performing an ILT is a mathematically ill-posed problem as previously mentioned. [27] For sample PS931k the M w determined with ILT deviated from the reference M w by ≈ 33 %, while the deviation for the monoexponential fit was below 1 %. This discrepancy may be attributed to an insufficient signal decay, as PS931k I / I 0 decayed only to 0.2, resulting in limited data points for stronger gradients and leading to an inaccurate determination of the distribution. Since the diffusion parameters Δ and /u1D6FF have already been maximized for the molar mass range investigated here, as discussed in Section 3.1, stronger field gradients in the spectrometer would be necessary to extend the limits of accurate determination of MMDs toward even higher molar masses. The M w calculation using a monoexponential fit is nevertheless sufficiently precise, given that the M w calibration was performed with a monoexponential fit, averaging any deviations resulting from a weaker signal decay. Furthermore, the data quality has smaller effects on the calculation with a monoexponential fit as this method is reduced to only one degree of freedom.
+
+<!-- image -->
+
+<!-- image -->
+
+Table 2. Average molar masses of PS samples obtained with PFGSTE-NMR using the monoexponential fit or an inverse Laplace transformation (ILT). Relative differences between these and reference values from SEC, rel.diff., are listed in italics on the right of the corresponding NMR values.
+
+**[Table Data]**
+| Sample   | Method         | M w [g · mol - 1 ]   | Rel. Diff. [%]   | M n [g · mol - 1 ]   | Rel. Diff. [%]   |    Ð |
+|----------|----------------|----------------------|------------------|----------------------|------------------|------|
+| PS10k    | SEC            | 9 460                | -                | 9 220                | -                | 1.03 |
+|          | NMR / monoexp. | 9 790                | 3.49             | 9 790                | 6.18             | 1.00 |
+|          | NMR / ILT      | 9 720                | 2.75             | 9 624                | 4.38             | 1.01 |
+| PS17k    | SEC            | 17 300               | -                | 16 900               | -                | 1.03 |
+|          | NMR / monoexp. | 17 000               | - 1.73           | 17 000               | 0.59             | 1.00 |
+|          | NMR / ILT      | 19 000               | 9.83             | 18 700               | 10.65            | 1.02 |
+| PS63k    | SEC            | 62 600               | -                | 58 500               | -                | 1.03 |
+|          | NMR / monoexp. | 61 200               | - 2.24           | 61 200               | 4.62             | 1.00 |
+|          | NMR / ILT      | 63 700               | 1.76             | 61 400               | 4.96             | 1.04 |
+| PS123k   | SEC            | 123 000              | -                | 117 000              | -                | 1.05 |
+|          | NMR / monoexp. | 117 000              | - 4.88           | 117 000              | 0.00             | 1.00 |
+|          | NMR / ILT      | 116 000              | - 5.69           | 113 000              | - 3.41           | 1.03 |
+| PS271k   | SEC            | 271 000              | -                | 260 000              | -                | 1.04 |
+|          | NMR / monoexp. | 244 000              | - 9.96           | 244 000              | - 6.15           | 1.00 |
+|          | NMR / ILT      | 269 000              | - 0.74           | 256 000              | - 1.54           | 1.05 |
+| PS516k   | SEC            | 516 000              | -                | 451 000              | -                | 1.14 |
+|          | NMR / monoexp. | 445 000              | - 13.76          | 445 000              | - 1.33           | 1.00 |
+|          | NMR / ILT      | 510 000              | - 1.16           | 473 000              | 4.88             | 1.08 |
+| PS931k   | SEC            | 931 000              | -                | 790 000              | -                | 1.18 |
+|          | NMR / monoexp. | 938 000              | 0.64             | 938 000              | 18.61            | 1.00 |
+|          | NMR / ILT      | 1 240 000            | 33.19            | 985 000              | 24.68            | 1.26 |
+
+**[Succeeding Paragraphs]**
+## 3.3. Molar Mass Determination for Bimodal Samples and Copolymers
+
+## 3.3.1. Bimodal Polystyrene (PS) Samples
+
+A challenge in PFG NMR is to differentiate the diffusion coefficients of several polymers whose NMR signals partially or completely overlap. Signal overlap in complex mixtures leading to incomplete spectral resolution is often a problem, especially at low-fields. For homogeneous, monomodal samples the average diffusion coefficient D , extracted with a monoexponential fit is relevant to represent the whole sample. However, for polymers overlapping in their chemical shifts, this approach would yield an intermediate diffusion coefficient between those of the overlapping analytes. The approach of the ILT can resolve two or more D s. [ 37] Furthermore, a biexponential fit can model a twocomponent polymer solution, each polymer having a certain molar mass and weight fraction. [ 24,36]
+
+The potential to measure the distinct D s of a mixture of homopolymers of the same chemical nature with a low-field NMR spectrometer was assessed by measuring blends of two PS samples with different molar masses in different weight fractions ( Table 3 ). Both a biexponential fit and the ILT were used to determine M w values and weight fractions. Additionally, SEC measurements were conducted for comparison. The Stejskal-Tanner log-plot of a blend of PS271k/PS10k with equal weight fractions clearly displays a superposition of two exponential decays ( Figure 4 a). The first part of the curve (A) shows a steeper signal decay caused by the smaller and faster diffusing molecules (PS10k), while the second part (B) shows the decay of the slower diffusing, higher molar mass PS271k. The spectra were recorded using the same parameters as described in Section 3.1, except for the step number which was increased to 128 to obtain a sufficient number of NMR data points. This is necessary for the accurate calculation of the diffusion coefficient of the faster decaying molecule, which is represented in the shorter part A of the signal decay. The DCD and MMD also could be determined by using the ILT. When two separate peaks with similar areas are plotted on a semi-logarithmic graph, the peaks at larger D s show smaller www.advancedsciencenews.com peak areas and vice versa. As described in the literature P ( D ) d D = P ( D ) D d(ln D ) and therefore D · P ( D ) is plotted. [ 27,37] The DCDs were scaled to the integrals while the MMDs were scaled to the maximum peak height and compared with the MMDs obtained with SEC (see DCDs and MMDs in Figure 4b,c for PS271k/PS10k with equal weight fractions, and Figures S14 and S15, Supporting Information, for other samples). Table 3 shows the results from SEC and NMR measurements, compared to the M w of the related monomodal samples.

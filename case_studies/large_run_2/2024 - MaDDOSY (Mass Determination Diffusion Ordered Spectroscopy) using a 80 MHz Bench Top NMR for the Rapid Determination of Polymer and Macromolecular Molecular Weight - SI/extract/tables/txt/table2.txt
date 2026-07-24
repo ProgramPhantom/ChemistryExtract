@@ -1,0 +1,25 @@
+-------------- TABLE 2 EXTRACTION --------------
+**[Preceding Paragraphs]**
+In  a  Schlenk  tube  equipped  with  a  magnetic  follower  under  an  inert  atmosphere,  the initiator  1-naphthalenemethanol  (1  eq.)  was  added  and  placed  under  vacuum  for  45 minutes.  Simultaneously  in  a  separate  flask,  10.0  g  of  L-lactide  (12.5,  25  or  50  eq.)  was placed  under  vacuum  for  45  minutes  to  remove  any  trace  volatiles.  Subsequently,  the  Llactide was transferred to the Schlenk tube containing 1-naphthalenemethanol followed by 4 mL stock solution of tin octoate (0.001 eq. to L-lactide) in anhydrous toluene. The reaction tube was placed in a pre-heated oil bath and stirred for 1 h at 130 °C. After 1 h, the Schlenk tube was removed from the oil bath and allowed to cool down to ambient temperature. The yellowish solid was dissolved in chloroform and precipitated twice in methanol. The volatiles were removed under reduced pressure to yield the products as yellowish solids.  SEC  was performed in chloroform and NMR in d-chloroform. The following Mark-Houwink constants were used for the analysis of PLA in THF: K = 22.1 dl/g·10 5 , α = 0.77
+
+Scheme 3 - Ring Opening Polymerisation to form Poly(Lactic Acid)
+
+<!-- image -->
+
+Table 2 - Analysis results for ROP Poly(lactic Acid) samples
+
+**[Table Data]**
+| Sample   |   DP | Conversion   |   M n *kDa+ |   M w *kDa+ |   Ð M |   MaDDOSY M wt *kDa+ |
+|----------|------|--------------|-------------|-------------|-------|----------------------|
+| PLA 2.7k | 12.5 | 98%          |        2.09 |        2.70 |  1.29 |                 2400 |
+| PLA 5k   | 25.0 | 97%          |        3.91 |        5.00 |  1.28 |                 4600 |
+| PLA 9k   | 50.0 | 97%          |        6.40 |        8.96 |  1.40 |                10700 |
+
+**[Succeeding Paragraphs]**
+Figure 5 - 1H NMR (400 MHz) of Ring Opening Polymerisation of Poly(Lactic Acid) samples
+
+<!-- image -->
+
+Figure 6 - GPC of Ring Opening Polymerisation of Poly(Lactic Acid) samples
+
+<!-- image -->

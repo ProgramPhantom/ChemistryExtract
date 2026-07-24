@@ -1,0 +1,35 @@
+-------------- TABLE 1 EXTRACTION --------------
+**[Preceding Paragraphs]**
+<!-- image -->
+
+Figure  2 .  Plot  of  natural  log  of  intensity  vs.  gradient  squared  for PAMAM dendrimers in methanol (Generation 0, O , ;  generation  1,  , ; generation 2,  , ; generation 3,  , ; generation 4,  , )
+
+<!-- image -->
+
+Table 1. Diffusion Analysis of Narrow Molecular Weight Distribution Polystyrenes in THF
+
+**[Table Data]**
+| M p , (M w /M n ) a (D)   | D b , r 2 (cm 2 sec -1 )   |   R Stokes c (Å) b |   V Stokes d (Å 3 ) c |   ρ Stokes e (D/Å 3 ) d |
+|---------------------------|----------------------------|--------------------|-----------------------|-------------------------|
+| 580, (1.18)               | 7.3 x 10 -6 , 0.99         |                6.6 |                 1,200 |                    0.48 |
+| 2960, (1.06)              | 4.9 x 10 -6 , 0.99         |                9.8 |                  3900 |                    0.75 |
+| 11300, (1.04)             | 3.4 x 10 -6 , 0.99         |                 14 |                14,000 |                    0.81 |
+| 39000, (1.03)             | 2.1 x 10 -6 , 0.93         |                 23 |                51,000 |                    0.76 |
+| 370000, (1.04)            | 6.1 x 10 -7 , 0.90         |                 78 |             2,000,000 |                    0.18 |
+
+**[Succeeding Paragraphs]**
+a.  Mp  from  the  manufacturer  as  described  in  the  experimental  section, Mw/Mn &lt; 1.05.
+
+- b. Calculated from NMR data as described in the experimental section. c. Calculated from equation (1) using, kB = 1.381 x 10 -23 J/K, T = 298 K, η = 4.56 x10 -4 Pa-sec for THF [19].
+- d. Calculated from RStokes given above, VStokes = 4 π /3 (RStokes ) 3 .
+3. e Calculated from VStokes given above and MW, ρ Stokes = MW/ VStokes.
+- a. Mw from the manufacturer as described in the experimental section.
+- b. Calculated from NMR data as described in the experimental section.
+- c. Calculated from equation (1) using, kB = 1.381 x 10 -23 J/K, T = 298 K, η = 5.36 x10 -4 Pa-sec for chloroform [19].
+- d. Calculated from RStokes given above, VStokes = 4 π /3 (RStokes ) 3
+
+Table 2. Diffusion Analysis of Narrow Molecular Weight Distribution Polystyrenes in chloroform
+
+[table omitted]
+
+.

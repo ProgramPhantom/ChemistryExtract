@@ -1,0 +1,25 @@
+-------------- TABLE 2 EXTRACTION --------------
+**[Preceding Paragraphs]**
+<!-- image -->
+
+Fig. 4 Dependence of the relative di ff usion rate of the PAMAM\_E5.SAH dendrimer as a function of volume ratio f I . ( -) is the hydrodynamic volume fraction (I ¼ H) and ( : ) is the volume fraction from speci fi c volumes of dendrimers (I ¼ M), in the same experiment.
+
+<!-- image -->
+
+Table 2 The slopes of the di ff usion coe ffi cients dependence on the di ff erent volume fractions f I
+
+**[Table Data]**
+| Type of volume fraction   | Slope E5.NH 2   | Slope E5.SAH   |
+|---------------------------|-----------------|----------------|
+| Hydrodynamic              |  2.1  0.2                 |  2.3  0.3                |
+| Hard sphere 58            |  3.5  0.4                 | No R HS data   |
+| Speci  c volume          |  6.7  0.6                 |  6.6  0.9                |
+
+**[Succeeding Paragraphs]**
+The reasons for the decrease of relative di ff usion rate with increasing concentration are the hydrodynamic interactions resulting in an increase of the viscosity of the suspension, direct interaction and the Brownian force. 57 Fig. 4 and Table 2 show that E5.SAH behaves similarly. Our results con  rm those ones described for di ff usion of the   h generation poly(propylene imine) dendrimers in methanol. 32 However in that case the ' e ff ective hard sphere radius ' was between the hydrodynamic radius and the radius of gyration. In our case both hydrodynamic radii are the ' e ff ective hard sphere radius ' . The possible explanation is that PAMAM molecules are better solvated in water than PPI in methanol.
+
+When the ' hard sphere radius ' of E5.NH2 (determined by SANS 58 in dilute aqueous solution) is used to calculate the volume fraction ( f HS) the negative slope is larger,  3.5 for E5.NH2 (Fig. 2 and Table 2). If this calculation was correct this steeper decrease can be explained by additional interactions between the dendrimer molecules. ' So  ' or ' ultraso  ' interactions were introduced to describe this behavior by Likos and Ballauf et al. 8,10,23,61 They have suggested that PAMAM dendrimers exhibit an e ff ective interaction potential that may be described by a Gaussian function. 62,63 However, this type of interaction probably exists in more concentrated solution of less solvating medium, than that applied in the present work. This interaction was observed experimentally for PPI dendrimers in methanol and poly(allylcarbosilane) dendrimers in chloroform at higher concentrations. 32,64
+
+If we used f M volume fractions (calculated from density values) the slopes would be  6.6 and  6.7 (Table 2). Such a steep decrease of di ff usion rate could only be explained by selfassociation. 65,66 Applying L´ evay's approximation for the linear dependence of D d on the molar concentration (shown in Fig. 2) the slope is equal to  2 K ( D 0 d  D dimer), where K is the equilibrium constant and D dimer is the di ff usion constant of noncovalent dimeric association while D 0 d is the intercept. The D dimer may be estimated as D 0/1.38. 67 From the concentration dependence shown in Fig. 2 K can be numerically estimated as 120 (the slope is 1.1 -10  8 ) for E5.NH2 and 160 (slope is 1.4 -10  8 ) for E5.SAH. These ' dimerization ' constants would mean that under our experimental conditions 20 -30% of dendrimers were in dimeric associate form, which is improbable. Our conclusion is that the hydrated generation 5 PAMAM dendrimers behave like hard sphere colloids in dilute aqueous solutions. The effective hard sphere radius is equal to the hydrodynamic radius. The probable reason is the strong hydration which competes efficiently with the expected so  or ultraso  interactions .
+
+Fig. 5 The pH dependence of the di ff usion coe ffi cient of D2O ( D w, left axis) and the dendrimers ( D d, right axis). , and -show the di ff usion of water and E5.SAH in the same solution respectively ( c ¼ 0.41 mmol kg  1 , T ¼ 293 K) while D and : show the di ff usion water and E5.NH2 in the same solution ( c ¼ 0.37 mmol kg  1 , T ¼ 300 K) respectively.

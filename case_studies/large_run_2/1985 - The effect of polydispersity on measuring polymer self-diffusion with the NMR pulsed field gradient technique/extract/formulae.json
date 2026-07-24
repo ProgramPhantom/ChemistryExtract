@@ -1,0 +1,15 @@
+[
+  "A = A _ { 0 } \\exp ( - ( \\gamma \\delta g ) ^ { 2 } D \\Delta )",
+  "A _ { 0 } = \\exp \\left ( - \\frac { 2 \\tau _ { 1 } } { T _ { 2 } ( M ) } - \\frac { \\tau _ { 2 } - \\tau _ { 1 } } { T _ { 1 } ( M ) } \\right ) \\quad ( 2 a )",
+  "A _ { 0 } = \\exp \\left ( - \\frac { 2 \\tau } { T _ { 2 } ( M ) } \\right )",
+  "\\ln \\psi = - ( \\gamma \\delta g ) ^ { 2 } D \\Delta & & ( 3 ) & \\quad \\text {dis} \\,",
+  "\\psi = \\int _ { 0 } ^ { \\infty } A _ { 0 } ( M ) w ( M ) \\exp ( - ( \\gamma \\delta g ) ^ { 2 } D ( M ) \\Delta ) d M \\Big / \\int _ { 0 } ^ { \\infty } A _ { 0 } ( M ) w ( M ) d M \\quad \\text { (equation)} \\quad \\text {type of} \\quad \\text {concentric} \\\\",
+  "w ( M ) d M = & \\frac { 1 } { ( 2 \\pi \\ln M _ { w } / M _ { n } ) ^ { 1 / 2 } } \\exp \\left ( - \\frac { ( \\ln M - \\ln \\sqrt { \\widetilde { M } _ { w } / \\widetilde { M } _ { n } } ) ^ { 2 } } { 2 \\ln \\widetilde { M } _ { w } / \\widetilde { M } _ { n } } \\right ) \\\\ & \\times \\frac { d M } { M } \\\\",
+  "D = K \\cdot M ^ { - x }",
+  "\\frac { \\ m a s s u c { \\sin } { \\alpha } \\cdot e . g . \\ M _ { w } \\text { and the exponent } \\alpha \\ln \\text { equation } ( 6 ) . } { \\gamma } \\\\ \\frac { \\psi ( B ) = \\frac { 1 } { ( 2 \\pi \\ln P ) ^ { 1 / 2 } } \\int \\exp \\left ( - \\frac { ( \\ln m + 0 . 5 \\ln P ) ^ { 2 } } { 2 \\ln P } - B \\cdot m ^ { - \\alpha } \\right ) \\text {d} \\ln m } { \\tilde { \\gamma } _ { \\infty } } \\\\ \\gamma = \\frac { 2 - r _ { 0 } } { 2 } \\\\ \\text {by the} \\\\",
+  "D = D _ { 0 } ( 1 - k _ { d } c / c ^ { * } ) & & ( 8 ) \\\\ & & \\tau _ { * } -",
+  "\\infty",
+  "D _ { w } = & \\int _ { 0 } w ( M ) \\cdot K \\cdot M ^ { - \\alpha } d M & & ( 9 ) \\\\ & \\equiv K \\cdot \\bar { M } _ { D } ^ { - \\alpha } & & ( 1 0 ) \\\\",
+  "\\bar { M } _ { D } = \\left ( \\int _ { 0 } ^ { x } w ( M ) M ^ { - x } d M \\right ) ^ { - 1 / x } \\quad ( 1 1 )",
+  "M _ { D } ( \\text {conc.} ) < M _ { \\mathfrak { n } } < M _ { D } ( \\text {dilute} ) < M _ { \\mathfrak { w } }"
+]

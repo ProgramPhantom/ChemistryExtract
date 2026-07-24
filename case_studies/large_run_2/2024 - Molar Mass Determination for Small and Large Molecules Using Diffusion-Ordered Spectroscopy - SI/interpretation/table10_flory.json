@@ -1,0 +1,172 @@
+{
+  "is_flory_data": true,
+  "flory_entries": [
+    {
+      "polymer_name": "PMMA",
+      "solvent": "C6D6",
+      "temperature_k": null,
+      "raw_v_value": "0.52734",
+      "v_transformation": "none",
+      "v_value": "0.52734",
+      "raw_c_value": "2.0111E-8",
+      "c_transformation": "log10",
+      "c_value": "-7.696566333993796"
+    },
+    {
+      "polymer_name": "PMMA",
+      "solvent": "C6D6",
+      "temperature_k": null,
+      "raw_v_value": "0.52996",
+      "v_transformation": "none",
+      "v_value": "0.52996",
+      "raw_c_value": "2.3805E-8",
+      "c_transformation": "log10",
+      "c_value": "-7.623331814189471"
+    },
+    {
+      "polymer_name": "PMMA",
+      "solvent": "C6D6",
+      "temperature_k": null,
+      "raw_v_value": "0.52552",
+      "v_transformation": "none",
+      "v_value": "0.52552",
+      "raw_c_value": "2.58E-8",
+      "c_transformation": "log10",
+      "c_value": "-7.58838029403677"
+    },
+    {
+      "polymer_name": "PMMA",
+      "solvent": "C6D6",
+      "temperature_k": null,
+      "raw_v_value": "0.53221",
+      "v_transformation": "none",
+      "v_value": "0.53221",
+      "raw_c_value": "3.0718E-8",
+      "c_transformation": "log10",
+      "c_value": "-7.512607063941288"
+    },
+    {
+      "polymer_name": "PMMA",
+      "solvent": "C6D6",
+      "temperature_k": null,
+      "raw_v_value": "0.51415",
+      "v_transformation": "none",
+      "v_value": "0.51415",
+      "raw_c_value": "2.9217E-8",
+      "c_transformation": "log10",
+      "c_value": "-7.5343643794466715"
+    },
+    {
+      "polymer_name": "PMMA",
+      "solvent": "C6D6",
+      "temperature_k": null,
+      "raw_v_value": "0.51461",
+      "v_transformation": "none",
+      "v_value": "0.51461",
+      "raw_c_value": "3.2651E-8",
+      "c_transformation": "log10",
+      "c_value": "-7.486103513077076"
+    },
+    {
+      "polymer_name": "PEO",
+      "solvent": "D2O",
+      "temperature_k": null,
+      "raw_v_value": "0.5723",
+      "v_transformation": "none",
+      "v_value": "0.5723",
+      "raw_c_value": "1.3268E-8",
+      "c_transformation": "log10",
+      "c_value": "-7.877194537152556"
+    },
+    {
+      "polymer_name": "PEO",
+      "solvent": "D2O",
+      "temperature_k": null,
+      "raw_v_value": "0.55987",
+      "v_transformation": "none",
+      "v_value": "0.55987",
+      "raw_c_value": "1.4378E-8",
+      "c_transformation": "log10",
+      "c_value": "-7.842301520724484"
+    },
+    {
+      "polymer_name": "PEO",
+      "solvent": "D2O",
+      "temperature_k": null,
+      "raw_v_value": "0.56339",
+      "v_transformation": "none",
+      "v_value": "0.56339",
+      "raw_c_value": "1.9152E-8",
+      "c_transformation": "log10",
+      "c_value": "-7.717785866937665"
+    },
+    {
+      "polymer_name": "PEO",
+      "solvent": "D2O",
+      "temperature_k": null,
+      "raw_v_value": "0.55747",
+      "v_transformation": "none",
+      "v_value": "0.55747",
+      "raw_c_value": "2.3712E-8",
+      "c_transformation": "log10",
+      "c_value": "-7.625031813700766"
+    },
+    {
+      "polymer_name": "PEO",
+      "solvent": "D2O",
+      "temperature_k": null,
+      "raw_v_value": "0.55169",
+      "v_transformation": "none",
+      "v_value": "0.55169",
+      "raw_c_value": "2.7776E-8",
+      "c_transformation": "log10",
+      "c_value": "-7.556330296503602"
+    }
+  ],
+  "calculator_calls": [
+    {
+      "expression": "log10(2.0111e-8)",
+      "result": "-7.696566333993796"
+    },
+    {
+      "expression": "log10(2.3805e-8)",
+      "result": "-7.623331814189471"
+    },
+    {
+      "expression": "log10(2.58e-8)",
+      "result": "-7.58838029403677"
+    },
+    {
+      "expression": "log10(3.0718e-8)",
+      "result": "-7.512607063941288"
+    },
+    {
+      "expression": "log10(2.9217e-8)",
+      "result": "-7.5343643794466715"
+    },
+    {
+      "expression": "log10(3.2651e-8)",
+      "result": "-7.486103513077076"
+    },
+    {
+      "expression": "log10(1.3268e-8)",
+      "result": "-7.877194537152556"
+    },
+    {
+      "expression": "log10(1.4378e-8)",
+      "result": "-7.842301520724484"
+    },
+    {
+      "expression": "log10(1.9152e-8)",
+      "result": "-7.717785866937665"
+    },
+    {
+      "expression": "log10(2.3712e-8)",
+      "result": "-7.625031813700766"
+    },
+    {
+      "expression": "log10(2.7776e-8)",
+      "result": "-7.556330296503602"
+    }
+  ]
+}

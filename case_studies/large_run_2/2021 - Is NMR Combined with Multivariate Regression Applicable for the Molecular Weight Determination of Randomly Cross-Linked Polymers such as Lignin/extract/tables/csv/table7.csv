@@ -1,0 +1,5 @@
+,used method,samples,n,parameter,range,validation error,rel. error,refs
+0,"ATR-FTIR, PLS-R, CV","kraft and organosolv lignins, from softwood, hardwood, and herbaceous biomass; partially solvent fractionated",54,M w M n,"29,984 Da 4626 Da",2278 Da 287 Da,7.6% 6.2%,
+1,"ATR-FTIR, PLS-R, CV","three softwood kraft lignins, solvent fractionated",28,M w,"29,984 Da",1739 Da,5.8%,
+2,"PFG NMR, MHS equation","dioxasolv and kraft lignins from soft- and hardwoods, solvent fractionated",151,M w,8800 Da,962 Da (RMSEC),11% (cal.),
+3,"PFG NMR, MHS equation","softwood kraft lignins, calibrants from GPC fractionation",5,M w,8700 Da (Cal),663 Da,7.6%,

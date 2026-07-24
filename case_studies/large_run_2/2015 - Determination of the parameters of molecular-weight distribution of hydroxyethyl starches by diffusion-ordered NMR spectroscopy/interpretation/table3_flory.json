@@ -1,0 +1,81 @@
+{
+  "is_flory_data": true,
+  "flory_entries": [
+    {
+      "polymer_name": "HES",
+      "solvent": "Not found",
+      "temperature_k": null,
+      "raw_v_value": "2.6136",
+      "v_transformation": "1 / v",
+      "v_value": 0.3826,
+      "raw_c_value": "-25.154",
+      "c_transformation": "None",
+      "c_value": -25.154
+    },
+    {
+      "polymer_name": "HES",
+      "solvent": "Not found",
+      "temperature_k": null,
+      "raw_v_value": "2.5375",
+      "v_transformation": "1 / v",
+      "v_value": 0.4,
+      "raw_c_value": "-24.419",
+      "c_transformation": "None",
+      "c_value": -24.419
+    },
+    {
+      "polymer_name": "HES",
+      "solvent": "Not found",
+      "temperature_k": null,
+      "raw_v_value": "2.4185",
+      "v_transformation": "1 / v",
+      "v_value": 0.41,
+      "raw_c_value": "-23.382",
+      "c_transformation": "None",
+      "c_value": -23.382
+    },
+    {
+      "polymer_name": "HES",
+      "solvent": "Not found",
+      "temperature_k": null,
+      "raw_v_value": "2.6201",
+      "v_transformation": "1 / v",
+      "v_value": 0.38,
+      "raw_c_value": "-25.154",
+      "c_transformation": "None",
+      "c_value": -25.154
+    },
+    {
+      "polymer_name": "H",
+      "solvent": "Not found",
+      "temperature_k": null,
+      "raw_v_value": "2.5438",
+      "v_transformation": "1 / v",
+      "v_value": 0.39,
+      "raw_c_value": "-24.425",
+      "c_transformation": "None",
+      "c_value": -24.425
+    },
+    {
+      "polymer_name": "HES",
+      "solvent": "Not found",
+      "temperature_k": null,
+      "raw_v_value": "2.4232",
+      "v_transformation": "1 / v",
+      "v_value": 0.41,
+      "raw_c_value": "-23.373",
+      "c_transformation": "None",
+      "c_value": "Not found"
+    }
+  ],
+  "calculator_calls": [
+    {
+      "expression": "1 / 2.6136",
+      "result": "0.38261401897765535"
+    },
+    {
+      "expression": "-25.154 / -2.6136",
+      "result": "9.624273033363943"
+    }
+  ]
+}

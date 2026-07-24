@@ -1,0 +1,8 @@
+[
+  "\\text {molecular species} \\text { it belongs to} \\colon \\\\ S = \\sum _ { m } f _ { m } \\exp \\left ( - D _ { m } q ^ { 2 } \\left ( T + \\frac { 2 \\delta } { 3 } + \\frac { 3 \\tau } { 4 } \\right ) \\right ) \\quad ( 1 )",
+  "S ( b ) = \\sum _ { m } f _ { m } \\exp ( - D _ { m } b ) + \\epsilon ( b ) \\quad \\quad ( 2 ) \\quad \\quad \\stackrel { \\mu } { r a r }",
+  "K = | | S ( b ) - \\sum _ { m } f _ { m } \\exp ( - D _ { m } b ) | | ^ { 2 } & & ( 3 ) & & \\max _ { \\substack { m = 0 \\\\ \\ m = 1 } } \\,",
+  "K = | | S ( b ) - \\sum _ { m } f _ { m } \\exp ( - D _ { m } b ) | | ^ { 2 } + \\alpha | | \\hat { A } f _ { m } | | ^ { 2 } \\quad ( 4 ) \\\\",
+  "M _ { k } = \\sum _ { m } f _ { m } \\, D _ { m } ^ { k }",
+  "D \\infty \\, M ^ { a }"
+]

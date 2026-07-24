@@ -1,0 +1,36 @@
+-------------- TABLE 2 EXTRACTION --------------
+**[Preceding Paragraphs]**
+<!-- image -->
+
+TABLE 1 List of factors and their levels in the design for PEG
+
+[table omitted]
+
+Abbreviations: MW, molecular weight; PEG, polyethylene glycol.
+
+TABLE 2 List of factors and their levels in the design for PS
+
+**[Table Data]**
+|   MW [a] PS (Da) |   d1 (s) |   τ E ( μ s) |   n |   wt% |
+|------------------|----------|--------------|-----|-------|
+|           30,300 |        2 |          100 | 120 |     5 |
+|           68,900 |        5 |          150 | 220 |   7.5 |
+|          220,500 |        8 |          200 | 320 |    10 |
+|          629,500 |       10 |          250 | 420 |       |
+|                  |       15 |          300 | 520 |       |
+|                  |       20 |          350 | 620 |       |
+|                  |          |          400 |     |       |
+|                  |          |          450 |     |       |
+|                  |          |          500 |     |       |
+|                  |          |          550 |     |       |
+|                  |          |          600 |     |       |
+|                  |          |          640 |     |       |
+
+**[Succeeding Paragraphs]**
+Abbreviations: MW, molecular weight; PS, polystyrene.
+
+a The polydispersity (MW/Mn) is equal to 1 for all PS samples, Mp is approximated with MW.
+
+Runs were performed in a random order to minimise bias. This set-up allowed the estimation of the main effects of the five factors, as well as two-factor interactions and the quadratic factor terms. Optimal settings for any factor were calculated by optimizing the response models.
+
+Contour plots showing the effects of multiple factors simultaneously on the responses were generated using the model that Design-Expert fits.

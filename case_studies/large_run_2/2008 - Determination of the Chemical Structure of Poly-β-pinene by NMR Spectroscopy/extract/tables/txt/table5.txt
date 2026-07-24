@@ -1,0 +1,32 @@
+-------------- TABLE 5 EXTRACTION --------------
+**[Preceding Paragraphs]**
+For instance, the 2D DOSY spectra of three PEG samples with different molecular weight, namely Mw = 200 D (a), Mw = 6000 D (b) and Mw = 26000 D (c), are compared in Figure 5. The resulting 2D maps clearly show that the self-diffusion coefficient of d2-TCE remains constant in all samples, whereas the self-diffusion coefficient of PEG samples decreases with the increase of the molecular weight. The values of the self-diffusion coefficient are more precisely obtained by fitting the exponential decay of the resonance signal intensity against the gradient strength. The diffusion coefficients measured for ten PEG samples used as standards, are reported in Table 5. According to a method previously reported (32), the double-logarithmic plot of the self-diffusion coefficient D of standard PEG samples in dilute solution against the molecular weight M w is shown in Figure 6. In this plot, the Mw values of the PEG samples lie on a straight line. A least-squared fitting of the data leads to the relationship (Equation 1):
+
+Fig. 5. 2D DOSY map of three PEG samples with different molecular weight, (a) Mw = 200 D, (b) Mw = 6000 D and (c) Mw = 26000. The diffusion coefficient of d2-TCE remains constant in all samples (dotted line), whereas the diffusion coefficient of PEG decreases with the increase of the molecular weight (dashed lines).
+
+<!-- image -->
+
+Table 5. Self-diffusion coefficients of PEG samples obtained performing NMR self-diffusion measurements and then fitting the decay of the resonance signal intensity against the gradient strength
+
+**[Table Data]**
+| Standard samples   | D(m 2 /s)              |
+|--------------------|------------------------|
+| PEG200             | (4.31 ± 0.02)10 - 10   |
+| PEG300             | (3.30 ± 0.01)10 - 10   |
+| PEG750             | (1.878 ± 0.008)10 - 10 |
+| PEG1000            | (1.79 ± 0.01)10 - 10   |
+| PEG4000            | (6.83 ± 0.03)10 - 11   |
+| PEG2025            | (1.23 ± 0.01)10 - 10   |
+| PEG6000            | (5.37 ± 0.03)10 - 11   |
+| PEG8000            | (4.91 ± 0.02)10 - 11   |
+| PEG26000           | (2.57 ± 0.02)10 - 11   |
+| PEG46000           | (1.79 ± 0.05)10 - 11   |
+
+**[Succeeding Paragraphs]**
+$$D & = 1 . 1 \times 1 0 ^ { - 8 } M _ { w } ^ { - 0 . 6 0 } ( m ^ { 2 } s ^ { - 1 } ) & ( 1 ) \\ \\$$
+
+The exponent value of 0.60 ± 0.01 is in very good agreement with the Zimm model (33), which predicts an exponent value of 0.6 for flexible polymers in a good solvent.
+
+Note that in some cases the values of self-diffusion coefficients were also measured on more diluted solutions (0.4 mg/0.7 ml and 0.2 mg/0.7 ml), however, these values remain constant within the experimental error. This observation confirms that the solutions used for measuring the diffusion coefficient were sufficiently diluted.
+
+It is noteworthy that for all PEG samples, the selfdiffusion coefficient of d2-TCE remains equal within the experimental error. This means that no retarding effects on the solvent diffusion are detectable, further confirming that the solutions we used were sufficiently diluted.

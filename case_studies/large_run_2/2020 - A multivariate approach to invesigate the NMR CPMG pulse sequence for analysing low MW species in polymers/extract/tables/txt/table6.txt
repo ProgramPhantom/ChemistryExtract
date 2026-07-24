@@ -1,0 +1,47 @@
+-------------- TABLE 6 EXTRACTION --------------
+**[Preceding Paragraphs]**
+As reported in Table S11, DMF spin -lattice relaxation is comparable with the values measured for acetic acid and acrylate, thus making the quantitative analysis reported in Table 6 reliable for these two compounds. On the contrary, the two alcohols (isopropanol and methanol) have a longer relaxation than the internal standard, and this variation has to be considered in the quantitative analysis by using the equation reported by Bharti et al. [29] By applying this correction factor, the actual concentration for the two species doubles, being 0.01 wt% for methanol and 0.04 wt% for isopropanol.
+
+FIGURE 8 1 H NMR (600 MHz, D2O, 300 K) spectra of Dispex ™ N40 (15 wt%) recorded (a) without T 2 filter, (b) with T 2 filter and (c) with T 2 filter and water presaturation
+
+<!-- image -->
+
+TABLE 6 Comparison of quantitative analysis of impurities obtained by analysing three independent replicates
+
+**[Table Data]**
+| (CH 3 1.83 ppm)          |                  |                 |               |               |
+|--------------------------|------------------|-----------------|---------------|---------------|
+| acid wt%                 | (±4.5E-03)       |                 | (±1.5E-03)    | (±1.5E-03)    |
+| wt% (CH 3 3.27 ppm)      | (±4.5E-03) 0.004 | 0.02 (±3.7E-03) | (±4.4E-04)    | (±4.4E-04)    |
+| Isopropanol wt% (CH 3.94 | 0.02             | (±2.2E-03)      |               |               |
+| Acetic                   |                  |                 |               |               |
+|                          | 0.03             | 0.05            |               |               |
+|                          |                  |                 | 0.05          | 0.05          |
+|                          | (±6.2E-04)       | (±2.8E-04)      | (±1.7E-04)    | (±1.7E-04)    |
+| Methanol                 |                  |                 |               |               |
+| ppm)                     |                  | 0.005           | 0.005         | 0.005         |
+| 5.94 ppm)                |                  |                 | 0.02          | 0.02          |
+| wt% (CH                  |                  | (±4.5E-03)      | (±1.5E-03)    | (±1.5E-03)    |
+|                          | 0.06             | 0.07            |               |               |
+|                          |                  |                 | 0.07          | 0.07          |
+| Acrylate                 |                  |                 |               |               |
+|                          | (±8.1E-03)       |                 |               |               |
+|                          | No               |                 |               |               |
+|                          |                  | T               | +             | +             |
+|                          |                  | 2               |               |               |
+|                          |                  |                 | T 2           | T 2           |
+|                          |                  |                 | filter        | filter        |
+|                          |                  |                 | presaturation | presaturation |
+| Experimental             |                  |                 |               |               |
+|                          | filter           |                 |               |               |
+|                          |                  | filter          |               |               |
+| conditions               |                  |                 |               |               |
+
+**[Succeeding Paragraphs]**
+Note : Standard deviation is reported in parenthesis.
+
+## 4 | CONCLUSIONS
+
+The present study was performed with the aim of evaluating the influence of different parameters on the effectiveness of a T 2 relaxation filter, which was applied by means of the NMR CPMG pulse sequence, in enabling a reliable quantitative analysis of small molecules present in polymers. The results obtained on model systems (PEG and PS with MW spanning from 300 to 600,000 Da) confirmed that quantitative analysis could be performed, and more reliable results can be obtained where previously the polymer severely interfered with the measurement. The data collected highlight the sensitivity of the NMR technique, as relatively low concentrations of small molecules can be detected.
+
+It can be concluded that quantitative analysis can be performed not only by using an internal standard but also with external standard methods (e.g., ERETIC in TopSpin or qEstimate in VnmrJ) as long as the viscosity of the solution is considered. Another important aspect to keep into consideration is the difference in T 1 and T 2 among the different species detected in the sample under analysis, which can affect the intensity of the integrated signals and hence the quantitative results. This problem can be overcome by measuring the relaxation parameters and then selecting the proper d1 for guaranteeing a complete recovery of the magnetisation for the small molecules analysed. Alternatively, the information on the relaxation properties can be used to apply a correction factor, for a reliable quantitative analysis even when short d1 are used.

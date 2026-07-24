@@ -1,0 +1,17 @@
+,Sample,Solvent,Wave- length (nm),dn/dc (mltg),Temp (DC),Az (x 1Q3),"Ref, Remark"
+0,Carboxylmethyl- cellulose,O.lM NaCI,632.8,0.147,,,102
+1,PNaAMPS,water,632.8,0.20,,,"99,s"
+2,BSA,water,632.8,0.187,25,,"103, t"
+3,BSA-SDS,water,632.8,0.376,25,,"103,u"
+4,Ovalbumin-SDS,water,632.8,0.374,25,,103
+5,Ribonuclease-SDS,water,632.8,0.398,25,,103
+6,Ribonuclease A,75%A-25%B,632.8,0.172,7.5,x lO- z,"104,v"
+7,Lysozyme,65%A-35%B,632.8,0.182,-5.39,x lO- z,"104, v"
+8,BSA,58%A-42%B,632.8,0.172,7049,x lO- z,"104, v"
+9,Bovin alkaline phosphatase,50%A-50%B 60%A-40%B,632.8 632.8,0.142 0.1188,0.854 -9.81,,"105,w 105,w"
+10,,70%A-30%B,632.8,0.0956,-163,,"105,w"
+11,Bovin thyroglobulin (MW 669000) Serum albumin,0.10M Na Z S0 4,632.8,0.165,20,,"106,x"
+12,(MW 68000),0.10M Na Z S0 4,632.8,0.165,20,,"106,x"
+13,ChymotrypsinogenA (MW 25900),0.10 Na Z S0 4,632.8,0.170,20,,"106,x"
+14,DNA,water,632.8,0.166,,,99
+15,DNA fragment,O.lM NaCI,632.8,0.168,25,0.6,107

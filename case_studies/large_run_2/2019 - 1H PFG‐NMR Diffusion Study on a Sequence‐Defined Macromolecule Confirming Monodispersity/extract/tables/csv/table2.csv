@@ -1,0 +1,8 @@
+,Parameter,PFG-STE,β -PFG-SE,Chemical composition a),ESI-MS b)
+0,Diffusion coefficient D [ × 10 - 10 m 2 s - 1 ],,,,
+1,c = 8.0 wt%,1.03 ± 0.01,1.16 ± 0.05,,
+2,c = 0.8 wt%,1.99 ± 0.03,2.15 ± 0.13,,
+3,c = 0.2 wt%,2.15 ± 0.05,2.32 ± 0.15,,
+4,"Noise level in signal decay, S / S 0",10 - 3,10 - 3,,
+5,Experiment time incl. acquisition time [s],424,24,,
+6,Molecular weight M w [g mol - 1 ],3664.1,3613.4,3562.7,3562.7

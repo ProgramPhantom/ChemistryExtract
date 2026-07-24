@@ -1,0 +1,27 @@
+-------------- TABLE 3 EXTRACTION --------------
+**[Preceding Paragraphs]**
+Table 2. D -Mw results of PS standard calibration curves
+
+[table omitted]
+
+Figure 4. Calibration curve of log D -log M.
+
+<!-- image -->
+
+Table 3. D -Mw of PS standard validation and PS (FRP) prediction
+
+**[Table Data]**
+| Sample   |   M w (GPC) (g/mol) |   D (10 -11 ) (m 2 /s) |   M w (DOSY) (g/mol) | Dev.   |
+|----------|---------------------|------------------------|----------------------|--------|
+| PS       |                9000 |                  14.79 |                 8577 | 4.50%  |
+| PS       |               50000 |                   1.03 |                51000 | 2.00%  |
+| PS (FRP) |               23228 |                   7.64 |                23779 | 2.30%  |
+
+**[Succeeding Paragraphs]**
+## 3.3. Validation and Application
+
+We applied  the  calibration  curve  with  two another narrowly dispersed standard samples for validation.  First,  the  molecular  weight  of  two standard samples were measured by GPC, and we obtained the results matched the specification of  standards,  confirming  the  accuracy  of  GPC (Table 3). Second,  the  2D  DOSY  of  two commercial  samples  and  a  PS  synthesized  by FRP were measured. From the calibration curve, the Mw values obtained show a good correlation with small deviation (&lt; 5 %). It is noted that all samples,  including  the  calibration  curve,  were not measured at the same time, same day, but in several weeks. With the very stable of magnetic and gradient field, it is no need to recalibrate but we can use the calibration curve for a long time.
+
+## 4. Conclusion
+
+1 H DOSY NMR is a simple and convenient method for the  determination  of  the  molecular weight of PS and its hydrodynamic properties in chloroform. This method is used to measure the average diffusion coefficient D of PS samples of increasing Mw ranging from thousands to millions  gram  per  mole,  with  the  deviation below 5%. The highly linear and stable calibration curve could be used for monitoring the Mw value of various types of PS. With a Flory coefficient value equal to 1.54, it  is confirmed that CDCl3 is a good solvent for PS.

@@ -1,0 +1,96 @@
+-------------- TABLE 10 EXTRACTION --------------
+**[Preceding Paragraphs]**
+34.  ERE ME EVA TE, BYKOVA TO, GROMOV VS (1990) I Chromatogr 522: 67
+35.  BROWN W, WILKSTROM R (1965) Eur Polym I 1: 1
+36.  SAKAMOTO N (1987) Polymer 28:288
+37.  MAZSAROFF  I, REGNIER FE (1988) I Chromatogr 442: 15
+38.  KATO T, TOKUYAMA T, TAKAHASHI A (1983) I Chromatogr 256: 61
+39.  TINLAND B, MAZET I, RINAUDO M (1988) Makromol Chern Rapid Commun 9: 69
+40.  BAHARY WS, HOGAN  MP, IILANI  M, ARONSON  MP (1995)  In: PROVDER  T, BARTH  HG, URBAN MW (eds) Adv Chern Ser 247, ACS, Washington, p  151
+41.  BAHARY WS, HOGAN MP (1996) Int I Polym Anal Charact 2: 121
+42.  BOSE  A,  ROLLINGS IE, CARUTHERS 1M, OKOS  MR, TSAO  GT  (1982) I Appl  Polym Sci 27:795
+43.  CERNY L, McTIERVAN I, STASIW D (1973) I Polym Sci Symp 42: 1455
+44.  SOMMERMEYER K, CECH F, PFITZER E (1988) Chromatographia 25: 167
+45.  DUBIN PL, TECKLENBURG MM (1985) Anal Chern 57: 275
+46.  KAWAHARA K, OHTA K, MIYAMOTO H, NAKAMURA S (1984) Carbohydr Polym 4: 335
+47.  ERE ME EVA TE, BYKOVA TO (1993) I Chromatogr 639: 159
+48.  MALFAIT T, SLOOTMAEKERS D, CAUWELAERT FV (1990) I Appl Polym Sci 39: 571
+49.  YOMOTO C, MIYAZAKI T, OKADA S (1993) Colloid Polym Sci 271: 76
+50.  HITTNER DM, COWNAN MK (1987) I Chromatogr 402: 149
+51.  LAURENT TC, RYAN M, PIETRUSZKIEWICZ A (1960) Biochim Biophys Acta 42: 476
+52.  MATHEWS MB, DORFMAN A (1953) Arch Biochem Biophys 42: 41
+53.  VAN DIJK lAPP, SMIT lAM, KOHN FE, FEIJEN I (1983) I Polym Sci Polym Chern Ed 21: 197
+54.  NAVE R, WEBER K, POTSCHKA M (1993) I Chromatogr A 654: 229
+55.  CHIKAZUMI N, OHTA T (1991) I Liq Chromatogr 14: 403
+
+## Appendix III
+
+--------~------------------~~~~~~~---
+
+## Mark-Houwink Parameters for Copolymers
+
+**[Table Data]**
+| Polymer    | Solvent        | Temp (OC)   |   Kx 10 2 (ml/g) |      a | Remark             |   Ref |
+|------------|----------------|-------------|------------------|--------|--------------------|-------|
+| PVC-PVAc   | THF            | 25          |             6.72 |  0.611 | 10-13% VAc         |     1 |
+| EPM        | toluene        | 30          |            3.051 |   0.76 | 50% PP,A           |     2 |
+| EPDM       | THF            | 35          |             27.4 |   0.54 |                    |     3 |
+| EPR        | ODCB           | 135         |             4.43 |  0.725 |                    |     4 |
+|            |                |             |             2.42 |  0.707 |                    |     5 |
+|            | toluene        | 30          |              3.1 |   0.72 | 62% PE, B          |     6 |
+| E-NORB     | xylene         | 90          |             10.0 |  0.535 | 50%                |     7 |
+|            | DEB            | 120         |             4.93 |  0.589 |                    |       |
+| EVA        | THF            | 20          |              9.7 |   0.62 | 27-29% EVA, C      |     8 |
+| P (S-MMA)  | THF            | ns          |            0.775 |   0.76 | alternating        |     9 |
+|            | MEK            |             |             1.15 |   0.69 |                    |       |
+|            | toluene        |             |             1.09 |   0.73 |                    |       |
+|            | n-chlorobutane |             |             1.08 |   0.70 |                    |       |
+|            | THF            |             |            0.641 |   0.76 | 1:1 block          |       |
+|            | MEK            |             |            1.466 |   0.67 |                    |       |
+|            | toluene        |             |            1.318 |   0.69 |                    |       |
+|            | n-chlorobutane |             |            4.446 |   0.55 |                    |       |
+|            | toluene        | ns          |             1.14 |   0.70 | statistical, 30% S |    10 |
+|            | n-chlorobutane |             |             2.65 |   0.60 |                    |       |
+|            | toluene        |             |             1.32 |   0.71 | 57% S              |       |
+|            | n-chlorobutane |             |             2.49 |   0.63 |                    |       |
+|            | toluene        |             |            0.832 |   0.75 | 71% S              |       |
+|            | n-chlorobutane |             |             1.76 |   0.67 |                    |       |
+| P (S-MAH)  | THF            | 25          |             3.98 |  0.595 | MAH 5- 50mol%, B   |    11 |
+| P (S-AN)   | DMF            | 20          |             1.45 |   0.71 | 12%S,D             |    12 |
+|            |                |             |             1.80 |   0.71 | 25% S              |       |
+|            |                |             |             2.65 |   0.72 | 52% S              |       |
+|            |                | 25          |             1.86 |  0.690 | 15-82% AN, E       |    13 |
+|            | THF            |             |             1.98 |  0.681 | 0-35%AN,E          |       |
+|            | MEK            |             |             3.30 |  0.619 | 1O-48%AN,E         |       |
+| P (AN-EVE) | DMF            | 55          |            0.142 | 0.9636 | 18% EVE,F          |    14 |
+| P (SA-AA)  | O.5M NaCl      | 25          |             0.81 |  0.789 | 10% SA, G, pH 9    |    15 |
+|            | 1M NaCl        |             |            0.307 |  0.860 |                    |       |
+|            | 0.5M NaCI      |             |             1.09 |  0.775 | 20% SA             |       |
+|            | 1M NaCl        |             |            1.307 |  0.759 |                    |       |
+|            | 0.5M NaCI      |             |             5.78 |  0.655 | 50% SA             |       |
+|            | 1M NaCI        |             |             2.98 |  0.695 |                    |       |
+|            | 0.5M NaCI      |             |            0.638 |  0.844 | 70% SA             |       |
+|            | 1M NaCl        |             |            0.026 |  1.072 |                    |       |
+
+**[Succeeding Paragraphs]**
+Abbreviations. THF tetrahydrofuran; ODCB a-dichlorobenzene; DEB  diethylbenzene; MEK - methyl ethyl ketone; ns not specified; PVC  polyvinyl chloride; PVAc  polyvinyl acetate; EPM ethylene-propylene copolymer; EPDM terpolymer of ethylene, propylene, diene  monomers;  EPR  ethylene-propylene  rubber;  E-NORB  ethylene-norboarnene (50%); EVA  ethylene-vinyl acetate copolymer; S polystyrene (PS);  MMA polymethyl methacrylate (PMMA); MAH - maleic anhydride; AN - polyacrylonitrile (PAN); EVE - ethyl vinyl ether; SA sodium acylate; AA acrylamide.
+
+Remarks. A use K = 1.112 X  10- 2  and a =  0.723 for PS; B ['1] = KM~; C use K = 1.55 X 10- 2  and a =  0.692 for PS; D use K =  2.40 X 10- 2  and a =  0.63 for PS and K =  3.25 X 10- 2  and a = 0.725 for PAN; E ['1]  = K(WAN + 1.041)aM~, WAN: weight fraction of  AN unit; F - 0.05M LiEr included, use K =  2.2  X  10- 2  and a =  0.615 for PS; G ['1] = KM~; H - use K =  1.17 X  10- 2 and a = 0.717 for PS.
+
+## References
+
+1.  JANCA J, MRKVICKOVA L, KoliNSKY M (1978) J Appl Polym Sci 22: 2661
+2. SMITH WV (1974) J Appl Polym Sci 18: 3685
+3.  CHIANTORE 0, CINQUINA P, GUAITA M (1994) Eur Polym J 30: 1043
+4. GIANOTTI G, CICUTA A, ROMANINI  D (1980) Polymer 21: 1087
+5. ATKINSON CML, DIETZ R (1976) Makromol Chern 177:213
+6.  DE CHIRICO A, ARRIGHETTI S, BRUZZONE M (1981) Polymer 22: 529
+7. BRAUER E, WIEGLEB  H, HELMSTEDT M (1986) Polym BullIS: 551
+8. ECHARRI J, IRUIN JJ, GUZMAN GM, AMSORENA J (1979) Makromol Chern 180:2749
+9.  KOTAKA T, TANAKA T, ONHUMI H, MURAKAMI Y, INAGAKI H (1970) Polym J 1: 245
+10.  GOLDWASSER JM, RUDIN A (1983) J Liq Chromatogr 6: 2433
+11.  CHOW CD (1976) J Appl Polym Sci 20: 1619
+12. KRANZ D, POHL HU, BAUMANN H (1972) Angew Makromol Chern 26: 67
+13. MENDELSON  RA  (1987)  In:  PROVDER  T  (ed)  ACS  Symposium  Series  No  352,  ACS, Washington, p 263
+14. KENYON AS, MOTTUS EH (1974) Appl Polym Symp 25: 57
+15.  MCCARTHY KJ, BURKHARDT CW, PARAZAK DP (1987) J Appl Polym Sci 33: 1699

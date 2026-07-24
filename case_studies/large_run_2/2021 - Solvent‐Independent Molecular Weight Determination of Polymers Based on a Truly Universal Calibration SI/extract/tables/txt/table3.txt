@@ -1,0 +1,23 @@
+-------------- TABLE 3 EXTRACTION --------------
+**[Preceding Paragraphs]**
+To create the curves, the logarithm is taken of the diffusion and the molecular weight that is measured. To calculate the error on the logarithmic scale a simple mathematic calculation is done:
+
+$$E r r o r _ { g r a p h } = \log ( D + e r r o r ) - \log ( D )$$
+
+After the calculation, this gives the following values that are used in the graphs:
+
+Table 2. Logarithm of D of 18000 g  mol -1 poly(styrene) in CDCl3 and calculated error
+
+**[Table Data]**
+|   log( D /m 2  s -1 ) + log( / mPa  s) | log( M / g  mol -1 ) Error   |
+|------------------------------------------|-------------------------------|
+|                                   -10.02 | 4.26 0.07                     |
+
+**[Succeeding Paragraphs]**
+These values can be obtained for all the different molecular weights. These data points will have a linear relationship. The next step is to  take  viscosity  into  account  for  the  diffusion.  Looking  at  the Stokes-Einstein  equation we see the following relationship between diffusion ( D ), hydrodynamic radius (molecular weight, rH ) and viscosity (  ):
+
+$$D = \frac { k _ { B } T } { 6 \pi \eta r _ { H } }$$
+
+There is an inverse relationship between the diffusion and the viscosity. To create the diffusion calibration curves that are independent from the viscosity, and therefore to a big extend the solvent, are created by multiplying the viscosity by the diffusion obtained via the DOSY experiment.
+
+$$D _ { v i s c o s i t y \ c a l i b r a t e d } = D \cdot \eta$$

@@ -1,0 +1,367 @@
+Running: parse_pdf
+--- Logging error ---
+Traceback (most recent call last):
+  File "/mnt/iusers01/fatpou01/chem02/b07755hv/.local/lib/python3.12/site-packages/rapidocr/main.py", line 130, in run_ocr_steps
+    cropped_img_list, det_res = self.detect_and_crop(img, op_record)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/iusers01/fatpou01/chem02/b07755hv/.local/lib/python3.12/site-packages/rapidocr/main.py", line 298, in detect_and_crop
+    raise RapidOCRError("The text detection result is empty")
+rapidocr.main.RapidOCRError: The text detection result is empty
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/mnt/iusers01/fatpou01/chem02/b07755hv/.conda/envs/env/lib/python3.12/logging/__init__.py", line 1163, in emit
+    stream.write(msg + self.terminator)
+  File "/mnt/iusers01/fatpou01/chem02/b07755hv/ChemistryExtract/src/chemstractor/lib/extractor.py", line 298, in write
+    self.file.write(data)
+ValueError: I/O operation on closed file.
+Call stack:
+  File "/mnt/iusers01/fatpou01/chem02/b07755hv/.conda/envs/env/lib/python3.12/threading.py", line 1030, in _bootstrap
+    self._bootstrap_inner()
+  File "/mnt/iusers01/fatpou01/chem02/b07755hv/.conda/envs/env/lib/python3.12/threading.py", line 1073, in _bootstrap_inner
+    self.run()
+  File "/mnt/iusers01/fatpou01/chem02/b07755hv/.conda/envs/env/lib/python3.12/threading.py", line 1010, in run
+    self._target(*self._args, **self._kwargs)
+  File "/mnt/iusers01/fatpou01/chem02/b07755hv/.local/lib/python3.12/site-packages/docling/pipeline/standard_pdf_pipeline.py", line 279, in _run
+    processed = self._process_batch(batch)
+  File "/mnt/iusers01/fatpou01/chem02/b07755hv/.local/lib/python3.12/site-packages/docling/pipeline/standard_pdf_pipeline.py", line 344, in _process_batch
+    processed_pages = list(self.model(good[0].conv_res, pages))  # type: ignore[arg-type]
+  File "/mnt/iusers01/fatpou01/chem02/b07755hv/.local/lib/python3.12/site-packages/docling/models/stages/ocr/rapid_ocr_model.py", line 491, in __call__
+    result = self.reader(
+  File "/mnt/iusers01/fatpou01/chem02/b07755hv/.local/lib/python3.12/site-packages/rapidocr/main.py", line 120, in __call__
+    det_res, cls_res, rec_res, cropped_img_list = self.run_ocr_steps(img, op_record)
+  File "/mnt/iusers01/fatpou01/chem02/b07755hv/.local/lib/python3.12/site-packages/rapidocr/main.py", line 132, in run_ocr_steps
+    logger.warning(e)
+Message: RapidOCRError('The text detection result is empty')
+Arguments: ()
+RapidOCR returned empty result!
+Raw PDF conversion timings:
+{
+  "pipeline_total": {
+    "scope": "document",
+    "count": 1,
+    "times": [
+      9.001557561568916
+    ],
+    "start_timestamps": [
+      "2026-07-23 18:49:00.947541+00:00"
+    ]
+  },
+  "page_parse": {
+    "scope": "page",
+    "count": 7,
+    "times": [
+      0.11389602068811655,
+      0.1401730366051197,
+      0.14136283565312624,
+      0.16027525067329407,
+      0.16886645928025246,
+      0.15843523759394884,
+      0.10105807054787874
+    ],
+    "start_timestamps": [
+      "2026-07-23 18:49:00.954849+00:00",
+      "2026-07-23 18:49:01.068788+00:00",
+      "2026-07-23 18:49:01.209005+00:00",
+      "2026-07-23 18:49:01.350426+00:00",
+      "2026-07-23 18:49:01.510748+00:00",
+      "2026-07-23 18:49:01.679662+00:00",
+      "2026-07-23 18:49:01.838156+00:00"
+    ]
+  },
+  "ocr": {
+    "scope": "page",
+    "count": 7,
+    "times": [
+      1.0313136707991362,
+      0.7244010884314775,
+      1.1190715581178665,
+      0.9514598893001676,
+      0.12985975574702024,
+      0.1315673692151904,
+      0.6280158637091517
+    ],
+    "start_timestamps": [
+      "2026-07-23 18:49:01.069128+00:00",
+      "2026-07-23 18:49:02.100494+00:00",
+      "2026-07-23 18:49:02.824909+00:00",
+      "2026-07-23 18:49:03.944003+00:00",
+      "2026-07-23 18:49:04.895494+00:00",
+      "2026-07-23 18:49:05.025363+00:00",
+      "2026-07-23 18:49:05.156940+00:00"
+    ]
+  },
+  "layout": {
+    "scope": "page",
+    "count": 2,
+    "times": [
+      0.056931338272988796,
+      0.08438941743224859
+    ],
+    "start_timestamps": [
+      "2026-07-23 18:49:02.100586+00:00",
+      "2026-07-23 18:49:05.785167+00:00"
+    ]
+  },
+  "table_structure": {
+    "scope": "page",
+    "count": 7,
+    "times": [
+      2.0168721675872803e-05,
+      3.1159259378910065e-05,
+      8.375383913516998e-06,
+      6.6533684730529785e-06,
+      9.658746421337128e-06,
+      1.043081283569336e-05,
+      6.172806024551392e-06
+    ],
+    "start_timestamps": [
+      "2026-07-23 18:49:02.240251+00:00",
+      "2026-07-23 18:49:06.337631+00:00",
+      "2026-07-23 18:49:06.337665+00:00",
+      "2026-07-23 18:49:06.337678+00:00",
+      "2026-07-23 18:49:06.337688+00:00",
+      "2026-07-23 18:49:06.337736+00:00",
+      "2026-07-23 18:49:06.337751+00:00"
+    ]
+  },
+  "page_assemble": {
+    "scope": "page",
+    "count": 7,
+    "times": [
+      0.0026029786095023155,
+      0.0012482386082410812,
+      0.0014799544587731361,
+      0.0016378723084926605,
+      0.016363888047635555,
+      0.013511508703231812,
+      0.0017154989764094353
+    ],
+    "start_timestamps": [
+      "2026-07-23 18:49:02.240326+00:00",
+      "2026-07-23 18:49:06.337826+00:00",
+      "2026-07-23 18:49:06.339105+00:00",
+      "2026-07-23 18:49:06.340608+00:00",
+      "2026-07-23 18:49:06.342267+00:00",
+      "2026-07-23 18:49:06.358658+00:00",
+      "2026-07-23 18:49:06.372195+00:00"
+    ]
+  },
+  "doc_assemble": {
+    "scope": "document",
+    "count": 1,
+    "times": [
+      0.03227543458342552
+    ],
+    "start_timestamps": [
+      "2026-07-23 18:49:06.374086+00:00"
+    ]
+  },
+  "reading_order": {
+    "scope": "document",
+    "count": 1,
+    "times": [
+      0.03178246691823006
+    ],
+    "start_timestamps": [
+      "2026-07-23 18:49:06.374173+00:00"
+    ]
+  },
+  "doc_enrich": {
+    "scope": "document",
+    "count": 1,
+    "times": [
+      3.5426848540082574
+    ],
+    "start_timestamps": [
+      "2026-07-23 18:49:06.406393+00:00"
+    ]
+  }
+}
+All hyperlinked elements redacted in-memory.
+--- Logging error ---
+Traceback (most recent call last):
+  File "/mnt/iusers01/fatpou01/chem02/b07755hv/.local/lib/python3.12/site-packages/rapidocr/main.py", line 130, in run_ocr_steps
+    cropped_img_list, det_res = self.detect_and_crop(img, op_record)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/iusers01/fatpou01/chem02/b07755hv/.local/lib/python3.12/site-packages/rapidocr/main.py", line 298, in detect_and_crop
+    raise RapidOCRError("The text detection result is empty")
+rapidocr.main.RapidOCRError: The text detection result is empty
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/mnt/iusers01/fatpou01/chem02/b07755hv/.conda/envs/env/lib/python3.12/logging/__init__.py", line 1163, in emit
+    stream.write(msg + self.terminator)
+  File "/mnt/iusers01/fatpou01/chem02/b07755hv/ChemistryExtract/src/chemstractor/lib/extractor.py", line 298, in write
+    self.file.write(data)
+ValueError: I/O operation on closed file.
+Call stack:
+  File "/mnt/iusers01/fatpou01/chem02/b07755hv/.conda/envs/env/lib/python3.12/threading.py", line 1030, in _bootstrap
+    self._bootstrap_inner()
+  File "/mnt/iusers01/fatpou01/chem02/b07755hv/.conda/envs/env/lib/python3.12/threading.py", line 1073, in _bootstrap_inner
+    self.run()
+  File "/mnt/iusers01/fatpou01/chem02/b07755hv/.conda/envs/env/lib/python3.12/threading.py", line 1010, in run
+    self._target(*self._args, **self._kwargs)
+  File "/mnt/iusers01/fatpou01/chem02/b07755hv/.local/lib/python3.12/site-packages/docling/pipeline/standard_pdf_pipeline.py", line 279, in _run
+    processed = self._process_batch(batch)
+  File "/mnt/iusers01/fatpou01/chem02/b07755hv/.local/lib/python3.12/site-packages/docling/pipeline/standard_pdf_pipeline.py", line 344, in _process_batch
+    processed_pages = list(self.model(good[0].conv_res, pages))  # type: ignore[arg-type]
+  File "/mnt/iusers01/fatpou01/chem02/b07755hv/.local/lib/python3.12/site-packages/docling/models/stages/ocr/rapid_ocr_model.py", line 491, in __call__
+    result = self.reader(
+  File "/mnt/iusers01/fatpou01/chem02/b07755hv/.local/lib/python3.12/site-packages/rapidocr/main.py", line 120, in __call__
+    det_res, cls_res, rec_res, cropped_img_list = self.run_ocr_steps(img, op_record)
+  File "/mnt/iusers01/fatpou01/chem02/b07755hv/.local/lib/python3.12/site-packages/rapidocr/main.py", line 132, in run_ocr_steps
+    logger.warning(e)
+Message: RapidOCRError('The text detection result is empty')
+Arguments: ()
+RapidOCR returned empty result!
+Clean PDF conversion timings:
+{
+  "pipeline_total": {
+    "scope": "document",
+    "count": 1,
+    "times": [
+      9.050813404843211
+    ],
+    "start_timestamps": [
+      "2026-07-23 18:49:10.615217+00:00"
+    ]
+  },
+  "page_parse": {
+    "scope": "page",
+    "count": 7,
+    "times": [
+      0.11499886587262154,
+      0.13884112983942032,
+      0.13507572375237942,
+      0.1783567313104868,
+      0.12079016678035259,
+      0.09254306368529797,
+      0.0845304923132062
+    ],
+    "start_timestamps": [
+      "2026-07-23 18:49:10.621231+00:00",
+      "2026-07-23 18:49:10.736273+00:00",
+      "2026-07-23 18:49:10.875159+00:00",
+      "2026-07-23 18:49:11.010278+00:00",
+      "2026-07-23 18:49:11.188702+00:00",
+      "2026-07-23 18:49:11.309535+00:00",
+      "2026-07-23 18:49:11.402131+00:00"
+    ]
+  },
+  "ocr": {
+    "scope": "page",
+    "count": 7,
+    "times": [
+      0.8587821237742901,
+      0.7394988443702459,
+      1.1362971477210522,
+      0.993616552092135,
+      0.12794840894639492,
+      0.1324561620131135,
+      0.6494138864800334
+    ],
+    "start_timestamps": [
+      "2026-07-23 18:49:10.736592+00:00",
+      "2026-07-23 18:49:11.595460+00:00",
+      "2026-07-23 18:49:12.334975+00:00",
+      "2026-07-23 18:49:13.471287+00:00",
+      "2026-07-23 18:49:14.464921+00:00",
+      "2026-07-23 18:49:14.592879+00:00",
+      "2026-07-23 18:49:14.725345+00:00"
+    ]
+  },
+  "layout": {
+    "scope": "page",
+    "count": 2,
+    "times": [
+      0.056373078376054764,
+      0.09660537913441658
+    ],
+    "start_timestamps": [
+      "2026-07-23 18:49:11.595561+00:00",
+      "2026-07-23 18:49:15.374944+00:00"
+    ]
+  },
+  "table_structure": {
+    "scope": "page",
+    "count": 7,
+    "times": [
+      2.064742147922516e-05,
+      2.781301736831665e-05,
+      1.0810792446136475e-05,
+      1.602061092853546e-05,
+      1.223292201757431e-05,
+      8.034519851207733e-06,
+      7.78399407863617e-06
+    ],
+    "start_timestamps": [
+      "2026-07-23 18:49:11.709213+00:00",
+      "2026-07-23 18:49:16.286515+00:00",
+      "2026-07-23 18:49:16.286549+00:00",
+      "2026-07-23 18:49:16.286570+00:00",
+      "2026-07-23 18:49:16.286591+00:00",
+      "2026-07-23 18:49:16.286642+00:00",
+      "2026-07-23 18:49:16.286655+00:00"
+    ]
+  },
+  "page_assemble": {
+    "scope": "page",
+    "count": 7,
+    "times": [
+      0.000562748871743679,
+      0.0006997464224696159,
+      0.0005588410422205925,
+      0.0007394608110189438,
+      0.0013263076543807983,
+      0.00029123853892087936,
+      0.00015424005687236786
+    ],
+    "start_timestamps": [
+      "2026-07-23 18:49:11.709284+00:00",
+      "2026-07-23 18:49:16.286731+00:00",
+      "2026-07-23 18:49:16.287462+00:00",
+      "2026-07-23 18:49:16.288043+00:00",
+      "2026-07-23 18:49:16.288803+00:00",
+      "2026-07-23 18:49:16.290150+00:00",
+      "2026-07-23 18:49:16.290460+00:00"
+    ]
+  },
+  "doc_assemble": {
+    "scope": "document",
+    "count": 1,
+    "times": [
+      0.02922485303133726
+    ],
+    "start_timestamps": [
+      "2026-07-23 18:49:16.290773+00:00"
+    ]
+  },
+  "reading_order": {
+    "scope": "document",
+    "count": 1,
+    "times": [
+      0.02873396035283804
+    ],
+    "start_timestamps": [
+      "2026-07-23 18:49:16.290853+00:00"
+    ]
+  },
+  "doc_enrich": {
+    "scope": "document",
+    "count": 1,
+    "times": [
+      3.3459891583770514
+    ],
+    "start_timestamps": [
+      "2026-07-23 18:49:16.320022+00:00"
+    ]
+  }
+}
+Function parse_pdf took 19.3048 seconds to execute.
+Running: get_tables
+Function get_tables took 0.0001 seconds to execute.
+Running: get_surrounding_paragraphs
+Function get_surrounding_paragraphs took 0.0001 seconds to execute.

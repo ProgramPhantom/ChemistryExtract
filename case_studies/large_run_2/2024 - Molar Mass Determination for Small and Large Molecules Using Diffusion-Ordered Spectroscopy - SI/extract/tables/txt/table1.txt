@@ -1,0 +1,72 @@
+-------------- TABLE 1 EXTRACTION --------------
+**[Preceding Paragraphs]**
+S9-S14: Diffusion coefficients in dependence of molar masses
+
+S15: Experimental vs. calculated diffusion coefficients
+
+## 1) Tables:
+
+Table S1. Molar masses (in g/mol) of PS-, PMMA, PI, P2VP and PEO homopolymers used for the DOSY calibration.
+
+**[Table Data]**
+| Polymer   | Sample   |     M p |     M w |     M n |   PDI |
+|-----------|----------|---------|---------|---------|-------|
+|           | ps1      |    1306 |    1220 |    1120 |  1.09 |
+|           | ps2      |    3500 |    3510 |    3350 |  1.05 |
+|           | ps3      |    8680 |    8670 |    8420 |  1.03 |
+|           | ps4      |   19700 |   19100 |   18200 |  1.05 |
+|           | ps5      |   34800 |   34000 |   32700 |  1.04 |
+| PS        | ps6      |   66000 |   62500 |   59300 |  1.05 |
+|           | ps7      |  130000 |  125000 |  120000 |  1.04 |
+|           | ps8      |  304000 |  294000 |  282000 |  1.04 |
+|           | ps9      |  552000 |  554000 |  532000 |  1.04 |
+|           | ps10     | 1240000 | 1170000 | 1100000 |  1.06 |
+|           | pmma1    |    2160 |    2130 |    1920 |  1.11 |
+|           | pmma2    |    5980 |    5930 |    5590 |  1.06 |
+|           | pmma3    |   12900 |   12800 |   12300 |  1.04 |
+|           | pmma4    |   22800 |   21200 |   18700 |  1.13 |
+| PMMA      | pmma5    |   41400 |   40300 |   38100 |  1.06 |
+|           | pmma6    |   88500 |   86700 |   83700 |  1.04 |
+|           | pmma7    |  202000 |  187000 |  175000 |  1.07 |
+|           | pmma8    |  520000 |  517000 |  501000 |  1.03 |
+|           | pmma9    |  988000 |  936000 |  850000 |  1.10 |
+|           | pi1      |    1030 |    1070 |     944 |  1.13 |
+|           | pi2      |    2200 |    2190 |    2030 |  1.08 |
+|           | pi3      |    4620 |    4610 |    4450 |  1.04 |
+|           | pi4      |   12100 |   12000 |   11800 |  1.02 |
+|           | pi5      |   23500 |   23600 |   23300 |  1.01 |
+| PI        | pi6      |   42300 |   42500 |   42000 |  1.01 |
+|           | pi7      |  111000 |  111000 |  110000 |  1.01 |
+|           | pi8      |  226000 |  231000 |  227000 |  1.02 |
+|           | pi9      |  443000 |  443000 |  429000 |  1.03 |
+|           | pi10     | 1180000 | 1090000 | 1010000 |  1.08 |
+|           | p2vp1    |    1020 |    1050 |     867 |  1.21 |
+|           | p2vp2    |    2450 |    2490 |    2180 |  1.14 |
+|           | p2vp3    |    5780 |    5790 |    4630 |  1.25 |
+|           | p2vp4    |   11500 |   12200 |   11500 |  1.06 |
+|           | p2vp5    |   19600 |   20500 |   19600 |  1.04 |
+| P2VP      | p2vp6    |   42800 |   43100 |   40500 |  1.06 |
+|           | p2vp7    |  118000 |  120000 |  113000 |  1.06 |
+|           | p2vp8    |  243000 |  249000 |  232000 |  1.07 |
+|           | p2vp9    |  539000 |  535000 |  488000 |  1.10 |
+|           | p2vp10   | 1160000 | 1200000 | 1040000 |  1.15 |
+| PEO       | peo1     |    1030 |    1020 |     978 |  1.04 |
+
+**[Succeeding Paragraphs]**
+[table omitted]
+
+Table S2. Molar masses (in g/mol) of small molecules used for the DOSY calibration. The samples are separated  according  to  their  shapes:  CS=compact  spheres,  DSE=dissipated  spheres  and  ellipsoids, ED=expanded discs (nomenclature according to ref (1,2)).
+
+[table omitted]
+
+Table S3. Pulsed field gradient conditions for all polymers and solvents: Gradient pulse length given as little delta  (LD)  and  diffusion  delay  as  big  delta  (BD)  for  the  convection  compensated  pulse  sequence dstebpgp3s
+
+[table omitted]
+
+[table omitted]
+
+[table omitted]
+
+-
+
+Table S4a. Parameters b (Flory parameter) and c of the power scaling D=c·M -b  determined via DOSY and the dynamic viscosities (in Pa·s) of the solvents for small molecules of different shapes at T=298 K: compact spheres (CS), dissipated spheres and ellipsoids (DSE) and expanded discs (ED) (parameters b and c are calculated from diffusion data of ref (1) reproduced with permission of the Royal Society of Chemistry and ref  (2)  reproduced  with  permission  of  John  Wiley  and  Sons,  respectively).  The  dynamic  viscosities  are related to the references and temperature dependences of Table S5.

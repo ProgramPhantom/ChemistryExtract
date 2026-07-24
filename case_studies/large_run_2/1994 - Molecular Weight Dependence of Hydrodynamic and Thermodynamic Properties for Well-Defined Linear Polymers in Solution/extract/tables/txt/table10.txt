@@ -1,0 +1,53 @@
+-------------- TABLE 10 EXTRACTION --------------
+**[Preceding Paragraphs]**
+## H,YDRODYNAMIC AND THERMODYNAMIC PROPERTIES FOR LINEAR POL  YMERS IN SOLUTION 627
+
+TABLE 7.  Polystyrene in cyclohexane for 37 samples (1.07 X 10 4 to 5.57 X 10 7 in M) we derive (corr.  coeff. ==  0.9995)
+
+TABLE 7.  Polystyrene in cyclohexane  Continued
+
+[table omitted]
+
+TABLE 7.  Polystyrene in cyclohexane  Continued
+
+**[Table Data]**
+|   Reference |   M x IO- s (g mol-I) |   [11] (cm 3 g-I) |   Rg (nm) |   RH (nm) |
+|-------------|-----------------------|-------------------|-----------|-----------|
+|          51 |                 0.205 |                   |      3.97 |           |
+|             |                 0.400 |                   |      5.66 |           |
+|             |                 0.973 |                   |      9.10 |           |
+|          52 |                 0.101 |               9.0 |           |           |
+|          53 |                  64.8 |               228 |      74.1 |           |
+|             |                  65.5 |               230 |      74.6 |           |
+|          54 |                  4.22 |                   |      18.5 |           |
+|             |                  7.75 |                   |      26.0 |           |
+|             |                  12.6 |                   |      31.8 |           |
+|          55 |                 0.107 |                   |      2.76 |      2.38 |
+|             |                 0.146 |                   |      3.28 |      4.01 |
+|          56 |                  12.6 |                   |           |      25.5 |
+|             |                  28.8 |                   |           |      39.3 |
+|             |                  44.8 |                   |           |      48.1 |
+|             |                  50.5 |                   |           |      51.5 |
+|             |                  67.7 |                   |           |      59.2 |
+|             |                  93.5 |                   |           |      71.7 |
+|          57 |                  0.21 |                   |           |      3.35 |
+|             |                  1.10 |                   |           |      7.16 |
+|             |                  2.00 |                   |           |      9.86 |
+|             |                  6.70 |                   |           |      18.1 |
+|             |                  27.0 |                   |           |      35.8 |
+|          58 |                  0.27 |                   |           |      3.50 |
+|             |                  0.57 |                   |           |      5.04 |
+|             |                  0.84 |                   |           |      6.58 |
+|             |                  1.25 |                   |           |      7.85 |
+|             |                  2.30 |                   |           |      10.0 |
+|             |                  4.60 |                   |           |      14.0 |
+|             |                  4.95 |                   |           |      14.2 |
+
+**[Succeeding Paragraphs]**
+$$R _ { 8 } ^ { \text {CH} } = 2 . 4 2 \times 1 0 ^ { - 2 } \, M ^ { 0 . 5 1 2 }$$
+
+If only light scattering data are considered for PS in cyclohex­ ane. we find (M from 3.94 X  105 to 5.57  X  10 7 )
+
+$$R _ { 8 } = 2 . 2 5 \times 1 0 ^ { - 2 } \, M ^ { 0 . 5 1 7 }$$
+
+with a correlation coefficient of 0.9991. Clearly the previous two equations are in close agreement and we give preference to  Eq.  37  because of its  being based on a  larger molecular weight range. Treattnent of these data by the method of Bau­ mann J8 yields

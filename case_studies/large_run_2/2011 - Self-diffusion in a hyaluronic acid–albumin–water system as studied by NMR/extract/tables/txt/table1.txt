@@ -1,0 +1,35 @@
+-------------- TABLE 1 EXTRACTION --------------
+**[Preceding Paragraphs]**
+Mixed HA -BSA solutions were prepared by combining the individually prepared BSA and HA solutions and allowing equilibration over twodays. The pH of all studied samples was in the range 7.0 -7.2.
+
+Finally, 0.5-ml aliquots of the solutions were placed in 6-mm i.d. NMR tubes and sealed to prevent evaporation. Measurements were performed within oneweek of sample preparation.
+
+## Pulsed fi eld gradient NMR
+
+Experiments were performed using a homemade NMR device operating at 60 MHz 1 H NMR (1.4 T). [10] Diffusion decays were obtained as dependences of the spin-echo amplitude on the pulsed magnetic fi eld amplitude, which varied from 0 to the maximum value of 30 T/m. For the stimulated echo pulse sequence used, the diffusion decay (DD) of the echo amplitude A can be described by the equation: [11]
+
+**[Table Data]**
+| Table 1. Compositions of hyaluronic acid (HA), bovine serum albu- min (BSA) and HA+BSA solutions in D 2 O (wt%)   | Table 1. Compositions of hyaluronic acid (HA), bovine serum albu- min (BSA) and HA+BSA solutions in D 2 O (wt%)   | Table 1. Compositions of hyaluronic acid (HA), bovine serum albu- min (BSA) and HA+BSA solutions in D 2 O (wt%)   |
+|-------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
+| Sample N                                                                                                          | % BSA                                                                                                             | % HA                                                                                                              |
+| 1                                                                                                                 | 4                                                                                                                 | -                                                                                                                 |
+| 2                                                                                                                 | 2                                                                                                                 | -                                                                                                                 |
+| 3                                                                                                                 | 1                                                                                                                 | -                                                                                                                 |
+| 4                                                                                                                 | -                                                                                                                 | 2                                                                                                                 |
+| 5                                                                                                                 | -                                                                                                                 | 4                                                                                                                 |
+| 6                                                                                                                 | -                                                                                                                 | 8                                                                                                                 |
+| 7                                                                                                                 | 4                                                                                                                 | 0.25                                                                                                              |
+| 8                                                                                                                 | 4                                                                                                                 | 0.75                                                                                                              |
+| 9                                                                                                                 | 2                                                                                                                 | 0.25                                                                                                              |
+| 10                                                                                                                | 2                                                                                                                 | 0.75                                                                                                              |
+| 11                                                                                                                | 1                                                                                                                 | 0.25                                                                                                              |
+| 12                                                                                                                | 1                                                                                                                 | 0.75                                                                                                              |
+
+**[Succeeding Paragraphs]**
+<!-- image -->
+
+$$A ( 2 \tau , \tau _ { 1 } , g , \delta ) = \frac { I } { 2 } \exp \left ( - \frac { 2 \tau } { T _ { 2 } } - \frac { \tau _ { 1 } } { T _ { 1 } } \right ) \exp ( - \gamma ^ { 2 } \delta ^ { 2 } g ^ { 2 } D t _ { d } ) , \quad ( 1 ) \\$$
+
+where I is the factor proportional to the proton amount in the system; T 1 and T 2 are spin -lattice and spin -spin relaxation times, respectively; t and t 1 are periods in the pulse sequence; g is the gyromagnetic ratio for protons; g and d are amplitude and duration of the gradient pulse, respectively; t d = ( Δ -d /3) is the diffusion time; Δ =( t + t 1) is the time delay between the two gradient pulses; and SDC is the self-diffusion coef fi cient of the molecules.
+
+## Experimental Results

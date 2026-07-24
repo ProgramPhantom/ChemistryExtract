@@ -1,0 +1,5 @@
+[
+  "R _ { h } = \\frac { k _ { b } T } { 6 \\pi \\eta D } = A \\times ( M _ { w } ) ^ { \\alpha } & & \\text {mean} \\\\ & & ( 1 )",
+  "\\ln ( R _ { h } ) = \\ln ( A ) + \\alpha \\times ( \\ln ( M _ { w } ) ) \\quad ( 2 )",
+  "\\ln ( M _ { w } ) = \\frac { \\ln ( R _ { h } ) - \\ln ( A ) } { \\alpha } = \\frac { 1 } { \\alpha } \\ln \\left ( \\frac { R _ { h } } { A } \\right ) \\\\"
+]

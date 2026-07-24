@@ -1,0 +1,28 @@
+{
+  "is_flory_data": true,
+  "flory_entries": [
+    {
+      "polymer_name": "polymers in \u0388 solvent",
+      "solvent": "Not found",
+      "temperature_k": null,
+      "raw_v_value": "0.50",
+      "v_transformation": "none",
+      "v_value": 0.5,
+      "raw_c_value": "Not found",
+      "c_transformation": "none",
+      "c_value": "Not found"
+    },
+    {
+      "polymer_name": "polymers in good solvent",
+      "solvent": "Not found",
+      "temperature_k": null,
+      "raw_v_value": "0.588",
+      "v_transformation": "none",
+      "v_value": 0.588,
+      "raw_c_value": "Not found",
+      "c_transformation": "none",
+      "c_value": "Not found"
+    }
+  ],
+  "calculator_calls": []
+}

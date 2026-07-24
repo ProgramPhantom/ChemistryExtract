@@ -1,0 +1,33 @@
+-------------- TABLE 5 EXTRACTION --------------
+**[Preceding Paragraphs]**
+<!-- image -->
+
+Fig. 8. RH Distributions of HB PNIPAM (PNIPAM:VBP molar feed ratio shown to the right) determined by Methanol SEC.
+
+<!-- image -->
+
+Table 4 RH of HB-PNIPAM polymers from Methanol SEC.
+
+**[Table Data]**
+| SEC        | SEC   | SEC   | DOSY       | DOSY      | DOSY   | DOSY   |
+|------------|-------|-------|------------|-----------|--------|--------|
+| NIPAM: VBP | R Hn  | R Hw  | - logD (S) | -logD (P) | R Hn   | R Hw   |
+| MeOD       | -     | -     | 9.087      | -         | -      | -      |
+| 15:1       | 19.7  | 26.38 | 8.616      | 10.224    | 23.6   | 24.5   |
+| 25:1       | 17.89 | 27.40 | 8.648      | 10.243    | 23.6   | 24.5   |
+| 35:1       | 16.29 | 27.08 | 8.636      | 10.208    | 22.9   | 24.0   |
+| 45:1       | 15.71 | 24.89 | 8.625      | 10.182    | 20.6   | 21.3   |
+| 55:1       | 16.02 | 24.04 | 8.641      | 10.207    | 20.4   | 20.9   |
+| 65:1       | 15.33 | 23.39 | 8.663      | 10.215    | 19.8   | 20.4   |
+| 75:1       | 16.05 | 23.41 | 8.636      | 10.212    | 19.9   | 20.6   |
+| 85:1       | 16.93 | 23.89 | 8.639      | 10.211    | 20.4   | 21.0   |
+
+**[Succeeding Paragraphs]**
+- a Molar reaction feed.
+- b Diffusion of solvent (S) and polymer (P) 1 H proton peaks.
+
+tributions. Therefore, in Fig. 8 the data in Fig. 5 were transformed into distributions of RH and the peak, number average and weight average radii are shown in Table 4, alongside similar data generated using DOSY NMR (T = 25 ◦ C) of these samples in methanol.
+
+The number averages (RHn) determined from the methanol SEC are similar, and largely follow the trend of the peak found in the DOSY NMR experiment (RHp) when these samples were analyzed in deuterated methanol. However although these techniques provide comparable data regarding average size, the SEC experiment gives much greater resolution of the distribution of the radii. The DOSY data showed a shoulder that could be deconvoluted to two separate peaks but the resolution seen on the SEC could not be achieved (see Supporting Information). With further development of the DOSY method however greater increases in resolution may be possible but for the time being SEC remains the most accurate way of determining the full molar mass distributions of highly disperse samples.
+
+Fig. 9. Cumulative Molar Mass Distributions of HB PNIPAM Polymers (PNIPAM:VBP molar feed ratio shown to the right) determined by Methanol SEC.

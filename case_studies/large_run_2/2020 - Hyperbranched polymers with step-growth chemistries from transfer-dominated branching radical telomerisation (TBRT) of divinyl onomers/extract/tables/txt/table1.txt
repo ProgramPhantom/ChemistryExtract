@@ -1,0 +1,28 @@
+-------------- TABLE 1 EXTRACTION --------------
+**[Preceding Paragraphs]**
+Fig. 1 Comparison of the formation of telomers using free radical polymerisation of vinyl monomers and the TBRT of divinyl monomers to form high molecular weight branched polymer structures. (a), Simple propagation and rapid chain transfer leads to the formation of low molecular weight products containing both segments of a telogen at the initiation and termination sites. (b), Identical telomerisation conditions applied to divinyl monomers leads to telomers with unreacted functional groups that further react together to form high molecular weight branched polymers with multiple telogen residues.
+
+<!-- image -->
+
+Our chosen conventional free-radical strategy utilises the well-studied 2,2 ′ -azobis(2-methylpropionitrile) (AIBN) as a radical source at a typical concentration of 1.5 mol% based on vinyl functional groups, EGDMA as the taxogen, dodecanethiol (DDT) as the telogen and toluene as solvent. Our first reactions, with relatively low telogen concentrations (but higher than typical linear polymerisation values), did indeed lead to gelation as predicted (Table 1; ESI Table 1 † ); however, increases in telogen concentrations to levels more typically used in successful linear telomerisations, led to the formation of fully soluble polymer products from reactions conducted at 50 wt% solids with full vinyl conversion, as determined by 1 H and 13 C nuclear magnetic resonance spectroscopy (NMR; see ESI Fig. 1 -5 † ). By increasing the telogen concentration, the formation of transfer-dominated branching radical telomerisation conditions could be exploited to prevent gelation, enable full conversion, and yield useful branched polymer products. As mentioned above, the concentration of telogen required under these conditions is typically &gt;1 molar equivalent with respect to divinyl compound as would be expected when considering the telomerisation conditions that need to be established (Table 1).
+
+Table 1 Characterisation of EGDMA/DDT TBRT at 70 °C in toluene (50 wt%; 1.5 mol% AIBN wrt. EGDMA vinyl bonds)
+
+**[Table Data]**
+| 1 H NMR (CDCl 3 )     | 1 H NMR (CDCl 3 )   | 1 H NMR (CDCl 3 )             | TD-SEC d (THF/TEA)   | TD-SEC d (THF/TEA)   | TD-SEC d (THF/TEA)   |
+|-----------------------|---------------------|-------------------------------|----------------------|----------------------|----------------------|
+| [EGDMA] 0 / [DDT] 0 a | Conv. b (%)         | [EGDMA] Final / [DDT] Final c | M w (g mol - 1 )     | M n (g mol - 1 )     | Đ                    |
+| 0.50                  | >99                 | 0.93                          | 29 485               | 11 747               | 2.51                 |
+| 0.75                  | >99                 | 1.04                          | 206 784              | 6540                 | 31.6                 |
+| 0.80                  | >99                 | 1.02                          | 209 265              | 5924                 | 35.3                 |
+| 0.85                  | >99                 | 1.02                          | 1 822 000            | 23 635               | 77.1                 |
+| 1.00                  | Gel                 | Gel                           | Gel                  | Gel                  | Gel                  |
+
+**[Succeeding Paragraphs]**
+a Determined by 1 H NMR of polymerisation mixture at t 0. b Determined by 1 H NMR of crude sample after 24 h. c Determined by 1 H NMR of purified and dried material. d Determined by triple-detection size exclusion chromatography.
+
+The homopolymerisation depicted in Fig. 1b will theoretically lead to full consumption of vinyl functionality, without gelation, if the rate of propagating radical capping, after telogen addition to the vinyl bond, is rapid enough to maintain low DP n values and prevent extensive vinyl group propagation (Fig. 2a). Although carbon -carbon bond formation occurs during this polymer synthesis, the longest chain structures within the branched polymer architecture are aliphatic polyesters, derived from joining the diester units present within the starting divinyl monomer, (Fig. 2a, highlighted chain). In principle, the telomerisation reaction can be considered as having formed the carbon -carbon backbones of a distribution of multifunctional acid monomer residues. Hypothetically, the same polymer structure would result from a polyesterifcation reaction containing ethylene glycol (A2) and a complex mixture of B, B2, B3, B4, … B n acid-functional monomers (Fig. 2b); experimentally, and industrially, this would be extremely di ffi cult to achieve.
+
+Fig. 2 Product structure from the TBRT of ethylene glycol dimethacrylate. (a), The structure formed by the TBRT of a dimethacrylate is best represented as a branched polyester (shown in red), with a nominal repeat unit derived from the addition of one telogen to the dimethacrylate, and structural subunits created by di ff ering degrees of propagation before chain transfer. (b), The branched polyester may theoretically be synthesised by the step-growth polymerisation of a mixture of mono- and polyacids with ethylene glycol. Only the initiation segment of the telogen is shown (in green) for clarity; dotted bonds show new bond formation during telomerisation.
+
+<!-- image -->

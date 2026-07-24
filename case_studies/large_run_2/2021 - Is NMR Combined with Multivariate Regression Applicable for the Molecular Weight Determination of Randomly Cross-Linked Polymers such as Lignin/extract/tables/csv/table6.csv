@@ -1,0 +1,10 @@
+,parameter,range,method,RMSEV,rel. error,(%)
+0,M w,2759 - 3156 Da,1 H-PLS,374 Da,6.9,
+1,,,DOSY-PLS,837 Da,15,
+2,,,PFG-Fit-MLR,804 Da,15,
+3,M n,841 - 1011 Da,1 H-PLS,33 Da,8.7,
+4,,,DOSY-PLS,64 Da,16,
+5,,,PFG-Fit-MLR,62 Da,16,
+6,PDI,2.83 - 3.37,1 H-PLS,0.37,8.0,
+7,,,DOSY-PLS,0.64,14,
+8,,,PFG-Fit-MLR,0.87,18,

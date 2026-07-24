@@ -1,0 +1,31 @@
+-------------- TABLE 1 EXTRACTION --------------
+**[Preceding Paragraphs]**
+<!-- image -->
+
+Figure 1. dART processing of the simulated data set with added Gaussian noise levels of 0.0, 0.1, 0.5, and 1.0%. Reference D -values are marked with dotted lines.
+
+1 presents synthetic results that highlights in bold those algorithms that a ff ord lower errors compared to those originally de fi ned in the set of data. Extensive results are presented in the Supporting Information (see Figures S2 and S3 and Table S2). Interestingly, the solutions for the fi rst peak (large molecule or small D-value) is very narrow whereas the solutions for the second and third peaks (small to medium size molecules) become very broad. This is due to the fact that the fi rst peak contains signal in the whole I / I 0 attenuation, whereas the other two only have signal in the fi rst part of the attenuation and therefore the algorithms have more di ffi culties in locate the solution.
+
+Table 1. Quality of Reconstruction of Signals of Set A at Di ff usion Coe ffi cients D 1 , D 2 and D 3 , with Di ff erent Algorithms for Various Noise Levels (in %) a
+
+**[Table Data]**
+|     |   noise level |   dART |   ITAMeD |   TRAIn |
+|-----|---------------|--------|----------|---------|
+| D 1 |           0.1 |   2.56 |     2.25 |    7.13 |
+|     |           0.5 |   5.62 |     2.25 |    7.13 |
+|     |           1.0 |   9.16 |     2.25 |    7.30 |
+| D 2 |           0.1 |   1.72 |     3.70 |    6.14 |
+|     |           0.5 |   4.17 |     3.81 |    6.30 |
+|     |           1.0 |   8.22 |     5.44 |    7.83 |
+| D 3 |           0.1 |   0.35 |     2.04 |    0.56 |
+|     |           0.5 |   0.27 |     2.02 |    0.13 |
+|     |           1.0 |   2.92 |     4.77 |    0.12 |
+
+**[Succeeding Paragraphs]**
+Figure 2. Results of dART processing on set B which is based on two peaks at varying ratio of di ff usion coe ffi cients. The vertical lines represent reference values set in the simulation.
+
+<!-- image -->
+
+The strength of our algorithm was tested with three more approaches based on simulation. On one hand, we applied the dART method on the di ff erentiation of a binary mixture of 1:1 ratio (set B). One of the simulated components was fi xed at 0.0213 × 10 -9 m 2 s -1 , and the other one varied from 0.028 × 10 -9 to 0.0521 × 10 -9 m 2 s -1 in 12 steps. Each simulation was performed with additional Gaussian noise on the level of 0.1%. Remarkably, the dART method could solve both components with relative errors below Δ D rel = 0.001 × 10 -9 m 2 s -1 , when the separation of D values was above 0.0095 × 10 -9 m 2 s -1 , that is in the second step (Figure 2). TRAIn behaved similarly than the dART algorithm (Figure S4), whereas ITAMeD (Figure S5) showed less component resolution than both of them.
+
+The second approach (set C) was based on the reconstruction of a broad Gaussian line simulating a polydisperse polymer with a PDI of about 2. Figure 3 shows

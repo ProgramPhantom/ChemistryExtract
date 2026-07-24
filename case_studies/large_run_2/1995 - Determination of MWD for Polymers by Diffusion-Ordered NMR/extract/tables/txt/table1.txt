@@ -1,0 +1,31 @@
+-------------- TABLE 1 EXTRACTION --------------
+**[Preceding Paragraphs]**
+<!-- image -->
+
+Figure 8. The polydispersity  kw/fin versus the width u of the simulated distribution obtained by standard CONTIN analysis (A), CONTIN with cm = 1 (0). and CONTIN with computed cm values (0). The solid line indicates the input values.
+
+<!-- image -->
+
+Table 1. Monodisperse Poly(ethy1ene oxide) Samples
+
+**[Table Data]**
+| sample no.   | data source   |   G, (103g mol-') |   M, (103g mol-') |
+|--------------|---------------|-------------------|-------------------|
+| PEOlK        | GPC           |               1.2 |               1.4 |
+| PE03K        | GPC           |               3.4 |               3.8 |
+| PEO5K        | GPC           |               5.1 |               5.6 |
+| PE027K       | GPC           |              27.3 |              33.4 |
+| PEOlOOK      | manufacturer  |               103 |               110 |
+| PE0240K      | manufacturer  |               240 |               250 |
+| PE05OOK      | manufacturer  |               486 |               510 |
+
+**[Succeeding Paragraphs]**
+Table 2. Polydisperse Poly(ethy1ene  oxide)
+
+[table omitted]
+
+Systems,  Inc.,  with  actively  shielded  gradient  coils  (coil  constants: 0.156 T  m-'A-l and 0.1785 T  m-'A-') were  used  in  these  experiments.26 In all NMR experiments, the probe temperature was maintained at 298 i 1 K by the standard Bruker temperature control unit, and 5 mm sample tubes were used.
+
+From 20 to 40 FIDs, each associated with a different q value (1 x 104 to 3 x lo6  m-'),  were collected with an ASPECT-3000 computer in each ernrhment.  In  each case the maximum  attenuation reduced the  signal % or less of  its original  intensity so that polydisperse polymer samples could be completely characterized.  The LED pulse sequence2'  was employed with diffusion time (A = 105.5  ms) and eddy current delay time (T, = 50 ms). The data files were transferred via Bruknet  from the ASPECT-3000 to a  Silicon Graphics (SGI) workstation; and software package FELIX  (Hare Research, Inc.) was used for Fourier transformations, phasing, and polynomial baseline corrections.  All the analysis programs were written in FORTRAN on SGI workstations, and the diffusion coefficients and their distributions were determined with a version of CONTIN modified in-house.
+
+## Results and Discussion

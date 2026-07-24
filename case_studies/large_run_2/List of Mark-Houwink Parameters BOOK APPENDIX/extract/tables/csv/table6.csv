@@ -1,0 +1,10 @@
+,Polymer,Solvent,Temp (OC),Kx 10 2 (mllg),a,MW range (M x 10- 3 ),Re- mark,Ref
+0,"LCA polyester PTHF Polyoxymethylene PVDBC PVB POA PDEPP PDPPP, PAPP",HFIP PFP HFIP/PFP (1: 1) MCIDCAA MC/HFIP (7:3) PFP cyclohexanone DMF THF,23 23 23 25 30 25 50 40 25 25 25 25 30 25 210,5.20 3.85 4.50 6.31 4.5 4.034 0.9205 4.16 0.932 9.1 1.4 0.842 0.961 2.5 1.19 0.127,0.695 0.723 0.705 0.658 0.68 0.691 1.05 0.676 0.79 0.827 0.80 0.202 0.674 0.65 0.649 0.80 0.747 0.94,> 12.5 < 12.5,Q R E H G G S U B,46 41 116 117 42 45 118 119 120 121 20 122 63 62
+1,,THF,135,,,,,
+2,,THF THF,,,,,,
+3,PVK PPS,THF THF CNP,,0.891,,,,
+4,PEEK,sulfuric acid phenollTCB,,,,,"B,T",
+5,,,25,7.588,,,,
+6,,,,,0.67,,,
+7,,,,0.3849,,,,
+8,,(1: 1),115,,,,B,62

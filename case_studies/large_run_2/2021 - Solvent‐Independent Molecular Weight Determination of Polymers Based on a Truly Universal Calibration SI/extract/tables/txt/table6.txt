@@ -1,0 +1,25 @@
+-------------- TABLE 6 EXTRACTION --------------
+**[Preceding Paragraphs]**
+<!-- image -->
+
+Figure 5. DOSY spectrum of 12300 g  mol -1  poly(ethylene glycol) in D2O
+
+<!-- image -->
+
+Table 5. All variables of 12300 g  mol -1 poly(ethylene glycol)
+
+**[Table Data]**
+|   b' /m 2  s -1 |       v |
+|------------------|---------|
+|           -8.327 | -0.4466 |
+
+**[Succeeding Paragraphs]**
+## Average calibration curve
+
+Same as with polystyrene, using all the values from all the different molecular weights and different solvents an average calibration can be obtained.
+
+Table 4. b' and v values for the average calibration curve of poly(ethylene glycol)
+
+[table omitted]
+
+Figure 6. Average calibration curve of poly(ethylene glycol)

@@ -1,0 +1,86 @@
+-------------- TABLE 6 EXTRACTION --------------
+**[Preceding Paragraphs]**
+## Appendix I
+
+## Mark-Houwink Parameters for Homopolymers
+
+[table omitted]
+
+[table omitted]
+
+[table omitted]
+
+[table omitted]
+
+[table omitted]
+
+**[Table Data]**
+| Polymer                                                             | Solvent                                                                  | Temp (OC)                                     | Kx 10 2 (mllg)                                                                     | a                                                                                                    | MW range (M x 10- 3 )   | Re- mark          | Ref                                              |
+|---------------------------------------------------------------------|--------------------------------------------------------------------------|-----------------------------------------------|------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|-------------------------|-------------------|--------------------------------------------------|
+| LCA polyester PTHF Polyoxymethylene PVDBC PVB POA PDEPP PDPPP, PAPP | HFIP PFP HFIP/PFP (1: 1) MCIDCAA MC/HFIP (7:3) PFP cyclohexanone DMF THF | 23 23 23 25 30 25 50 40 25 25 25 25 30 25 210 | 5.20 3.85 4.50 6.31 4.5 4.034 0.9205 4.16 0.932 9.1 1.4 0.842 0.961 2.5 1.19 0.127 | 0.695 0.723 0.705 0.658 0.68 0.691 1.05 0.676 0.79 0.827 0.80 0.202 0.674 0.65 0.649 0.80 0.747 0.94 | > 12.5 < 12.5           | Q R E H G G S U B | 46 41 116 117 42 45 118 119 120 121 20 122 63 62 |
+|                                                                     | THF                                                                      | 135                                           |                                                                                    |                                                                                                      |                         |                   |                                                  |
+|                                                                     | THF THF                                                                  |                                               |                                                                                    |                                                                                                      |                         |                   |                                                  |
+| PVK PPS                                                             | THF THF CNP                                                              |                                               | 0.891                                                                              |                                                                                                      |                         |                   |                                                  |
+| PEEK                                                                | sulfuric acid phenollTCB                                                 |                                               |                                                                                    |                                                                                                      |                         | B,T               |                                                  |
+|                                                                     |                                                                          | 25                                            | 7.588                                                                              |                                                                                                      |                         |                   |                                                  |
+|                                                                     |                                                                          |                                               |                                                                                    | 0.67                                                                                                 |                         |                   |                                                  |
+|                                                                     |                                                                          |                                               | 0.3849                                                                             |                                                                                                      |                         |                   |                                                  |
+|                                                                     | (1: 1)                                                                   | 115                                           |                                                                                    |                                                                                                      |                         | B                 | 62                                               |
+
+**[Succeeding Paragraphs]**
+Abbreviations.  THF  tetrahydrofuran;  MC  methylene  chloride;  MEK  methyl  ethyl ketone; DMF  - N,N-dimethylformamide; OCP a-chlorophenol; TCB  1, 2,4-trichloroben­ zene; ODCB - a-dichlrobenzene; HFIP - hexafluoroisopropanol; CNP l-chloronaphthalene; TFE - trifluoroethanol; DMAC - N,N-dimethylacetamide; HFB - hexafluorobutanol; PTCE phenolltetrachloroethane (6: 4); PFP - pentafluorophenol; PMS poly(methyl styrene); PVC -poly(vinyl  chloride);  PVAc  poly(vinyl  acetate);  PMMA  poly(methyl  methacrylate); PEMA  poly(ethyl methacrylate);  PBMA  poly(butyl methacrylate);  POMA  poly(octyl methacrylate); PLMA - poly-(n-lauryl methacrylate); PSMA poly(stearyl methacrylate); PMA -poly(methyl acrylate); PtBA poly-(tert-butyl acrylate); HDPE - high density polyethylene (PE); LDPE - low density PE; LLDPE - linear LDPE; PP - polypropylene; PB - polybutadiene; SBR  styrene-butadiene rubber;  PDSX  polydimethylsiloxane;  Trogamid T  poly(trim­ ethylhexamethylene terephthalamide);  PET  poly(ethylene  terephthalate);  LCA  polyester­ liquid crystalline aromatic polyester; PTHF - poly(tetrahydrofuran); PVDBC poly(N-vinyl3,6-dibromocarbazole); PVB - poly(vinyl butyral); POA poly[N-(n-octadecyl) maleimidel; PDEPP  poly(diethoxyphospazene); PDPPP  poly(diphenyl phosphazene);  PAPP  poly­ (aryloxy  phosphazen);  PVK  poly(N-vinyl-3,6-dibromocarbazole);  PPS  poly(phenylene sulfide); PEEK poly(arylether ether ketone).
+
+Remarks. A [Ttl  = KM~; B [Ttl  = KM~; C - narrow MW distribution; D - MC/dichloroace­ tic acid (8: 2) + 0.01 M tetrabutylammonium acetate; E - 0.01 M tetrabutylammonium nitrate included; F [Ttl = KM~; G use K and a from [4]  for  PS;  H use K and a from [6]  for  PS;  I -4,4'-dihydroxy-2,2-propane carbonate; J use K and a from  [9]  for  PS;  K bisphenol AI diethylene glycol (50: 50); L 35 % cis, 55 % trans, 10 % 1,2; M poly(methyl) (pyridine-3-yl) siloxane; N use K and a from [37]  for PSi 0  use K = 1.31  X  10- 2  and a = 0.714 for PSi P use K and a from  [38]  for  PS; Q MC/dichloroacetic acid + O.OIM  tetrabutylammonium acetate; R use K = 7.998  X  10- 2  and a = 0.54  for  PSi  S 0.1 % tetra(n-butylammonium) bromide included; T - 0.1 M LiBr included; U use K and a from  [3]  for PS.
+
+## References
+
+1.  ECHARRI I, IRUIN JJ, GUZMAN GM,AMSORENA I (1979) Makromol Chern 180:2749
+2.  BONI KA, SLIEMERS FA, STICKNEY PB (1968) I Polym Sci Part A 26: 1579
+3.  SPATORICO AL, COULTER B (1973) I Polym Sci Polym Phys Ed 11: 1139
+4.  PROVDER T, ROSEN EM (1970) Sep Sci 5 :437
+5.  GOEDHAR D, OPSHOOR A (1970) I Polym Sci Part A-2, 8: 1227
+6.  KOLINSKY M, IANCA I (1974) I Polym Sci Polym Chern Ed 12: 1181
+7.  MORRIS MC (1971) I Chromatogr 55:203
+8.  GRUBISIC Z, REMPP P, BENOIT H (1967) I Polym Sci Part B 5: 753
+9.  RUDIN A, HOEGY HW (1972) I Polym Sci Part A-I, 10:217
+10.  KRAUS C, STACY CJ  (1972) I Polym Sci Part A-2, 10: 657
+11.  SCHRODER UKO, EBERT KH (1987) Makromol Chern 188: 1415
+12.  COLEMAN TA, DAWKINS IV (1986) I Liq Chromatogr 9: 1191
+13.  IENKINS R, PORTER RS  (1980) I Polym Sci Polym Lett Ed 18: 743
+14.  SAMAY G, KUBIN M, PODESVA I (1978) Angew Makromol Chern 72: 185
+15.  AMBLER MR (1973) I Polym Sci Polym Chern Ed 11: 191
+16.  WILLIAMS RC, SCHMIT IA (1971) I Polym Sci Part B 9:413
+17.  AMBLER MR (1980) I Appl Polym Sci 25:901
+18.  SUDDABY KG, SANAYEI RA, O'DRISCOLL KF, RUDIN A (1993) Makromol Chern 194: 1965
+19.  AMBLER MR, McINTYRE D (1977) I Appl Polym Sci 21 :2269
+20.  DEIAEGER R, LECACHEUX D, POTIN PH (1990) I Appl Polym Sci 39: 1793
+21.  SMITH WV (1974) I Appl Polym Sci 18: 3685
+22.  HANEY MA, ARMONAS IE, ROSEN L (1987) In: PROVDER T  (ed) ACS Symposium Series No. 352, ACS, Washington, p  119
+23.  VAN  DIJK lAPP, SMIT lAM, KOHN  FE, FEIJEN I (1983) I Polym  Sci  Polym  Chern  Ed 21: 197
+24.  PERKINS G, HAEHN (1990) I Vinyl Technol12: 2
+25.  MAHABADI HKH (1989) International GPC Symposium, Newton, Mass, 434
+26.  MAHABADI HKH (1985) I Appl Polym Sci 30:1535
+27.  ITO  K, SAITO T, AOYAMA T (1987) Polymer 28: 1589
+28.  EVANS 1M (1973) Polym Eng Sci 13 :401
+29.  XIE I (1994) Polymer 35: 2385
+30.  TSITSILIANIS C, MITSIANI G, DONDOS A (1989) I Polym Sci Part B Polym Phys 27: 763
+31.  ZINBO M, PARSONO IL (1971) I Chromatogr 55: 55
+32.  WINTERMANTEL M, ANTONIETTI M, SCHMIDT M (1993) I Appl Polym Sci, Appl Polym Symp 52:91
+33.  PRICE GI, MOORE IW, GUILLET IE (1989) I Polym Sci Part A Polym Chern 27: 2925
+34.  SANAYEI RA, O'DRISCOLL KF (1991) I Macromol Sci Chern A 28: 987
+35.  VARMA BK, FUJITA Y, TAKAHASHI M, NOSE T (1984) I Polym Sci Polym Phys Ed 22: 1781
+36.  MANDIK L, FOKSOV A  A, FOLTYN I (1979) I Appl Polym Sci 24: 395
+37.  OTH I, DESREUX V (1954) Bull Soc Chim Belges 63: 285
+38.  DAWKINS IV (1968) I Macromol Sci Phys B 2:623
+39.  BIAGINI E, COSTA G, GATTIGLIA E, IMPERATO A, Russo S (1987) Polymer 28: 114
+40.  OGAWA T, SAKAI M (1988) I Polym Sci Part A Polym Chern 26: 3141
+41.  MOUREY TH, BRYAN TG, GREENER I (1993) I Chromatogr A 657: 377
+42.  MOUREY TH, MAILLER SM, FERRAR WT, MOLAIRE TR (1989) Macromolecules 22 :4286
+43.  KRANZ D, POHL HU, BAUMANN H (1972) Angew Makromol Chern 26: 67
+44.  AZUMA C, DIAS ML, MANO EB (1986) Macromol Chern Macromol Symp 2: 169
+45.  OGAWA T (1990) I Liq Chromatogr 13: 51
+46.  MARTIN L, Lavine M, BALKE ST (1992) I Liq Chromatogr 15: 1817
+47.  SCHEINERT W (1977) Angew Makromol Chern 63: 117
+48.  COLL H, GILDING DK (1970) I Polym Sci Part A-2 6: 1579
+49.  WILLIAMSON GR, CERVENKA A (1972) Eur Poly 18: 1009
+50.  BARLOW A, WILD L, RANGANATH R (1977) I Appl Polym Sci 21: 3319

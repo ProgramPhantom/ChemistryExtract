@@ -1,0 +1,82 @@
+{
+  "is_flory_data": true,
+  "flory_entries": [
+    {
+      "polymer_name": "PEO",
+      "solvent": "THF-d8",
+      "temperature_k": null,
+      "raw_v_value": "0.58062",
+      "v_transformation": "none",
+      "v_value": "0.58062",
+      "raw_c_value": "3.3196E-8",
+      "c_transformation": "log10",
+      "c_value": "-7.478914244084677"
+    },
+    {
+      "polymer_name": "PEO",
+      "solvent": "CD 3 CN",
+      "temperature_k": null,
+      "raw_v_value": "0.59613",
+      "v_transformation": "none",
+      "v_value": "0.59613",
+      "raw_c_value": "5.225E-8",
+      "c_transformation": "log10",
+      "c_value": "-7.281913705216908"
+    },
+    {
+      "polymer_name": "PEO",
+      "solvent": "D 2 O",
+      "temperature_k": null,
+      "raw_v_value": "0.5723",
+      "v_transformation": "none",
+      "v_value": "0.5723",
+      "raw_c_value": "1.3268E-8",
+      "c_transformation": "log10",
+      "c_value": "-7.877194537152556"
+    },
+    {
+      "polymer_name": "PEO",
+      "solvent": "MeOD",
+      "temperature_k": null,
+      "raw_v_value": "0.57021",
+      "v_transformation": "none",
+      "v_value": "0.57021",
+      "raw_c_value": "2.5609E-8",
+      "c_transformation": "log10",
+      "c_value": "-7.591607379866639"
+    },
+    {
+      "polymer_name": "PEO",
+      "solvent": "Acetone-d6",
+      "temperature_k": null,
+      "raw_v_value": "0.47448",
+      "v_transformation": "none",
+      "v_value": "0.47448",
+      "raw_c_value": "2.1208E-8",
+      "c_transformation": "log10",
+      "c_value": "-7.6735002852749625"
+    }
+  ],
+  "calculator_calls": [
+    {
+      "expression": "log10(3.3196e-8)",
+      "result": "-7.478914244084677"
+    },
+    {
+      "expression": "log10(5.225e-8)",
+      "result": "-7.281913705216908"
+    },
+    {
+      "expression": "log10(1.3268e-8)",
+      "result": "-7.877194537152556"
+    },
+    {
+      "expression": "log10(2.5609e-8)",
+      "result": "-7.591607379866639"
+    },
+    {
+      "expression": "log10(2.1208e-8)",
+      "result": "-7.6735002852749625"
+    }
+  ]
+}

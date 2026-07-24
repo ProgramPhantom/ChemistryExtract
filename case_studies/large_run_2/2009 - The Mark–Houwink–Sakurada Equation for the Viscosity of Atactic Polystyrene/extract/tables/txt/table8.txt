@@ -1,0 +1,31 @@
+-------------- TABLE 8 EXTRACTION --------------
+**[Preceding Paragraphs]**
+$$[ \eta ] = K M ^ { 1 / 2 } .$$
+
+A reliable value of K, however, is still required. The  results of four different authors, obtained in each case by equally satis­ factory procedures, yield a weighted average value for K of 85.7X 103 mL/g at the theta temperature,  34.5°C. This average value of K was obtained by weighting the individual K values by the number of  samples in each determination. As shown in Table 5 the  molecular weights range from 58 000 to almost 10 000 000.
+
+Papazian IS determined the Mark-Houwink relation for cyclohexane at 50°C, some 15° above the theta temperature.
+
+TABLE 7. Recommended viscosity-molecular weight relation for atactic polystyrene
+
+**[Table Data]**
+| SoJvent                | T;oC     | Equation                                         |
+|------------------------|----------|--------------------------------------------------|
+| Benzene                | 25-40    | Jog[1}] = - 0.686 + 0.2721og M + 0.0408 (log M)2 |
+| Toluene                | 12-30    | lo8[?]] - - 0.538 + 0.203108 M + 0.0471 (log M)2 |
+| 1,2,4-Trichlorobenzene | 135      | [1}) = 14.6x10- 3 Mo. 689                        |
+| Tetrahydrofuran        | 25       | [1}] = 14.1 X10- 3 Mo. 70                        |
+| o-Dichlorobenzene      | 138      | [1}] = 13.8X 10- 3 Mo. 7                         |
+| 2-Butanone             | 25       | [1}] = 39X 10- 3 MO. S8                          |
+| Cyc10hexane            | 34.5 (0) | [1]] = 85.7X 10- 3 MO. s                         |
+| cis-DecaIin            | 12.2(0)  | [1}] = 82Ax 10- 3 M°.s                           |
+| .trans-DecaIin         | 2004.(0) | [1}] = 80.5X10- 3 M°.s                           |
+
+**[Succeeding Paragraphs]**
+The molecular weights of  seven anionically produced poly­ styrene ranging in molecular weight from 4500 to 510000 were determined by light scattering. He found
+
+$$[ \eta ] = 3 6 . 4 \times 1 0 ^ { - 3 } \, M ^ { 0 . 5 8 4 } \, \ m L / g \, a t \, 5 0 \, \mbox ^ { C } . \quad ( 8 ) \quad _ { \ast } ^ { W . R . }$$
+
+## 2.10. Decalin
+
+Decalin, also a e solvent for polystyrene, has two iso­ meric forms, cis-decalin and trans-decalin, each with a dif­ ferent value of e. Two authors have evaluated K, namely, Berry13 and Fukuda et  al. 2 As shown in Table 6, Berry found a value of  82.4 X 10- 3  mL/g for K for cis-decalin at 12.2 °C and for trans-decalin, Fukuda et al. found e to be 20.4 °C with a value of K of  80.5 X 10- 3  mL/g.

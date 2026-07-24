@@ -1,0 +1,15 @@
+[
+  "\\frac { S ( q ) } { S _ { o } } = \\exp \\left [ - D q ^ { 2 } ( \\Delta - \\delta / 3 ) \\right ] \\\\",
+  "\\frac { S ( q ) } { S _ { \\circ } } = \\bigtriangledown _ { \\circ } P ( D ) \\exp \\left [ - D q ^ { 2 } ( \\Delta - \\delta / 3 ) \\right ] \\text {d} D & & ( 2 )",
+  "P _ { \\ln } \\left ( D \\right ) = & \\frac { 1 } { \\sqrt { 2 \\pi } D \\sigma _ { \\ln } } \\exp \\left [ - \\frac { \\left ( \\ln D - \\ln D _ { o } \\right ) ^ { 2 } } { 2 \\sigma _ { \\ln } ^ { 2 } } \\right ] & & \\sigma _ { G } \\text { sh} . & & \\text {tr} \\text {atio} & & \\text {tr} \\text {atio}",
+  "P _ { G } \\left ( D \\right ) = \\frac { D ^ { \\kappa - 1 } \\exp ( - D / \\theta ) } { \\Gamma ( \\kappa ) \\theta ^ { \\kappa } } & & \\quad ( 4 ) & & \\quad \\top \\\\",
+  "\\mathcal { D } _ { M } = \\left ( 1 + \\frac { \\sigma _ { G } ^ { 2 } } { D _ { m e a n } ^ { 2 } } \\right ) ^ { \\frac { 1 } { \\alpha ^ { 2 } } } = \\left ( 1 + C V ^ { 2 } \\right ) ^ { \\frac { 1 } { \\alpha ^ { 2 } } }",
+  "D = K \\cdot M _ { w } ^ { - \\alpha }",
+  "P _ { M } ( M ) = P _ { N } ( M ) M",
+  "P _ { M } ( M ) = P ( D ) d D / d M",
+  "P _ { M } ( M ) M = \\alpha D P ( D ) = \\alpha K M ^ { - \\alpha } P ( D )",
+  "\\mathcal { D } _ { M } = & \\frac { \\bar { M } _ { w } } { \\bar { M } _ { n } } = \\frac { \\int P _ { M } \\left ( M \\right ) M d M / \\int P _ { M } ( M ) d M } { \\int P _ { N } ( M ) M d M / \\int P _ { N } ( M ) d M }",
+  "D = D _ { o } \\exp \\left ( - k c ^ { \\nu } \\right ) \\stackrel { f o r v = 1 } { \\Rightarrow } D = D _ { o } \\exp ( - k c )",
+  "P _ { M } ( M ) M = \\alpha K e x p ( - k c ) M ^ { - \\alpha } P ( D )",
+  "P _ { M } ( M ) M = \\alpha K e x p \\left ( - k c ^ { \\nu } \\right ) M ^ { - \\alpha } P ( D )"
+]

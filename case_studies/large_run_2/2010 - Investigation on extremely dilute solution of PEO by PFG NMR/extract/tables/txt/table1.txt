@@ -1,0 +1,29 @@
+-------------- TABLE 1 EXTRACTION --------------
+**[Preceding Paragraphs]**
+is different in different concentration regions. This leads to a critical concentration at the crossing of two straight lines (Fig. 2). Therefore, the PEO concentration region has been divided into two regions according to the concentration dependence of self-diffusion coefficient. The self-diffusion coefficient changes with concentration linearly in one region and keeps constant in the other.
+
+For classifying the concentration region of polymer solutions, de Gennes [18] put forward a critical overlap concentration C * as the turning point from dilute to concentrated solution. It means that from this concentration, polymer coils begin to overlap physically. This is widely accepted. Until the 1980s, Qian et al. [19] proposed a different critical concentration --dynamic contacting concentration ( C s ) from fluorescence spectra. This critical concentration characterizes a point at which a polymer molecule would begin to feel the existence of the other polymer molecules when the concentration is higher than C s. The C s was defined as the boundary point between dilute and extremely dilute solution. They thought that when the concentration was higher than C s , the collision probability was high enough and it could not be omitted. As a result, the solutes in the solution were no longer single chains. Cheng et al. [20] put forward a cluster theory, the main idea is that the solutes can form clusters automatically because of the random collision and the clusters may affect the solution properties greatly. When the clusters increase to a certain degree, the solution properties begin to change. The dynamic contact concentration was then indicated by SEC [21] and dynamic light scattering [9] experiments at linear polymer systems. We have also observed C s at hyperbranched polymer systems by viscosity method [22].
+
+In this work, the physical picture of our results coincides with the dynamic contacting concentration. The observed critical concentration, we think, should be C s. According to this theory, the phenomenon we observed can be explained as follows: on the extremely dilute region, the PEO molecules are single chains, and one chain may not be affected by the other chains in the time scale of diffusion experiment ( ∼ 100 ms). Therefore, the friction among solute molecules can be omitted and the friction of solution mainly comes from the friction between solute molecules and solvent molecules. According to the Stokes -Einstein equation [23]:
+
+Table 1 Diffusion coefficients at extremely dilute concentration ( D 0) of PEO derived by two different methods, where least square fitting is used with a root mean square (RMS) error
+
+**[Table Data]**
+|   Molecular weight | D 0 (10 - 10 m 2 /s)      | D 0 (10 - 10 m 2 /s)   | D 0 (10 - 10 m 2 /s)     | D 0 (10 - 10 m 2 /s)   | D 0 (10 - 10 m 2 /s)          |
+|--------------------|---------------------------|------------------------|--------------------------|------------------------|-------------------------------|
+|                    | Calculated by extrapolate | RMS error              | Calculated by our method | RMS error              | Error of different method (%) |
+|              1,500 | 2.44                      | 0.009                  | 2.21                     | 0.013                  | 10.56                         |
+|              2,000 | 1.89                      | 0.004                  | 1.84                     | 0.022                  | 2.77                          |
+|              4,000 | 1.44                      | 0.009                  | 1.26                     | 0.006                  | 14.09                         |
+|              6,000 | 1.16                      | 0.008                  | 1.01                     | 0.012                  | 15.29                         |
+
+**[Succeeding Paragraphs]**
+<!-- image -->
+
+Table 2 Physical properties ( D 0 , C s , C *, and R H) of PEO measured by PFG-NMR
+
+[table omitted]
+
+$$D = \frac { k T } { f } & & ( 2 ) & \stackrel { \text {shown} } { \underset { \text {diffus} } { \underset { 0 } { \max } } }$$
+
+where K is Boltzmann constant and T is absolute temperature; the friction coefficient f can be determined

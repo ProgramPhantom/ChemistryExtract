@@ -1,0 +1,52 @@
+-------------- TABLE 3 EXTRACTION --------------
+**[Preceding Paragraphs]**
+Fig.  4. Power  dependencies  MW  = cD -α for:  ( 1 )  HES; ( 2 ) dextrans; and ( 3 ) pullulans.
+
+<!-- image -->
+
+Table 2. Equation of power regression of MW on D for polysaccharides with various degrees of branching
+
+[table omitted]
+
+Table 3. Comparison of calculated MWs of polysaccharides with various degrees of branching and similar D values
+
+**[Table Data]**
+|   D , 10 -10 m 2 /s | MW,kDA*   | MW,kDA*   | MW,kDA*   | D , 10 -10 m 2 /s   | MW,kDA   | MW,kDA   | MW,kDA   |
+|---------------------|-----------|-----------|-----------|---------------------|----------|----------|----------|
+|                     | HES       | dextran   | pullulan  | D , 10 -10 m 2 /s   | HES      | dextran  | pullulan |
+|                   1 | 9.03      | 8.30      | 9.49      | 0.6                 | 33.02    | 25.08    | 23.80    |
+|                 0.9 | 11.80     | 10.43     | 11.46     | 0.5                 | 52.45    | 37.21    | 33.06    |
+|                 0.8 | 15.91     | 13.46     | 14.18     | 0.4                 | 92.41    | 60.31    | 49.41    |
+|                 0.7 | 22.33     | 17.97     | 18.03     | 0.3                 | 191.79   | 112.41   | 82.95    |
+
+**[Succeeding Paragraphs]**
+Table 4. Comparison of MW HES  values calculated using Eqs. (1) and (2) with the experimental data obtained using GPC
+
+[table omitted]
+
+## REFERENCES
+
+1. Molchanov,  I.V.,  Gol'dina,  O.A.,  and  Gorbachev/hyphenminus skii, Yu.V., Rastvory gidroksietilirovannogo krakhmala /hyphenminus sovremennye i effektivnye plazmozameshchayushchie sredstva infuzionnoi terapii (Solutions of Hydroxyethy/hyphenminus lated  Starch  as  Modern  and  Efficient  Substituents  to Blood Plasma in Infusion Therapy), Moscow: Bakou/hyphenminus lev CCVS, 1998.
+2. Rivers, E., Nguyen,  B.,  Havstad,  S., Ressler, J., Muzzin,  A.,  Knoblich,  B.,  Peterson,  E.,  and  Tom/hyphenminus lanovich, M., New Engl. J. Med. , 2001, vol. 345, no. 19, p. 1368.
+3. Brandstrup,  B., Best  Pract.  Res.  Clin.  Anaesthesiol , 2006, vol. 20, no. 2, p. 265.
+4. Cheng, H.N. and Neiss, T .G., Polymer Review. , 2012, vol. 52, no. 2, p. 81.
+5. Khimicheskaya  entsiklopediya (Chemical  Encyclope/hyphenminus dia), Knunyants, I.L., Ed., Moscow: Bol'shaya rossi/hyphenminus iskaya entsiklopediya, 1990, vol. 2.
+6. Westphal, M., James, M.F .M., Kozek/hyphenminusLangenecker, S., Stocker, R., Guidet, B., and Van Aken, H., Anesthesiol/hyphenminus ogy , 2009, vol. 111, p. 187.
+7. Petrikov , S.S., Krylov , V.V., and Titova, Yu.V., Zh. Inten/hyphenminus sivn. Ter. , 2008, no. 2, p. 11.
+8. Yuruk,  K.,  Almac,  E.,  and  Ince,  C., TATM ,  2007, vol. 9, no. 3, p. 164.
+9. Starches,  Hydroxyethyl ,  Strasbourg:  Eur.  Pharmaco/hyphenminus poeia, 2011, 7th Ed.
+10. Sommermeyer, K., Cech, F., and Schossow , R., TATM , 2007, vol. 9, no. 3, p. 127.
+11. Rebenok, E.V. and Litvyak, V.V., Pishchevaya Promy/hyphenminus shlennost':  Nauka  i  Tekhnologiya ,  2010,  vol.  3,  no.  9, p. 82.
+12. Traven', V.F., Panov, A.V., Dolotov, S.M., Strel'nikova,  T.A.,  Suslov ,  V.V.,  and  Gladyrev ,  V.V., Khim. Rastit. Syr'ya , 2009, no. 3, p. 57.
+13. Nilsson, G.S., Bergquist, K.E., Nilsson, U., and Gor/hyphenminus ton, L., Starke , 1996, vol. 48, no. 10, p. 352.
+14. Panov, A.V., Cand. Sci. (Chem.) Dissertation , Moscow: Mendeleev Univ. Chem. Technol., 2009.
+15. Liu,  Y.M.  and  Xu,  G.Y., Chin.  Chem.  Lett. ,  2002, vol. 13, no. 11, p. 1097.
+16. Prokof'ev ,  E.P .  and  Yurin,  O.A., Khim./hyphenminusFarm.  Zh. , 1990, no. 7, p. 82.
+17. Morris, K.F. and Johnson, C.S., Jr., J. Am. Chem. Soc. , 1993, vol. 115, no. 10, p. 4291.
+18. Price, W.S., Concept. Magn. Reson , 1997, vol. 9, p. 299.
+19. Price,  W.S., Concept.  Magn.  Reson ,  1998,  vol.  10, p. 197.
+20. Li,  W.,  Chung,  H.,  Daeffler,  C.,  Johnson,  J.A.,  and Grubbs, R.H., Macromolecules ,  2012, vol. 45, no. 24, p. 9595.
+21. Kharlamov, S.V. and Latypov , Sh.K., Usp. Khim. , 2010, vol. 79, no. 8, p. 699.
+22. Mazarin, M., Viel, S., Allard/hyphenminusBreton, B., Thevand, A., and  Charles,  L., Anal.  Chem. ,  2006,  vol.  78,  no.  8, p. 2758.
+
+2015

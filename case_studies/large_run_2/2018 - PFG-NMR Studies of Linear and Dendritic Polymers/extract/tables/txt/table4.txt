@@ -1,0 +1,40 @@
+-------------- TABLE 4 EXTRACTION --------------
+**[Preceding Paragraphs]**
+Table 3. Diffusion Analysis of PAMAM Dendrimers in Methanol
+
+[table omitted]
+
+.
+
+- d. Calculated from VStokes given above and MW, ρ Stokes = MW/ VStokes.
+- e. Generation radial increment
+
+Table  4.  Diffusion  Analysis  of  Pyrene  Labeled  Poly(aryl  Ether) Monodendrons in THF and Acetonitrile [4]
+
+**[Table Data]**
+| sample   |   MW (D) | D a (cm 2 sec -1 )   |   R Stokes (Å) b |   V Stokes (Å 3 ) c |   ρ Stokes (D/Å 3 ) d | GRI e (Å)   |
+|----------|----------|----------------------|------------------|---------------------|-----------------------|-------------|
+| THF      |          |                      |                  |                     |                       |             |
+| G0Py     |      309 | 13 x 10 -6           |              3.7 |                 210 |                  1.47 | -           |
+| G1Py     |      521 | 9.7 x 10 -6          |              4.9 |                 490 |                  1.06 | 1.2         |
+| G2Py     |      945 | 7.8 x 10 -6          |              6.1 |                 950 |                  0.99 | 1.2         |
+| G3Py     |    1,795 | 4.8 x 10 -6          |               10 |                4200 |                  0.43 | 3.9         |
+| G4Py     |     3492 | 3.4 x 10 -6          |               14 |              11,500 |                  0.30 | 4.0         |
+| CH 3 CN  |          |                      |                  |                     |                       |             |
+| G0Py     |      309 | 18 x 10 -6           |              3.3 |                 150 |                  2.06 | -           |
+| G1Py     |      521 | 14 x 10 -6           |              4.1 |                 289 |                  1.80 | 0.8         |
+| G2Py     |      945 | 12 x 10 -6           |              4.9 |                 490 |                  1.92 | 0.8         |
+| G3Py     |    1,795 | 11 x 10 -6           |              5.4 |                 660 |                  2.72 | 0.5         |
+
+**[Succeeding Paragraphs]**
+- a. Calculated from NMR data as described in [12]
+- b. Calculated from equation (1) using, kB = 1.381 x 10 -23 J/K, T = 298 K,
+3. η = 4.56 x10 -4 Pa-sec for THF, η = 3.69 x 10-4 for acetonitrile [19].
+- c. Calculated from RStokes given above, VStokes = 4 π /3 (RStokes ) 3
+
+.
+
+- d. Calculated from VStokes given above and MW, ρ Stokes = MW/ VStokes.
+- e. Generation radial increment
+
+## 4. Discussion

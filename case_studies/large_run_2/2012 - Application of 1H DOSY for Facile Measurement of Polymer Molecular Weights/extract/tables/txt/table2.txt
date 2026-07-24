@@ -1,0 +1,31 @@
+-------------- TABLE 2 EXTRACTION --------------
+**[Preceding Paragraphs]**
+from GPC), the deviation ranged from 0.4% to 6.4%. Most importantly, the results from both GPC and DOSY were closely correlated. The number-average M n of the fi nal polymer sample at 2700 min was determined to be 265 000 g/mol by end-group analysis, based on the puri fi ed polystyrene sample redissolved in benzene. Thus, the M w and M n given from NMR data can yield a PDI value of 1.02, consistent with GPC measurement.
+
+We stacked six DOSY spectra of ATRP aliquots at di ff erent time points ranging from 2 h to the end point of 45 h (Figure 3). The di ff usion coe ffi cient of styrene monomer 1 remained unchanged at 17.65 × 10 -10 m 2 /s, which demonstrated a good viscosity control by solvent dilution. The polystyrene 3 chain continued elongating with increasing values of hydrodynamic radii and reached a M w of 27 000 g/mol after 45 h. Since the chemical shifts of monomer and polymer overlapped at aromatic regions, only ole fi nic and alkyl regions were displayed. The stacked DOSY spectrum was a vivid and informative portrait of this living polymerization process.
+
+This model kinetic study of styrene ATRP demonstrated a close correlation between conventional GPC molecular weight
+
+Table 2. ATRP Results from GPC and Externally Referenced DOSY
+
+**[Table Data]**
+|   t (min) |   M w (GPC) (g/mol) | D (10 - 10 )   |   av M w (DOSY) | di ff (%)   |   conv (%) |   PDI |
+|-----------|---------------------|----------------|-----------------|-------------|------------|-------|
+|         0 |                     | 17.6 ± 0.5     |              96 |             |        0.0 |       |
+|         5 |                     | 9.17 ± 0.02    |             300 |             |        0.3 |       |
+|        20 |                     | 7.00 ± 0.09    |             500 |             |        1.4 |       |
+|        50 |                     | 4.97 ± 0.03    |            1000 |             |        3.1 |       |
+|       120 |                3100 | 3.00 ± 0.02    |            2600 | - 16.1      |       10.2 |  1.03 |
+|       240 |                5500 | 1.93 ± 0.03    |            5800 | 5.4         |       19.5 |  1.02 |
+|       480 |                9400 | 1.45 ± 0.03    |           10000 | 6.4         |       34.7 |  1.01 |
+|      1200 |               17300 | 1.07 ± 0.03    |           17700 | 2.3         |       58.1 |  1.02 |
+|      2700 |               26900 | 0.849 ± 0.002  |           27000 | 0.4         |       80.4 |  1.03 |
+
+**[Succeeding Paragraphs]**
+a 1 H DOSY measurement was performed at 25 ° C in benzened 6 . b Equation of the PS standard calibration curve is y = -0.537 x -7.697 ( R 2 = 0.9991). M w(DOSY) was calculated from the calibration curve using the experimental value of D . c Calculated from M w(GPC) and M w(DOSY). d Conversion was calculated by 1 H NMR. GPC molecular weight data below 3000 g/mol is not shown due to possible GPC errors at low molecular weight range. For more details please see Table S2.
+
+Figure 3. Stacked DOSY spectra of reaction crude of ATRP. DOSY spectra of 0, 2, 4, 8, 20, and 45 h were stacked. X -axis demonstrates all the 1 H resonances of the components in solution. Y -axis is the di ff usion dimension. Ole fi nic peaks of styrene were used as internal references to monitor the viscosity change of the dilute crude solution. Because of the heavy overlap of the aromatic regions of styrene and polystyrene, they are not shown in the stacked spectra. Representative ATRP 1 H DOSY spectrum can be found in Figure S20.
+
+<!-- image -->
+
+determination method and the DOSY molecular weight determination method over a wide range of molecular weights. Compared to conventional GPC molecular weight measurement, the measuring time for DOSY was 4 min, about onetenth of the time commonly required for GPC. Moreover, since we used highly diluted samples for 1 H DOSY measurement, the amount of reaction sample required was less than 10% of that for GPC. As such, this DOSY technique is advantageous to perform large quantity measurement for kinetic analysis as well as smaller reaction setup for polymerization catalyst evaluation.

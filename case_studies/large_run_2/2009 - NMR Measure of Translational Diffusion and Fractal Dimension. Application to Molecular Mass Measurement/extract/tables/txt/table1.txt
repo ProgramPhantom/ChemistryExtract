@@ -1,0 +1,28 @@
+-------------- TABLE 1 EXTRACTION --------------
+**[Preceding Paragraphs]**
+Moreover, it should be noted that the R H parameter is of geometrical nature and that the mass of the diffusing molecules is not present in the Stokes -Einstein law. As a consequence, the relationship to molecular mass, as presented in eq 1, has to be made under the assumption that all the studied molecules in a series have similar chemical compositions and similar mass distributions. This is usually ensured when the molecules share the same chemical family. However, it could be a problem if heteratoms are present, or if hollow structures are studied.
+
+Theoretical r and δ Values. Under these assumptions, several limit values of R can be easily computed for ideal geometrical cases. For spherical objects, the Stokes -Einstein equation is exact, and the hydrodynamic radius is the sphere radius. Thus, the exponent R is naturally 1 / 3 for a family of spheres of constant density. It is thus equivalent to δ in this case, and both are equal to 1/ d F and the two descriptions match.
+
+The fractal dimension of an infinite straight rod is naturally 1 as it extends only along one spatial axis. The hydrodynamic radius of a cylinder is not an analytic expression; however, it has been estimated by several authors (see Zhou 10 and Ortega and de la Torre 11 ). They have shown that the diffusion coefficient of a cylinder of diameter d and length L has an asymptotic dependence in (ln L )/( L ) when L f ∞ at constant d . Using the expression from Ortega and de la Torre, 11 a numerical fit of eq 1 for various rods with ratio L / d ranging from 10 to 3500 gives an R value of 0.81 ( R ) 0.998). This value is to be compared with the value of 0.997 ( R ) 0.999 99) obtained under the same a Range is defined as log( M max / M min ), where M min ( M max ) is the molecular weight of the smaller (larger) molecule studied, and log () is the decimal logarithm.
+
+TABLE 1: Analytical Values of δ and r for Various Geometries
+
+**[Table Data]**
+| object                             |     δ |    R |   d F | range a   | source       |
+|------------------------------------|-------|------|-------|-----------|--------------|
+| sphere                             |  0.33 | 0.33 |     3 | ∞         |              |
+| polymers in                        |  0.50 |      |     2 | ∞         | ref 7        |
+| Θ solvent polymers in good solvent | 0.588 |      |  1.70 | ∞         | refs 7 and 8 |
+| finite rods                        |       | 0.81 |  1.24 | 2.5       | this work    |
+| finite rods                        | 0.997 |      | 1.003 | 2.5       | this work    |
+| infinite rod                       |     1 |    1 |     1 | ∞         |              |
+
+**[Succeeding Paragraphs]**
+conditions for eq 2, using the expression: R g ) ( d 2 /2 + L 2 /12) 1/2 . All the analytical results are summarized in Table 1.
+
+## Experimental Section
+
+The R parameters have been measured on a wide range of molecules, either from literature results or from NMR diffusion measurements. Three kind of molecular types were considered here: (i) linear homopolymers, with molecular sizes ranging from a few monomers to megadalton polymers; (ii) biological molecules such as globular proteins, oligosccharides or DNA; (iii) small organic molecules from various origin.
+
+The experimental results are analyzed in terms of relative diffusion D r (or diffusivity, as defined by Crutchfield and Harris 5 ): D r ) D / D ref , where D and D ref are the diffusion coefficients observed for the molecule of interest and for the reference molecule. This approach allows the reduction of the impact of viscosity or temperature variations, and we believe it provides more robust results. In all cases care was taken to study homogeneous molecular families and to operate in a diluted mode, below the overlap concentration. All the experimental details along with the experimental values are given in the Supporting Information.

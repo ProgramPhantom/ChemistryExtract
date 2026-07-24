@@ -1,0 +1,26 @@
+-------------- TABLE 1 EXTRACTION --------------
+**[Preceding Paragraphs]**
+## Polymer synthesis and characterisation
+
+Polymers 1 , 2 and 3 are HB-PNIPAM-VANs containing Nile red were prepared using a previously reported method (their full synthesis is collated in the ESI † ). In this work the polymers had different degrees of branching (DB defined as stated in Table 1) which result in varying chain end functionalities. The amount of Nile red (NR) in the reaction feed was maintained low (0.20.4% wt/wt) to ensure it acted solely as a reporter on PNIPAM solution properties. Characterisation data is reported in Table 1 and size exclusion chromatograms as well as further nonparametric analysis of the molar mass distributions are provided in ESI. † Additionally we provide polymer 4 for comparison, a vancomycin functional linear P(NIPAMco -Nile red) polymer whose physical material properties are further investigated here but has already been partially reported. 23
+
+Variability in both the degree of branching and the end group functionalisation were demonstrated via thermogravimetric analysis as the polymers undergo degradation at elevated temperatures. Following loss of associated moisture at 50-100 1 C the main decomposition event of PNIPAM occurs between 370-420 1 C as shown in Fig. 1A, and analysis of the derivative mass loss of an unfunctionalized linear PNIPAM ( 4 precursor) polymer indicates this occurs over a narrower temperature range than the branched polymers (Fig. 1B). Thermal degradation is broadened towards lower temperature with increased branching (see ESI † for further explanation).
+
+Table 1 Characterisation of HB-PNIPAM-VAN and linear polymer control
+
+**[Table Data]**
+|   Sample | NIPAM:1 (feed)   |   M n (kg mol  1 ) |   M w (kg mol  1 |   ) M z (kg mol |    1 ) Ð |   a a | DB b   | B-ratio c   |   R H d (nm) |   Van e (mg mL  1 ) |   Van. f (mass %) |
+|----------|------------------|--------------------|------------------|-----------------|----------|-------|--------|-------------|--------------|---------------------|-------------------|
+|        1 | 15:1             |                770 |             1530 |            2210 |     1.98 |  0.16 | 0.107  | 0.0060      |          4.1 |                0.52 |              32.5 |
+|        2 | 25:1             |                783 |             1754 |            2714 |     2.24 |  0.18 | 0.065  | 0.035       |          2.4 |                0.42 |              21.8 |
+|        3 | 45:1             |                538 |             1265 |            2379 |     2.35 |  0.25 | 0.044  | 0.023       |          3.6 |                0.35 |              23.2 |
+|        4 | Linear           |               2201 |             3257 |            4278 |     1.47 |  0.51 | -      | -           |          4.2 |                0.33 |              22.2 |
+
+**[Succeeding Paragraphs]**
+a Mark-Houwink-Sakarada exponent extracted from SEC in methanol. b Determined via [ 1 H] NMR. Degree of branching, DB = ( T + D )/( T + D + L ), where T = terminal unit, D = branch point, L = linear unit. c Branching ratio in parenthesis = [aryl unit]/[repeat unit]. d Size comes from DOSY sizing of largest polymer 1 H integral peak at 298 K in D2O - with peak D value converted to hydrodynamic radii using Stokes Einstein equation. e Vanc. content determined by ELISA, shows mg mL  1 of Vanc. (per mg of polymer). f Vancomycin mass % content determined by TGA, as % mass loss Vanc. (450-700 1 C) compared to mass loss HB-PNIPAM (200-450 1 C).
+
+Fig. 1 (A) Thermogravimetric analysis (TGA) mass loss profiles for polymers 1-4 (B) TGA analysis for precursor polymers 1a-4a (unmodified pyrrole/acid chain ended products of SCVP RAFT synthesis process prior to chain end modification).
+
+<!-- image -->
+
+Deconvolution of the data derivatives into distinct temperature ranges (see ESI † ) shows that 38% of the linear PNIPAM degradation occurs around 410 1 C, whilst only 20% occurs in the range 360-370 1 C. Conversely for the highest branched polymer ( 1 ) only 12% of the degradation occurs at 410 1 C with 40 occurring between 360-370 1 C range. Polymers 2 and 3 have intermediate behaviour respectively. This shifting distribution of thermal stability matches the incorporation of the benzyl ring branching group, the changing architectural properties of the highly branched materials, and an increased proportional density of imidazole and acid chain ends. We hypothesize that the earlier onset of thermal degradation is due to these chain ends. The data indicates the suitability of TGA as a method of comparing varying polymer architecture.

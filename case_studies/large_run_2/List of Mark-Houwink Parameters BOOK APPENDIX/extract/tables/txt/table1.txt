@@ -1,0 +1,114 @@
+-------------- TABLE 1 EXTRACTION --------------
+**[Preceding Paragraphs]**
+## Appendix I
+
+## Mark-Houwink Parameters for Homopolymers
+
+**[Table Data]**
+| Polymer     | Solvent   |   Temp (0C) |   Kx lO2 (ml/g) |     a | MW range (M x 10- 3 )   | Re- mark   | Ref   |
+|-------------|-----------|-------------|-----------------|-------|-------------------------|------------|-------|
+| Polystyrene | THF       |          20 |            1.55 | 0.692 |                         |            |       |
+|             |           |          23 |           0.682 | 0.766 | 50-lO00                 | A          | 2     |
+|             |           |          25 |            1.11 | 0.725 |                         | B          | 3     |
+|             |           |             |            1.60 | 0.706 | >3                      |            | 4     |
+|             |           |             |            1.17 | 0.725 |                         | B          | 5     |
+|             |           |             |            1.17 | 0.717 |                         | B          | 6     |
+|             |           |             |            1.25 | 0.707 |                         |            | 7     |
+|             |           |             |            1.68 |  0.69 |                         |            | 8     |
+|             |           |             |            1.41 |  0.70 |                         |            | 9     |
+|             |           |             |            1.25 | 0.717 |                         |            | lO    |
+|             |           |             |            1.42 |  0.70 |                         |            | 11    |
+|             |           |             |            1.16 | 0.724 |                         |            | 12    |
+|             |           |             |            1.28 |  0.70 |                         |            | 13    |
+|             |           |             |           0.609 | 0.768 |                         |            | 14    |
+|             |           |          30 |            1.76 | 0.679 |                         |            | 15    |
+|             |           |             |            0.86 |  0.74 |                         | B          | 16    |
+|             |           |             |            1.05 | 0.731 | 36-10 4                 |            | 17    |
+|             |           |             |            1.57 | 0.698 |                         |            | 18    |
+|             |           |             |            1.05 | 0.731 |                         | B          | 19    |
+|             |           |             |            1.62 | 0.701 |                         | B          | 20    |
+|             |           |             |           1.112 | 0.723 |                         |            | 21    |
+|             |           |             |            1.28 | 0.712 | > 10 4                  | C          | 22    |
+|             |           |             |            17.1 | 0.428 | < 10 4                  |            |       |
+|             |           |       31.15 |            1.25 | 0.717 | 4-1800                  |            | 23    |
+|             |           |          35 |           1.258 | 0.715 |                         |            | 24    |
+|             |           |             |           1.580 | 0.704 |                         |            | 25    |
+|             |           |             |            1.60 | 0.703 |                         |            | 26    |
+|             |           |          38 |           1.247 | 0.720 |                         |            | 27    |
+|             |           |          40 |            1.90 |  0.68 |                         |            | 28    |
+|             |           |             |            1.31 | 0.719 | 19.1-1110               | B          | 29    |
+|             |           |             |            1.51 | 0.706 | 5.11-1030               | A          |       |
+|             | benzene   |          25 |            1.13 |  0.73 |                         |            | 30    |
+|             |           |          30 |           1.623 | 0.695 | 5-400                   |            | 31    |
+|             | toluene   |          25 |            1.05 |  0.73 |                         |            | 32    |
+|             |           |             |           0.662 |  0.76 |                         |            | 33    |
+|             |           |             |            11.4 | 0.470 | < 9000                  |            | 34    |
+|             |           |             |            1.06 | 0.728 | > 9000                  |            |       |
+
+**[Succeeding Paragraphs]**
+[table omitted]
+
+[table omitted]
+
+[table omitted]
+
+[table omitted]
+
+[table omitted]
+
+Abbreviations.  THF  tetrahydrofuran;  MC  methylene  chloride;  MEK  methyl  ethyl ketone; DMF  - N,N-dimethylformamide; OCP a-chlorophenol; TCB  1, 2,4-trichloroben­ zene; ODCB - a-dichlrobenzene; HFIP - hexafluoroisopropanol; CNP l-chloronaphthalene; TFE - trifluoroethanol; DMAC - N,N-dimethylacetamide; HFB - hexafluorobutanol; PTCE phenolltetrachloroethane (6: 4); PFP - pentafluorophenol; PMS poly(methyl styrene); PVC -poly(vinyl  chloride);  PVAc  poly(vinyl  acetate);  PMMA  poly(methyl  methacrylate); PEMA  poly(ethyl methacrylate);  PBMA  poly(butyl methacrylate);  POMA  poly(octyl methacrylate); PLMA - poly-(n-lauryl methacrylate); PSMA poly(stearyl methacrylate); PMA -poly(methyl acrylate); PtBA poly-(tert-butyl acrylate); HDPE - high density polyethylene (PE); LDPE - low density PE; LLDPE - linear LDPE; PP - polypropylene; PB - polybutadiene; SBR  styrene-butadiene rubber;  PDSX  polydimethylsiloxane;  Trogamid T  poly(trim­ ethylhexamethylene terephthalamide);  PET  poly(ethylene  terephthalate);  LCA  polyester­ liquid crystalline aromatic polyester; PTHF - poly(tetrahydrofuran); PVDBC poly(N-vinyl3,6-dibromocarbazole); PVB - poly(vinyl butyral); POA poly[N-(n-octadecyl) maleimidel; PDEPP  poly(diethoxyphospazene); PDPPP  poly(diphenyl phosphazene);  PAPP  poly­ (aryloxy  phosphazen);  PVK  poly(N-vinyl-3,6-dibromocarbazole);  PPS  poly(phenylene sulfide); PEEK poly(arylether ether ketone).
+
+Remarks. A [Ttl  = KM~; B [Ttl  = KM~; C - narrow MW distribution; D - MC/dichloroace­ tic acid (8: 2) + 0.01 M tetrabutylammonium acetate; E - 0.01 M tetrabutylammonium nitrate included; F [Ttl = KM~; G use K and a from [4]  for  PS;  H use K and a from [6]  for  PS;  I -4,4'-dihydroxy-2,2-propane carbonate; J use K and a from  [9]  for  PS;  K bisphenol AI diethylene glycol (50: 50); L 35 % cis, 55 % trans, 10 % 1,2; M poly(methyl) (pyridine-3-yl) siloxane; N use K and a from [37]  for PSi 0  use K = 1.31  X  10- 2  and a = 0.714 for PSi P use K and a from  [38]  for  PS; Q MC/dichloroacetic acid + O.OIM  tetrabutylammonium acetate; R use K = 7.998  X  10- 2  and a = 0.54  for  PSi  S 0.1 % tetra(n-butylammonium) bromide included; T - 0.1 M LiBr included; U use K and a from  [3]  for PS.
+
+## References
+
+1.  ECHARRI I, IRUIN JJ, GUZMAN GM,AMSORENA I (1979) Makromol Chern 180:2749
+2.  BONI KA, SLIEMERS FA, STICKNEY PB (1968) I Polym Sci Part A 26: 1579
+3.  SPATORICO AL, COULTER B (1973) I Polym Sci Polym Phys Ed 11: 1139
+4.  PROVDER T, ROSEN EM (1970) Sep Sci 5 :437
+5.  GOEDHAR D, OPSHOOR A (1970) I Polym Sci Part A-2, 8: 1227
+6.  KOLINSKY M, IANCA I (1974) I Polym Sci Polym Chern Ed 12: 1181
+7.  MORRIS MC (1971) I Chromatogr 55:203
+8.  GRUBISIC Z, REMPP P, BENOIT H (1967) I Polym Sci Part B 5: 753
+9.  RUDIN A, HOEGY HW (1972) I Polym Sci Part A-I, 10:217
+10.  KRAUS C, STACY CJ  (1972) I Polym Sci Part A-2, 10: 657
+11.  SCHRODER UKO, EBERT KH (1987) Makromol Chern 188: 1415
+12.  COLEMAN TA, DAWKINS IV (1986) I Liq Chromatogr 9: 1191
+13.  IENKINS R, PORTER RS  (1980) I Polym Sci Polym Lett Ed 18: 743
+14.  SAMAY G, KUBIN M, PODESVA I (1978) Angew Makromol Chern 72: 185
+15.  AMBLER MR (1973) I Polym Sci Polym Chern Ed 11: 191
+16.  WILLIAMS RC, SCHMIT IA (1971) I Polym Sci Part B 9:413
+17.  AMBLER MR (1980) I Appl Polym Sci 25:901
+18.  SUDDABY KG, SANAYEI RA, O'DRISCOLL KF, RUDIN A (1993) Makromol Chern 194: 1965
+19.  AMBLER MR, McINTYRE D (1977) I Appl Polym Sci 21 :2269
+20.  DEIAEGER R, LECACHEUX D, POTIN PH (1990) I Appl Polym Sci 39: 1793
+21.  SMITH WV (1974) I Appl Polym Sci 18: 3685
+22.  HANEY MA, ARMONAS IE, ROSEN L (1987) In: PROVDER T  (ed) ACS Symposium Series No. 352, ACS, Washington, p  119
+23.  VAN  DIJK lAPP, SMIT lAM, KOHN  FE, FEIJEN I (1983) I Polym  Sci  Polym  Chern  Ed 21: 197
+24.  PERKINS G, HAEHN (1990) I Vinyl Technol12: 2
+25.  MAHABADI HKH (1989) International GPC Symposium, Newton, Mass, 434
+26.  MAHABADI HKH (1985) I Appl Polym Sci 30:1535
+27.  ITO  K, SAITO T, AOYAMA T (1987) Polymer 28: 1589
+28.  EVANS 1M (1973) Polym Eng Sci 13 :401
+29.  XIE I (1994) Polymer 35: 2385
+30.  TSITSILIANIS C, MITSIANI G, DONDOS A (1989) I Polym Sci Part B Polym Phys 27: 763
+31.  ZINBO M, PARSONO IL (1971) I Chromatogr 55: 55
+32.  WINTERMANTEL M, ANTONIETTI M, SCHMIDT M (1993) I Appl Polym Sci, Appl Polym Symp 52:91
+33.  PRICE GI, MOORE IW, GUILLET IE (1989) I Polym Sci Part A Polym Chern 27: 2925
+34.  SANAYEI RA, O'DRISCOLL KF (1991) I Macromol Sci Chern A 28: 987
+35.  VARMA BK, FUJITA Y, TAKAHASHI M, NOSE T (1984) I Polym Sci Polym Phys Ed 22: 1781
+36.  MANDIK L, FOKSOV A  A, FOLTYN I (1979) I Appl Polym Sci 24: 395
+37.  OTH I, DESREUX V (1954) Bull Soc Chim Belges 63: 285
+38.  DAWKINS IV (1968) I Macromol Sci Phys B 2:623
+39.  BIAGINI E, COSTA G, GATTIGLIA E, IMPERATO A, Russo S (1987) Polymer 28: 114
+40.  OGAWA T, SAKAI M (1988) I Polym Sci Part A Polym Chern 26: 3141
+41.  MOUREY TH, BRYAN TG, GREENER I (1993) I Chromatogr A 657: 377
+42.  MOUREY TH, MAILLER SM, FERRAR WT, MOLAIRE TR (1989) Macromolecules 22 :4286
+43.  KRANZ D, POHL HU, BAUMANN H (1972) Angew Makromol Chern 26: 67
+44.  AZUMA C, DIAS ML, MANO EB (1986) Macromol Chern Macromol Symp 2: 169
+45.  OGAWA T (1990) I Liq Chromatogr 13: 51
+46.  MARTIN L, Lavine M, BALKE ST (1992) I Liq Chromatogr 15: 1817
+47.  SCHEINERT W (1977) Angew Makromol Chern 63: 117
+48.  COLL H, GILDING DK (1970) I Polym Sci Part A-2 6: 1579
+49.  WILLIAMSON GR, CERVENKA A (1972) Eur Poly 18: 1009
+50.  BARLOW A, WILD L, RANGANATH R (1977) I Appl Polym Sci 21: 3319

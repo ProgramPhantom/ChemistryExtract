@@ -1,0 +1,26 @@
+-------------- TABLE 1 EXTRACTION --------------
+**[Preceding Paragraphs]**
+where S is the signal amplitude, S 0 is the signal amplitude had there been not diffusion, D is the diffusion coefficient, c is the gyromagnetic radio, d is the duration of gradient pulse, g is the strength of the gradient, and D is the diffusion time corrected for the effects of finite gradient pulse width. The increasing gradient produced a progressive attenuation of each signal; the attenuation of the signal depends of the DC as in shown in the Eq. (1). By least-squares fitting and Eq. (1), it was possible to calculate the DC of each proton signal belonging to free and conjugated FA (Fig. 5).
+
+The DOSY experiment yields a pseudo 2D spectrum with NMR chemical shifts in one dimension (horizontal axis) and self-diffusion coefficients in the other (vertical axis). The data from DOSY experiments were presented in a 2D
+
+Fig. 5 1 H DOSY spectrum of (a) non-conjugated folic acid and (b) folic acid conjugated to SWCNTs-chitosan.
+
+<!-- image -->
+
+**[Table Data]**
+| Table 1 - Diffusion coefficients determined by 2D DOSY. Compound   | Log D   |   Diffusion coefficient (10  10 m 2 /s) |
+|--------------------------------------------------------------------|---------|-----------------------------------------|
+| Isourea                                                            |  9.23   |                                     5.9 |
+| Free folic acid                                                    |  9.30   |                                     5.0 |
+| Conjugated SWCNT-chitosan-FA                                       |  9.45   |                                     3.5 |
+| a Diffusion coefficients obtained by means of antilog D.           |         |                                         |
+
+**[Succeeding Paragraphs]**
+contour-mode plot where cross-peaks between the DC values and the chemical shifts were given for each proton signal of the conjugate.
+
+The attenuation of the signals of the chemical shifts from free FA and that conjugated to SWCNT-chitosan was used to generate diffusion coefficients.
+
+With the experimental parameters optimized, full signal attenuation was achieved after 32 steps of linearly increasing the gradient strength from 2% to 95%.
+
+Fig. 5a shows the bidimensional map of the DC of free FA in where all proton signals are characterized by the same DC, which means that they all are due to the free FA. All the proton signals of FA were around a DC value of 5.0 · 10  10 m 2 /s. The DC value of approx. 3.5 · 10  10 m 2 /s corresponds to the FA conjugated to SWCNT-chitosan (Fig. 5b). In this region, proton signals belonging to the chitosan and FA are included.

@@ -1,0 +1,61 @@
+{
+  "is_flory_data": true,
+  "flory_entries": [
+    {
+      "polymer_name": "polystyrene",
+      "solvent": "benzene-d6",
+      "temperature_k": null,
+      "raw_v_value": "0.49",
+      "v_transformation": "none",
+      "v_value": 0.49,
+      "raw_c_value": "7.94",
+      "c_transformation": "minus_sign_correction",
+      "c_value": -7.94
+    },
+    {
+      "polymer_name": "polystyrene",
+      "solvent": "CDCl3",
+      "temperature_k": null,
+      "raw_v_value": "0.46",
+      "v_transformation": "none",
+      "v_value": 0.46,
+      "raw_c_value": "7.97",
+      "c_transformation": "minus_sign_correction",
+      "c_value": -7.97
+    },
+    {
+      "polymer_name": "polymer_name",
+      "solvent": "acetone-d6",
+      "temperature_k": null,
+      "raw_v_value": "0.43",
+      "v_transformation": "none",
+      "v_value": 0.43,
+      "raw_c_value": "7.78",
+      "c_transformation": "minus_sign_correction",
+      "c_value": -7.78
+    },
+    {
+      "polymer_name": "polystyrene",
+      "solvent": "toluene-d8",
+      "temperature_k": null,
+      "raw_v_value": "0.51",
+      "v_transformation": "none",
+      "v_value": 0.51,
+      "raw_c_value": "7.82",
+      "c_transformation": "minus_sign_correction",
+      "c_value": -7.82
+    },
+    {
+      "polymer_name": "polystyrene",
+      "solvent": "THF-d8",
+      "temperature_k": null,
+      "raw_v_value": "0.42",
+      "v_transformation": "none",
+      "v_value": 0.42,
+      "raw_c_value": "8.07",
+      "c_transformation": "minus_sign_correction",
+      "c_value": -8.07
+    }
+  ],
+  "calculator_calls": []
+}

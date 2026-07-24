@@ -1,0 +1,51 @@
+-------------- TABLE 3 EXTRACTION --------------
+**[Preceding Paragraphs]**
+## Polymer Chain Dynamics and NMR
+
+[table omitted]
+
+[table omitted]
+
+Abstract The universal features of polymer dynamics are specifically represented by laws for (anomalous) segment diffusion and chain relaxation modes. Nuclear magnetic resonance (NMR)-based techniques provide direct access to these phenomena. This in particular refers to NMR relaxation and diffusion studies. Methods suitable for this purpose are described in detail. Three basic classes of polymer dynamics models, namely the Rouse model, the tube/reptation model, and the renormalized Rouse models are outlined and discussed with respect to predictions for NMR measurands. A wealth of experimental NMR data are reviewed and compared with predictions of the model theories. It is shown that characteristic features of all three types of models can be verified in great detail provided that the model premisses are suitably mimicked in the experiments. Rouse dynamics is shown to be relevant for polymer melts with molecular weights below the critical value and for solutions of diminished entanglement effect. Features specific for the renormalized Rouse model reveal themselves in the form of high- and low-mode-number limits of the spin-lattice relaxation dispersion. These results are considered to mirror the analytical structure of the Generalized Langevin Equation. Finally, anomalous-diffusion and relaxation laws characteristic for the tube/reptation model can be perfectly reproduced in experiment if the polymer chains are confined in a nanoporous, solid matrix whereas bulk melts are not in accord with these predictions. The dynamics of chains confined in artificial tubes can be treated analytically assuming a harmonic radial potential for the polymer/wall interaction. These results derived for a real tube closely render the characteristic features of the original Doi/Edwards model predicted for a fictitious tube.
+
+Keywords NMR · Relaxation · Diffusion · Rouse model · Reptation · Renormalized Rouse model
+
+## Abbreviations
+
+**[Table Data]**
+| BWR   | Bloch/Wangsness/Redfield theory      |
+|-------|--------------------------------------|
+| CLF   | contour length fluctuation           |
+| CPMG  | Carr/Purcell/Meiboom/Gill            |
+| FID   | free-induction decay                 |
+| GLE   | generalized Langevin equation        |
+| NMR   | nuclear magnetic resonance           |
+| ODF   | order director fluctuations          |
+| PB    | poly(butadiene)                      |
+| PDES  | poly(diethylsiloxane)                |
+| PDMS  | poly(dimethylsiloxane)               |
+| PE    | poly(ethylene)                       |
+| PEO   | poly(ethylene oxide)                 |
+| PGSE  | pulsed gradient spin echo method     |
+| PHEMA | poly(hydroxyethylmethacrylate)       |
+| PIB   | poly(isobutylene)                    |
+| PIP   | poly(isoprene)                       |
+| PMMC  | polymer mode-mode coupling model     |
+| PS    | poly(styrene)                        |
+| PTHF  | poly(tetrahydrofurane)               |
+| PU    | phenylurazole                        |
+| RF    | radio frequency                      |
+| RRM   | renormalized Rouse model             |
+| SGSE  | steady gradient spin echo method     |
+| ThRRM | three times renormalized Rouse model |
+| TRRM  | twice renormalized Rouse model       |
+| WLF   | Williams/Landel/Ferry                |
+
+**[Succeeding Paragraphs]**
+## 1 Introduction
+
+The objective of this review is to outline the basic theories and models of linear polymer chain dynamics [1], and to demonstrate the potential of NMR (nuclear magnetic resonance) techniques for probing the characteristics of molecular motions in such systems. From the methodological point of view we will mainly focus on field-cycling NMR relaxometry and fieldgradient NMR diffusometry, but will also make some reference to transverse relaxation and the residual dipolar interaction occurring in entangled polymer systems. This combination of methods turned out to be most powerful for the examination of chain modes and the translational diffusion properties of polymer segments and the coil center-of-mass. The techniques referred to are best suited to shed light on almost every aspect of polymer dynamics.
+
+Particular emphasis will be laid on the experimental verification of features of standard theories of polymer dynamics such as the Rouse model, the tube/reptation model [1] or the renormalized Rouse models. Based on the special conditions under which predictions of these theories match experimental findings well, the application limits and the deficiencies of these models for more general scenarios become obvious and help to ameliorate the underlying model ansatz for chain dynamics.
+
+In order to elucidate the universal character of polymer chain dynamics, we will attempt to consider as many different polymer species as possible for which NMR relaxometry and diffusometry data are available. On the other hand this means that we must restrict ourselves predominantly to melts of linear homopolymers with a narrow molecular weight distribution to keep the range of literature referred to at manageable levels. Only where enlightening information is expected will we refer to solutions, networks, and mesomorphic systems in addition to isotropic melts. Empirically the conclusions suggested by the huge amount of experimental NMR data available in the literature provide a complete picture rendering dynamical features in great detail.
