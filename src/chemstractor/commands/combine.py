@@ -24,8 +24,105 @@ from chemstractor.lib.processor import PDFProcessor
 from chemstractor.AI import AI, pricing_matrix
 from chemstractor.lib.combiner import load_and_homogenise, sort_and_save
 
+# Error Severity & Fill Styling Configuration
+ERROR_SEVERITY_MAP = {
+    # Critical / High Severity (Red fill)
+    "polymer_name": {"severity": "deselected", "color": "FCE4D6", "label": "Polymer Identification Failure"},
+    "solvent_name": {"severity": "deselected", "color": "FCE4D6", "label": "Solvent Identification Failure"},
+    
+    # Warning / Medium Severity (Yellow fill)
+    "c_value_out_of_range": {"severity": "problem", "color": "FFF2CC", "label": "c_value Out of Range"},
+    "v_value_out_of_range": {"severity": "problem", "color": "FFF2CC", "label": "v_value Out of Range"},
+    "K_value_out_of_range": {"severity": "problem", "color": "FFF2CC", "label": "K_value Out of Range"},
+    "a_value_out_of_range": {"severity": "problem", "color": "FFF2CC", "label": "a_value Out of Range"},
+    "D_out_of_range": {"severity": "problem", "color": "FFF2CC", "label": "D Value Out of Range"},
+    "eta_out_of_range": {"severity": "problem", "color": "FFF2CC", "label": "log10([eta]) Out of Range"},
+    
+    # Low / Info Severity (Light Gray fill)
+    "temperature_missing": {"severity": "info", "color": "EDEDED", "label": "Temperature Missing/Invalid"}
+}
+
+SEVERITY_PRIORITY = {"deselected": 2, "problem": 3, "info": 1}
+
+def is_entry_failed(entry: dict) -> bool:
+    """Returns True if the entry has any active failure flags."""
+    ff = entry.get("failed_fields")
+    if isinstance(ff, dict):
+        return any(ff.values())
+    elif isinstance(ff, str):
+        return ff != "None"
+    return entry.get("polymer_name") in (None, "N/A") or entry.get("solvent") in (None, "N/A")
+
+def get_entry_row_fill(failed_fields: dict) -> PatternFill | None:
+    """Calculates Excel row fill color based on the highest severity active error in failed_fields."""
+    if not isinstance(failed_fields, dict):
+        return None
+    
+    highest_score = 0
+    chosen_color = None
+
+    for field_key, is_failed in failed_fields.items():
+        if is_failed:
+            meta = ERROR_SEVERITY_MAP.get(field_key, {"severity": "warning", "color": "FFF2CC"})
+            score = SEVERITY_PRIORITY.get(meta.get("severity", "warning"), 1)
+            if score > highest_score:
+                highest_score = score
+                chosen_color = meta.get("color", "FFF2CC")
+
+    if chosen_color:
+        return PatternFill(start_color=chosen_color, end_color=chosen_color, fill_type="solid")
+    return None
+
+def get_entry_errors_info(entry: dict) -> tuple[str, PatternFill | None]:
+    """
+    Constructs a single formatted error string containing all active error messages for the entry,
+    and returns a PatternFill for the cell corresponding to the highest severity active error.
+    """
+    ff = entry.get("failed_fields")
+    active_keys = []
+    
+    if isinstance(ff, dict):
+        active_keys = [k for k, v in ff.items() if v]
+    elif is_entry_failed(entry):
+        active_keys = ["polymer_name"]
+
+    if not active_keys:
+        return "None", None
+
+    labels = []
+    highest_score = 0
+    chosen_color = None
+
+    for k in active_keys:
+        meta = ERROR_SEVERITY_MAP.get(k, {"severity": "warning", "color": "FFF2CC", "label": k})
+        labels.append(meta.get("label", k))
+        score = SEVERITY_PRIORITY.get(meta.get("severity", "warning"), 1)
+        if score > highest_score:
+            highest_score = score
+            chosen_color = meta.get("color", "FFF2CC")
+
+    error_str = ", ".join(labels)
+    fill = PatternFill(start_color=chosen_color, end_color=chosen_color, fill_type="solid") if chosen_color else None
+    return error_str, fill
+
 def get_field_error(entry: dict, field_key: str) -> str:
     """Returns the failure reason for a specific field, or 'None' if no error."""
+    ff = entry.get("failed_fields")
+    if isinstance(ff, dict):
+        if field_key == "polymer_name" and ff.get("polymer_name"):
+            return "Invalid chemical"
+        if field_key == "solvent" and ff.get("solvent_name"):
+            return "Invalid chemical"
+        if field_key == "temperature_k" and ff.get("temperature_missing"):
+            return "Missing"
+        if field_key in ("c_value", "v_value") and (ff.get("c_value_out_of_range") or ff.get("v_value_out_of_range")):
+            return "Out of range"
+        if field_key in ("K_value", "a_value") and (ff.get("K_value_out_of_range") or ff.get("a_value_out_of_range")):
+            return "Out of range"
+        if field_key == "general_err" and (ff.get("D_out_of_range") or ff.get("eta_out_of_range")):
+            return "Out of range"
+        return "None"
+        
     field_errors = entry.get("field_errors")
     if isinstance(field_errors, dict):
         err = field_errors.get(field_key)
@@ -64,57 +161,38 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
     
     flory_entries = combined_data.get("flory_entries", [])
     mh_entries = combined_data.get("mark_houwink_entries", [])
-    failures = combined_data.get("failures", [])
     papers_summary = combined_data.get("papers_summary", [])
     
     # Pre-calculate failure stats for Summary sheet
     failure_reasons_count = {}
     total_mh_failed = 0
     for entry in mh_entries:
-        ff = entry.get("failed_fields", "None")
-        poly = entry.get("polymer_name", "")
-        solv = entry.get("solvent", "")
-        if ff != "None" or poly == "N/A" or solv == "N/A":
+        ff = entry.get("failed_fields")
+        if isinstance(ff, dict):
+            if any(ff.values()):
+                total_mh_failed += 1
+                for f_key, is_failed in ff.items():
+                    if is_failed:
+                        lbl = ERROR_SEVERITY_MAP.get(f_key, {}).get("label", f_key)
+                        failure_reasons_count[lbl] = failure_reasons_count.get(lbl, 0) + 1
+        elif is_entry_failed(entry):
             total_mh_failed += 1
-            if ff != "None":
-                for item in ff.split(","):
-                    item_clean = item.strip()
-                    if item_clean and item_clean != "None":
-                        failure_reasons_count[item_clean] = failure_reasons_count.get(item_clean, 0) + 1
-            else:
-                if poly == "N/A":
-                    failure_reasons_count["polymer_name"] = failure_reasons_count.get("polymer_name", 0) + 1
-                if solv == "N/A":
-                    failure_reasons_count["solvent"] = failure_reasons_count.get("solvent", 0) + 1
 
     total_flory_failed = 0
     for entry in flory_entries:
-        ff = entry.get("failed_fields", "None")
-        poly = entry.get("polymer_name", "")
-        solv = entry.get("solvent", "")
-        if ff != "None" or poly == "N/A" or solv == "N/A":
+        ff = entry.get("failed_fields")
+        if isinstance(ff, dict):
+            if any(ff.values()):
+                total_flory_failed += 1
+                for f_key, is_failed in ff.items():
+                    if is_failed:
+                        lbl = ERROR_SEVERITY_MAP.get(f_key, {}).get("label", f_key)
+                        failure_reasons_count[lbl] = failure_reasons_count.get(lbl, 0) + 1
+        elif is_entry_failed(entry):
             total_flory_failed += 1
-            if ff != "None":
-                for item in ff.split(","):
-                    item_clean = item.strip()
-                    if item_clean and item_clean != "None":
-                        failure_reasons_count[item_clean] = failure_reasons_count.get(item_clean, 0) + 1
-            else:
-                if poly == "N/A":
-                    failure_reasons_count["polymer_name"] = failure_reasons_count.get("polymer_name", 0) + 1
-                if solv == "N/A":
-                    failure_reasons_count["solvent"] = failure_reasons_count.get("solvent", 0) + 1
-
-    paper_level_failures = 0
-    for fail in failures:
-        field = fail.get("field", "")
-        reason = fail.get("reason", "Unknown failure")
-        if field in ("Paper processing", "Mark-Houwink processing", "Flory processing"):
-            paper_level_failures += 1
-            failure_reasons_count[reason] = failure_reasons_count.get(reason, 0) + 1
 
     total_collected = len(flory_entries) + len(mh_entries)
-    total_failures_all = total_flory_failed + total_mh_failed + paper_level_failures
+    total_failures_all = total_flory_failed + total_mh_failed
 
     # ---------------------------------------------------------
     # 1. Summary Sheet
@@ -159,9 +237,12 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
         ("Run Start Time", run_info.get("start_time", "N/A")),
         ("Run End Time", run_info.get("end_time", "N/A")),
         ("Total Execution Time", run_info.get("duration_seconds", "N/A")),
+        ("Paper Processing Time", run_info.get("papers_duration_seconds", "N/A")),
+        ("Combine Stage Execution Time", run_info.get("combine_duration_seconds", run_info.get("duration_seconds", "N/A"))),
         ("AI Model Selected", run_info.get("model_used", "N/A")),
         ("Input Directory / Run", run_info.get("input_directory", "N/A")),
-        ("Papers Processed", run_info.get("num_papers", len(papers_summary))),
+        ("Total Papers Inputted", run_info.get("total_papers_inputted", run_info.get("num_papers", len(papers_summary)))),
+        ("Papers Selected", run_info.get("num_papers", len(papers_summary))),
         ("Total Tables Inspected", run_info.get("total_tables", total_tables_checked)),
         ("Tables Selected for Extraction", run_info.get("selected_tables", total_tables_selected)),
         ("Operating System", run_info.get("os", "N/A")),
@@ -197,10 +278,12 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
         cell.border = data_border
     current_row += 1
 
-    success_rate = ((total_collected - total_failures_all) / total_collected * 100) if total_collected > 0 else 0.0
+    successful_data_points = max(0, total_collected - total_failures_all)
+    success_rate = (successful_data_points / total_collected * 100) if total_collected > 0 else 0.0
 
     kpis = [
         ("Total Data Points Collected", total_collected),
+        ("Successful Data Points (Included)", successful_data_points),
         ("Flory Data Points", len(flory_entries)),
         ("Mark-Houwink Data Points", len(mh_entries)),
         ("Total Failures / Issues", total_failures_all),
@@ -377,7 +460,7 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
         "Source Paper", "Table", "Polymer (Original)", "Polymer (Clean)", 
         "Solvent (Original)", "Solvent (Clean)", "Temperature (K)", 
         "c Value (log Constant)", "c Transformation", "v Value (Scaling Exponent)", "v Transformation", 
-        "Polymer Error", "Solvent Error", "Temperature Error", "c_value Error", "General Error"
+        "Errors"
     ]
     
     for col_idx, h in enumerate(headers_flory):
@@ -387,7 +470,7 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
         cell.alignment = table_header_align
         cell.border = data_border
         
-    for val, col in [(3, 17), (6, 18)]:
+    for val, col in [(3, 13), (6, 14)]:
         cell = ws_flory.cell(row=1, column=col, value=val)
         cell.font = table_header_font
         cell.fill = table_header_fill
@@ -418,68 +501,59 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
         
         ws_flory.cell(row=r, column=11, value=entry.get("v_transformation", "")).font = val_font
         
-        # 5 distinct field failure columns
-        ws_flory.cell(row=r, column=12, value=get_field_error(entry, "polymer_name")).font = val_font
-        ws_flory.cell(row=r, column=13, value=get_field_error(entry, "solvent")).font = val_font
-        ws_flory.cell(row=r, column=14, value=get_field_error(entry, "temperature_k")).font = val_font
+        err_msg, err_fill = get_entry_errors_info(entry)
+        err_cell = ws_flory.cell(row=r, column=12, value=err_msg)
+        err_cell.font = val_font
+        if err_fill:
+            err_cell.fill = err_fill
         
-        c_err = get_field_error(entry, "c_value")
-        v_err = get_field_error(entry, "v_value")
-        coeff_err = c_err if c_err != "None" else v_err
-        ws_flory.cell(row=r, column=15, value=coeff_err).font = val_font
-        ws_flory.cell(row=r, column=16, value=get_field_error(entry, "general_err")).font = val_font
-        
-        has_failed = entry.get("failed_fields", "None") != "None" or entry.get("polymer_name") == "N/A" or entry.get("solvent") == "N/A"
+        has_failed = is_entry_failed(entry)
         if isinstance(c_val, (int, float)) and isinstance(v_val, (int, float)):
-            ws_flory.cell(row=r, column=17, value=f"=H{r}-J{r}*3").font = val_font
-            ws_flory.cell(row=r, column=18, value=f"=H{r}-J{r}*6").font = val_font
+            ws_flory.cell(row=r, column=13, value=f"=H{r}-J{r}*3").font = val_font
+            ws_flory.cell(row=r, column=14, value=f"=H{r}-J{r}*6").font = val_font
             
             if not has_failed:
                 pair = (entry.get("solvent"), entry.get("polymer_name"))
                 flory_counts[pair] = flory_counts.get(pair, 0) + 1
             
-        for c in [1, 2, 3, 4, 5, 6, 9, 11, 12, 13, 14, 15, 16]:
+        for c in [1, 2, 3, 4, 5, 6, 9, 11, 12]:
             cell = ws_flory.cell(row=r, column=c)
             cell.alignment = left_align
             cell.border = data_border
-            if has_failed:
-                cell.fill = fail_row_fill
-        for c in [7, 8, 10, 17, 18]:
+        for c in [7, 8, 10, 13, 14]:
             cell = ws_flory.cell(row=r, column=c)
             cell.alignment = right_align
             cell.border = data_border
-            if has_failed:
-                cell.fill = fail_row_fill
             
-    # Write Flory Summary Table starting at Column T (20)
-    ws_flory.cell(row=1, column=20, value="Solvent").font = table_header_font
-    ws_flory.cell(row=1, column=20).fill = table_header_fill
-    ws_flory.cell(row=1, column=20).alignment = table_header_align
-    ws_flory.cell(row=1, column=20).border = data_border
+    # Write Flory Summary Table starting at Column P (16)
+    ws_flory.cell(row=1, column=16, value="Solvent").font = table_header_font
+    ws_flory.cell(row=1, column=16).fill = table_header_fill
+    ws_flory.cell(row=1, column=16).alignment = table_header_align
+    ws_flory.cell(row=1, column=16).border = data_border
     
-    ws_flory.cell(row=1, column=21, value="Polymer").font = table_header_font
-    ws_flory.cell(row=1, column=21).fill = table_header_fill
-    ws_flory.cell(row=1, column=21).alignment = table_header_align
-    ws_flory.cell(row=1, column=21).border = data_border
+    ws_flory.cell(row=1, column=17, value="Polymer").font = table_header_font
+    ws_flory.cell(row=1, column=17).fill = table_header_fill
+    ws_flory.cell(row=1, column=17).alignment = table_header_align
+    ws_flory.cell(row=1, column=17).border = data_border
     
-    ws_flory.cell(row=1, column=22, value="Count").font = table_header_font
-    ws_flory.cell(row=1, column=22).fill = table_header_fill
-    ws_flory.cell(row=1, column=22).alignment = table_header_align
-    ws_flory.cell(row=1, column=22).border = data_border
+    ws_flory.cell(row=1, column=18, value="Count").font = table_header_font
+    ws_flory.cell(row=1, column=18).fill = table_header_fill
+    ws_flory.cell(row=1, column=18).alignment = table_header_align
+    ws_flory.cell(row=1, column=18).border = data_border
     
     for summary_idx, (pair, count) in enumerate(sorted(flory_counts.items())):
         sr = summary_idx + 2
-        ws_flory.cell(row=sr, column=20, value=pair[0]).font = val_font
-        ws_flory.cell(row=sr, column=20).alignment = left_align
-        ws_flory.cell(row=sr, column=20).border = data_border
+        ws_flory.cell(row=sr, column=16, value=pair[0]).font = val_font
+        ws_flory.cell(row=sr, column=16).alignment = left_align
+        ws_flory.cell(row=sr, column=16).border = data_border
         
-        ws_flory.cell(row=sr, column=21, value=pair[1]).font = val_font
-        ws_flory.cell(row=sr, column=21).alignment = left_align
-        ws_flory.cell(row=sr, column=21).border = data_border
+        ws_flory.cell(row=sr, column=17, value=pair[1]).font = val_font
+        ws_flory.cell(row=sr, column=17).alignment = left_align
+        ws_flory.cell(row=sr, column=17).border = data_border
         
-        ws_flory.cell(row=sr, column=22, value=count).font = val_font
-        ws_flory.cell(row=sr, column=22).alignment = right_align
-        ws_flory.cell(row=sr, column=22).border = data_border
+        ws_flory.cell(row=sr, column=18, value=count).font = val_font
+        ws_flory.cell(row=sr, column=18).alignment = right_align
+        ws_flory.cell(row=sr, column=18).border = data_border
         
     # Generate and embed Flory Line Chart
     if flory_entries:
@@ -498,7 +572,7 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
             for entry in flory_entries:
                 c_val = entry.get("c_value")
                 v_val = entry.get("v_value")
-                has_failed = entry.get("failed_fields", "None") != "None" or entry.get("polymer_name") == "N/A" or entry.get("solvent") == "N/A"
+                has_failed = is_entry_failed(entry)
                 if c_val is not None and v_val is not None and not has_failed:
                     y_vals.append(c_val - v_val * 3)
                     y_vals.append(c_val - v_val * 6)
@@ -515,13 +589,13 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
                 r = row_idx + 2
                 c_val = entry.get("c_value")
                 v_val = entry.get("v_value")
-                has_failed = entry.get("failed_fields", "None") != "None" or entry.get("polymer_name") == "N/A" or entry.get("solvent") == "N/A"
+                has_failed = is_entry_failed(entry)
                 if c_val is not None and v_val is not None and not has_failed:
-                    series_ref = Reference(ws_flory, min_col=17, max_col=18, min_row=r, max_row=r)
+                    series_ref = Reference(ws_flory, min_col=13, max_col=14, min_row=r, max_row=r)
                     series = Series(series_ref, title=f"{entry.get('polymer_name')} in {entry.get('solvent')}")
                     chart_flory.append(series)
                     
-            cats_ref = Reference(ws_flory, min_col=17, max_col=18, min_row=1, max_row=1)
+            cats_ref = Reference(ws_flory, min_col=13, max_col=14, min_row=1, max_row=1)
             chart_flory.set_categories(cats_ref)
             
             colors = ["1F497D", "C0504D", "9BBB59", "8064A2", "F79646", "4BACC6", "E26B0A", "7030A0", "00B0F0"]
@@ -529,7 +603,7 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
                 color = colors[s_idx % len(colors)]
                 series.graphicalProperties.line = openpyxl.drawing.line.LineProperties(solidFill=color)
                 
-            ws_flory.add_chart(chart_flory, "W4")
+            ws_flory.add_chart(chart_flory, "S4")
         except Exception:
             pass
             
@@ -549,7 +623,7 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
         "Source Paper", "Table", "Polymer (Original)", "Polymer (Clean)", 
         "Solvent (Original)", "Solvent (Clean)", "Temperature (K)", 
         "K Value (mL/g)", "K Transformation", "a Value", "a Transformation", 
-        "Polymer Error", "Solvent Error", "Temperature Error", "K_value Error", "General Error"
+        "Errors"
     ]
     
     for col_idx, h in enumerate(headers_mh):
@@ -559,7 +633,7 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
         cell.alignment = table_header_align
         cell.border = data_border
         
-    for val, col in [(3, 17), (6, 18)]:
+    for val, col in [(3, 13), (6, 14)]:
         cell = ws_mh.cell(row=1, column=col, value=val)
         cell.font = table_header_font
         cell.fill = table_header_fill
@@ -590,68 +664,59 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
         
         ws_mh.cell(row=r, column=11, value=entry.get("a_transformation", "")).font = val_font
         
-        # 5 distinct field failure columns
-        ws_mh.cell(row=r, column=12, value=get_field_error(entry, "polymer_name")).font = val_font
-        ws_mh.cell(row=r, column=13, value=get_field_error(entry, "solvent")).font = val_font
-        ws_mh.cell(row=r, column=14, value=get_field_error(entry, "temperature_k")).font = val_font
+        err_msg, err_fill = get_entry_errors_info(entry)
+        err_cell = ws_mh.cell(row=r, column=12, value=err_msg)
+        err_cell.font = val_font
+        if err_fill:
+            err_cell.fill = err_fill
         
-        k_err = get_field_error(entry, "K_value")
-        a_err = get_field_error(entry, "a_value")
-        param_err = k_err if k_err != "None" else a_err
-        ws_mh.cell(row=r, column=15, value=param_err).font = val_font
-        ws_mh.cell(row=r, column=16, value=get_field_error(entry, "general_err")).font = val_font
-        
-        has_failed = entry.get("failed_fields", "None") != "None" or entry.get("polymer_name") == "N/A" or entry.get("solvent") == "N/A"
+        has_failed = is_entry_failed(entry)
         if isinstance(k_val, (int, float)) and k_val > 0 and isinstance(a_val, (int, float)):
-            ws_mh.cell(row=r, column=17, value=f"=LOG10(H{r})+J{r}*3").font = val_font
-            ws_mh.cell(row=r, column=18, value=f"=LOG10(H{r})+J{r}*6").font = val_font
+            ws_mh.cell(row=r, column=13, value=f"=LOG10(H{r})+J{r}*3").font = val_font
+            ws_mh.cell(row=r, column=14, value=f"=LOG10(H{r})+J{r}*6").font = val_font
             
             if not has_failed:
                 pair = (entry.get("solvent"), entry.get("polymer_name"))
                 mh_counts[pair] = mh_counts.get(pair, 0) + 1
             
-        for c in [1, 2, 3, 4, 5, 6, 9, 11, 12, 13, 14, 15, 16]:
+        for c in [1, 2, 3, 4, 5, 6, 9, 11, 12]:
             cell = ws_mh.cell(row=r, column=c)
             cell.alignment = left_align
             cell.border = data_border
-            if has_failed:
-                cell.fill = fail_row_fill
-        for c in [7, 8, 10, 17, 18]:
+        for c in [7, 8, 10, 13, 14]:
             cell = ws_mh.cell(row=r, column=c)
             cell.alignment = right_align
             cell.border = data_border
-            if has_failed:
-                cell.fill = fail_row_fill
             
-    # Write Mark-Houwink Summary Table starting at Column T (20)
-    ws_mh.cell(row=1, column=20, value="Solvent").font = table_header_font
-    ws_mh.cell(row=1, column=20).fill = table_header_fill
-    ws_mh.cell(row=1, column=20).alignment = table_header_align
-    ws_mh.cell(row=1, column=20).border = data_border
+    # Write Mark-Houwink Summary Table starting at Column P (16)
+    ws_mh.cell(row=1, column=16, value="Solvent").font = table_header_font
+    ws_mh.cell(row=1, column=16).fill = table_header_fill
+    ws_mh.cell(row=1, column=16).alignment = table_header_align
+    ws_mh.cell(row=1, column=16).border = data_border
     
-    ws_mh.cell(row=1, column=21, value="Polymer").font = table_header_font
-    ws_mh.cell(row=1, column=21).fill = table_header_fill
-    ws_mh.cell(row=1, column=21).alignment = table_header_align
-    ws_mh.cell(row=1, column=21).border = data_border
+    ws_mh.cell(row=1, column=17, value="Polymer").font = table_header_font
+    ws_mh.cell(row=1, column=17).fill = table_header_fill
+    ws_mh.cell(row=1, column=17).alignment = table_header_align
+    ws_mh.cell(row=1, column=17).border = data_border
     
-    ws_mh.cell(row=1, column=22, value="Count").font = table_header_font
-    ws_mh.cell(row=1, column=22).fill = table_header_fill
-    ws_mh.cell(row=1, column=22).alignment = table_header_align
-    ws_mh.cell(row=1, column=22).border = data_border
+    ws_mh.cell(row=1, column=18, value="Count").font = table_header_font
+    ws_mh.cell(row=1, column=18).fill = table_header_fill
+    ws_mh.cell(row=1, column=18).alignment = table_header_align
+    ws_mh.cell(row=1, column=18).border = data_border
     
     for summary_idx, (pair, count) in enumerate(sorted(mh_counts.items())):
         sr = summary_idx + 2
-        ws_mh.cell(row=sr, column=20, value=pair[0]).font = val_font
-        ws_mh.cell(row=sr, column=20).alignment = left_align
-        ws_mh.cell(row=sr, column=20).border = data_border
+        ws_mh.cell(row=sr, column=16, value=pair[0]).font = val_font
+        ws_mh.cell(row=sr, column=16).alignment = left_align
+        ws_mh.cell(row=sr, column=16).border = data_border
         
-        ws_mh.cell(row=sr, column=21, value=pair[1]).font = val_font
-        ws_mh.cell(row=sr, column=21).alignment = left_align
-        ws_mh.cell(row=sr, column=21).border = data_border
+        ws_mh.cell(row=sr, column=17, value=pair[1]).font = val_font
+        ws_mh.cell(row=sr, column=17).alignment = left_align
+        ws_mh.cell(row=sr, column=17).border = data_border
         
-        ws_mh.cell(row=sr, column=22, value=count).font = val_font
-        ws_mh.cell(row=sr, column=22).alignment = right_align
-        ws_mh.cell(row=sr, column=22).border = data_border
+        ws_mh.cell(row=sr, column=18, value=count).font = val_font
+        ws_mh.cell(row=sr, column=18).alignment = right_align
+        ws_mh.cell(row=sr, column=18).border = data_border
         
     # Generate and embed Mark-Houwink Line Chart
     if mh_entries:
@@ -670,7 +735,7 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
             for entry in mh_entries:
                 K_val = entry.get("K_value")
                 a_val = entry.get("a_value")
-                has_failed = entry.get("failed_fields", "None") != "None" or entry.get("polymer_name") == "N/A" or entry.get("solvent") == "N/A"
+                has_failed = is_entry_failed(entry)
                 if K_val is not None and isinstance(K_val, (int, float)) and K_val > 0 and isinstance(a_val, (int, float)) and not has_failed:
                     log_K = math.log10(K_val)
                     y_vals.append(log_K + a_val * 3)
@@ -688,13 +753,13 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
                 r = row_idx + 2
                 K_val = entry.get("K_value")
                 a_val = entry.get("a_value")
-                has_failed = entry.get("failed_fields", "None") != "None" or entry.get("polymer_name") == "N/A" or entry.get("solvent") == "N/A"
+                has_failed = is_entry_failed(entry)
                 if K_val is not None and isinstance(K_val, (int, float)) and K_val > 0 and isinstance(a_val, (int, float)) and not has_failed:
-                    series_ref = Reference(ws_mh, min_col=17, max_col=18, min_row=r, max_row=r)
+                    series_ref = Reference(ws_mh, min_col=13, max_col=14, min_row=r, max_row=r)
                     series = Series(series_ref, title=f"{entry.get('polymer_name')} in {entry.get('solvent')}")
                     chart_mh.append(series)
                     
-            cats_ref = Reference(ws_mh, min_col=17, max_col=18, min_row=1, max_row=1)
+            cats_ref = Reference(ws_mh, min_col=13, max_col=14, min_row=1, max_row=1)
             chart_mh.set_categories(cats_ref)
             
             colors = ["1F497D", "C0504D", "9BBB59", "8064A2", "F79646", "4BACC6", "E26B0A", "7030A0", "00B0F0"]
@@ -702,7 +767,7 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
                 color = colors[s_idx % len(colors)]
                 series.graphicalProperties.line = openpyxl.drawing.line.LineProperties(solidFill=color)
                 
-            ws_mh.add_chart(chart_mh, "W4")
+            ws_mh.add_chart(chart_mh, "S4")
         except Exception:
             pass
 
@@ -718,7 +783,7 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
     ws_fail = wb.create_sheet(title="Failures")
     ws_fail.views.sheetView[0].showGridLines = True
     
-    headers_fail = ["Source Paper", "Table", "Field Name", "Raw Value", "Failure Reason"]
+    headers_fail = ["Source Paper", "Table", "Type", "Active Errors", "Primary Blame / Severity"]
     for col_idx, h in enumerate(headers_fail):
         cell = ws_fail.cell(row=1, column=col_idx + 1, value=h)
         cell.font = table_header_font
@@ -726,19 +791,43 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
         cell.alignment = table_header_align
         cell.border = data_border
         
-    for row_idx, entry in enumerate(failures):
+    failed_all_entries = []
+    for entry in flory_entries:
+        if is_entry_failed(entry):
+            failed_all_entries.append(("Flory", entry))
+    for entry in mh_entries:
+        if is_entry_failed(entry):
+            failed_all_entries.append(("Mark-Houwink", entry))
+
+    for row_idx, (entry_type, entry) in enumerate(failed_all_entries):
         r = row_idx + 2
-        ws_fail.cell(row=r, column=1, value=entry.get("source_paper", "")).font = val_font
-        ws_fail.cell(row=r, column=2, value=entry.get("table", "")).font = val_font
-        ws_fail.cell(row=r, column=3, value=entry.get("field", "")).font = val_font
-        ws_fail.cell(row=r, column=4, value=entry.get("value", "")).font = val_font
-        ws_fail.cell(row=r, column=5, value=entry.get("reason", "")).font = val_font
+        ff = entry.get("failed_fields", {})
+        active_errs = [k for k, v in ff.items() if v] if isinstance(ff, dict) else ["failed"]
         
+        highest_score = 0
+        primary_blame = "Error"
+        fill_color = "FFF2CC"
+        if isinstance(ff, dict):
+            for k in active_errs:
+                meta = ERROR_SEVERITY_MAP.get(k, {})
+                score = SEVERITY_PRIORITY.get(meta.get("severity", "warning"), 1)
+                if score > highest_score:
+                    highest_score = score
+                    primary_blame = meta.get("label", k)
+                    fill_color = meta.get("color", "FFF2CC")
+
+        ws_fail.cell(row=r, column=1, value=entry.get("source_paper", "")).font = val_font
+        ws_fail.cell(row=r, column=2, value=entry.get("table_name", "")).font = val_font
+        ws_fail.cell(row=r, column=3, value=entry_type).font = val_font
+        ws_fail.cell(row=r, column=4, value=", ".join(active_errs)).font = val_font
+        ws_fail.cell(row=r, column=5, value=primary_blame).font = val_font
+        
+        row_fill = PatternFill(start_color=fill_color, end_color=fill_color, fill_type="solid")
         for c in range(1, 6):
             cell = ws_fail.cell(row=r, column=c)
             cell.alignment = left_align
             cell.border = data_border
-            cell.fill = fail_row_fill
+            cell.fill = row_fill
             
     for col in ws_fail.columns:
         vals = [str(cell.value or '') for cell in col]
@@ -957,7 +1046,7 @@ def create_plots(output_dir: str, combined_data: dict) -> list[str]:
             for idx, entry in enumerate(flory_entries):
                 c_val = entry.get("c_value")
                 v_val = entry.get("v_value")
-                has_failed = entry.get("failed_fields", "None") != "None" or entry.get("polymer_name") == "N/A" or entry.get("solvent") == "N/A"
+                has_failed = is_entry_failed(entry)
                 if isinstance(c_val, (int, float)) and isinstance(v_val, (int, float)) and not has_failed:
                     y3 = c_val - v_val * 3
                     y6 = c_val - v_val * 6
@@ -1002,7 +1091,7 @@ def create_plots(output_dir: str, combined_data: dict) -> list[str]:
             for idx, entry in enumerate(mh_entries):
                 K_val = entry.get("K_value")
                 a_val = entry.get("a_value")
-                has_failed = entry.get("failed_fields", "None") != "None" or entry.get("polymer_name") == "N/A" or entry.get("solvent") == "N/A"
+                has_failed = is_entry_failed(entry)
                 if isinstance(K_val, (int, float)) and K_val > 0 and isinstance(a_val, (int, float)) and not has_failed:
                     log_K = math.log10(K_val)
                     y3 = log_K + a_val * 3
@@ -1039,7 +1128,48 @@ def create_plots(output_dir: str, combined_data: dict) -> list[str]:
     return generated_plots
 
 
-def combine_command(input_dir: str, output_path: str = None, cache_path: str = None, pdf_dir: str = None) -> None:
+def build_flat_databases(results: dict) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Builds flat (unaggregated) pandas DataFrames for Flory and Mark-Houwink entries from results."""
+    # 1. Flory flat database
+    flory_entries = results.get("flory_entries", [])
+    valid_flory = [entry for entry in flory_entries if not is_entry_failed(entry)]
+        
+    records_flory = []
+    for entry in valid_flory:
+        records_flory.append({
+            "solvent": entry.get("solvent"),
+            "polymer": entry.get("polymer_name"),
+            "c_value": entry.get("c_value"),
+            "v_value": entry.get("v_value"),
+            "source_paper": entry.get("source_paper"),
+            "table_name": entry.get("table_name")
+        })
+    df_flory = pd.DataFrame(records_flory)
+    if df_flory.empty:
+        df_flory = pd.DataFrame(columns=["solvent", "polymer", "c_value", "v_value", "source_paper", "table_name"])
+        
+    # 2. Mark-Houwink flat database
+    mh_entries = results.get("mark_houwink_entries", [])
+    valid_mh = [entry for entry in mh_entries if not is_entry_failed(entry)]
+        
+    records_mh = []
+    for entry in valid_mh:
+        records_mh.append({
+            "solvent": entry.get("solvent"),
+            "polymer": entry.get("polymer_name"),
+            "K_value": entry.get("K_value"),
+            "a_value": entry.get("a_value"),
+            "source_paper": entry.get("source_paper"),
+            "table_name": entry.get("table_name")
+        })
+    df_mh = pd.DataFrame(records_mh)
+    if df_mh.empty:
+        df_mh = pd.DataFrame(columns=["solvent", "polymer", "K_value", "a_value", "source_paper", "table_name"])
+
+    return df_flory, df_mh
+
+
+def combine_command(input_dir: str, output_path: str = None, cache_path: str = None, pdf_dir: str = None, process_manifest: dict = None) -> None:
     """Executes the combine & homogenisation process across all process output folders in input_dir."""
     console = Console(file=sys.__stdout__)
     
@@ -1155,12 +1285,35 @@ def combine_command(input_dir: str, output_path: str = None, cache_path: str = N
                 results = event["results"]
                 progress.update(task_id, description="[bold green]Homogenisation complete![/bold green]")
                 
-    elapsed = time.time() - start_time
+    combine_elapsed = time.time() - start_time
+    combine_end_time = time.time()
     
     import platform
-    end_time = time.time()
-    start_timestamp_str = datetime.fromtimestamp(start_time).strftime("%Y-%m-%d %H:%M:%S")
-    end_timestamp_str = datetime.fromtimestamp(end_time).strftime("%Y-%m-%d %H:%M:%S")
+    
+    # Resolve process summary and timing details if available
+    if not process_manifest:
+        summary_path = os.path.join(input_dir, "process_summary.json")
+        if not os.path.isfile(summary_path):
+            summary_path = os.path.join(input_dir, "process_manifest.json")
+        if os.path.isfile(summary_path):
+            try:
+                with open(summary_path, "r", encoding="utf-8") as f:
+                    process_manifest = json.load(f)
+            except Exception:
+                process_manifest = None
+
+    if process_manifest and "start_timestamp" in process_manifest:
+        start_timestamp_str = process_manifest.get("start_time", "N/A")
+        papers_sec = process_manifest.get("papers_duration_seconds")
+        papers_elapsed_str = f"{papers_sec:.2f}s" if isinstance(papers_sec, (int, float)) else "N/A"
+        overall_sec = combine_end_time - process_manifest["start_timestamp"]
+        overall_elapsed_str = f"{overall_sec:.2f}s"
+    else:
+        start_timestamp_str = datetime.fromtimestamp(start_time).strftime("%Y-%m-%d %H:%M:%S")
+        papers_elapsed_str = "N/A"
+        overall_elapsed_str = f"{combine_elapsed:.2f}s"
+
+    end_timestamp_str = datetime.fromtimestamp(combine_end_time).strftime("%Y-%m-%d %H:%M:%S")
     
     papers_summary = results.get("papers_summary", [])
     total_tables_checked = sum(p.get("total_tables", 0) for p in papers_summary)
@@ -1169,9 +1322,12 @@ def combine_command(input_dir: str, output_path: str = None, cache_path: str = N
     results["run_info"] = {
         "start_time": start_timestamp_str,
         "end_time": end_timestamp_str,
-        "duration_seconds": f"{elapsed:.2f}s",
+        "duration_seconds": overall_elapsed_str,
+        "papers_duration_seconds": papers_elapsed_str,
+        "combine_duration_seconds": f"{combine_elapsed:.2f}s",
         "model_used": selected_model,
         "input_directory": input_dir,
+        "total_papers_inputted": len(valid_subfolders),
         "num_papers": len(processors),
         "total_tables": total_tables_checked,
         "selected_tables": total_tables_selected,
@@ -1183,57 +1339,7 @@ def combine_command(input_dir: str, output_path: str = None, cache_path: str = N
     }
 
     # Build flat (unaggregated) pandas dataframes and export
-    # 1. Flory flat database
-    flory_entries = results.get("flory_entries", [])
-    valid_flory = []
-    for entry in flory_entries:
-        if entry.get("failed_fields") and entry["failed_fields"] != "None":
-            continue
-        poly = entry.get("polymer_name")
-        solv = entry.get("solvent")
-        if not poly or poly == "N/A" or not solv or solv == "N/A":
-            continue
-        valid_flory.append(entry)
-        
-    records_flory = []
-    for entry in valid_flory:
-        records_flory.append({
-            "solvent": entry.get("solvent"),
-            "polymer": entry.get("polymer_name"),
-            "c_value": entry.get("c_value"),
-            "v_value": entry.get("v_value"),
-            "source_paper": entry.get("source_paper"),
-            "table_name": entry.get("table_name")
-        })
-    df_flory = pd.DataFrame(records_flory)
-    if df_flory.empty:
-        df_flory = pd.DataFrame(columns=["solvent", "polymer", "c_value", "v_value", "source_paper", "table_name"])
-        
-    # 2. Mark-Houwink flat database
-    mh_entries = results.get("mark_houwink_entries", [])
-    valid_mh = []
-    for entry in mh_entries:
-        if entry.get("failed_fields") and entry["failed_fields"] != "None":
-            continue
-        poly = entry.get("polymer_name")
-        solv = entry.get("solvent")
-        if not poly or poly == "N/A" or not solv or solv == "N/A":
-            continue
-        valid_mh.append(entry)
-        
-    records_mh = []
-    for entry in valid_mh:
-        records_mh.append({
-            "solvent": entry.get("solvent"),
-            "polymer": entry.get("polymer_name"),
-            "K_value": entry.get("K_value"),
-            "a_value": entry.get("a_value"),
-            "source_paper": entry.get("source_paper"),
-            "table_name": entry.get("table_name")
-        })
-    df_mh = pd.DataFrame(records_mh)
-    if df_mh.empty:
-        df_mh = pd.DataFrame(columns=["solvent", "polymer", "K_value", "a_value", "source_paper", "table_name"])
+    df_flory, df_mh = build_flat_databases(results)
     
     # 5. Write outputs
     try:
@@ -1266,7 +1372,14 @@ def combine_command(input_dir: str, output_path: str = None, cache_path: str = N
 
     # 6. Report results and statistics
     console.print()
-    console.print(f"[bold green]✓[/bold green] Combining process completed in [yellow]{elapsed:.2f}s[/yellow].")
+    run_info = results.get("run_info", {})
+    if run_info.get("papers_duration_seconds") and run_info.get("papers_duration_seconds") != "N/A":
+        console.print(
+            f"[bold green]✓[/bold green] Combining process completed in [yellow]{combine_elapsed:.2f}s[/yellow] "
+            f"(Total process: [yellow]{run_info['duration_seconds']}[/yellow], Papers: [yellow]{run_info['papers_duration_seconds']}[/yellow])."
+        )
+    else:
+        console.print(f"[bold green]✓[/bold green] Combining process completed in [yellow]{combine_elapsed:.2f}s[/yellow].")
     console.print(f"JSON data saved to: [cyan]{json_out}[/cyan]")
     console.print(f"Excel report saved to: [cyan]{xlsx_out}[/cyan]")
     if generated_plots:
@@ -1294,14 +1407,23 @@ def combine_command(input_dir: str, output_path: str = None, cache_path: str = N
     t.add_row("Failed / Non-Chemical Fields (N/A)", str(stats.get("failed", 0)))
     console.print(t)
     
-    failures = results.get("failures", [])
-    if failures:
+    failed_entries_all = []
+    for e in results.get("flory_entries", []):
+        if is_entry_failed(e):
+            failed_entries_all.append(("Flory", e))
+    for e in results.get("mark_houwink_entries", []):
+        if is_entry_failed(e):
+            failed_entries_all.append(("Mark-Houwink", e))
+
+    if failed_entries_all:
         console.print()
-        console.print(f"[bold yellow]Recorded Failures ({len(failures)}):[/bold yellow]")
-        for f in failures[:15]:
-            console.print(f" - [dim]{f['source_paper']}/{f['table']}[/dim]: Field [cyan]{f['field']}[/cyan] with value '[red]{f['value']}[/red]' -> [yellow]{f['reason']}[/yellow]")
-        if len(failures) > 15:
-            console.print(f" ... and {len(failures) - 15} more failures. See the failures sheet in Excel/JSON.")
+        console.print(f"[bold yellow]Recorded Entry Failures ({len(failed_entries_all)}):[/bold yellow]")
+        for entry_type, entry in failed_entries_all[:15]:
+            ff = entry.get("failed_fields", {})
+            err_keys = [k for k, v in ff.items() if v] if isinstance(ff, dict) else ["failed"]
+            console.print(f" - [dim]{entry.get('source_paper')}/{entry.get('table_name')}[/dim] ({entry_type}): Active Errors [red]{', '.join(err_keys)}[/red]")
+        if len(failed_entries_all) > 15:
+            console.print(f" ... and {len(failed_entries_all) - 15} more failed entries. See the Failures sheet in Excel.")
             
     # Calculate token counts and pricing
     # (Since AI prompt increments these totals, we can report model total costs)

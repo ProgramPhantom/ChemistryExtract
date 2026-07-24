@@ -2,6 +2,7 @@ import os
 import sys
 import glob
 import time
+import json
 from datetime import datetime
 from rich.console import Console
 from rich.rule import Rule
@@ -58,6 +59,7 @@ def process_all_command(
     mark_houwink: bool = False,
     cache_path: str = None
 ):
+    start_time_all = time.time()
     console = Console(file=sys.__stdout__)
     
 
@@ -108,7 +110,25 @@ def process_all_command(
     # Print the final summary table
     print_summary_table(console, summary_data)
 
+    end_papers_time = time.time()
+    paper_processing_time = end_papers_time - start_time_all
+    process_manifest = {
+        "start_time": datetime.fromtimestamp(start_time_all).strftime("%Y-%m-%d %H:%M:%S"),
+        "start_timestamp": start_time_all,
+        "end_papers_timestamp": end_papers_time,
+        "papers_duration_seconds": paper_processing_time
+    }
+
+
+    manifest_path = os.path.join(run_dir, "process_summary.json")
+    try:
+        with open(manifest_path, "w", encoding="utf-8") as f:
+            json.dump(process_manifest, f, indent=2)
+    except Exception:
+        pass
+
     if combine:
         from chemstractor.commands.combine import combine_command
-        combine_command(input_dir=run_dir, cache_path=cache_path)
+        combine_command(input_dir=run_dir, cache_path=cache_path, process_manifest=process_manifest)
+
     
