@@ -11,8 +11,9 @@ from typing import Generator, Dict, Any, List, Optional
 def sanitize_filename(name: str) -> str:
     """Sanitizes a string to be safe for filenames across operating systems."""
     cleaned = re.sub(r'[\\/*?:"<>|]', '_', name)
-    cleaned = re.sub(r'\s+', '_', cleaned)
-    return cleaned.strip('._')[:150]
+    cleaned = re.sub(r'\s+', ' ', cleaned).strip('._ ')
+    return cleaned[:150]
+
 
 
 def extract_pdf_url(work: Dict[str, Any]) -> Optional[str]:
@@ -151,15 +152,20 @@ def download_papers_from_openalex(
             if isinstance(auth, dict) and auth.get("author", {}).get("display_name")
         ]
         
-        # Determine filename
-        if doi:
-            clean_doi = doi.replace("https://doi.org/", "").replace("http://doi.org/", "")
-            filename_base = sanitize_filename(clean_doi)
-        else:
-            filename_base = sanitize_filename(f"{work_id}_{title[:40]}")
-            
+        # Determine filename formatted as "{year} - {paper_name}.pdf"
+        year_str = str(year) if year else "Unknown"
+        clean_title = sanitize_filename(title)
+        filename_base = f"{year_str} - {clean_title}"
         filename = f"{filename_base}.pdf"
         target_filepath = os.path.join(output_dir, filename)
+        
+        # Prevent filename collisions
+        counter = 1
+        while os.path.exists(target_filepath):
+            filename = f"{filename_base}_{counter}.pdf"
+            target_filepath = os.path.join(output_dir, filename)
+            counter += 1
+
         
         yield {
             "status": "paper_start",
@@ -249,3 +255,9 @@ def download_papers_from_openalex(
         "manifest_path": manifest_path,
         "elapsed_time": time.time() - start_time
     }
+
+
+if __name__ == "__main__":
+    from chemstractor.commands.commands import cli
+    cli()
+
