@@ -543,6 +543,25 @@ def combine(input_dir, output, model, cache_path, pdf_dir):
     )
 
 
+@cli.command()
+@click.argument('query', type=str)
+@click.option('--name', '-n', type=str, default=None, help="Name of the subfolder in tests/corpus to save downloaded PDFs.")
+@click.option('--output-dir', '-o', type=click.Path(), default=None, help="Custom output directory path (overrides --name).")
+@click.option('--limit', '-l', type=int, default=50, help="Maximum number of papers to download.")
+@click.option('--open-access-only/--all-papers', default=True, help="Limit to open access papers with direct PDF links.")
+def download(query, name, output_dir, limit, open_access_only):
+    """Download relevant scientific papers in bulk from OpenAlex into a corpus directory."""
+    from chemstractor.commands.download import download_command
+    download_command(
+        query=query,
+        name=name,
+        output_dir=output_dir,
+        limit=limit,
+        open_access_only=open_access_only
+    )
+
+
+
 
 
 
