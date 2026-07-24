@@ -59,8 +59,8 @@ def save_cache(cache_path: str, cache: dict) -> None:
             os.makedirs(parent, exist_ok=True)
         with open(cache_path, 'w', encoding='utf-8') as f:
             json.dump(cache, f, indent=2, ensure_ascii=False)
-    except Exception:
-        pass
+    except Exception as e:
+        print(f"Warning: Failed to save chemical cache to '{cache_path}': {e}")
 
 
 def find_fuzzy_match(dirty_name: str, cache: dict, threshold: float = 0.9) -> str | None:
@@ -117,12 +117,15 @@ def select_from_existing_names(dirty_name: str, clean_names: list[str], ai_insta
         f"Your task is to identify if it matches or refers to one of the clean, canonical chemical names listed below.\n\n"
         f"Dirty Chemical Name: '{dirty_name}'\n\n"
         f"Canonical Options:\n" + "\n".join(f"- {name}" for name in clean_names) + "\n\n"
-        f"If the dirty name refers to one of the canonical options, select that option exactly.\n"
-        f"If it does not match any of the canonical options, select 'not found'."
+        f"Rules:\n"
+        f"1. If the dirty name refers to one of the canonical options, select that option exactly.\n"
+        f"2. ASSUME ALL SOLVENTS ARE DEUTERATED: If the dirty chemical is a solvent, assume it is deuterated and prefer the corresponding deuterated canonical option (e.g. match 'acetone' to 'acetone-d6', 'toluene' to 'toluene-d8', 'chloroform' to 'chloroform-d').\n"
+        f"3. If it does not match any of the canonical options, select 'not found'."
     )
 
     system_instruction = (
         "You must select exactly one of the provided canonical chemical name options, or 'not found' if there is no match. "
+        "Assume all solvents are deuterated and select deuterated canonical variants where applicable. "
         "Do not make up new names in this step."
     )
 
@@ -193,14 +196,16 @@ def generate_new_clean_chemical_name(dirty_name: str, ai_instance) -> str:
         f"CRITICAL WARNING: The input text may contain hallucinations, corrupt OCR fragments, noise, or nonsense text fragments (e.g., 'uma') resulting from previous extraction steps.\n\n"
         f"Raw chemical name: '{dirty_name_str}'\n\n"
         f"Rules:\n"
-        f"1. Create a clean, nicely formatted chemical name using standard nomenclature ONLY IF the input string clearly and unambiguously represents a specific polymer or solvent compound (or standard acronym/variant, e.g., 'PMMA' to 'poly(methyl methacrylate)', 'T0luene' to 'toluene', 'CDCl3' to 'chloroform-d').\n"
-        f"2. DO NOT GUESS OR HALLUCINATE: You MUST NOT invent, hallucinate, or extrapolate a chemical name from a corrupt string, nonsense fragment, or unrecognized word. For example, if given a hallucinated fragment like 'uma', DO NOT guess '1,2,4-trichlorobenzene' or any other solvent/polymer. You MUST respond exactly with 'Invalid chemical'.\n"
-        f"3. If the input is not a specific polymer or solvent chemical compound—for instance, if it refers to general material or biological categories (e.g., 'globular proteins', 'finite rods', 'polyelectrolytes'), non-chemical text (e.g. noise, page numbers, citations), corrupt text fragments (e.g. 'uma'), or ambiguous non-specific classes—you MUST respond exactly with 'Invalid chemical'.\n"
-        f"4. Do not include extra text, explanations, or quotes."
+        f"1. Create a clean, nicely formatted chemical name using standard nomenclature ONLY IF the input string clearly and unambiguously represents a specific polymer or solvent compound (or standard acronym/variant, e.g., 'PMMA' to 'poly(methyl methacrylate)', 'T0luene' to 'toluene-d8', 'CDCl3' to 'chloroform-d').\n"
+        f"2. ASSUME ALL SOLVENTS ARE DEUTERATED: Whenever the input chemical is a solvent, you MUST ALWAYS generate/respond with the DEUTERATED version of the solvent name in standard chemical nomenclature. For example, if given 'acetone', respond with 'acetone-d6'; if given 'toluene', respond with 'toluene-d8'; if given 'chloroform', respond with 'chloroform-d'; if given 'benzene', respond with 'benzene-d6'; if given 'THF' or 'tetrahydrofuran', respond with 'tetrahydrofuran-d8'; if given 'methanol', respond with 'methanol-d4'; if given 'water' or 'H2O', respond with 'water-d2'.\n"
+        f"3. DO NOT GUESS OR HALLUCINATE: You MUST NOT invent, hallucinate, or extrapolate a chemical name from a corrupt string, nonsense fragment, or unrecognized word. For example, if given a hallucinated fragment like 'uma', DO NOT guess '1,2,4-trichlorobenzene' or any other solvent/polymer. You MUST respond exactly with 'Invalid chemical'.\n"
+        f"4. If the input is not a specific polymer or solvent chemical compound—for instance, if it refers to general material or biological categories (e.g., 'globular proteins', 'finite rods', 'polyelectrolytes'), non-chemical text (e.g. noise, page numbers, citations), corrupt text fragments (e.g. 'uma'), or ambiguous non-specific classes—you MUST respond exactly with 'Invalid chemical'.\n"
+        f"5. Do not include extra text, explanations, or quotes."
     )
 
     system_instruction = (
         "Generate a clean, standard chemical name if the input is a valid chemical or standard acronym. "
+        "CRITICAL: Always assume all solvents are deuterated and generate the deuterated version of the solvent name (e.g. 'acetone' -> 'acetone-d6'). "
         "Strictly respond with 'Invalid chemical' if the text is a hallucinated fragment (e.g. 'uma'), corrupt/nonsense string, or non-specific category. "
         "NEVER invent or guess a chemical compound for ambiguous or corrupt text."
     )
@@ -318,8 +323,7 @@ def process_mark_houwink_entries(
     cache: dict,
     ai_instance,
     stats: dict,
-    mh_results: list,
-    failures: list
+    mh_results: list
 ) -> int:
     """Processes Mark-Houwink interpretation data for a single paper, homogenising chemical names."""
     paper_mh_count = 0
@@ -335,55 +339,43 @@ def process_mark_houwink_entries(
             poly_clean, poly_source, poly_fail_reason = homogenise_chemical(
                 polymer_raw, cache, ai_instance, stats
             )
-            if poly_fail_reason:
-                failures.append({
-                    "source_paper": paper_name,
-                    "table": table_name,
-                    "field": "polymer_name",
-                    "value": polymer_raw,
-                    "reason": poly_fail_reason
-                })
 
             solv_clean, solv_source, solv_fail_reason = homogenise_chemical(
                 solvent_raw, cache, ai_instance, stats
             )
-            if solv_fail_reason:
-                failures.append({
-                    "source_paper": paper_name,
-                    "table": table_name,
-                    "field": "solvent",
-                    "value": solvent_raw,
-                    "reason": solv_fail_reason
-                })
 
-            field_errors = {
-                "polymer_name": poly_fail_reason if poly_fail_reason else "None",
-                "solvent": solv_fail_reason if solv_fail_reason else "None",
-                "temperature_k": "None",
-                "K_value": "None",
-                "a_value": "None",
-                "general_err": "None"
+            bounds_failed = validate_mark_houwink_entry(entry)
+
+            temp_val = entry.get("temperature_k")
+            temp_missing = (
+                temp_val is None or
+                check_prepopulated_error(temp_val, DATA_ERROR_TYPES) is not None or
+                not isinstance(temp_val, (int, float))
+            )
+
+            k_val = entry.get("K_value")
+            k_invalid = (
+                k_val is None or
+                check_prepopulated_error(k_val, DATA_ERROR_TYPES) is not None or
+                bounds_failed.get("K_value_out_of_range", False)
+            )
+
+            a_val = entry.get("a_value")
+            a_invalid = (
+                a_val is None or
+                check_prepopulated_error(a_val, DATA_ERROR_TYPES) is not None or
+                bounds_failed.get("a_value_out_of_range", False)
+            )
+
+            failed_fields = {
+                "solvent_name": bool(solv_fail_reason or solv_clean in (None, "N/A", "Invalid chemical")),
+                "polymer_name": bool(poly_fail_reason or poly_clean in (None, "N/A", "Invalid chemical")),
+                "temperature_missing": temp_missing,
+                "K_value_out_of_range": k_invalid,
+                "a_value_out_of_range": a_invalid,
+                "eta_out_of_range": bounds_failed.get("eta_out_of_range", False)
             }
 
-            # Check numerical data point fields for errors
-            data_failed = check_entry_data_errors(
-                entry,
-                ["K_value", "raw_K_value", "a_value", "raw_a_value", "temperature_k"],
-                paper_name,
-                table_name,
-                failures
-            )
-            for f_name, f_err in data_failed.items():
-                field_errors[f_name] = f_err
-
-            # Numerical bounds outlier checking for Mark-Houwink coefficients
-            bounds_failed = validate_mark_houwink_entry(entry, paper_name, table_name, failures)
-            for f_name, f_err in bounds_failed.items():
-                field_errors[f_name] = f_err
-
-            failed_fields = [f for f, err in field_errors.items() if err != "None"]
-
-            # Create clean entry
             clean_entry = entry.copy()
             clean_entry["polymer_name_original"] = polymer_raw
             clean_entry["polymer_name"] = poly_clean
@@ -391,8 +383,7 @@ def process_mark_houwink_entries(
             clean_entry["solvent"] = solv_clean
             clean_entry["source_paper"] = paper_name
             clean_entry["table_name"] = table_name
-            clean_entry["field_errors"] = field_errors
-            clean_entry["failed_fields"] = ", ".join(failed_fields) if failed_fields else "None"
+            clean_entry["failed_fields"] = failed_fields
 
             mh_results.append(clean_entry)
             paper_mh_count += 1
@@ -406,8 +397,7 @@ def process_flory_entries(
     cache: dict,
     ai_instance,
     stats: dict,
-    flory_results: list,
-    failures: list
+    flory_results: list
 ) -> int:
     """Processes Flory interpretation data for a single paper, homogenising chemical names."""
     paper_flory_count = 0
@@ -425,55 +415,43 @@ def process_flory_entries(
             poly_clean, poly_source, poly_fail_reason = homogenise_chemical(
                 polymer_raw, cache, ai_instance, stats
             )
-            if poly_fail_reason:
-                failures.append({
-                    "source_paper": paper_name,
-                    "table": table_name,
-                    "field": "polymer_name",
-                    "value": polymer_raw,
-                    "reason": poly_fail_reason
-                })
 
             solv_clean, solv_source, solv_fail_reason = homogenise_chemical(
                 solvent_raw, cache, ai_instance, stats
             )
-            if solv_fail_reason:
-                failures.append({
-                    "source_paper": paper_name,
-                    "table": table_name,
-                    "field": "solvent",
-                    "value": solvent_raw,
-                    "reason": solv_fail_reason
-                })
 
-            field_errors = {
-                "polymer_name": poly_fail_reason if poly_fail_reason else "None",
-                "solvent": solv_fail_reason if solv_fail_reason else "None",
-                "temperature_k": "None",
-                "c_value": "None",
-                "v_value": "None",
-                "general_err": "None"
+            bounds_failed = validate_flory_entry(entry)
+
+            temp_val = entry.get("temperature_k")
+            temp_missing = (
+                temp_val is None or
+                check_prepopulated_error(temp_val, DATA_ERROR_TYPES) is not None or
+                not isinstance(temp_val, (int, float))
+            )
+
+            c_val = entry.get("c_value")
+            c_missing = (
+                c_val is None or
+                check_prepopulated_error(c_val, DATA_ERROR_TYPES) is not None or
+                not isinstance(c_val, (int, float))
+            )
+
+            v_val = entry.get("v_value")
+            v_invalid = (
+                v_val is None or
+                check_prepopulated_error(v_val, DATA_ERROR_TYPES) is not None or
+                bounds_failed.get("v_value_out_of_range", False)
+            )
+
+            failed_fields = {
+                "solvent_name": bool(solv_fail_reason or solv_clean in (None, "N/A", "Invalid chemical")),
+                "c_value_out_of_range": c_missing,
+                "v_value_out_of_range": v_invalid,
+                "polymer_name": bool(poly_fail_reason or poly_clean in (None, "N/A", "Invalid chemical")),
+                "temperature_missing": temp_missing,
+                "D_out_of_range": bounds_failed.get("D_out_of_range", False)
             }
 
-            # Check numerical data point fields for errors
-            data_failed = check_entry_data_errors(
-                entry,
-                ["v_value", "raw_v_value", "c_value", "raw_c_value", "temperature_k"],
-                paper_name,
-                table_name,
-                failures
-            )
-            for f_name, f_err in data_failed.items():
-                field_errors[f_name] = f_err
-
-            # Numerical bounds outlier checking for Flory coefficients
-            bounds_failed = validate_flory_entry(entry, paper_name, table_name, failures)
-            for f_name, f_err in bounds_failed.items():
-                field_errors[f_name] = f_err
-
-            failed_fields = [f for f, err in field_errors.items() if err != "None"]
-
-            # Create clean entry
             clean_entry = entry.copy()
             clean_entry["polymer_name_original"] = polymer_raw
             clean_entry["polymer_name"] = poly_clean
@@ -481,8 +459,7 @@ def process_flory_entries(
             clean_entry["solvent"] = solv_clean
             clean_entry["source_paper"] = paper_name
             clean_entry["table_name"] = table_name
-            clean_entry["field_errors"] = field_errors
-            clean_entry["failed_fields"] = ", ".join(failed_fields) if failed_fields else "None"
+            clean_entry["failed_fields"] = failed_fields
 
             flory_results.append(clean_entry)
             paper_flory_count += 1
@@ -500,7 +477,6 @@ def load_and_homogenise(processors: list[PDFProcessor], cache_path: str, ai_inst
 
     mh_results = []
     flory_results = []
-    failures = []
 
     stats = {
         "total_processed": 0,
@@ -514,17 +490,65 @@ def load_and_homogenise(processors: list[PDFProcessor], cache_path: str, ai_inst
 
     papers_summary = []
 
-    for idx, proc in enumerate(processors):
-        paper_name = proc.base_no_ext
-        yield {
-            "status": "paper_start",
-            "paper_idx": idx,
-            "paper_name": paper_name,
-            "total_papers": total_papers
-        }
+    try:
+        for idx, proc in enumerate(processors):
+            paper_name = proc.base_no_ext
+            yield {
+                "status": "paper_start",
+                "paper_idx": idx,
+                "paper_name": paper_name,
+                "total_papers": total_papers
+            }
 
-        # Check if interpretation results are present
-        if not proc.interpretation_flory_data_list and not proc.interpretation_mh_data_list:
+            # Check if interpretation results are present
+            if not proc.interpretation_flory_data_list and not proc.interpretation_mh_data_list:
+                title = "N/A"
+                if getattr(proc, 'metadata_res', None) and proc.metadata_res.success and proc.metadata_res.data:
+                    title = proc.metadata_res.data.get("title") or "N/A"
+                elif proc.command_outputs and proc.command_outputs.get("metadata"):
+                    meta_dict = proc.command_outputs["metadata"]
+                    if isinstance(meta_dict, dict):
+                        title = meta_dict.get("title") or "N/A"
+
+                papers_summary.append({
+                    "source_paper": paper_name,
+                    "title": title,
+                    "total_tables": proc.num_tables or len(proc.cat_data_list),
+                    "selected_tables": 0,
+                    "flory_count": 0,
+                    "mh_count": 0,
+                    "failed_count": 0
+                })
+
+                yield {
+                    "status": "paper_complete",
+                    "paper_idx": idx,
+                    "paper_name": paper_name,
+                    "total_papers": total_papers,
+                    "mh_count": 0,
+                    "flory_count": 0
+                }
+                continue
+
+            start_mh_len = len(mh_results)
+            start_flory_len = len(flory_results)
+
+            try:
+                process_mark_houwink_entries(
+                    proc, paper_name, cache, ai_instance, stats, mh_results
+                )
+            except BaseException as e:
+                if isinstance(e, (KeyboardInterrupt, SystemExit)):
+                    raise e
+
+            try:
+                process_flory_entries(
+                    proc, paper_name, cache, ai_instance, stats, flory_results
+                )
+            except BaseException as e:
+                if isinstance(e, (KeyboardInterrupt, SystemExit)):
+                    raise e
+
             title = "N/A"
             if getattr(proc, 'metadata_res', None) and proc.metadata_res.success and proc.metadata_res.data:
                 title = proc.metadata_res.data.get("title") or "N/A"
@@ -533,14 +557,30 @@ def load_and_homogenise(processors: list[PDFProcessor], cache_path: str, ai_inst
                 if isinstance(meta_dict, dict):
                     title = meta_dict.get("title") or "N/A"
 
+            total_tables = proc.num_tables or len(proc.cat_data_list)
+            selected_tables = sum(
+                1 for c in proc.cat_data_list if c and (c.get("contains_mark_houwink_parameters") or c.get("contains_flory_parameters"))
+            )
+            if selected_tables == 0:
+                selected_tables = max(len(proc.interpretation_flory_data_list), len(proc.interpretation_mh_data_list))
+
+            paper_flory_added = flory_results[start_flory_len:]
+            paper_mh_added = mh_results[start_mh_len:]
+            paper_flory_count = len(paper_flory_added)
+            paper_mh_count = len(paper_mh_added)
+            paper_failed_count = sum(
+                1 for e in (paper_flory_added + paper_mh_added)
+                if isinstance(e.get("failed_fields"), dict) and any(e["failed_fields"].values())
+            )
+
             papers_summary.append({
                 "source_paper": paper_name,
                 "title": title,
-                "total_tables": proc.num_tables or len(proc.cat_data_list),
-                "selected_tables": 0,
-                "flory_count": 0,
-                "mh_count": 0,
-                "failed_count": 0
+                "total_tables": total_tables,
+                "selected_tables": selected_tables,
+                "flory_count": paper_flory_count,
+                "mh_count": paper_mh_count,
+                "failed_count": paper_failed_count
             })
 
             yield {
@@ -548,86 +588,15 @@ def load_and_homogenise(processors: list[PDFProcessor], cache_path: str, ai_inst
                 "paper_idx": idx,
                 "paper_name": paper_name,
                 "total_papers": total_papers,
-                "mh_count": 0,
-                "flory_count": 0
+                "mh_count": paper_mh_count,
+                "flory_count": paper_flory_count
             }
-            continue
-
-        paper_mh_count = 0
-        paper_flory_count = 0
-
-        try:
-            paper_mh_count = process_mark_houwink_entries(
-                proc, paper_name, cache, ai_instance, stats, mh_results, failures
-            )
-        except BaseException as e:
-            if isinstance(e, (KeyboardInterrupt, SystemExit)):
-                raise e
-            failures.append({
-                "source_paper": paper_name,
-                "table": "N/A",
-                "field": "Mark-Houwink processing",
-                "value": "N/A",
-                "reason": f"Unexpected error during Mark-Houwink homogenisation: {str(e)}"
-            })
-
-        try:
-            paper_flory_count = process_flory_entries(
-                proc, paper_name, cache, ai_instance, stats, flory_results, failures
-            )
-        except BaseException as e:
-            if isinstance(e, (KeyboardInterrupt, SystemExit)):
-                raise e
-            failures.append({
-                "source_paper": paper_name,
-                "table": "N/A",
-                "field": "Flory processing",
-                "value": "N/A",
-                "reason": f"Unexpected error during Flory homogenisation: {str(e)}"
-            })
-
-        title = "N/A"
-        if getattr(proc, 'metadata_res', None) and proc.metadata_res.success and proc.metadata_res.data:
-            title = proc.metadata_res.data.get("title") or "N/A"
-        elif proc.command_outputs and proc.command_outputs.get("metadata"):
-            meta_dict = proc.command_outputs["metadata"]
-            if isinstance(meta_dict, dict):
-                title = meta_dict.get("title") or "N/A"
-
-        total_tables = proc.num_tables or len(proc.cat_data_list)
-        selected_tables = sum(
-            1 for c in proc.cat_data_list if c and (c.get("contains_mark_houwink_parameters") or c.get("contains_flory_parameters"))
-        )
-        if selected_tables == 0:
-            selected_tables = max(len(proc.interpretation_flory_data_list), len(proc.interpretation_mh_data_list))
-
-        paper_failed_count = sum(1 for f in failures if f.get("source_paper") == paper_name)
-
-        papers_summary.append({
-            "source_paper": paper_name,
-            "title": title,
-            "total_tables": total_tables,
-            "selected_tables": selected_tables,
-            "flory_count": paper_flory_count,
-            "mh_count": paper_mh_count,
-            "failed_count": paper_failed_count
-        })
-
-        yield {
-            "status": "paper_complete",
-            "paper_idx": idx,
-            "paper_name": paper_name,
-            "total_papers": total_papers,
-            "mh_count": paper_mh_count,
-            "flory_count": paper_flory_count
-        }
-
-    save_cache(cache_path, cache)
+    finally:
+        save_cache(cache_path, cache)
 
     results = {
         "mark_houwink_entries": mh_results,
         "flory_entries": flory_results,
-        "failures": failures,
         "stats": stats,
         "papers_summary": papers_summary
     }
@@ -750,11 +719,15 @@ def sort_and_save(
                             if not entry["failed"]:
                                 successful_rows += 1
                         else:
-                            ff = entry.get("failed_fields", "None")
-                            poly = entry.get("polymer_name")
-                            solv = entry.get("solvent")
-                            if ff == "None" and poly and poly != "N/A" and solv and solv != "N/A":
-                                successful_rows += 1
+                            ff = entry.get("failed_fields")
+                            if isinstance(ff, dict):
+                                if not any(ff.values()):
+                                    successful_rows += 1
+                            elif isinstance(ff, str) and ff == "None":
+                                poly = entry.get("polymer_name")
+                                solv = entry.get("solvent")
+                                if poly and poly != "N/A" and solv and solv != "N/A":
+                                    successful_rows += 1
 
                     success_rate = successful_rows / total_rows if total_rows > 0 else 0.0
                     if success_rate < INTERPRETATION_SUCCESS_THRESHOLD:
