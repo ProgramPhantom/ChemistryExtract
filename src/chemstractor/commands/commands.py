@@ -547,9 +547,14 @@ def combine(input_dir, output, model, cache_path, pdf_dir):
 @click.argument('query', type=str)
 @click.option('--name', '-n', type=str, default=None, help="Name of the subfolder in tests/corpus to save downloaded PDFs.")
 @click.option('--output-dir', '-o', type=click.Path(), default=None, help="Custom output directory path (overrides --name).")
-@click.option('--limit', '-l', type=int, default=50, help="Maximum number of papers to download.")
+@click.option('--limit', '-l', type=int, default=50, help="Number of successfully downloaded papers required.")
+@click.option('--year', '-y', type=int, default=None, help="Filter for papers released in this year or later (e.g. -y 2000).")
+@click.option('--types', '-t', type=str, default="article,dataset,report", help="Comma-separated work types to include (e.g. article,dataset,report).")
+@click.option('--chemistry-only/--all-subjects', '-c', default=True, help="Restrict search specifically to Chemistry concept domain.")
+@click.option('--title-only', is_flag=True, default=False, help="Restrict keyword search strictly to paper titles.")
+@click.option('--email', '-e', type=str, default=None, help="Email address for OpenAlex polite pool rate limits.")
 @click.option('--open-access-only/--all-papers', default=True, help="Limit to open access papers with direct PDF links.")
-def download(query, name, output_dir, limit, open_access_only):
+def download(query, name, output_dir, limit, year, types, chemistry_only, title_only, email, open_access_only):
     """Download relevant scientific papers in bulk from OpenAlex into a corpus directory."""
     from chemstractor.commands.download import download_command
     download_command(
@@ -557,8 +562,17 @@ def download(query, name, output_dir, limit, open_access_only):
         name=name,
         output_dir=output_dir,
         limit=limit,
+        year=year,
+        types=types,
+        chemistry_only=chemistry_only,
+        title_only=title_only,
+        email=email,
         open_access_only=open_access_only
     )
+
+
+
+
 
 
 

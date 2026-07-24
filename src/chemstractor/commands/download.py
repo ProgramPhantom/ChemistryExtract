@@ -15,7 +15,12 @@ def download_command(
     name: str = None,
     output_dir: str = None,
     limit: int = 50,
-    open_access_only: bool = True
+    open_access_only: bool = True,
+    year: int = None,
+    types: str = None,
+    chemistry_only: bool = False,
+    title_only: bool = False,
+    email: str = None
 ):
     """CLI execution layer for downloading papers via OpenAlex."""
     console = Console(file=sys.__stdout__)
@@ -29,13 +34,25 @@ def download_command(
         
     os.makedirs(output_dir, exist_ok=True)
     
+    parsed_types = [t.strip() for t in types.split(",") if t.strip()] if types else None
+
     console.print(Rule(title=f"[bold green]DOWNLOAD CORPUS: {os.path.basename(output_dir)}[/bold green]", style="green"))
     console.print(f"[bold cyan]Query:[/bold cyan] {query}")
+    if year:
+        console.print(f"[bold cyan]Publication Year:[/bold cyan] {year} or later")
+    if parsed_types:
+        console.print(f"[bold cyan]Work Types:[/bold cyan] {', '.join(parsed_types)}")
+    if chemistry_only:
+        console.print(f"[bold cyan]Field Filter:[/bold cyan] Chemistry Field (topics.field.id:16)")
+    if title_only:
+        console.print(f"[bold cyan]Search Scope:[/bold cyan] Strict Title Only")
+    if email:
+        console.print(f"[bold cyan]Polite API Pool Email:[/bold cyan] {email}")
     console.print(f"[bold cyan]Target Corpus Folder:[/bold cyan] {os.path.abspath(output_dir)}")
-    console.print(f"[bold cyan]Limit:[/bold cyan] {limit} papers (Open Access Only: {open_access_only})")
+    console.print(f"[bold cyan]Required PDFs:[/bold cyan] {limit} (Open Access Only: {open_access_only})")
     console.print()
     
-    tree = Tree(f"[bold cyan]📥 Fetching papers from OpenAlex...[/bold cyan]")
+    tree = Tree(f"[bold cyan]📥 Searching OpenAlex...[/bold cyan]")
     
     downloaded_papers = []
     failed_papers = []
@@ -46,8 +63,17 @@ def download_command(
             query=query,
             output_dir=output_dir,
             limit=limit,
-            open_access_only=open_access_only
+            open_access_only=open_access_only,
+            year=year,
+            work_types=parsed_types,
+            chemistry_only=chemistry_only,
+            title_only=title_only,
+            email=email
         ):
+
+
+
+
             status = event.get("status")
             
             if status == "searching":
@@ -55,14 +81,15 @@ def download_command(
                 
             elif status == "found":
                 total_res = event.get("total_results", 0)
-                downloadable = event.get("downloadable_count", 0)
-                tree.label = f"[green]✓[/green] Found [bold yellow]{total_res}[/bold yellow] matching works on OpenAlex ([bold cyan]{downloadable}[/bold cyan] downloadable PDFs)"
+                target = event.get("target_count", limit)
+                tree.label = f"[green]✓[/green] Found [bold yellow]{total_res}[/bold yellow] matching works on OpenAlex (fetching until [bold cyan]{target}[/bold cyan] PDFs downloaded)"
                 
             elif status == "paper_start":
                 idx = event.get("index")
-                total = event.get("total")
+                target = event.get("target", limit)
                 title = event.get("title")
-                current_node = tree.add(Spinner("dots", text=f"[dim]({idx}/{total})[/dim] Downloading: [bold]{title[:60]}...[/bold]"))
+                current_node = tree.add(Spinner("dots", text=f"[dim]({idx}/{target})[/dim] Downloading: [bold]{title[:60]}...[/bold]"))
+
                 
             elif status == "paper_success":
                 filename = event.get("filename")
