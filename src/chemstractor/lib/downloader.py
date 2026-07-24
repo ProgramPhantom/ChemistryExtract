@@ -151,24 +151,34 @@ def download_papers_from_openalex(
     cursor = "*"
     
     filter_conditions = ["has_fulltext:true"]
-    # if open_access_only:
-    #     filter_conditions.append("is_oa:true")
-    # if year is not None:
-    #     filter_conditions.append(f"from_publication_date:{year}-01-01")
-    # if work_types:
-    #     types_str = "|".join([t.strip().lower() for t in work_types if t.strip()])
-    #     if types_str:
-    #         filter_conditions.append(f"type:{types_str}")
-    # if chemistry_only:
-    #     filter_conditions.append("primary_topic.field.id:16")
-
-    # if title_only:
-    #     filter_conditions.append(f"title.search:{query}")
+    if open_access_only:
+        filter_conditions.append("is_oa:true")
+    if year is not None:
+        filter_conditions.append(f"from_publication_date:{year}-01-01")
+    if work_types:
+        types_str = "|".join([t.strip().lower() for t in work_types if t.strip()])
+        if types_str:
+            filter_conditions.append(f"type:{types_str}")
+    if chemistry_only:
+        filter_conditions.append("primary_topic.field.id:16")
+    if title_only:
+        filter_conditions.append(f"title.search:{query}")
         
     polite_email = email.strip() if email else "henryvarley@outlook.com"
     headers = {
         "User-Agent": f"Chemstractor/0.1.0 (mailto:{polite_email})"
     }
+    
+    # Load OpenAlex API Key from .env if present
+    try:
+        from dotenv import load_dotenv
+        load_dotenv()
+    except Exception:
+        pass
+        
+    openalex_key = os.getenv("OPENALEX_KEY")
+    if openalex_key:
+        headers["api_key"] = openalex_key
     
     params = {
         "per-page": per_page,
@@ -176,8 +186,11 @@ def download_papers_from_openalex(
         "filter": ",".join(filter_conditions),
         "mailto": polite_email
     }
+    if openalex_key:
+        params["api_key"] = openalex_key
     if not title_only:
         params["search"] = query
+
         
     def fetch_openalex_json(request_url: str) -> tuple[Optional[dict], str]:
         """Fetches OpenAlex JSON payload with automatic retry backoff on HTTP 429 / rate limits."""
