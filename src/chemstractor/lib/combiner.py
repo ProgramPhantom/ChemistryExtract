@@ -59,8 +59,8 @@ def save_cache(cache_path: str, cache: dict) -> None:
             os.makedirs(parent, exist_ok=True)
         with open(cache_path, 'w', encoding='utf-8') as f:
             json.dump(cache, f, indent=2, ensure_ascii=False)
-    except Exception:
-        pass
+    except Exception as e:
+        print(f"Warning: Failed to save chemical cache to '{cache_path}': {e}")
 
 
 def find_fuzzy_match(dirty_name: str, cache: dict, threshold: float = 0.9) -> str | None:
@@ -490,17 +490,65 @@ def load_and_homogenise(processors: list[PDFProcessor], cache_path: str, ai_inst
 
     papers_summary = []
 
-    for idx, proc in enumerate(processors):
-        paper_name = proc.base_no_ext
-        yield {
-            "status": "paper_start",
-            "paper_idx": idx,
-            "paper_name": paper_name,
-            "total_papers": total_papers
-        }
+    try:
+        for idx, proc in enumerate(processors):
+            paper_name = proc.base_no_ext
+            yield {
+                "status": "paper_start",
+                "paper_idx": idx,
+                "paper_name": paper_name,
+                "total_papers": total_papers
+            }
 
-        # Check if interpretation results are present
-        if not proc.interpretation_flory_data_list and not proc.interpretation_mh_data_list:
+            # Check if interpretation results are present
+            if not proc.interpretation_flory_data_list and not proc.interpretation_mh_data_list:
+                title = "N/A"
+                if getattr(proc, 'metadata_res', None) and proc.metadata_res.success and proc.metadata_res.data:
+                    title = proc.metadata_res.data.get("title") or "N/A"
+                elif proc.command_outputs and proc.command_outputs.get("metadata"):
+                    meta_dict = proc.command_outputs["metadata"]
+                    if isinstance(meta_dict, dict):
+                        title = meta_dict.get("title") or "N/A"
+
+                papers_summary.append({
+                    "source_paper": paper_name,
+                    "title": title,
+                    "total_tables": proc.num_tables or len(proc.cat_data_list),
+                    "selected_tables": 0,
+                    "flory_count": 0,
+                    "mh_count": 0,
+                    "failed_count": 0
+                })
+
+                yield {
+                    "status": "paper_complete",
+                    "paper_idx": idx,
+                    "paper_name": paper_name,
+                    "total_papers": total_papers,
+                    "mh_count": 0,
+                    "flory_count": 0
+                }
+                continue
+
+            start_mh_len = len(mh_results)
+            start_flory_len = len(flory_results)
+
+            try:
+                process_mark_houwink_entries(
+                    proc, paper_name, cache, ai_instance, stats, mh_results
+                )
+            except BaseException as e:
+                if isinstance(e, (KeyboardInterrupt, SystemExit)):
+                    raise e
+
+            try:
+                process_flory_entries(
+                    proc, paper_name, cache, ai_instance, stats, flory_results
+                )
+            except BaseException as e:
+                if isinstance(e, (KeyboardInterrupt, SystemExit)):
+                    raise e
+
             title = "N/A"
             if getattr(proc, 'metadata_res', None) and proc.metadata_res.success and proc.metadata_res.data:
                 title = proc.metadata_res.data.get("title") or "N/A"
@@ -509,14 +557,30 @@ def load_and_homogenise(processors: list[PDFProcessor], cache_path: str, ai_inst
                 if isinstance(meta_dict, dict):
                     title = meta_dict.get("title") or "N/A"
 
+            total_tables = proc.num_tables or len(proc.cat_data_list)
+            selected_tables = sum(
+                1 for c in proc.cat_data_list if c and (c.get("contains_mark_houwink_parameters") or c.get("contains_flory_parameters"))
+            )
+            if selected_tables == 0:
+                selected_tables = max(len(proc.interpretation_flory_data_list), len(proc.interpretation_mh_data_list))
+
+            paper_flory_added = flory_results[start_flory_len:]
+            paper_mh_added = mh_results[start_mh_len:]
+            paper_flory_count = len(paper_flory_added)
+            paper_mh_count = len(paper_mh_added)
+            paper_failed_count = sum(
+                1 for e in (paper_flory_added + paper_mh_added)
+                if isinstance(e.get("failed_fields"), dict) and any(e["failed_fields"].values())
+            )
+
             papers_summary.append({
                 "source_paper": paper_name,
                 "title": title,
-                "total_tables": proc.num_tables or len(proc.cat_data_list),
-                "selected_tables": 0,
-                "flory_count": 0,
-                "mh_count": 0,
-                "failed_count": 0
+                "total_tables": total_tables,
+                "selected_tables": selected_tables,
+                "flory_count": paper_flory_count,
+                "mh_count": paper_mh_count,
+                "failed_count": paper_failed_count
             })
 
             yield {
@@ -524,74 +588,11 @@ def load_and_homogenise(processors: list[PDFProcessor], cache_path: str, ai_inst
                 "paper_idx": idx,
                 "paper_name": paper_name,
                 "total_papers": total_papers,
-                "mh_count": 0,
-                "flory_count": 0
+                "mh_count": paper_mh_count,
+                "flory_count": paper_flory_count
             }
-            continue
-
-        start_mh_len = len(mh_results)
-        start_flory_len = len(flory_results)
-
-        try:
-            process_mark_houwink_entries(
-                proc, paper_name, cache, ai_instance, stats, mh_results
-            )
-        except BaseException as e:
-            if isinstance(e, (KeyboardInterrupt, SystemExit)):
-                raise e
-
-        try:
-            process_flory_entries(
-                proc, paper_name, cache, ai_instance, stats, flory_results
-            )
-        except BaseException as e:
-            if isinstance(e, (KeyboardInterrupt, SystemExit)):
-                raise e
-
-        title = "N/A"
-        if getattr(proc, 'metadata_res', None) and proc.metadata_res.success and proc.metadata_res.data:
-            title = proc.metadata_res.data.get("title") or "N/A"
-        elif proc.command_outputs and proc.command_outputs.get("metadata"):
-            meta_dict = proc.command_outputs["metadata"]
-            if isinstance(meta_dict, dict):
-                title = meta_dict.get("title") or "N/A"
-
-        total_tables = proc.num_tables or len(proc.cat_data_list)
-        selected_tables = sum(
-            1 for c in proc.cat_data_list if c and (c.get("contains_mark_houwink_parameters") or c.get("contains_flory_parameters"))
-        )
-        if selected_tables == 0:
-            selected_tables = max(len(proc.interpretation_flory_data_list), len(proc.interpretation_mh_data_list))
-
-        paper_flory_added = flory_results[start_flory_len:]
-        paper_mh_added = mh_results[start_mh_len:]
-        paper_flory_count = len(paper_flory_added)
-        paper_mh_count = len(paper_mh_added)
-        paper_failed_count = sum(
-            1 for e in (paper_flory_added + paper_mh_added)
-            if isinstance(e.get("failed_fields"), dict) and any(e["failed_fields"].values())
-        )
-
-        papers_summary.append({
-            "source_paper": paper_name,
-            "title": title,
-            "total_tables": total_tables,
-            "selected_tables": selected_tables,
-            "flory_count": paper_flory_count,
-            "mh_count": paper_mh_count,
-            "failed_count": paper_failed_count
-        })
-
-        yield {
-            "status": "paper_complete",
-            "paper_idx": idx,
-            "paper_name": paper_name,
-            "total_papers": total_papers,
-            "mh_count": paper_mh_count,
-            "flory_count": paper_flory_count
-        }
-
-    save_cache(cache_path, cache)
+    finally:
+        save_cache(cache_path, cache)
 
     results = {
         "mark_houwink_entries": mh_results,

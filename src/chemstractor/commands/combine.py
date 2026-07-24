@@ -1242,6 +1242,8 @@ def combine_command(input_dir: str, output_path: str = None, cache_path: str = N
                 
     if not processors:
         console.print("[bold yellow]No papers with valid interpretation data were found. Nothing to combine.[/bold yellow]")
+        cache = load_cache(cache_path)
+        save_cache(cache_path, cache)
         return
         
     console.print(f"Loaded [green]{len(processors)}[/green] papers containing interpreted table data.")
