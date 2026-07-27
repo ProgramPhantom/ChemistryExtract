@@ -1,0 +1,898 @@
+{
+  "query": "Diffusion Coefficient",
+  "downloaded_at": "2026-07-27T14:30:21.209109",
+  "total_evaluated": 123,
+  "total_downloaded": 50,
+  "total_failed": 11,
+  "total_skipped": 62,
+  "total_no_oa": 0,
+  "papers": [
+    {
+      "filename": "2026 - Assessment of Optical Properties and Monte Carlo Multilayered Simulation of Light Propagation in Cherries for SSC and MC Detection.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Assessment of Optical Properties and Monte Carlo Multilayered Simulation of Light Propagation in Cherries for SSC and MC Detection.pdf",
+      "openalex_id": "https://openalex.org/W7125579246",
+      "doi": "https://doi.org/10.1111/1750-3841.70881",
+      "title": "Assessment of Optical Properties and Monte Carlo Multilayered Simulation of Light Propagation in Cherries for SSC and MC Detection",
+      "publication_year": 2026,
+      "authors": [
+        "Jian Wu",
+        "Xianhuan Zeng",
+        "Aiguo Ouyang",
+        "Bin Li",
+        "Nan Chen",
+        "Yande Liu"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7125579246.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:26:10.594159"
+    },
+    {
+      "filename": "2026 - Sequence-encoded layered heteroleptic metalla-[2]catenanes for programmable supramolecular function.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Sequence-encoded layered heteroleptic metalla-[2]catenanes for programmable supramolecular function.pdf",
+      "openalex_id": "https://openalex.org/W7122453734",
+      "doi": "https://doi.org/10.1038/s41467-026-68348-w",
+      "title": "Sequence-encoded layered heteroleptic metalla-[2]catenanes for programmable supramolecular function",
+      "publication_year": 2026,
+      "authors": [
+        "Ya\u2010Wen Zhang",
+        "Hai-Ning Zhang",
+        "Ming-Xia Wang",
+        "Xin Li",
+        "Ying-Feng Han"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7122453734.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:26:15.086413"
+    },
+    {
+      "filename": "2026 - Electrodeposition of zero-valent selenium nanoparticles onto glassy carbon electrode from ethaline deep eutectic solvent.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Electrodeposition of zero-valent selenium nanoparticles onto glassy carbon electrode from ethaline deep eutectic solvent.pdf",
+      "openalex_id": "https://openalex.org/W7135397068",
+      "doi": "https://doi.org/10.1007/s10008-026-06537-9",
+      "title": "Electrodeposition of zero-valent selenium nanoparticles onto glassy carbon electrode from ethaline deep eutectic solvent",
+      "publication_year": 2026,
+      "authors": [
+        "D. Flores-Manzano",
+        "J. Aldana-Gonz\u00e1lez",
+        "M. Romero-Romo",
+        "D. Hern\u00e1ndez-P\u00e9rez",
+        "P. Morales-Gil",
+        "Neftali Escobar-Monsalvo",
+        "R. L\u00f3pez-Medina",
+        "Georgina Alarc\u00f3n-\u00c1ngeles",
+        "Jorge Mostany",
+        "Manuel Eduardo Palomar-Pardav\u00e9"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7135397068.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:26:27.837318"
+    },
+    {
+      "filename": "2026 - Reaction\u2010Based Quantification of Surface Br\u00f8nsted Acid Site Densities in Large\u2010Pore Zeolites and Their Consequences for Bulky Molecule Transformations.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Reaction\u2010Based Quantification of Surface Br\u00f8nsted Acid Site Densities in Large\u2010Pore Zeolites and Their Consequences for Bulky Molecule Transformations.pdf",
+      "openalex_id": "https://openalex.org/W7128946107",
+      "doi": "https://doi.org/10.1002/cctc.202501781",
+      "title": "Reaction\u2010Based Quantification of Surface Br\u00f8nsted Acid Site Densities in Large\u2010Pore Zeolites and Their Consequences for Bulky Molecule Transformations",
+      "publication_year": 2026,
+      "authors": [
+        "Cole W. Hullfish",
+        "Jun Zhi Tan",
+        "Carson J. Repins",
+        "Michele L. Sarazen"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7128946107.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:26:34.112005"
+    },
+    {
+      "filename": "2026 - Molecular diffusion enhanced performance evaluation of metal-organic frameworks for CO2 capture.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Molecular diffusion enhanced performance evaluation of metal-organic frameworks for CO2 capture.pdf",
+      "openalex_id": "https://openalex.org/W4404511273",
+      "doi": "https://doi.org/10.1038/s41467-026-73904-5",
+      "title": "Molecular diffusion enhanced performance evaluation of metal-organic frameworks for CO2 capture",
+      "publication_year": 2026,
+      "authors": [
+        "Rodrigo Neumann Barros Ferreira",
+        "Yogesh V. Joshi",
+        "Felipe Lopes Oliveira",
+        "Anantha Sundaram",
+        "Ashish B. Mhadeshwar",
+        "Jayashree Kalyanaraman",
+        "Binquan Luan",
+        "M. Steiner"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W4404511273.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:26:46.196024"
+    },
+    {
+      "filename": "2026 - Crown Ether Rotaxane\u2010Induced Construction of COF Membranes With Recognition Channels for High\u2010Efficiency Ion Sieving.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Crown Ether Rotaxane\u2010Induced Construction of COF Membranes With Recognition Channels for High\u2010Efficiency Ion Sieving.pdf",
+      "openalex_id": "https://openalex.org/W7127049508",
+      "doi": "https://doi.org/10.1002/anie.202525413",
+      "title": "Crown Ether Rotaxane\u2010Induced Construction of COF Membranes With Recognition Channels for High\u2010Efficiency Ion Sieving",
+      "publication_year": 2026,
+      "authors": [
+        "Liang Ren",
+        "Jinrui Song",
+        "Nan Zhang",
+        "Yafei Guo",
+        "Nelson Belzile",
+        "Tianlong Deng"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7127049508.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:26:52.855152"
+    },
+    {
+      "filename": "2026 - Elucidation of superionic conduction in K _sub_2__sub_ NiF _sub_4__sub_ -type Ba\u2013Li oxyhydrides from a first-principles molecular dynamics study.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Elucidation of superionic conduction in K _sub_2__sub_ NiF _sub_4__sub_ -type Ba\u2013Li oxyhydrides from a first-principles molecular dynamics study.pdf",
+      "openalex_id": "https://openalex.org/W7118783465",
+      "doi": "https://doi.org/10.1039/d5ta08063k",
+      "title": "Elucidation of superionic conduction in K <sub>2</sub> NiF <sub>4</sub> -type Ba\u2013Li oxyhydrides from a first-principles molecular dynamics study",
+      "publication_year": 2026,
+      "authors": [
+        "Jun Haruyama",
+        "Fumitaka Takeiri",
+        "Genki Kobayashi",
+        "Osamu Sugino"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7118783465.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:26:54.654868"
+    },
+    {
+      "filename": "2026 - Advanced mixed-linker UiO-66 MOFs as high-performance functional materials for removing emerging contaminants_ DFT-guided design and real wastewater v.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Advanced mixed-linker UiO-66 MOFs as high-performance functional materials for removing emerging contaminants_ DFT-guided design and real wastewater v.pdf",
+      "openalex_id": "https://openalex.org/W7125369024",
+      "doi": "https://doi.org/10.1039/d5su00911a",
+      "title": "Advanced mixed-linker UiO-66 MOFs as high-performance functional materials for removing emerging contaminants: DFT-guided design and real wastewater validation",
+      "publication_year": 2026,
+      "authors": [
+        "Vu Thi Hoa"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7125369024.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:26:58.811222"
+    },
+    {
+      "filename": "2026 - Methane diffusion path in HKUST-1 metal-organic framework revealed by atomistic simulations.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Methane diffusion path in HKUST-1 metal-organic framework revealed by atomistic simulations.pdf",
+      "openalex_id": "https://openalex.org/W7151059358",
+      "doi": "https://doi.org/10.1038/s41598-026-45125-9",
+      "title": "Methane diffusion path in HKUST-1 metal-organic framework revealed by atomistic simulations",
+      "publication_year": 2026,
+      "authors": [
+        "Hyo-Sun Jang",
+        "Eunyeong Cho",
+        "Gyuchan Kim",
+        "Hee Jung Lee",
+        "Jae-Hyung Cho",
+        "Byung-Hyun Kim"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7151059358.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:27:09.675178"
+    },
+    {
+      "filename": "2026 - A Dual\u2010Piezoelectric Metal\u2013Organic Cage_COF Z\u2010Scheme Heterojunction for Solar\u2010Mechanical Water Splitting.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - A Dual\u2010Piezoelectric Metal\u2013Organic Cage_COF Z\u2010Scheme Heterojunction for Solar\u2010Mechanical Water Splitting.pdf",
+      "openalex_id": "https://openalex.org/W7118190805",
+      "doi": "https://doi.org/10.1002/advs.202523030",
+      "title": "A Dual\u2010Piezoelectric Metal\u2013Organic Cage/COF Z\u2010Scheme Heterojunction for Solar\u2010Mechanical Water Splitting",
+      "publication_year": 2026,
+      "authors": [
+        "Xin\u2010Ao Li",
+        "Yixuan Wang",
+        "Zi\u2010Zhan Liang",
+        "Xin\u2010Bang Peng",
+        "Limin Xiao",
+        "Li Gong",
+        "Xinyi Yang",
+        "Bo Zou",
+        "Yecheng Zhou",
+        "Jun\u2010Min Liu"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7118190805.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:27:13.530095"
+    },
+    {
+      "filename": "2026 - Diffusion and Adsorption of 2-Methylpentane and 3-Methylpentane in MFI-Type Zeolite Crystals.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Diffusion and Adsorption of 2-Methylpentane and 3-Methylpentane in MFI-Type Zeolite Crystals.pdf",
+      "openalex_id": "https://openalex.org/W7160243386",
+      "doi": "https://doi.org/10.1021/acs.jpcc.6c02168",
+      "title": "Diffusion and Adsorption of 2-Methylpentane and 3-Methylpentane in MFI-Type Zeolite Crystals",
+      "publication_year": 2026,
+      "authors": [
+        "Patricia Seidel",
+        "Kaihang Shi",
+        "Christian Chmelik",
+        "Michael Goepel",
+        "Roger Gl\u00e4ser",
+        "Randall Q. Snurr",
+        "J\u00f6rg K\u00e4rger"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7160243386.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:27:21.869308"
+    },
+    {
+      "filename": "2026 - Diffusional aging at water_oil interfaces laden with charged nanoparticles studied by single-molecule tracking.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Diffusional aging at water_oil interfaces laden with charged nanoparticles studied by single-molecule tracking.pdf",
+      "openalex_id": "https://openalex.org/W7163332151",
+      "doi": "https://doi.org/10.1038/s41467-026-74008-w",
+      "title": "Diffusional aging at water/oil interfaces laden with charged nanoparticles studied by single-molecule tracking",
+      "publication_year": 2026,
+      "authors": [
+        "Yuehua Zhao",
+        "Hongbo Chen",
+        "Ming Hu",
+        "Wen-Sheng Xu",
+        "Dapeng Wang"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7163332151.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:27:31.300744"
+    },
+    {
+      "filename": "2026 - Selective photocatalytic oxidative cleavage of terminal alkynes to carboxylic acids within a water-soluble Pd _sub_6__sub_ nanocage.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Selective photocatalytic oxidative cleavage of terminal alkynes to carboxylic acids within a water-soluble Pd _sub_6__sub_ nanocage.pdf",
+      "openalex_id": "https://openalex.org/W7118189151",
+      "doi": "https://doi.org/10.1039/d5sc08202a",
+      "title": "Selective photocatalytic oxidative cleavage of terminal alkynes to carboxylic acids within a water-soluble Pd <sub>6</sub> nanocage",
+      "publication_year": 2026,
+      "authors": [
+        "P.K. Maitra",
+        "Valiyakath Abdul Rinshad",
+        "Neal Hickey",
+        "Partha Sarathi Mukherjee"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7118189151.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:27:34.480325"
+    },
+    {
+      "filename": "2026 - EVOLUTION OF FCC CATALYSTS AND SELECTIVITY MECHANISMS_ A CONCEPTUAL MODEL BASED ON THE STRUCTURE\u2013ACIDITY\u2013DIFFUSION APPROACH.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - EVOLUTION OF FCC CATALYSTS AND SELECTIVITY MECHANISMS_ A CONCEPTUAL MODEL BASED ON THE STRUCTURE\u2013ACIDITY\u2013DIFFUSION APPROACH.pdf",
+      "openalex_id": "https://openalex.org/W7166711929",
+      "doi": "https://doi.org/10.30546/209501.201.2026.03.002.235",
+      "title": "EVOLUTION OF FCC CATALYSTS AND SELECTIVITY MECHANISMS: A CONCEPTUAL MODEL BASED ON THE STRUCTURE\u2013ACIDITY\u2013DIFFUSION APPROACH",
+      "publication_year": 2026,
+      "authors": [],
+      "pdf_url": "https://content.openalex.org/works/W7166711929.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:27:40.883069"
+    },
+    {
+      "filename": "2026 - Hydroxyalkylation of Benzylic C\u2500H Bonds via Heterogeneous Photocatalysis.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Hydroxyalkylation of Benzylic C\u2500H Bonds via Heterogeneous Photocatalysis.pdf",
+      "openalex_id": "https://openalex.org/W7124161014",
+      "doi": "https://doi.org/10.1002/cctc.202501652",
+      "title": "Hydroxyalkylation of Benzylic C\u2500H Bonds via Heterogeneous Photocatalysis",
+      "publication_year": 2026,
+      "authors": [
+        "Pengfei Song",
+        "Mengyao Yuan",
+        "Xinyuan He",
+        "Zhigang Chai"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7124161014.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:27:42.694717"
+    },
+    {
+      "filename": "2026 - Design of Adsorption\u2012Diffusion Dual\u2010Driven MOF Membranes for Efficient CO _sub_2__sub_ Separation.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Design of Adsorption\u2012Diffusion Dual\u2010Driven MOF Membranes for Efficient CO _sub_2__sub_ Separation.pdf",
+      "openalex_id": "https://openalex.org/W7119781606",
+      "doi": "https://doi.org/10.1002/anie.202521250",
+      "title": "Design of Adsorption\u2012Diffusion Dual\u2010Driven MOF Membranes for Efficient CO <sub>2</sub> Separation",
+      "publication_year": 2026,
+      "authors": [
+        "Yawei Gu",
+        "Rujing Hou",
+        "Yizhen Situ",
+        "Bo Shen",
+        "Jingxian Hua",
+        "Zemin Li",
+        "Haiqian Lian",
+        "Chenkai Gu",
+        "QingYuan YANG",
+        "M. P. HILL",
+        "Weihong Xing",
+        "Yichang Pan"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7119781606.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:27:47.666335"
+    },
+    {
+      "filename": "2026 - Curvature Dynamics of PEGDA Asymmetric Networks via Frontal Photopolymerization_ Effect of Chain Length and Optical Attenuation.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Curvature Dynamics of PEGDA Asymmetric Networks via Frontal Photopolymerization_ Effect of Chain Length and Optical Attenuation.pdf",
+      "openalex_id": "https://openalex.org/W7128684599",
+      "doi": "https://doi.org/10.1021/acs.macromol.5c02783",
+      "title": "Curvature Dynamics of PEGDA Asymmetric Networks via Frontal Photopolymerization: Effect of Chain Length and Optical Attenuation",
+      "publication_year": 2026,
+      "authors": [
+        "Muhammad Ghifari Ridwan",
+        "Huseyin Mirac Dizman",
+        "Isobel Bentley",
+        "Alessandra Vitale",
+        "Jo\u00e3o T. Cabral"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7128684599.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:27:51.503396"
+    },
+    {
+      "filename": "2026 - Lateral resolution of DGT LA-ICP-MS for chemical imaging of metal solutes.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Lateral resolution of DGT LA-ICP-MS for chemical imaging of metal solutes.pdf",
+      "openalex_id": "https://openalex.org/W7157575116",
+      "doi": "https://doi.org/10.1007/s00216-026-06500-7",
+      "title": "Lateral resolution of DGT LA-ICP-MS for chemical imaging of metal solutes",
+      "publication_year": 2026,
+      "authors": [
+        "Gulnaz Mukhametzianova",
+        "Stefan Wagner",
+        "Thomas Prohaska"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7157575116.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:27:55.447791"
+    },
+    {
+      "filename": "2026 - A multi-objective optimization-driven screening approach for maximizing hydrogen storage capacities in MOFs.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - A multi-objective optimization-driven screening approach for maximizing hydrogen storage capacities in MOFs.pdf",
+      "openalex_id": "https://openalex.org/W7118087373",
+      "doi": "https://doi.org/10.1038/s41598-025-09654-z",
+      "title": "A multi-objective optimization-driven screening approach for maximizing hydrogen storage capacities in MOFs",
+      "publication_year": 2026,
+      "authors": [
+        "P Anbumani",
+        "Rohit Duvvuri",
+        "Sudha Radhika",
+        "Asif Abdul Azeez",
+        "Ravindran Sujith"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7118087373.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:28:02.855289"
+    },
+    {
+      "filename": "2026 - Entropic Tug of War_ Topological Constraints Spontaneously Rectify the Dynamics of a Polymer with Heterogeneous Fluctuations.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Entropic Tug of War_ Topological Constraints Spontaneously Rectify the Dynamics of a Polymer with Heterogeneous Fluctuations.pdf",
+      "openalex_id": "https://openalex.org/W7126054093",
+      "doi": "https://doi.org/10.1103/rkms-2v1l",
+      "title": "Entropic Tug of War: Topological Constraints Spontaneously Rectify the Dynamics of a Polymer with Heterogeneous Fluctuations",
+      "publication_year": 2026,
+      "authors": [
+        "Adam H.\u2009T.\u2009P. H\u00f6fler",
+        "Iurii Chubak",
+        "Christos N. Likos",
+        "Jan Smrek"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7126054093.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:28:05.977281"
+    },
+    {
+      "filename": "2026 - Incorporation of Ion Transport Chains into Multivariate MOF for Improved Water Oxidation.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Incorporation of Ion Transport Chains into Multivariate MOF for Improved Water Oxidation.pdf",
+      "openalex_id": "https://openalex.org/W7129009488",
+      "doi": "https://doi.org/10.1021/acsmaterialslett.5c01586",
+      "title": "Incorporation of Ion Transport Chains into Multivariate MOF for Improved Water Oxidation",
+      "publication_year": 2026,
+      "authors": [
+        "Benjamin Thomas",
+        "Sumanta Basak",
+        "Amanda J. Morris"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7129009488.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:28:10.431893"
+    },
+    {
+      "filename": "2026 - Suspended waveguide-enhanced near-infrared photothermal spectroscopy for ppb-level molecular gas sensing on a chalcogenide chip.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Suspended waveguide-enhanced near-infrared photothermal spectroscopy for ppb-level molecular gas sensing on a chalcogenide chip.pdf",
+      "openalex_id": "https://openalex.org/W7129642050",
+      "doi": "https://doi.org/10.1038/s41377-026-02196-7",
+      "title": "Suspended waveguide-enhanced near-infrared photothermal spectroscopy for ppb-level molecular gas sensing on a chalcogenide chip",
+      "publication_year": 2026,
+      "authors": [
+        "Kaiyuan Zheng",
+        "Hanyu Liao",
+        "Fengbo Han",
+        "Xueying Wang",
+        "Yan Zhang",
+        "Jiaxin Gu",
+        "Pengcheng Zhao",
+        "Haihong Bao",
+        "Shaoliang Yu",
+        "Qingyang Du",
+        "Liyu Liang",
+        "Chuantao Zheng Chuantao Zheng",
+        "Wei Jin",
+        "Lijun Wang"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7129642050.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:28:12.615038"
+    },
+    {
+      "filename": "2026 - Incorporation of NU-1000 into cellulose acetate membranes with preserved indoxyl sulfate adsorption.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Incorporation of NU-1000 into cellulose acetate membranes with preserved indoxyl sulfate adsorption.pdf",
+      "openalex_id": "https://openalex.org/W7133222806",
+      "doi": "https://doi.org/10.1039/d6tb00006a",
+      "title": "Incorporation of NU-1000 into cellulose acetate membranes with preserved indoxyl sulfate adsorption",
+      "publication_year": 2026,
+      "authors": [
+        "Rita F. Pires",
+        "Beatriz Regina Nunes",
+        "Fl\u00e1via S. C. Rodrigues",
+        "Anup Paul",
+        "Ana Charas",
+        "Anirban Kamakar",
+        "M\u00f3nica Faria"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7133222806.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:28:15.812519"
+    },
+    {
+      "filename": "2026 - Calixarene-Based Nanostructures for Delivering Coumarin 6 for Tumor-Cell Imaging and Photoinduced Toxicity.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Calixarene-Based Nanostructures for Delivering Coumarin 6 for Tumor-Cell Imaging and Photoinduced Toxicity.pdf",
+      "openalex_id": "https://openalex.org/W7128297228",
+      "doi": "https://doi.org/10.1021/acsanm.5c05263",
+      "title": "Calixarene-Based Nanostructures for Delivering Coumarin 6 for Tumor-Cell Imaging and Photoinduced Toxicity",
+      "publication_year": 2026,
+      "authors": [
+        "Loredana Ferreri",
+        "Giuseppe Granata",
+        "Giuseppe Forte",
+        "Melchiorre Cervello",
+        "Antonella Cusimano",
+        "Salvatore Petralia",
+        "Grazia Maria Letizia Consoli"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7128297228.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:28:23.820583"
+    },
+    {
+      "filename": "2026 - Tailoring lithium dicyanoimidazolide_ structure\u2013property relationships.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Tailoring lithium dicyanoimidazolide_ structure\u2013property relationships.pdf",
+      "openalex_id": "https://openalex.org/W7133294573",
+      "doi": "https://doi.org/10.1039/d6ma00187d",
+      "title": "Tailoring lithium dicyanoimidazolide: structure\u2013property relationships",
+      "publication_year": 2026,
+      "authors": [
+        "Daniel Pokorn\u00fd",
+        "Tom\u00e1\u0161 Syrov\u00fd",
+        "Milan Klikar",
+        "Patrik Pa\u0159\u00edk",
+        "Zuzana Bure\u0161ov\u00e1",
+        "Lenka \u0158eh\u00e1\u010dkov\u00e1",
+        "Filip Bure\u0161"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7133294573.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:28:29.347250"
+    },
+    {
+      "filename": "2026 - Uranium Adsorption at Increased and Ultra-Trace Levels by Humic Acid-Coated Alumina_ Thermodynamic and Kinetic Studies.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Uranium Adsorption at Increased and Ultra-Trace Levels by Humic Acid-Coated Alumina_ Thermodynamic and Kinetic Studies.pdf",
+      "openalex_id": "https://openalex.org/W7128717645",
+      "doi": "https://doi.org/10.3390/app16041829",
+      "title": "Uranium Adsorption at Increased and Ultra-Trace Levels by Humic Acid-Coated Alumina: Thermodynamic and Kinetic Studies",
+      "publication_year": 2026,
+      "authors": [
+        "Ioannis Ioannidis",
+        "Georgia Vakarou",
+        "Iacovos Sarrou",
+        "Ioannis Pashalidis"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7128717645.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:28:33.364974"
+    },
+    {
+      "filename": "2026 - Programming Interfacial Polymerization_ Machine Learning Unveils Quantitative Rational Design Rules for Microcapsules and Beyond.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Programming Interfacial Polymerization_ Machine Learning Unveils Quantitative Rational Design Rules for Microcapsules and Beyond.pdf",
+      "openalex_id": "https://openalex.org/W7124752917",
+      "doi": "https://doi.org/10.1002/adma.202517708",
+      "title": "Programming Interfacial Polymerization: Machine Learning Unveils Quantitative Rational Design Rules for Microcapsules and Beyond",
+      "publication_year": 2026,
+      "authors": [
+        "Yuzi Han",
+        "Wutong Du",
+        "Yonglin Zhang",
+        "Cheng Qiu",
+        "M. Law",
+        "Ying Zhao",
+        "Ben Zhong Tang",
+        "Yang Wang",
+        "Jinglei Yang"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7124752917.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:28:37.595371"
+    },
+    {
+      "filename": "2026 - Dermal Absorption and Quantitative Analysis of Amaranth, a Cosmetic Colorant, in Rat Skin Using an In Vitro Franz Diffusion Model.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Dermal Absorption and Quantitative Analysis of Amaranth, a Cosmetic Colorant, in Rat Skin Using an In Vitro Franz Diffusion Model.pdf",
+      "openalex_id": "https://openalex.org/W7131353585",
+      "doi": "https://doi.org/10.3390/cosmetics13020050",
+      "title": "Dermal Absorption and Quantitative Analysis of Amaranth, a Cosmetic Colorant, in Rat Skin Using an In Vitro Franz Diffusion Model",
+      "publication_year": 2026,
+      "authors": [
+        "Jung Dae Lee",
+        "Yu Jin Kim",
+        "Gi-Wook Hwang",
+        "Kyu\u2010Bong Kim"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7131353585.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:28:46.331194"
+    },
+    {
+      "filename": "2026 - Spatiotemporal Analysis for Real-Time Non-Destructive Brix Estimation in Apples.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Spatiotemporal Analysis for Real-Time Non-Destructive Brix Estimation in Apples.pdf",
+      "openalex_id": "https://openalex.org/W7119924007",
+      "doi": "https://doi.org/10.3390/agriculture16020172",
+      "title": "Spatiotemporal Analysis for Real-Time Non-Destructive Brix Estimation in Apples",
+      "publication_year": 2026,
+      "authors": [
+        "Hana Kim",
+        "Myeong-Won Bae",
+        "Yong-jin Cho",
+        "Dong-Hoon Lee"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7119924007.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:28:53.464382"
+    },
+    {
+      "filename": "2026 - Multiphysics-guided design of ZIF-67_MWCNT-modified electrodes for highly selective electrochemical detection of sunset yellow in complex food matrice.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Multiphysics-guided design of ZIF-67_MWCNT-modified electrodes for highly selective electrochemical detection of sunset yellow in complex food matrice.pdf",
+      "openalex_id": "https://openalex.org/W7127386738",
+      "doi": "https://doi.org/10.1039/d5ra09045h",
+      "title": "Multiphysics-guided design of ZIF-67/MWCNT-modified electrodes for highly selective electrochemical detection of sunset yellow in complex food matrices",
+      "publication_year": 2026,
+      "authors": [
+        "Hamza Abu Owida",
+        "Suleiman Ibrahim Mohammad",
+        "Qusay Abdulsattar Mohammed",
+        "Asokan Vasudevan",
+        "Normur\u043et Fayzullaev",
+        "Subbulakshmi Ganesan",
+        "Renu Sharma",
+        "Anupam Agarwal",
+        "Yesudass Sasikumar",
+        "Milad Safamanesh"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7127386738.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:28:55.211526"
+    },
+    {
+      "filename": "2026 - Exploiting a high-performance magnesium-fluoride battery prototype enabled by anion-receptor-mediated electrolyte.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Exploiting a high-performance magnesium-fluoride battery prototype enabled by anion-receptor-mediated electrolyte.pdf",
+      "openalex_id": "https://openalex.org/W7126053664",
+      "doi": "https://doi.org/10.1038/s41467-026-68903-5",
+      "title": "Exploiting a high-performance magnesium-fluoride battery prototype enabled by anion-receptor-mediated electrolyte",
+      "publication_year": 2026,
+      "authors": [
+        "Keyi Chen",
+        "Lei Meng",
+        "Tengfei Wang",
+        "Guyue Li",
+        "Chilin Li"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7126053664.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:28:57.508118"
+    },
+    {
+      "filename": "2026 - Integrated Experimental and Computational Insights into the Systematic Synthesis of Cyclodextrin-based MOF.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Integrated Experimental and Computational Insights into the Systematic Synthesis of Cyclodextrin-based MOF.pdf",
+      "openalex_id": "https://openalex.org/W7127449837",
+      "doi": "https://doi.org/10.1021/acsomega.5c12081",
+      "title": "Integrated Experimental and Computational Insights into the Systematic Synthesis of Cyclodextrin-based MOF",
+      "publication_year": 2026,
+      "authors": [
+        "Busra Ipek",
+        "Zeynep Pinar Haslak",
+        "B\u00fcnyemin \u00c7o\u015fut",
+        "Hande \u00d6zt\u00fcrk",
+        "\u0130lknur Eru\u00e7ar"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7127449837.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:29:01.822124"
+    },
+    {
+      "filename": "2026 - Precise synthesis of \u03c0-conjugated [3]catenanes and Solomon link for photothermal responses via a dual-tuning strategy.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Precise synthesis of \u03c0-conjugated [3]catenanes and Solomon link for photothermal responses via a dual-tuning strategy.pdf",
+      "openalex_id": "https://openalex.org/W7128770633",
+      "doi": "https://doi.org/10.1038/s41467-026-69503-z",
+      "title": "Precise synthesis of \u03c0-conjugated [3]catenanes and Solomon link for photothermal responses via a dual-tuning strategy",
+      "publication_year": 2026,
+      "authors": [
+        "Jian-Xin Yang",
+        "Xiao-Qian Wan",
+        "Ming-Yu Lu",
+        "Meng-Yao Lu",
+        "Meng-Yi Yang",
+        "Ying Y Zhao",
+        "Francisco Azn\u00e1rez",
+        "Bo Li",
+        "Li\u2010Long Dang",
+        "Lu-Fang Ma"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7128770633.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:29:07.865468"
+    },
+    {
+      "filename": "2026 - Zr-gallic acid based metal organic compound as adsorbent for extraction of uranium( _scp_vi__scp_ ) from nitrate solution_ adsorption behaviors and me.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Zr-gallic acid based metal organic compound as adsorbent for extraction of uranium( _scp_vi__scp_ ) from nitrate solution_ adsorption behaviors and me.pdf",
+      "openalex_id": "https://openalex.org/W7124167979",
+      "doi": "https://doi.org/10.1039/d5ra05880e",
+      "title": "Zr-gallic acid based metal organic compound as adsorbent for extraction of uranium( <scp>vi</scp> ) from nitrate solution: adsorption behaviors and mechanisms",
+      "publication_year": 2026,
+      "authors": [
+        "Ahmed M. Masoud"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7124167979.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:29:10.898770"
+    },
+    {
+      "filename": "2026 - RAFT enables controlled radical ring-opening polymerisation of cyclic ketene acetals for degradable nanoparticles.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - RAFT enables controlled radical ring-opening polymerisation of cyclic ketene acetals for degradable nanoparticles.pdf",
+      "openalex_id": "https://openalex.org/W7152427852",
+      "doi": "https://doi.org/10.1038/s42004-026-01997-6",
+      "title": "RAFT enables controlled radical ring-opening polymerisation of cyclic ketene acetals for degradable nanoparticles",
+      "publication_year": 2026,
+      "authors": [
+        "Fabian Mehner",
+        "Aniket R. Bukane",
+        "Daniel J. Keddie",
+        "Martin Geisler",
+        "Albena Lederer",
+        "Brigitte Voit",
+        "Jens Gaitzsch"
+      ],
+      "pdf_url": "https://doi.org/10.1038/s42004-026-01997-6",
+      "downloaded_at": "2026-07-27T14:29:17.152215"
+    },
+    {
+      "filename": "2026 - Medium controlled redox activity and coordination behavior of a triazole indolinone ligand with vanadyl lons.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Medium controlled redox activity and coordination behavior of a triazole indolinone ligand with vanadyl lons.pdf",
+      "openalex_id": "https://openalex.org/W7147716504",
+      "doi": "https://doi.org/10.1038/s41598-026-44306-w",
+      "title": "Medium controlled redox activity and coordination behavior of a triazole indolinone ligand with vanadyl lons",
+      "publication_year": 2026,
+      "authors": [
+        "Abdullah H. Mannaa",
+        "Esam A. Gomaa",
+        "Rania Zaky",
+        "Eslam A. Ghaith",
+        "Mahmoud N. Abd El-Hady"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7147716504.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:29:21.090122"
+    },
+    {
+      "filename": "2026 - In situ electro-polymerized polyaniline thin film on highly porous carbon fiber felt for extraction and chromatographic detection of non-steroidal ant.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - In situ electro-polymerized polyaniline thin film on highly porous carbon fiber felt for extraction and chromatographic detection of non-steroidal ant.pdf",
+      "openalex_id": "https://openalex.org/W7118125361",
+      "doi": "https://doi.org/10.1038/s41598-025-25302-y",
+      "title": "In situ electro-polymerized polyaniline thin film on highly porous carbon fiber felt for extraction and chromatographic detection of non-steroidal anti-inflammatory drugs",
+      "publication_year": 2026,
+      "authors": [
+        "Tahereh Sheikhi",
+        "Habib Razmi",
+        "Sirwan Mohammadiazar"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7118125361.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:29:22.736658"
+    },
+    {
+      "filename": "2026 - Asymmetric Xanthene with Noncovalent Conformation Locks to Attain High Fluorescence &gt;1500 nm.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Asymmetric Xanthene with Noncovalent Conformation Locks to Attain High Fluorescence &gt;1500 nm.pdf",
+      "openalex_id": "https://openalex.org/W7155095421",
+      "doi": "https://doi.org/10.1021/jacs.5c23313",
+      "title": "Asymmetric Xanthene with Noncovalent Conformation Locks to Attain High Fluorescence &gt;1500 nm",
+      "publication_year": 2026,
+      "authors": [
+        "Partha Chowdhury",
+        "Hsiu\u2010Feng Lu",
+        "Hsin-Ting Huang",
+        "Meng\u2010Huan Liu",
+        "Yen\u2010Chang Chen",
+        "Kai-Min Chan",
+        "Syue-Liang Lin",
+        "Ri\u010dardas Rotomskis",
+        "Simona Steponkien\u0117",
+        "T N Wu",
+        "Yu\u2010Fen Huang",
+        "Chao\u2010Ping Hsu",
+        "Y J Chan"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7155095421.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:29:25.860866"
+    },
+    {
+      "filename": "2026 - Electrolyte-Dependent, \u201cMicroscopically Irreversible\u201d H-Atom Transfer Kinetics of Ce-Based Metal\u2013Organic Framework, Ce-MOF-808.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Electrolyte-Dependent, \u201cMicroscopically Irreversible\u201d H-Atom Transfer Kinetics of Ce-Based Metal\u2013Organic Framework, Ce-MOF-808.pdf",
+      "openalex_id": "https://openalex.org/W7118173189",
+      "doi": "https://doi.org/10.1021/acsami.5c21367",
+      "title": "Electrolyte-Dependent, \u201cMicroscopically Irreversible\u201d H-Atom Transfer Kinetics of Ce-Based Metal\u2013Organic Framework, Ce-MOF-808",
+      "publication_year": 2026,
+      "authors": [
+        "Miguel Liuzzi-Vaamonde",
+        "Zaheer Masood",
+        "Bin Wang",
+        "Nikolay V. Tkachenko",
+        "Hyunho Noh"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7118173189.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:29:33.633692"
+    },
+    {
+      "filename": "2026 - Precise Temperature-Gradient Regulated Structure\u2013Activity Relationship of PCN-224 as Bifunctional Nanocarriers.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Precise Temperature-Gradient Regulated Structure\u2013Activity Relationship of PCN-224 as Bifunctional Nanocarriers.pdf",
+      "openalex_id": "https://openalex.org/W7135190811",
+      "doi": "https://doi.org/10.1021/prechem.5c00448",
+      "title": "Precise Temperature-Gradient Regulated Structure\u2013Activity Relationship of PCN-224 as Bifunctional Nanocarriers",
+      "publication_year": 2026,
+      "authors": [
+        "Lejie Tian",
+        "Huidan Xue",
+        "Michael Gradzielski",
+        "Li Shang",
+        "Shuanhong Ma",
+        "Peiwei Gong",
+        "Long Wang",
+        "Jianxi Liu",
+        "Weimin Liu"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7135190811.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:29:36.365643"
+    },
+    {
+      "filename": "2026 - Functionalized poly(glycidylmethacrylate) for selective uranium( _scp_vi__scp_ ) adsorption_ experimental and theoretical calculation insights.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Functionalized poly(glycidylmethacrylate) for selective uranium( _scp_vi__scp_ ) adsorption_ experimental and theoretical calculation insights.pdf",
+      "openalex_id": "https://openalex.org/W7127155596",
+      "doi": "https://doi.org/10.1039/d5ra08591h",
+      "title": "Functionalized poly(glycidylmethacrylate) for selective uranium( <scp>vi</scp> ) adsorption: experimental and theoretical calculation insights",
+      "publication_year": 2026,
+      "authors": [
+        "Ahmad A. Tolba",
+        "Ebrahium Abdel Gwad",
+        "Marwa M. Rashad",
+        "Zeinab M. Shalaby",
+        "Walaa A. Kassab",
+        "Nilly A. Kawady",
+        "Said E. Mohammady",
+        "Ahmed H. Orabi"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7127155596.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:29:40.977925"
+    },
+    {
+      "filename": "2026 - Ion Mobility Suite (IMoS) 2_ A General Computational Framework for Solving the Generalized Boltzmann Equation with Rotational Transport for Polyatomic.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Ion Mobility Suite (IMoS) 2_ A General Computational Framework for Solving the Generalized Boltzmann Equation with Rotational Transport for Polyatomic.pdf",
+      "openalex_id": "https://openalex.org/W7162031227",
+      "doi": "https://doi.org/10.1021/acs.analchem.6c01278",
+      "title": "Ion Mobility Suite (IMoS) 2: A General Computational Framework for Solving the Generalized Boltzmann Equation with Rotational Transport for Polyatomic Ions in Arbitrary Fields",
+      "publication_year": 2026,
+      "authors": [
+        "C. Larriba-Andaluz"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7162031227.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:29:50.733150"
+    },
+    {
+      "filename": "2026 - Enhancing Temperature Sensitivity of Redox Potential via Redox-Induced Change in Copper Coordination Number by an External Ligand.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Enhancing Temperature Sensitivity of Redox Potential via Redox-Induced Change in Copper Coordination Number by an External Ligand.pdf",
+      "openalex_id": "https://openalex.org/W7143594593",
+      "doi": "https://doi.org/10.1021/jacs.5c21444",
+      "title": "Enhancing Temperature Sensitivity of Redox Potential via Redox-Induced Change in Copper Coordination Number by an External Ligand",
+      "publication_year": 2026,
+      "authors": [
+        "Daniela Carmona-P\u00e9rez",
+        "William W. Brennessel",
+        "Agnes E. Thorarinsdottir"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7143594593.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:29:52.787298"
+    },
+    {
+      "filename": "2026 - Determination of hydrocortisone and cortisone in artificial saliva by spray assisted fine droplet formation liquid phase microextraction coupled to LC.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Determination of hydrocortisone and cortisone in artificial saliva by spray assisted fine droplet formation liquid phase microextraction coupled to LC.pdf",
+      "openalex_id": "https://openalex.org/W7127328368",
+      "doi": "https://doi.org/10.1038/s41598-026-38457-z",
+      "title": "Determination of hydrocortisone and cortisone in artificial saliva by spray assisted fine droplet formation liquid phase microextraction coupled to LC\u2013MS/MS",
+      "publication_year": 2026,
+      "authors": [
+        "Selim G\u00fcrsoy",
+        "S\u00fcleyman Bodur",
+        "Arda Atakol",
+        "Sezgin Bak\u0131rdere"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7127328368.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:29:54.801474"
+    },
+    {
+      "filename": "2026 - Conductive metal\u2013organic frameworks_ emerging strategies for high-performance energy storage.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Conductive metal\u2013organic frameworks_ emerging strategies for high-performance energy storage.pdf",
+      "openalex_id": "https://openalex.org/W7131623143",
+      "doi": "https://doi.org/10.1039/d5nr05297a",
+      "title": "Conductive metal\u2013organic frameworks: emerging strategies for high-performance energy storage",
+      "publication_year": 2026,
+      "authors": [
+        "Santosh U. Sharma",
+        "Hung-Ju Yen"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7131623143.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:30:01.348923"
+    },
+    {
+      "filename": "2026 - A neutral cyclic aluminium (I) trimer.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - A neutral cyclic aluminium (I) trimer.pdf",
+      "openalex_id": "https://openalex.org/W7126216060",
+      "doi": "https://doi.org/10.1038/s41467-026-68432-1",
+      "title": "A neutral cyclic aluminium (I) trimer",
+      "publication_year": 2026,
+      "authors": [
+        "Imogen A. Z. Squire",
+        "Matthew de Vere\u2010Tucker",
+        "Michelangelo Tritto",
+        "Lygia S. de Moraes",
+        "Tobias Kr\u00e4mer",
+        "Clare Bakewell"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7126216060.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:30:05.047268"
+    },
+    {
+      "filename": "2026 - Dimensionality reduction of COSMO-RS molecular descriptor using functional principal component analysis (FPCA) for organic solvent mapping.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Dimensionality reduction of COSMO-RS molecular descriptor using functional principal component analysis (FPCA) for organic solvent mapping.pdf",
+      "openalex_id": "https://openalex.org/W7130516515",
+      "doi": "https://doi.org/10.1039/d5ra08246c",
+      "title": "Dimensionality reduction of COSMO-RS molecular descriptor using functional principal component analysis (FPCA) for organic solvent mapping",
+      "publication_year": 2026,
+      "authors": [
+        "Luis Eduardo Ramirez Cardenas",
+        "Rachid Ouaret",
+        "Vincent Gerbaud",
+        "Ivonne RODRIGUEZ DONIS",
+        "Sophie Thiebaud-Roux"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7130516515.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:30:10.142336"
+    },
+    {
+      "filename": "2026 - Negative Gaseous Ions in Positive-Voltage Electrospray Ionization Mass Spectrometry.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Negative Gaseous Ions in Positive-Voltage Electrospray Ionization Mass Spectrometry.pdf",
+      "openalex_id": "https://openalex.org/W7133318278",
+      "doi": "https://doi.org/10.1021/acs.analchem.5c08108",
+      "title": "Negative Gaseous Ions in Positive-Voltage Electrospray Ionization Mass Spectrometry",
+      "publication_year": 2026,
+      "authors": [
+        "Xing-Bo Wang",
+        "Ochir Ochirov",
+        "Bo-Cheng Ke",
+        "Noor Hidayat Abu Bakar",
+        "Chamarthi Maheswar Raju",
+        "Ioan Marginean",
+        "Pawel L. Urban"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7133318278.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:30:12.501298"
+    },
+    {
+      "filename": "2026 - Counterion condensation, ion pairing and scattering properties of carboxymethyl cellulose with mono- and di-valent ions.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - Counterion condensation, ion pairing and scattering properties of carboxymethyl cellulose with mono- and di-valent ions.pdf",
+      "openalex_id": "https://openalex.org/W7155677381",
+      "doi": "https://doi.org/10.1007/s10570-026-07021-3",
+      "title": "Counterion condensation, ion pairing and scattering properties of carboxymethyl cellulose with mono- and di-valent ions",
+      "publication_year": 2026,
+      "authors": [
+        "Elmira Abbasi GharehTapeh",
+        "Takaichi Watanabe",
+        "Ferenc Horkay",
+        "Can Hou",
+        "Carlos G. Lopez",
+        "Max Hohenschutz"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7155677381.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:30:18.186626"
+    },
+    {
+      "filename": "2026 - The bis-salphen Zn( _scp_ii__scp_ ) unit_ a versatile building block for self-assembled heteroleptic coordination cages.pdf",
+      "filepath": "C:\\Users\\henry\\Github\\ChemistryExtract\\tests\\corpus\\massive\\2026 - The bis-salphen Zn( _scp_ii__scp_ ) unit_ a versatile building block for self-assembled heteroleptic coordination cages.pdf",
+      "openalex_id": "https://openalex.org/W7131346537",
+      "doi": "https://doi.org/10.1039/d5nr04564a",
+      "title": "The bis-salphen Zn( <scp>ii</scp> ) unit: a versatile building block for self-assembled heteroleptic coordination cages",
+      "publication_year": 2026,
+      "authors": [
+        "Leonardo Donaggio",
+        "Kristian Schweimer",
+        "Frank Heinemann",
+        "Janosch Hennig",
+        "Hannah Kurz"
+      ],
+      "pdf_url": "https://content.openalex.org/works/W7131346537.pdf?api_key=00Q5ScNsZ2DTfXUZXWFDdx",
+      "downloaded_at": "2026-07-27T14:30:20.907925"
+    }
+  ]
+}
