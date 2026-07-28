@@ -49,6 +49,12 @@ def validate_flory_entry(entry: dict) -> dict[str, bool]:
 
     # Check v_value range
     v_val = entry.get("v_value")
+    if isinstance(v_val, str):
+        try:
+            v_val = float(v_val.strip())
+        except ValueError:
+            pass
+
     if isinstance(v_val, (int, float)):
         if not (FLORY_V_MIN <= abs(v_val) <= FLORY_V_MAX):
             failed_flags["v_value_out_of_range"] = True
@@ -57,6 +63,12 @@ def validate_flory_entry(entry: dict) -> dict[str, bool]:
 
     # Check D values calculated from c_value and v_value
     c_val = entry.get("c_value")
+    if isinstance(c_val, str):
+        try:
+            c_val = float(c_val.strip())
+        except ValueError:
+            pass
+
     if isinstance(c_val, (int, float)) and isinstance(v_val, (int, float)):
         try:
             d_vals = compute_flory_d_values(c_val, v_val)
@@ -95,6 +107,12 @@ def validate_mark_houwink_entry(entry: dict) -> dict[str, bool]:
 
     # Check a_value range
     a_val = entry.get("a_value")
+    if isinstance(a_val, str):
+        try:
+            a_val = float(a_val.strip())
+        except ValueError:
+            pass
+
     if isinstance(a_val, (int, float)):
         if not (MH_A_MIN <= a_val <= MH_A_MAX):
             failed_flags["a_value_out_of_range"] = True
@@ -103,6 +121,12 @@ def validate_mark_houwink_entry(entry: dict) -> dict[str, bool]:
 
     # Check K_value range
     k_val = entry.get("K_value")
+    if isinstance(k_val, str):
+        try:
+            k_val = float(k_val.strip())
+        except ValueError:
+            pass
+
     if isinstance(k_val, (int, float)):
         if not (MH_K_MIN <= k_val <= MH_K_MAX):
             failed_flags["K_value_out_of_range"] = True

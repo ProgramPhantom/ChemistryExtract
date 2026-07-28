@@ -315,6 +315,21 @@ def check_entry_data_errors(entry: dict, data_fields: list[str], paper_name: str
                     "reason": err
                 })
     return failed_data_dict
+def try_parse_float(val: typing.Any) -> float | None:
+    """Attempts to parse a value into a float, returning None if not possible."""
+    if val is None:
+        return None
+    if isinstance(val, (int, float)):
+        return float(val)
+    if isinstance(val, str):
+        val_str = val.strip()
+        if not val_str:
+            return None
+        try:
+            return float(val_str)
+        except ValueError:
+            return None
+    return None
 
 
 def process_mark_houwink_entries(
@@ -327,11 +342,13 @@ def process_mark_houwink_entries(
 ) -> int:
     """Processes Mark-Houwink interpretation data for a single paper, homogenising chemical names."""
     paper_mh_count = 0
+
     for i, mh_data in enumerate(processor.interpretation_mh_data_list):
         if not mh_data:
             continue
         table_name = f"table{i + 1}"
-        mh_entries = mh_data.get("mh_entries", [])
+        mh_entries = mh_data.get("mark_houwink_entries", [])
+
         for entry in mh_entries:
             polymer_raw = entry.get("polymer_name", "")
             solvent_raw = entry.get("solvent", "")
@@ -344,26 +361,36 @@ def process_mark_houwink_entries(
                 solvent_raw, cache, ai_instance, stats
             )
 
-            bounds_failed = validate_mark_houwink_entry(entry)
-
-            temp_val = entry.get("temperature_k")
+            temp_raw = entry.get("temperature_k")
+            temp_parsed = try_parse_float(temp_raw)
             temp_missing = (
-                temp_val is None or
-                check_prepopulated_error(temp_val, DATA_ERROR_TYPES) is not None or
-                not isinstance(temp_val, (int, float))
+                temp_parsed is None or
+                check_prepopulated_error(temp_raw, DATA_ERROR_TYPES) is not None
             )
 
-            k_val = entry.get("K_value")
+            k_raw = entry.get("K_value")
+            k_parsed = try_parse_float(k_raw)
+
+            a_raw = entry.get("a_value")
+            a_parsed = try_parse_float(a_raw)
+
+            entry_for_validation = entry.copy()
+            if k_parsed is not None:
+                entry_for_validation["K_value"] = k_parsed
+            if a_parsed is not None:
+                entry_for_validation["a_value"] = a_parsed
+
+            bounds_failed = validate_mark_houwink_entry(entry_for_validation)
+
             k_invalid = (
-                k_val is None or
-                check_prepopulated_error(k_val, DATA_ERROR_TYPES) is not None or
+                k_parsed is None or
+                check_prepopulated_error(k_raw, DATA_ERROR_TYPES) is not None or
                 bounds_failed.get("K_value_out_of_range", False)
             )
 
-            a_val = entry.get("a_value")
             a_invalid = (
-                a_val is None or
-                check_prepopulated_error(a_val, DATA_ERROR_TYPES) is not None or
+                a_parsed is None or
+                check_prepopulated_error(a_raw, DATA_ERROR_TYPES) is not None or
                 bounds_failed.get("a_value_out_of_range", False)
             )
 
@@ -383,6 +410,12 @@ def process_mark_houwink_entries(
             clean_entry["solvent"] = solv_clean
             clean_entry["source_paper"] = paper_name
             clean_entry["table_name"] = table_name
+            if k_parsed is not None:
+                clean_entry["K_value"] = k_parsed
+            if a_parsed is not None:
+                clean_entry["a_value"] = a_parsed
+            if temp_parsed is not None:
+                clean_entry["temperature_k"] = temp_parsed
             clean_entry["failed_fields"] = failed_fields
 
             mh_results.append(clean_entry)
@@ -420,26 +453,34 @@ def process_flory_entries(
                 solvent_raw, cache, ai_instance, stats
             )
 
-            bounds_failed = validate_flory_entry(entry)
-
-            temp_val = entry.get("temperature_k")
+            temp_raw = entry.get("temperature_k")
+            temp_parsed = try_parse_float(temp_raw)
             temp_missing = (
-                temp_val is None or
-                check_prepopulated_error(temp_val, DATA_ERROR_TYPES) is not None or
-                not isinstance(temp_val, (int, float))
+                temp_parsed is None or
+                check_prepopulated_error(temp_raw, DATA_ERROR_TYPES) is not None
             )
 
-            c_val = entry.get("c_value")
+            c_raw = entry.get("c_value")
+            c_parsed = try_parse_float(c_raw)
             c_missing = (
-                c_val is None or
-                check_prepopulated_error(c_val, DATA_ERROR_TYPES) is not None or
-                not isinstance(c_val, (int, float))
+                c_parsed is None or
+                check_prepopulated_error(c_raw, DATA_ERROR_TYPES) is not None
             )
 
-            v_val = entry.get("v_value")
+            v_raw = entry.get("v_value")
+            v_parsed = try_parse_float(v_raw)
+
+            entry_for_validation = entry.copy()
+            if c_parsed is not None:
+                entry_for_validation["c_value"] = c_parsed
+            if v_parsed is not None:
+                entry_for_validation["v_value"] = v_parsed
+
+            bounds_failed = validate_flory_entry(entry_for_validation)
+
             v_invalid = (
-                v_val is None or
-                check_prepopulated_error(v_val, DATA_ERROR_TYPES) is not None or
+                v_parsed is None or
+                check_prepopulated_error(v_raw, DATA_ERROR_TYPES) is not None or
                 bounds_failed.get("v_value_out_of_range", False)
             )
 
@@ -459,6 +500,12 @@ def process_flory_entries(
             clean_entry["solvent"] = solv_clean
             clean_entry["source_paper"] = paper_name
             clean_entry["table_name"] = table_name
+            if c_parsed is not None:
+                clean_entry["c_value"] = c_parsed
+            if v_parsed is not None:
+                clean_entry["v_value"] = v_parsed
+            if temp_parsed is not None:
+                clean_entry["temperature_k"] = temp_parsed
             clean_entry["failed_fields"] = failed_fields
 
             flory_results.append(clean_entry)

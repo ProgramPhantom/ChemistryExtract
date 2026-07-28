@@ -5,14 +5,26 @@ from openpyxl.worksheet.datavalidation import DataValidation
 from openpyxl.chart import LineChart, Reference, Series
 from chemstractor.lib.reports.helpers import is_entry_failed
 
+def try_parse_float(val) -> float | None:
+    if val is None:
+        return None
+    if isinstance(val, (int, float)):
+        return float(val)
+    if isinstance(val, str):
+        try:
+            return float(val.strip())
+        except ValueError:
+            return None
+    return None
+
 def is_flory_entry_valid(entry: dict) -> bool:
     """Checks if a Flory entry is valid for inclusion in the Polymers sheet."""
-    c_val = entry.get("c_value")
-    v_val = entry.get("v_value")
+    c_val = try_parse_float(entry.get("c_value"))
+    v_val = try_parse_float(entry.get("v_value"))
     p_name = entry.get("polymer_name")
     s_name = entry.get("solvent")
 
-    if not isinstance(c_val, (int, float)) or not isinstance(v_val, (int, float)):
+    if c_val is None or v_val is None:
         return False
     if p_name in (None, "", "N/A", "Invalid chemical") or s_name in (None, "", "N/A", "Invalid chemical"):
         return False

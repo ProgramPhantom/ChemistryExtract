@@ -3,16 +3,16 @@ from openpyxl.styles import PatternFill
 # Error Severity & Fill Styling Configuration
 ERROR_SEVERITY_MAP = {
     # Critical / High Severity (Red fill)
-    "polymer_name": {"severity": "deselected", "color": "FCE4D6", "label": "Polymer Identification Failure"},
-    "solvent_name": {"severity": "deselected", "color": "FCE4D6", "label": "Solvent Identification Failure"},
+    "polymer_name": {"severity": "deselected", "color": "FFF2CC", "label": "Polymer Identification Failure"},
+    "solvent_name": {"severity": "deselected", "color": "FFF2CC", "label": "Solvent Identification Failure"},
     
     # Warning / Medium Severity (Yellow fill)
-    "c_value_out_of_range": {"severity": "problem", "color": "FFF2CC", "label": "c_value Out of Range"},
-    "v_value_out_of_range": {"severity": "problem", "color": "FFF2CC", "label": "v_value Out of Range"},
-    "K_value_out_of_range": {"severity": "problem", "color": "FFF2CC", "label": "K_value Out of Range"},
-    "a_value_out_of_range": {"severity": "problem", "color": "FFF2CC", "label": "a_value Out of Range"},
-    "D_out_of_range": {"severity": "problem", "color": "FFF2CC", "label": "D Value Out of Range"},
-    "eta_out_of_range": {"severity": "problem", "color": "FFF2CC", "label": "log10([eta]) Out of Range"},
+    "c_value_out_of_range": {"severity": "problem", "color": "FCE4D6", "label": "c_value Out of Range"},
+    "v_value_out_of_range": {"severity": "problem", "color": "FCE4D6", "label": "v_value Out of Range"},
+    "K_value_out_of_range": {"severity": "problem", "color": "FCE4D6", "label": "K_value Out of Range"},
+    "a_value_out_of_range": {"severity": "problem", "color": "FCE4D6", "label": "a_value Out of Range"},
+    "D_out_of_range": {"severity": "problem", "color": "FCE4D6", "label": "D Value Out of Range"},
+    "eta_out_of_range": {"severity": "problem", "color": "FCE4D6", "label": "log10([eta]) Out of Range"},
     
     # Low / Info Severity (Light Gray fill)
     "temperature_missing": {"severity": "warning", "color": "EDEDED", "label": "Temperature Missing/Invalid"}
