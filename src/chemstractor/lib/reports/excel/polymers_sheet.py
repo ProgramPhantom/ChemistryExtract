@@ -5,6 +5,29 @@ from openpyxl.worksheet.datavalidation import DataValidation
 from openpyxl.chart import LineChart, Reference, Series
 from chemstractor.lib.reports.helpers import is_entry_failed
 
+def is_flory_entry_valid(entry: dict) -> bool:
+    """Checks if a Flory entry is valid for inclusion in the Polymers sheet."""
+    c_val = entry.get("c_value")
+    v_val = entry.get("v_value")
+    p_name = entry.get("polymer_name")
+    s_name = entry.get("solvent")
+
+    if not isinstance(c_val, (int, float)) or not isinstance(v_val, (int, float)):
+        return False
+    if p_name in (None, "", "N/A", "Invalid chemical") or s_name in (None, "", "N/A", "Invalid chemical"):
+        return False
+
+    ff = entry.get("failed_fields")
+    if isinstance(ff, dict):
+        # Temperature missing is a warning and should be included
+        critical_failures = [k for k, v in ff.items() if v and k != "temperature_missing"]
+        if critical_failures:
+            return False
+    elif isinstance(ff, str) and ff != "None":
+        return False
+
+    return True
+
 def build_polymers_sheet(wb, flory_entries: list, font_family: str = "Segoe UI") -> None:
     """Builds the interactive Polymers worksheet in the Excel workbook."""
     ws_poly = wb.create_sheet(title="Polymers")
@@ -29,15 +52,7 @@ def build_polymers_sheet(wb, flory_entries: list, font_family: str = "Segoe UI")
     center_align = Alignment(horizontal="center", vertical="center")
 
     # Filter out failed entries
-    valid_flory_poly = []
-    for entry in flory_entries:
-        c_val = entry.get("c_value")
-        v_val = entry.get("v_value")
-        p_name = entry.get("polymer_name")
-        s_name = entry.get("solvent")
-        has_failed = is_entry_failed(entry) or p_name in (None, "", "N/A") or s_name in (None, "", "N/A")
-        if isinstance(c_val, (int, float)) and isinstance(v_val, (int, float)) and not has_failed:
-            valid_flory_poly.append(entry)
+    valid_flory_poly = [entry for entry in flory_entries if is_flory_entry_valid(entry)]
 
     # Sort Flory entries polymer-centric
     sorted_flory_poly = sorted(
