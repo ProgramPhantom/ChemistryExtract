@@ -81,6 +81,55 @@ def get_entry_errors_info(entry: dict) -> tuple[str, PatternFill | None]:
     fill = PatternFill(start_color=chosen_color, end_color=chosen_color, fill_type="solid") if chosen_color else None
     return error_str, fill
 
+def get_entry_errors_and_warnings_info(entry: dict) -> tuple[str, PatternFill | None, str, PatternFill | None]:
+    """
+    Splits entry active messages into Errors (deselected/problem severity) and Warnings (warning severity).
+    Returns (err_str, err_fill, warn_str, warn_fill).
+    """
+    ff = entry.get("failed_fields")
+    active_keys = []
+    
+    if isinstance(ff, dict):
+        active_keys = [k for k, v in ff.items() if v]
+    elif is_entry_failed(entry):
+        active_keys = ["polymer_name"]
+
+    if not active_keys:
+        return "None", None, "None", None
+
+    err_labels = []
+    warn_labels = []
+    err_highest_score = 0
+    err_chosen_color = None
+    warn_highest_score = 0
+    warn_chosen_color = None
+
+    for k in active_keys:
+        meta = ERROR_SEVERITY_MAP.get(k, {"severity": "problem", "color": "FFF2CC", "label": k})
+        label = meta.get("label", k)
+        sev = meta.get("severity", "problem")
+        color = meta.get("color", "FFF2CC")
+        score = SEVERITY_PRIORITY.get(sev, 1)
+
+        if sev == "warning":
+            warn_labels.append(label)
+            if score > warn_highest_score:
+                warn_highest_score = score
+                warn_chosen_color = color
+        else:
+            err_labels.append(label)
+            if score > err_highest_score:
+                err_highest_score = score
+                err_chosen_color = color
+
+    err_str = ", ".join(err_labels) if err_labels else "None"
+    err_fill = PatternFill(start_color=err_chosen_color, end_color=err_chosen_color, fill_type="solid") if err_chosen_color else None
+
+    warn_str = ", ".join(warn_labels) if warn_labels else "None"
+    warn_fill = PatternFill(start_color=warn_chosen_color, end_color=warn_chosen_color, fill_type="solid") if warn_chosen_color else None
+
+    return err_str, err_fill, warn_str, warn_fill
+
 def get_field_error(entry: dict, field_key: str) -> str:
     """Returns the failure reason for a specific field, or 'None' if no error."""
     ff = entry.get("failed_fields")

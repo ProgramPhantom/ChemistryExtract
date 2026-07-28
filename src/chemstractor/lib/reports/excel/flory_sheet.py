@@ -2,7 +2,7 @@ import openpyxl
 from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
 from openpyxl.utils import get_column_letter
 from openpyxl.chart import LineChart, Reference, Series
-from chemstractor.lib.reports.helpers import is_entry_failed, get_entry_errors_info
+from chemstractor.lib.reports.helpers import is_entry_failed, get_entry_errors_and_warnings_info
 
 def build_flory_sheet(wb, flory_entries: list, font_family: str = "Segoe UI") -> None:
     """Builds the Flory worksheet in the Excel workbook."""
@@ -22,7 +22,7 @@ def build_flory_sheet(wb, flory_entries: list, font_family: str = "Segoe UI") ->
         "Source Paper", "Table", "Polymer (Original)", "Polymer (Clean)", 
         "Solvent (Original)", "Solvent (Clean)", "Temperature (K)", 
         "c Value (log Constant)", "c Transformation", "v Value (Scaling Exponent)", "v Transformation", 
-        "Errors"
+        "Errors", "Warnings"
     ]
     
     for col_idx, h in enumerate(headers_flory):
@@ -32,7 +32,7 @@ def build_flory_sheet(wb, flory_entries: list, font_family: str = "Segoe UI") ->
         cell.alignment = table_header_align
         cell.border = data_border
         
-    for val, col in [(3, 13), (6, 14)]:
+    for val, col in [(3, 14), (6, 15)]:
         cell = ws_flory.cell(row=1, column=col, value=val)
         cell.font = table_header_font
         cell.fill = table_header_fill
@@ -63,59 +63,64 @@ def build_flory_sheet(wb, flory_entries: list, font_family: str = "Segoe UI") ->
         
         ws_flory.cell(row=r, column=11, value=entry.get("v_transformation", "")).font = val_font
         
-        err_msg, err_fill = get_entry_errors_info(entry)
-        err_cell = ws_flory.cell(row=r, column=12, value=err_msg)
+        err_str, err_fill, warn_str, warn_fill = get_entry_errors_and_warnings_info(entry)
+        err_cell = ws_flory.cell(row=r, column=12, value=err_str)
         err_cell.font = val_font
         if err_fill:
             err_cell.fill = err_fill
+            
+        warn_cell = ws_flory.cell(row=r, column=13, value=warn_str)
+        warn_cell.font = val_font
+        if warn_fill:
+            warn_cell.fill = warn_fill
         
         has_failed = is_entry_failed(entry)
         if isinstance(c_val, (int, float)) and isinstance(v_val, (int, float)):
-            ws_flory.cell(row=r, column=13, value=f"=H{r}-J{r}*3").font = val_font
-            ws_flory.cell(row=r, column=14, value=f"=H{r}-J{r}*6").font = val_font
+            ws_flory.cell(row=r, column=14, value=f"=H{r}-J{r}*3").font = val_font
+            ws_flory.cell(row=r, column=15, value=f"=H{r}-J{r}*6").font = val_font
             
             if not has_failed:
                 pair = (entry.get("solvent"), entry.get("polymer_name"))
                 flory_counts[pair] = flory_counts.get(pair, 0) + 1
             
-        for c in [1, 2, 3, 4, 5, 6, 9, 11, 12]:
+        for c in [1, 2, 3, 4, 5, 6, 9, 11, 12, 13]:
             cell = ws_flory.cell(row=r, column=c)
             cell.alignment = left_align
             cell.border = data_border
-        for c in [7, 8, 10, 13, 14]:
+        for c in [7, 8, 10, 14, 15]:
             cell = ws_flory.cell(row=r, column=c)
             cell.alignment = right_align
             cell.border = data_border
             
-    # Write Flory Summary Table starting at Column P (16)
-    ws_flory.cell(row=1, column=16, value="Solvent").font = table_header_font
-    ws_flory.cell(row=1, column=16).fill = table_header_fill
-    ws_flory.cell(row=1, column=16).alignment = table_header_align
-    ws_flory.cell(row=1, column=16).border = data_border
-    
-    ws_flory.cell(row=1, column=17, value="Polymer").font = table_header_font
+    # Write Flory Summary Table starting at Column Q (17)
+    ws_flory.cell(row=1, column=17, value="Solvent").font = table_header_font
     ws_flory.cell(row=1, column=17).fill = table_header_fill
     ws_flory.cell(row=1, column=17).alignment = table_header_align
     ws_flory.cell(row=1, column=17).border = data_border
     
-    ws_flory.cell(row=1, column=18, value="Count").font = table_header_font
+    ws_flory.cell(row=1, column=18, value="Polymer").font = table_header_font
     ws_flory.cell(row=1, column=18).fill = table_header_fill
     ws_flory.cell(row=1, column=18).alignment = table_header_align
     ws_flory.cell(row=1, column=18).border = data_border
     
+    ws_flory.cell(row=1, column=19, value="Count").font = table_header_font
+    ws_flory.cell(row=1, column=19).fill = table_header_fill
+    ws_flory.cell(row=1, column=19).alignment = table_header_align
+    ws_flory.cell(row=1, column=19).border = data_border
+    
     for summary_idx, (pair, count) in enumerate(sorted(flory_counts.items())):
         sr = summary_idx + 2
-        ws_flory.cell(row=sr, column=16, value=pair[0]).font = val_font
-        ws_flory.cell(row=sr, column=16).alignment = left_align
-        ws_flory.cell(row=sr, column=16).border = data_border
-        
-        ws_flory.cell(row=sr, column=17, value=pair[1]).font = val_font
+        ws_flory.cell(row=sr, column=17, value=pair[0]).font = val_font
         ws_flory.cell(row=sr, column=17).alignment = left_align
         ws_flory.cell(row=sr, column=17).border = data_border
         
-        ws_flory.cell(row=sr, column=18, value=count).font = val_font
-        ws_flory.cell(row=sr, column=18).alignment = right_align
+        ws_flory.cell(row=sr, column=18, value=pair[1]).font = val_font
+        ws_flory.cell(row=sr, column=18).alignment = left_align
         ws_flory.cell(row=sr, column=18).border = data_border
+        
+        ws_flory.cell(row=sr, column=19, value=count).font = val_font
+        ws_flory.cell(row=sr, column=19).alignment = right_align
+        ws_flory.cell(row=sr, column=19).border = data_border
         
     # Generate and embed Flory Line Chart
     if flory_entries:
@@ -153,11 +158,11 @@ def build_flory_sheet(wb, flory_entries: list, font_family: str = "Segoe UI") ->
                 v_val = entry.get("v_value")
                 has_failed = is_entry_failed(entry)
                 if c_val is not None and v_val is not None and not has_failed:
-                    series_ref = Reference(ws_flory, min_col=13, max_col=14, min_row=r, max_row=r)
+                    series_ref = Reference(ws_flory, min_col=14, max_col=15, min_row=r, max_row=r)
                     series = Series(series_ref, title=f"{entry.get('polymer_name')} in {entry.get('solvent')}")
                     chart_flory.append(series)
                     
-            cats_ref = Reference(ws_flory, min_col=13, max_col=14, min_row=1, max_row=1)
+            cats_ref = Reference(ws_flory, min_col=14, max_col=15, min_row=1, max_row=1)
             chart_flory.set_categories(cats_ref)
             
             colors = ["1F497D", "C0504D", "9BBB59", "8064A2", "F79646", "4BACC6", "E26B0A", "7030A0", "00B0F0"]
@@ -165,7 +170,7 @@ def build_flory_sheet(wb, flory_entries: list, font_family: str = "Segoe UI") ->
                 color = colors[s_idx % len(colors)]
                 series.graphicalProperties.line = openpyxl.drawing.line.LineProperties(solidFill=color)
                 
-            ws_flory.add_chart(chart_flory, "S4")
+            ws_flory.add_chart(chart_flory, "U4")
         except Exception:
             pass
             
