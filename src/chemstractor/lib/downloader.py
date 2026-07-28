@@ -7,6 +7,11 @@ import urllib.request
 import urllib.parse
 from datetime import datetime
 from typing import Generator, Dict, Any, List, Optional
+from difflib import SequenceMatcher
+import requests
+import urllib3
+
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 def create_ssl_context() -> ssl.SSLContext:
@@ -28,6 +33,8 @@ BROWSER_HEADERS = {
     "Upgrade-Insecure-Requests": "1"
 }
 
+STOPWORDS = {"a", "an", "the", "and", "or", "of", "for", "with", "in", "on", "at", "by", "to", "from"}
+
 
 def sanitize_filename(name: str) -> str:
     """Sanitizes a string to be safe for filenames across operating systems."""
@@ -36,14 +43,149 @@ def sanitize_filename(name: str) -> str:
     return cleaned[:150]
 
 
-def extract_all_pdf_urls(work: Dict[str, Any]) -> List[str]:
-    """Extracts a prioritized list of potential PDF and landing page URLs for a work."""
+def is_si_file(filename: str) -> bool:
+    """Checks if a filename indicates a Supplementary/Supporting Information file."""
+    name, _ = os.path.splitext(filename)
+    name = name.lower()
+    
+    si_patterns = [
+        r'[\s_\-\(\[\{]si[\s_\-\)\]\}]*$',
+        r'[\s_\-\(\[\{]supp[\s_\-\)\]\}]*$',
+        r'[\s_\-\(\[\{]supplementary[\s_\-\w]*$',
+        r'[\s_\-\(\[\{]supporting[\s_\-\w]*$',
+        r'[\s_\-\(\[\{]si[\s_\-\(\[\{]',
+    ]
+    for pat in si_patterns:
+        if re.search(pat, name):
+            return True
+    return False
+
+
+def normalize_filename_for_matching(filename: str) -> tuple[bool, str]:
+    """Extracts SI status and normalizes filename for fuzzy comparison.
+    Returns (is_si, normalized_name).
+    """
+    name, _ = os.path.splitext(filename)
+    name = name.lower().strip()
+    
+    is_si = is_si_file(filename)
+    
+    # Strip SI suffixes/keywords
+    si_strip_patterns = [
+        r'[\s_\-\(\[\{]si[\s_\-\)\]\}]*$',
+        r'[\s_\-\(\[\{]supp[\s_\-\)\]\}]*$',
+        r'[\s_\-\(\[\{]supplementary[\s_\-\w]*$',
+        r'[\s_\-\(\[\{]supporting[\s_\-\w]*$',
+    ]
+    for pat in si_strip_patterns:
+        name = re.sub(pat, '', name).strip()
+        
+    # Strip leading 4-digit publication year if present e.g. "2020 - " or "2020_"
+    name = re.sub(r'^(19|20)\d{2}\s*[\-_\s]\s*', '', name).strip()
+    
+    # Normalize common Roman numerals to arabic numbers in standalone tokens
+    roman_map = {
+        r'\bviii\b': '8',
+        r'\bvii\b': '7',
+        r'\bvi\b': '6',
+        r'\biv\b': '4',
+        r'\bv\b': '5',
+        r'\biii\b': '3',
+        r'\bii\b': '2',
+        r'\bi\b': '1',
+    }
+    for r_pat, digit in roman_map.items():
+        name = re.sub(r_pat, digit, name)
+
+    # Clean non-alphanumeric characters (keep alphanumeric, replace others with space)
+    cleaned = re.sub(r'[^a-z0-9]', ' ', name)
+    # Collapse multiple spaces
+    normalized = re.sub(r'\s+', ' ', cleaned).strip()
+    
+    return is_si, normalized
+
+
+def is_fuzzy_duplicate(filename1: str, filename2: str, threshold: float = 0.90) -> bool:
+    """Compares two filenames to determine if they are fuzzy duplicates.
+    Ensures SI files are NOT matched against main paper files.
+    """
+    is_si1, norm1 = normalize_filename_for_matching(filename1)
+    is_si2, norm2 = normalize_filename_for_matching(filename2)
+    
+    # Key Rule: SI file and Main paper file are NEVER duplicates of each other!
+    if is_si1 != is_si2:
+        return False
+        
+    if not norm1 or not norm2:
+        return norm1 == norm2
+        
+    if norm1 == norm2:
+        return True
+        
+    # Character sequence ratio
+    char_ratio = SequenceMatcher(None, norm1, norm2).ratio()
+    if char_ratio < threshold:
+        return False
+        
+    # Significant word / token comparison to prevent false positives (e.g. organic vs inorganic)
+    words1 = [w for w in norm1.split() if w not in STOPWORDS]
+    words2 = [w for w in norm2.split() if w not in STOPWORDS]
+    
+    set1 = set(words1)
+    set2 = set(words2)
+    
+    if not set1 or not set2:
+        return char_ratio >= threshold
+        
+    # Jaccard similarity of non-stopword tokens
+    jaccard = len(set1 & set2) / len(set1 | set2)
+    
+    return jaccard >= 0.75
+
+
+def find_fuzzy_duplicate_in_dir(filename: str, output_dir: str, threshold: float = 0.90) -> Optional[str]:
+    """Scans output_dir for any file that is a fuzzy duplicate of filename.
+    Returns the matching existing filename if found, otherwise None.
+    SI files and main paper files are never matched against each other.
+    """
+    if not os.path.exists(output_dir):
+        return None
+        
+    for existing in os.listdir(output_dir):
+        filepath = os.path.join(output_dir, existing)
+        if os.path.isfile(filepath) and not existing.endswith(".json"):
+            if is_fuzzy_duplicate(filename, existing, threshold=threshold):
+                return existing
+    return None
+
+
+def extract_all_pdf_urls(
+    work: Dict[str, Any],
+    openalex_key: Optional[str] = None,
+    email: Optional[str] = None
+) -> List[str]:
+    """Extracts a prioritized list of potential PDF and landing page URLs for a work.
+    Prioritizes OpenAlex's direct cached PDF content service (content.openalex.org).
+    """
     candidates = []
+    
+    # 0. OpenAlex Direct Cached PDF Content Service (content.openalex.org)
+    work_id = work.get("id")
+    if work_id:
+        short_id = str(work_id).split("/")[-1]
+        content_url = f"https://content.openalex.org/works/{short_id}.pdf"
+        if openalex_key:
+            content_url += f"?api_key={openalex_key}"
+        elif email:
+            content_url += f"?mailto={email.strip()}"
+        candidates.append(content_url)
     
     # 1. Best OA location PDF
     best_oa = work.get("best_oa_location") or {}
     if isinstance(best_oa, dict) and best_oa.get("pdf_url"):
-        candidates.append(best_oa["pdf_url"])
+        url = best_oa["pdf_url"]
+        if url not in candidates:
+            candidates.append(url)
         
     # 2. Primary location PDF
     primary_loc = work.get("primary_location") or {}
@@ -78,10 +220,13 @@ def fetch_pdf_binary(url: str, depth: int = 0) -> tuple[Optional[bytes], str]:
     if depth > 2:
         return None, "Exceeded maximum redirect/extraction depth"
         
+    session = requests.Session()
+    session.headers.update(BROWSER_HEADERS)
+    
     try:
-        req = urllib.request.Request(url, headers=BROWSER_HEADERS)
-        with urllib.request.urlopen(req, timeout=30, context=SSL_CONTEXT) as resp:
-            content = resp.read()
+        resp = session.get(url, timeout=30, allow_redirects=True, verify=False)
+        if resp.status_code == 200:
+            content = resp.content
             
             # Binary PDF check
             if content.startswith(b"%PDF"):
@@ -99,19 +244,17 @@ def fetch_pdf_binary(url: str, depth: int = 0) -> tuple[Optional[bytes], str]:
                 if match:
                     pdf_link = match.group(1).replace("&amp;", "&")
                     if pdf_link.startswith("/"):
-                        parsed_base = urllib.parse.urlparse(url)
+                        parsed_base = urllib.parse.urlparse(resp.url)
                         pdf_link = f"{parsed_base.scheme}://{parsed_base.netloc}{pdf_link}"
                     return fetch_pdf_binary(pdf_link, depth + 1)
             except Exception:
                 pass
                 
             return None, "URL returned non-PDF content (paywall page or HTML)"
-    except urllib.error.HTTPError as e:
-        return None, f"HTTP Error {e.code}: {e.reason}"
-    except urllib.error.URLError as e:
-        return None, f"Network error: {e.reason}"
+        else:
+            return None, f"HTTP Error {resp.status_code}: {resp.reason}"
     except Exception as e:
-        return None, f"HTTP/Network error: {str(e)}"
+        return None, f"Network error: {str(e)}"
 
 
 def download_papers_from_openalex(
@@ -123,6 +266,7 @@ def download_papers_from_openalex(
     work_types: Optional[List[str]] = None,
     chemistry_only: bool = False,
     title_only: bool = False,
+    semantic: bool = False,
     email: Optional[str] = None
 ) -> Generator[Dict[str, Any], None, None]:
     """Backend generator that queries OpenAlex API and downloads open-access paper PDFs.
@@ -134,12 +278,14 @@ def download_papers_from_openalex(
     os.makedirs(output_dir, exist_ok=True)
     
     msg = f"Searching OpenAlex for: '{query}'"
+    if semantic:
+        msg = f"Searching OpenAlex [Semantic Search] for: '{query}'"
+    elif title_only:
+        msg += " [Title search only]"
     if year:
         msg += f" (published in {year} or later)"
-    if chemistry_only:
+    if chemistry_only and not semantic:
         msg += " [Chemistry domain only]"
-    if title_only:
-        msg += " [Title search only]"
     
     yield {
         "status": "searching",
@@ -147,7 +293,7 @@ def download_papers_from_openalex(
     }
     
     base_url = "https://api.openalex.org/works"
-    per_page = 50
+    per_page = 100
     cursor = "*"
     
     filter_conditions = ["has_fulltext:true"]
@@ -159,9 +305,9 @@ def download_papers_from_openalex(
         types_str = "|".join([t.strip().lower() for t in work_types if t.strip()])
         if types_str:
             filter_conditions.append(f"type:{types_str}")
-    if chemistry_only:
+    if chemistry_only and not semantic:
         filter_conditions.append("primary_topic.field.id:16")
-    if title_only:
+    if title_only and not semantic:
         filter_conditions.append(f"title.search:{query}")
         
     polite_email = email.strip() if email else "henryvarley@outlook.com"
@@ -181,14 +327,21 @@ def download_papers_from_openalex(
         headers["api_key"] = openalex_key
     
     params = {
-        "per-page": per_page,
-        "cursor": cursor,
+        "per-page": min(per_page, 50),
         "filter": ",".join(filter_conditions),
         "mailto": polite_email
     }
+    if not semantic:
+        params["cursor"] = cursor
+
     if openalex_key:
         params["api_key"] = openalex_key
-    if not title_only:
+        
+    if semantic:
+        # Semantic search expects natural language text; strip search query syntax quotes
+        clean_semantic_query = re.sub(r'[\"\']', '', query).strip()
+        params["search.semantic"] = clean_semantic_query
+    elif not title_only:
         params["search"] = query
 
         
@@ -211,7 +364,13 @@ def download_papers_from_openalex(
                     last_error_msg = f"HTTP 429 (Rate Limit on attempt {attempt + 1})"
                     time.sleep(4 * (attempt + 1))
                 else:
-                    return None, f"HTTP Error {e.code}: {e.reason}"
+                    try:
+                        err_body = e.read().decode('utf-8', errors='ignore')
+                        err_data = json.loads(err_body)
+                        err_detail = err_data.get("message") or err_data.get("error") or err_body
+                        return None, f"HTTP Error {e.code}: {err_detail}"
+                    except Exception:
+                        return None, f"HTTP Error {e.code}: {e.reason}"
             except Exception as e:
                 last_error_msg = str(e)
                 time.sleep(2)
@@ -238,13 +397,16 @@ def download_papers_from_openalex(
     manifest_papers = []
     downloaded_count = 0
     failed_count = 0
+    skipped_count = 0
+    no_oa_count = 0
+    evaluated_count = 0
     seen_openalex_ids = set()
 
     while downloaded_count < limit:
-        # If current page of works is exhausted, fetch next page using cursor
+        # If current page of works is exhausted, fetch next page using cursor (if not semantic)
         if not page_works:
-            if not cursor:
-                # No more pages available from OpenAlex
+            if not cursor or semantic:
+                # No more pages available from OpenAlex (semantic search returns max 50 results)
                 break
                 
             params["cursor"] = cursor
@@ -269,12 +431,22 @@ def download_papers_from_openalex(
         if year is not None and pub_year and pub_year < year:
             continue
             
-        pdf_urls = extract_all_pdf_urls(work)
-        if not pdf_urls:
-            continue
-            
+        evaluated_count += 1
         title = work.get("title") or "Untitled Paper"
         doi = work.get("doi") or ""
+
+        pdf_urls = extract_all_pdf_urls(work, openalex_key=openalex_key, email=polite_email)
+        if not pdf_urls:
+            no_oa_count += 1
+            yield {
+                "status": "paper_no_oa",
+                "index": downloaded_count + 1,
+                "evaluated": evaluated_count,
+                "target": limit,
+                "title": title,
+                "reason": "No direct Open Access PDF URL available"
+            }
+            continue
 
         year = work.get("publication_year")
         authors = [
@@ -288,6 +460,22 @@ def download_papers_from_openalex(
         clean_title = sanitize_filename(title)
         filename_base = f"{year_str} - {clean_title}"
         filename = f"{filename_base}.pdf"
+
+        # Pre-save check: skip saving if a fuzzy duplicate already exists in output_dir
+        duplicate_match = find_fuzzy_duplicate_in_dir(filename, output_dir)
+        if duplicate_match:
+            skipped_count += 1
+            yield {
+                "status": "paper_skipped",
+                "index": downloaded_count + 1,
+                "target": limit,
+                "title": title,
+                "filename": filename,
+                "matched_filename": duplicate_match,
+                "reason": f"Similar file already exists: {duplicate_match}"
+            }
+            continue
+
         target_filepath = os.path.join(output_dir, filename)
         
         # Prevent filename collisions
@@ -364,8 +552,11 @@ def download_papers_from_openalex(
     manifest_data = {
         "query": query,
         "downloaded_at": datetime.now().isoformat(),
+        "total_evaluated": evaluated_count,
         "total_downloaded": downloaded_count,
         "total_failed": failed_count,
+        "total_skipped": skipped_count,
+        "total_no_oa": no_oa_count,
         "papers": manifest_papers
     }
     with open(manifest_path, "w", encoding="utf-8") as f:
@@ -373,8 +564,11 @@ def download_papers_from_openalex(
         
     yield {
         "status": "complete",
+        "evaluated_count": evaluated_count,
         "downloaded_count": downloaded_count,
         "failed_count": failed_count,
+        "skipped_count": skipped_count,
+        "no_oa_count": no_oa_count,
         "output_dir": output_dir,
         "manifest_path": manifest_path,
         "elapsed_time": time.time() - start_time

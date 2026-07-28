@@ -552,9 +552,10 @@ def combine(input_dir, output, model, cache_path, pdf_dir):
 @click.option('--types', '-t', type=str, default="article,dataset,report", help="Comma-separated work types to include (e.g. article,dataset,report).")
 @click.option('--chemistry-only/--all-subjects', '-c', default=True, help="Restrict search specifically to Chemistry concept domain.")
 @click.option('--title-only', is_flag=True, default=False, help="Restrict keyword search strictly to paper titles.")
+@click.option('--semantic', is_flag=True, default=False, help="Use OpenAlex AI Semantic Search (search.semantic) instead of keyword search.")
 @click.option('--email', '-e', type=str, default=None, help="Email address for OpenAlex polite pool rate limits.")
 @click.option('--open-access-only/--all-papers', default=True, help="Limit to open access papers with direct PDF links.")
-def download(query, name, output_dir, limit, year, types, chemistry_only, title_only, email, open_access_only):
+def download(query, name, output_dir, limit, year, types, chemistry_only, title_only, semantic, email, open_access_only):
     """Download relevant scientific papers in bulk from OpenAlex into a corpus directory."""
     from chemstractor.commands.download import download_command
     download_command(
@@ -566,6 +567,7 @@ def download(query, name, output_dir, limit, year, types, chemistry_only, title_
         types=types,
         chemistry_only=chemistry_only,
         title_only=title_only,
+        semantic=semantic,
         email=email,
         open_access_only=open_access_only
     )

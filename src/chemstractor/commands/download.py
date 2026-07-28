@@ -20,6 +20,7 @@ def download_command(
     types: str = None,
     chemistry_only: bool = False,
     title_only: bool = False,
+    semantic: bool = False,
     email: str = None
 ):
     """CLI execution layer for downloading papers via OpenAlex."""
@@ -44,7 +45,9 @@ def download_command(
         console.print(f"[bold cyan]Work Types:[/bold cyan] {', '.join(parsed_types)}")
     if chemistry_only:
         console.print(f"[bold cyan]Field Filter:[/bold cyan] Chemistry Field (topics.field.id:16)")
-    if title_only:
+    if semantic:
+        console.print(f"[bold cyan]Search Scope:[/bold cyan] Semantic AI Vector Search (search.semantic)")
+    elif title_only:
         console.print(f"[bold cyan]Search Scope:[/bold cyan] Strict Title Only")
     if email:
         console.print(f"[bold cyan]Polite API Pool Email:[/bold cyan] {email}")
@@ -56,6 +59,8 @@ def download_command(
     
     downloaded_papers = []
     failed_papers = []
+    skipped_papers = []
+    no_oa_papers = []
     
     with Live(tree, console=console, auto_refresh=True, refresh_per_second=10):
         current_node = None
@@ -68,12 +73,9 @@ def download_command(
             work_types=parsed_types,
             chemistry_only=chemistry_only,
             title_only=title_only,
+            semantic=semantic,
             email=email
         ):
-
-
-
-
             status = event.get("status")
             
             if status == "searching":
@@ -90,6 +92,16 @@ def download_command(
                 title = event.get("title")
                 current_node = tree.add(Spinner("dots", text=f"[dim]({idx}/{target})[/dim] Downloading: [bold]{title[:60]}...[/bold]"))
 
+            elif status == "paper_no_oa":
+                title = event.get("title")
+                tree.add(f"[dim]↷ {title[:60]} (No direct Open Access PDF URL)[/dim]")
+                no_oa_papers.append(event)
+
+            elif status == "paper_skipped":
+                title = event.get("title")
+                matched = event.get("matched_filename", "existing file")
+                tree.add(f"[yellow]↷[/yellow] [dim]{title[:60]} (Skipped: matches existing '{matched}')[/dim]")
+                skipped_papers.append(event)
                 
             elif status == "paper_success":
                 filename = event.get("filename")
@@ -112,16 +124,31 @@ def download_command(
             elif status == "complete":
                 elapsed = event.get("elapsed_time", 0.0)
                 count = event.get("downloaded_count", 0)
+                evaluated = event.get("evaluated_count", 0)
+                skipped = event.get("skipped_count", 0)
+                failed = event.get("failed_count", 0)
+                no_oa = event.get("no_oa_count", 0)
                 manifest = event.get("manifest_path")
                 
-                summary_node = tree.add(f"[bold green]Complete![/bold green] Downloaded [bold yellow]{count}[/bold yellow] PDFs in {elapsed:.2f}s")
+                if count < limit:
+                    msg = f"[bold green]Complete![/bold green] Downloaded [bold yellow]{count}[/bold yellow] of {limit} requested PDFs in {elapsed:.2f}s [dim](Evaluated {evaluated} candidates: {count} saved, {skipped} duplicate(s) skipped, {failed} failed, {no_oa} no OA PDF link)[/dim]"
+                else:
+                    msg = f"[bold green]Complete![/bold green] Downloaded [bold yellow]{count}[/bold yellow] PDFs in {elapsed:.2f}s [dim](Evaluated {evaluated} candidate works)[/dim]"
+                    
+                summary_node = tree.add(msg)
                 if manifest:
                     summary_node.add(f"Manifest saved to: [dim]{manifest}[/dim]")
                     
     console.print()
     if downloaded_papers:
-        console.print(f"[bold green]Successfully saved {len(downloaded_papers)} papers to:[/bold green] [yellow]{os.path.abspath(output_dir)}[/yellow]")
-        console.print(f"[dim]Run 'chemstractor process-all {output_dir}' to extract chemistry data from this new corpus.[/dim]")
+        console.print(f"[bold green]Successfully saved {len(downloaded_papers)} new paper(s) to:[/bold green] [yellow]{os.path.abspath(output_dir)}[/yellow]")
+        if skipped_papers:
+            console.print(f"[bold yellow]Skipped {len(skipped_papers)} existing duplicate paper(s).[/bold yellow]")
+        if no_oa_papers:
+            console.print(f"[dim]Note: {len(no_oa_papers)} candidate work(s) evaluated did not have a direct Open Access PDF URL available.[/dim]")
+        console.print(f"[dim]Run 'chemstractor process-all {output_dir}' to extract chemistry data from this updated corpus.[/dim]")
+    elif skipped_papers:
+        console.print(f"[bold yellow]All candidate papers already exist in target directory ({len(skipped_papers)} duplicate(s) skipped). No new files saved.[/bold yellow]")
     else:
         console.print("[bold yellow]No papers were successfully downloaded.[/bold yellow]")
     console.print()
