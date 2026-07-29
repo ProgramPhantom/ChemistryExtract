@@ -435,6 +435,8 @@ def process_mark_houwink_entries(
                 clean_entry["a_value"] = a_parsed
             if temp_parsed is not None:
                 clean_entry["temperature_k"] = temp_parsed
+            elif temp_raw is None or temp_raw == "null" or clean_entry.get("temperature_k") is None or clean_entry.get("temperature_k") == "null":
+                clean_entry["temperature_k"] = "Not found"
             clean_entry["failed_fields"] = failed_fields
 
             mh_results.append(clean_entry)
@@ -542,6 +544,8 @@ def process_flory_entries(
                 clean_entry["v_value"] = v_parsed
             if temp_parsed is not None:
                 clean_entry["temperature_k"] = temp_parsed
+            elif temp_raw is None or temp_raw == "null" or clean_entry.get("temperature_k") is None or clean_entry.get("temperature_k") == "null":
+                clean_entry["temperature_k"] = "Not found"
             clean_entry["failed_fields"] = failed_fields
 
             flory_results.append(clean_entry)
