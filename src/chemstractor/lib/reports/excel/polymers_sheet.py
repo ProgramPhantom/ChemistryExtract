@@ -257,6 +257,7 @@ def build_polymers_sheet(wb, flory_entries: list, font_family: str = "Segoe UI")
 
             chart_flory.width = 18
             chart_flory.height = 13
+            chart_flory.visible_cells_only = True
 
             for row_offset, entry in enumerate(sorted_flory_poly):
                 r = start_data_row + row_offset
@@ -276,6 +277,9 @@ def build_polymers_sheet(wb, flory_entries: list, font_family: str = "Segoe UI")
             ws_poly.add_chart(chart_flory, "E2")
         except Exception:
             pass
+
+    # Enable native Excel AutoFilter on the main data table
+    ws_poly.auto_filter.ref = f"A{header_row}:I{max(end_data_row, start_data_row)}"
 
     # Auto-adjust column widths (excluding hidden helper columns)
     for col in ws_poly.columns:
