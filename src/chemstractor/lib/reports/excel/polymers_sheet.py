@@ -173,6 +173,68 @@ def build_polymers_sheet(wb, flory_entries: list, font_family: str = "Segoe UI")
     val_count.alignment = left_align
     val_count.border = data_border
 
+    # Matplotlib Plot control button row
+    lbl_plot = ws_poly.cell(row=6, column=2, value="Matplotlib Plot:")
+    lbl_plot.font = label_font
+    lbl_plot.alignment = Alignment(horizontal="right", vertical="center")
+    lbl_plot.border = data_border
+
+    val_plot = ws_poly.cell(row=6, column=3, value="Generate / Refresh Plot")
+    val_plot.font = Font(name=font_family, size=10, bold=True, color="1F497D")
+    val_plot.alignment = center_align
+    val_plot.fill = PatternFill(start_color="DCE6F1", end_color="DCE6F1", fill_type="solid")
+    val_plot.border = data_border
+
+    # Python in Excel Matplotlib plot formula placed in cell E2
+    py_plot_code = (
+        '=PY("'
+        'import matplotlib.pyplot as plt\n'
+        'poly = xl(\'C3\')\n'
+        'solv = xl(\'C4\')\n'
+        'poly_clean = poly.split(\' (\')[0] if poly and str(poly) != \'All\' and not str(poly).startswith(\'All\') else None\n'
+        'solv_clean = solv.split(\' (\')[0] if solv and str(solv) != \'All\' and not str(solv).startswith(\'All\') else None\n'
+        f'df = xl(\'A{header_row}:I{max(end_data_row, start_data_row)}\', headers=True)\n'
+        'fig, ax = plt.subplots(figsize=(7.5, 5.0), dpi=300)\n'
+        'colors = [\'#1f77b4\', \'#ff7f0e\', \'#2ca02c\', \'#d62728\', \'#9467bd\', \'#8c564b\', \'#e377c2\', \'#7f7f7f\', \'#bcbd22\', \'#17becf\', \'#319795\', \'#d69e2e\', \'#805ad5\', \'#dd6b20\', \'#3182ce\']\n'
+        'valid_count = 0\n'
+        'for idx, row in df.iterrows():\n'
+        '    p = str(row[\'Polymer (Clean)\'])\n'
+        '    s = str(row[\'Solvent (Clean)\'])\n'
+        '    c_val = row[\'c Value (log Constant)\']\n'
+        '    v_val = row[\'v Value (Scaling Exponent)\']\n'
+        '    if poly_clean and p != poly_clean:\n'
+        '        continue\n'
+        '    if solv_clean and s != solv_clean:\n'
+        '        continue\n'
+        '    try:\n'
+        '        c = float(c_val)\n'
+        '        v = float(v_val)\n'
+        '        y3 = c - v * 3\n'
+        '        y6 = c - v * 6\n'
+        '        if poly_clean and not solv_clean:\n'
+        '            label = s\n'
+        '        elif solv_clean and not poly_clean:\n'
+        '            label = p\n'
+        '        else:\n'
+        '            label = f\'{p} in {s}\'\n'
+        '        color = colors[valid_count % len(colors)]\n'
+        '        ax.plot([3, 6], [y3, y6], label=label, color=color, linewidth=2.0, alpha=0.9)\n'
+        '        valid_count += 1\n'
+        '    except (ValueError, TypeError):\n'
+        '        continue\n'
+        'if valid_count > 0:\n'
+        '    ax.set_title(\'Flory Calibration Curves (Interactive log-log Plot)\', pad=12)\n'
+        '    ax.set_xlabel(\'log10(M / g mol-1)\')\n'
+        '    ax.set_ylabel(\'log10(D / m2 s-1)\')\n'
+        '    ax.set_xticks([3, 4, 5, 6])\n'
+        '    ax.grid(True, linestyle=\'--\', alpha=0.6, color=\'#cbd5e0\')\n'
+        '    ax.spines[\'top\'].set_visible(False)\n'
+        '    ax.spines[\'right\'].set_visible(False)\n'
+        '    ax.legend(bbox_to_anchor=(1.04, 1), loc=\'upper left\', frameon=True, facecolor=\'#f7fafc\', edgecolor=\'#e2e8f0\', fontsize=8.5)\n'
+        'plt.gcf()")'
+    )
+    ws_poly.cell(row=2, column=5, value=py_plot_code)
+
     # 2. Main Data Table Header (Row 69)
     headers_poly = [
         "Polymer (Clean)", "Solvent (Clean)", "Temperature (K)", 
@@ -215,68 +277,16 @@ def build_polymers_sheet(wb, flory_entries: list, font_family: str = "Segoe UI")
         ws_poly.cell(row=r, column=8, value=entry.get("source_paper", "")).font = val_font
         ws_poly.cell(row=r, column=9, value=entry.get("table_name", "")).font = val_font
 
-        # Dynamic Series Title in Column J (col 10) for plot legend (always non-empty to prevent blank legend icons)
-        title_formula = (
-            f"IF(AND(OR(LEFT($C$3, 3)=\"All\", $C$3=\"\"), OR(LEFT($C$4, 3)=\"All\", $C$4=\"\")), A{r} & \" in \" & B{r}, "
-            f"IF(OR(LEFT($C$3, 3)<>\"All\", $C$3<=\"\"), B{r}, A{r}))"
-        )
-        ws_poly.cell(row=r, column=10, value=f"={title_formula}").font = val_font
-
         if isinstance(c_val, (int, float)) and isinstance(v_val, (int, float)):
             y_vals.append(c_val - v_val * 3)
             y_vals.append(c_val - v_val * 6)
 
-        for c in [1, 2, 8, 9, 10]:
+        for c in [1, 2, 8, 9]:
             ws_poly.cell(row=r, column=c).alignment = left_align
             ws_poly.cell(row=r, column=c).border = data_border
         for c in range(3, 8):
             ws_poly.cell(row=r, column=c).alignment = right_align
             ws_poly.cell(row=r, column=c).border = data_border
-
-    # 3. Interactive Flory Line Chart
-    if sorted_flory_poly:
-        try:
-            from openpyxl.chart.series import SeriesLabel
-            from openpyxl.chart.data_source import StrRef
-
-            chart_flory = LineChart()
-            chart_flory.title = "Flory Calibration Curves (Interactive log-log Plot)"
-            chart_flory.style = 13
-            chart_flory.x_axis.title = "log(M / g mol⁻¹)"
-            chart_flory.y_axis.title = "log(D / m² s⁻¹)"
-            chart_flory.x_axis.delete = False
-            chart_flory.y_axis.delete = False
-            chart_flory.x_axis.tickLblPos = "low"
-            chart_flory.y_axis.tickLblPos = "nextTo"
-
-            if y_vals:
-                min_y = min(y_vals)
-                max_y = max(y_vals)
-                chart_flory.y_axis.scaling.min = float(f"{min_y - 0.5:.2f}")
-                chart_flory.y_axis.scaling.max = float(f"{max_y + 0.5:.2f}")
-
-            chart_flory.width = 18
-            chart_flory.height = 13
-            chart_flory.visible_cells_only = True
-
-            for row_offset, entry in enumerate(sorted_flory_poly):
-                r = start_data_row + row_offset
-                series_ref = Reference(ws_poly, min_col=6, max_col=7, min_row=r, max_row=r)
-                series = Series(series_ref)
-                series.title = SeriesLabel(strRef=StrRef(f=f"Polymers!$J${r}"))
-                chart_flory.append(series)
-
-            cats_ref = Reference(ws_poly, min_col=6, max_col=7, min_row=header_row, max_row=header_row)
-            chart_flory.set_categories(cats_ref)
-
-            colors = ["1F497D", "C0504D", "9BBB59", "8064A2", "F79646", "4BACC6", "E26B0A", "7030A0", "00B0F0"]
-            for s_idx, series in enumerate(chart_flory.series):
-                color = colors[s_idx % len(colors)]
-                series.graphicalProperties.line = openpyxl.drawing.line.LineProperties(solidFill=color)
-
-            ws_poly.add_chart(chart_flory, "E2")
-        except Exception:
-            pass
 
     # Enable native Excel AutoFilter on the main data table
     ws_poly.auto_filter.ref = f"A{header_row}:I{max(end_data_row, start_data_row)}"

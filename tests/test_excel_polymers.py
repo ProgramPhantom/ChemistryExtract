@@ -75,6 +75,13 @@ def test_polymers_sheet_generation(tmp_path):
     assert "COUNTIFS" in str(ws["N2"].value)
     assert "COUNTIFS" in str(ws["O2"].value)
     
+    # Check Matplotlib Plot Control Button
+    assert ws["B6"].value == "Matplotlib Plot:"
+    assert ws["C6"].value == "Generate / Refresh Plot"
+    
+    # Check Python in Excel formula in cell E2
+    assert str(ws["E2"].value).startswith("=PY(")
+
     # Check Table row 69 headers and row 70 data
     assert ws.cell(row=69, column=1).value == "Polymer (Clean)"
     assert ws.cell(row=69, column=8).value == "Source Paper"
@@ -88,13 +95,5 @@ def test_polymers_sheet_generation(tmp_path):
     assert formula_f.startswith("=IF(AND(OR(LEFT($C$3")
     assert "D70-E70*3, NA())" in formula_f
 
-    # Check dynamic series title formula in Column J
-    formula_j = ws.cell(row=70, column=10).value
-    assert formula_j.startswith("=IF(AND(OR(LEFT($C$3")
-
-    # Check Chart presence and dynamic series titles
-    assert len(ws._charts) == 1
-    chart = ws._charts[0]
-    title_text = chart.title.tx.rich.p[0].r[0].t if (chart.title and chart.title.tx and chart.title.tx.rich) else str(chart.title)
-    assert title_text == "Flory Calibration Curves (Interactive log-log Plot)"
-    assert "$J$" in chart.series[0].title.strRef.f
+    # Native Excel chart replaced by Python in Excel Matplotlib formula
+    assert len(ws._charts) == 0
