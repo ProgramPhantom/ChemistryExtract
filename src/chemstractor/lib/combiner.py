@@ -99,7 +99,7 @@ def find_fuzzy_match(dirty_name: str, cache: dict, threshold: float = 0.9) -> st
     return None
 
 
-def select_from_existing_names(dirty_name: str, clean_names: list[str], ai_instance) -> str:
+def select_from_existing_names(dirty_name: str, clean_names: list[str], ai_instance, target_type: str = "chemical") -> str:
     """Uses the AI to match the dirty name against existing clean names using a dynamic Literal schema."""
     if not clean_names:
         return "not found"
@@ -113,16 +113,17 @@ def select_from_existing_names(dirty_name: str, clean_names: list[str], ai_insta
         match: LiteralType
 
     prompt = (
-        f"You are a chemistry data specialist. We have a dirty or variant chemical name extracted from a paper.\n"
-        f"Your task is to identify if it matches or refers to one of the clean, canonical chemical names listed below.\n\n"
-        f"Dirty Chemical Name: '{dirty_name}'\n\n"
-        f"Canonical Options:\n" + "\n".join(f"- {name}" for name in clean_names) + "\n\n"
-        f"If the dirty name refers to one of the canonical options, select that option exactly.\n"
+        f"You are a chemistry data specialist. We have a raw or variant input text extracted from scientific literature.\n"
+        f"Your task is to identify if it refers to or contains one of the clean, canonical {target_type} names listed below.\n\n"
+        f"Raw Input Text: '{dirty_name}'\n"
+        f"Target Chemical Type: {target_type}\n\n"
+        f"Canonical {target_type.capitalize()} Options:\n" + "\n".join(f"- {name}" for name in clean_names) + "\n\n"
+        f"If the raw input text refers to or contains one of the canonical {target_type} options, select that option exactly.\n"
         f"If it does not match any of the canonical options, select 'not found'."
     )
 
     system_instruction = (
-        "You must select exactly one of the provided canonical chemical name options, or 'not found' if there is no match. "
+        f"You must select exactly one of the provided canonical {target_type} options, or 'not found' if there is no match. "
         "Do not make up new names in this step."
     )
 
@@ -179,8 +180,8 @@ def check_prepopulated_error(val: typing.Any, valid_errors: list[str] = ALL_ERRO
     return None
 
 
-def generate_new_clean_chemical_name(dirty_name: str, ai_instance) -> str:
-    """Uses the AI to generate a new canonical name for a chemical string, or 'Invalid chemical' if it is not a valid chemical."""
+def generate_new_clean_chemical_name(dirty_name: str, ai_instance, target_type: str = "chemical") -> str:
+    """Uses the AI to generate a new canonical name for a chemical string based on target_type, or 'Invalid chemical' if it is not valid."""
     class ChemicalGeneration(BaseModel):
         clean_name: str
 
@@ -189,20 +190,22 @@ def generate_new_clean_chemical_name(dirty_name: str, ai_instance) -> str:
         return "Invalid chemical"
 
     prompt = (
-        f"You are an expert chemist. You will be given a raw, dirty, or abbreviated chemical name extracted from scientific literature.\n"
-        f"CRITICAL WARNING: The input text may contain hallucinations, corrupt OCR fragments, noise, or nonsense text fragments (e.g., 'uma') resulting from previous extraction steps.\n\n"
-        f"Raw chemical name: '{dirty_name_str}'\n\n"
+        f"You are an expert chemist. You will be given a raw, dirty, or abbreviated text fragment extracted from scientific literature.\n"
+        f"Your specific goal is to extract and standardize ONLY the compound corresponding to the target chemical type: '{target_type}'.\n"
+        f"CRITICAL WARNING: The input text may contain hallucinations, corrupt OCR fragments, noise, or mixture text (e.g. 'PS in acetone', 'PMMA in CDCl3 below 30 kD').\n\n"
+        f"Raw Input String: '{dirty_name_str}'\n"
+        f"Target Chemical Type: {target_type}\n\n"
         f"Rules:\n"
-        f"1. Create a clean, nicely formatted chemical name using standard nomenclature ONLY IF the input string clearly and unambiguously represents a specific polymer or solvent compound (or standard acronym/variant, e.g., 'PMMA' to 'poly(methyl methacrylate)', 'T0luene' to 'toluene', 'CDCl3' to 'chloroform-d').\n"
-        f"2. DO NOT GUESS OR HALLUCINATE: You MUST NOT invent, hallucinate, or extrapolate a chemical name from a corrupt string, nonsense fragment, or unrecognized word. For example, if given a hallucinated fragment like 'uma', DO NOT guess '1,2,4-trichlorobenzene' or any other solvent/polymer. You MUST respond exactly with 'Invalid chemical'.\n"
-        f"3. If the input is not a specific polymer or solvent chemical compound—for instance, if it refers to general material or biological categories (e.g., 'globular proteins', 'finite rods', 'polyelectrolytes'), non-chemical text (e.g. noise, page numbers, citations), corrupt text fragments (e.g. 'uma'), or ambiguous non-specific classes—you MUST respond exactly with 'Invalid chemical'.\n"
+        f"1. Extract ONLY the specific {target_type} compound from the input string, ignoring other chemical types, solvent phrases (e.g. 'in acetone'), molecular weight conditions, or extra text. Format it using standard clean chemical nomenclature (e.g., 'PMMA' to 'poly(methyl methacrylate)', 'T0luene' to 'toluene', 'CDCl3' to 'chloroform-d').\n"
+        f"2. DO NOT FORCE MATCHES: If the raw input string does NOT contain or unambiguously represent a valid {target_type} (e.g. if target is '{target_type}' but the text is a non-chemical category like 'globular proteins', noise, citation, or unrelated text), you MUST NOT invent or force a {target_type} name. You MUST respond exactly with 'Invalid chemical'.\n"
+        f"3. DO NOT GUESS OR HALLUCINATE: You MUST NOT invent, extrapolate, or guess a chemical name from corrupt text fragments (e.g. 'uma'). You MUST respond exactly with 'Invalid chemical'.\n"
         f"4. Do not include extra text, explanations, or quotes."
     )
 
     system_instruction = (
-        "Generate a clean, standard chemical name if the input is a valid chemical or standard acronym. "
-        "Strictly respond with 'Invalid chemical' if the text is a hallucinated fragment (e.g. 'uma'), corrupt/nonsense string, or non-specific category. "
-        "NEVER invent or guess a chemical compound for ambiguous or corrupt text."
+        f"Extract and generate a clean standard {target_type} name if the input string contains a valid {target_type} or standard acronym. "
+        f"Do NOT force the input string to become a {target_type} if it does not represent one. "
+        f"Strictly respond with 'Invalid chemical' if the text is a hallucinated fragment, corrupt text, noise, or non-{target_type} category."
     )
 
     res = ai_instance.prompt(
@@ -221,9 +224,9 @@ def generate_new_clean_chemical_name(dirty_name: str, ai_instance) -> str:
         return "Invalid chemical"
 
 
-def homogenise_chemical(raw_name: str, cache: dict, ai_instance, stats: dict) -> tuple[str, str, str]:
+def homogenise_chemical(raw_name: str, cache: dict, ai_instance, stats: dict, target_type: str = "chemical") -> tuple[str, str, str]:
     """
-    Homogenises a raw name and updates stats.
+    Homogenises a raw name for a specified target_type ('polymer', 'solvent', or 'chemical') and updates stats.
     Returns:
     (clean_name, source, fail_reason)
     source is one of "cache", "ai_match", "ai_generate", or "fail".
@@ -249,11 +252,10 @@ def homogenise_chemical(raw_name: str, cache: dict, ai_instance, stats: dict) ->
         # 1. Check cache (including fuzzy matches)
         cached_val = find_fuzzy_match(raw_name_clean, cache)
         if cached_val:
+            stats["cache_hits"] += 1
             if cached_val.lower() in ("invalid chemical", "n/a", "not found"):
-                stats["cache_hits"] += 1
                 stats["failed"] += 1
                 return raw_name_clean, "fail", "Invalid chemical"
-            stats["cache_hits"] += 1
             return cached_val, "cache", ""
 
         # 2. Select from existing clean names in the cache
@@ -262,7 +264,7 @@ def homogenise_chemical(raw_name: str, cache: dict, ai_instance, stats: dict) ->
 
         match_val = "not found"
         if clean_names:
-            match_val = select_from_existing_names(raw_name_clean, clean_names, ai_instance)
+            match_val = select_from_existing_names(raw_name_clean, clean_names, ai_instance, target_type=target_type)
 
         if match_val != "not found" and match_val in clean_names:
             cache[raw_name_clean] = match_val
@@ -270,7 +272,7 @@ def homogenise_chemical(raw_name: str, cache: dict, ai_instance, stats: dict) ->
             return match_val, "ai_match", ""
 
         # 3. Generate new clean name
-        generated_val = generate_new_clean_chemical_name(raw_name_clean, ai_instance)
+        generated_val = generate_new_clean_chemical_name(raw_name_clean, ai_instance, target_type=target_type)
         if not generated_val or generated_val.lower() in ("invalid chemical", "n/a", "not found"):
             cache[raw_name_clean] = "Invalid chemical"
             stats["failed"] += 1
@@ -315,6 +317,8 @@ def check_entry_data_errors(entry: dict, data_fields: list[str], paper_name: str
                     "reason": err
                 })
     return failed_data_dict
+
+
 def try_parse_float(val: typing.Any) -> float | None:
     """Attempts to parse a value into a float, returning None if not possible."""
     if val is None:
@@ -354,11 +358,11 @@ def process_mark_houwink_entries(
             solvent_raw = entry.get("solvent", "")
 
             poly_clean, poly_source, poly_fail_reason = homogenise_chemical(
-                polymer_raw, cache, ai_instance, stats
+                polymer_raw, cache, ai_instance, stats, target_type="polymer"
             )
 
             solv_clean, solv_source, solv_fail_reason = homogenise_chemical(
-                solvent_raw, cache, ai_instance, stats
+                solvent_raw, cache, ai_instance, stats, target_type="solvent"
             )
 
             temp_raw = entry.get("temperature_k")
@@ -446,11 +450,11 @@ def process_flory_entries(
             solvent_raw = entry.get("solvent", "")
 
             poly_clean, poly_source, poly_fail_reason = homogenise_chemical(
-                polymer_raw, cache, ai_instance, stats
+                polymer_raw, cache, ai_instance, stats, target_type="polymer"
             )
 
             solv_clean, solv_source, solv_fail_reason = homogenise_chemical(
-                solvent_raw, cache, ai_instance, stats
+                solvent_raw, cache, ai_instance, stats, target_type="solvent"
             )
 
             temp_raw = entry.get("temperature_k")
@@ -653,7 +657,6 @@ def load_and_homogenise(processors: list[PDFProcessor], cache_path: str, ai_inst
     }
 
 
-
 def sort_and_save(
     all_processors: list[PDFProcessor],
     input_dir: str,
@@ -813,4 +816,3 @@ def sort_and_save(
                 pass
 
     return counts
-
