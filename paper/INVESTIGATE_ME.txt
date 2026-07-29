@@ -20,6 +20,10 @@ https://github.com/sciknoworg/scikgextract
 # Weaknesses:
 Requires coding knowledge to interact with the library. Custom extraction pipelines require configuration and 
 execution of the library in custom python files.
+Hard to use. No proper instructions on how to use it.
+AI overuse. Very large prompts and heavy use of AI make it unfeasible to use on limited hardware.
+Uses LLM as a judge refinement, which scans over the data again and determines if it is accurate. 
+
 
 https://pubs.acs.org/doi/10.1021/acs.jcim.6c00374
 https://github.com/arwalkerlab/LoA-Stable
