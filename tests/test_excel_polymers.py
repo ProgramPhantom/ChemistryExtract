@@ -90,7 +90,7 @@ def test_polymers_sheet_generation(tmp_path):
 
     # Check dynamic series title formula in Column J
     formula_j = ws.cell(row=70, column=10).value
-    assert formula_j.startswith("=IF(ISNA(F70)")
+    assert formula_j.startswith("=IF(AND(OR(LEFT($C$3")
 
     # Check Chart presence and dynamic series titles
     assert len(ws._charts) == 1

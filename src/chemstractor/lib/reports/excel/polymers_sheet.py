@@ -215,11 +215,10 @@ def build_polymers_sheet(wb, flory_entries: list, font_family: str = "Segoe UI")
         ws_poly.cell(row=r, column=8, value=entry.get("source_paper", "")).font = val_font
         ws_poly.cell(row=r, column=9, value=entry.get("table_name", "")).font = val_font
 
-        # Dynamic Series Title in Column J (col 10) for plot legend
+        # Dynamic Series Title in Column J (col 10) for plot legend (always non-empty to prevent blank legend icons)
         title_formula = (
-            f"IF(ISNA(F{r}), \"\", "
             f"IF(AND(OR(LEFT($C$3, 3)=\"All\", $C$3=\"\"), OR(LEFT($C$4, 3)=\"All\", $C$4=\"\")), A{r} & \" in \" & B{r}, "
-            f"IF(OR(LEFT($C$3, 3)<>\"All\", $C$3<=\"\"), B{r}, A{r})))"
+            f"IF(OR(LEFT($C$3, 3)<>\"All\", $C$3<=\"\"), B{r}, A{r}))"
         )
         ws_poly.cell(row=r, column=10, value=f"={title_formula}").font = val_font
 
