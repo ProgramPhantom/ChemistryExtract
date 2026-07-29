@@ -109,8 +109,8 @@ def build_polymers_sheet(wb, flory_entries: list, font_family: str = "Segoe UI")
     for idx, p in enumerate(unique_polymers[1:], start=3):
         ws_poly.cell(row=idx, column=15, value=f'=L{idx} & " (" & COUNTIFS({data_range_a}, L{idx}, {data_range_b}, {sel_solv_clean}) & ")"').font = val_font
 
-    # Hide helper columns L, M, N, O
-    for c_letter in ("L", "M", "N", "O"):
+    # Hide helper columns J, L, M, N, O
+    for c_letter in ("J", "L", "M", "N", "O"):
         ws_poly.column_dimensions[c_letter].hidden = True
 
     # 1. Interactive Control Panel (Rows 2 - 5, Columns B & C)
@@ -215,11 +215,19 @@ def build_polymers_sheet(wb, flory_entries: list, font_family: str = "Segoe UI")
         ws_poly.cell(row=r, column=8, value=entry.get("source_paper", "")).font = val_font
         ws_poly.cell(row=r, column=9, value=entry.get("table_name", "")).font = val_font
 
+        # Dynamic Series Title in Column J (col 10) for plot legend
+        title_formula = (
+            f"IF(ISNA(F{r}), \"\", "
+            f"IF(AND(OR(LEFT($C$3, 3)=\"All\", $C$3=\"\"), OR(LEFT($C$4, 3)=\"All\", $C$4=\"\")), A{r} & \" in \" & B{r}, "
+            f"IF(OR(LEFT($C$3, 3)<>\"All\", $C$3<=\"\"), B{r}, A{r})))"
+        )
+        ws_poly.cell(row=r, column=10, value=f"={title_formula}").font = val_font
+
         if isinstance(c_val, (int, float)) and isinstance(v_val, (int, float)):
             y_vals.append(c_val - v_val * 3)
             y_vals.append(c_val - v_val * 6)
 
-        for c in [1, 2, 8, 9]:
+        for c in [1, 2, 8, 9, 10]:
             ws_poly.cell(row=r, column=c).alignment = left_align
             ws_poly.cell(row=r, column=c).border = data_border
         for c in range(3, 8):
@@ -229,6 +237,9 @@ def build_polymers_sheet(wb, flory_entries: list, font_family: str = "Segoe UI")
     # 3. Interactive Flory Line Chart
     if sorted_flory_poly:
         try:
+            from openpyxl.chart.series import SeriesLabel
+            from openpyxl.chart.data_source import StrRef
+
             chart_flory = LineChart()
             chart_flory.title = "Flory Calibration Curves (Interactive log-log Plot)"
             chart_flory.style = 13
@@ -251,8 +262,8 @@ def build_polymers_sheet(wb, flory_entries: list, font_family: str = "Segoe UI")
             for row_offset, entry in enumerate(sorted_flory_poly):
                 r = start_data_row + row_offset
                 series_ref = Reference(ws_poly, min_col=6, max_col=7, min_row=r, max_row=r)
-                solv_str = entry.get('solvent_name', entry.get('solvent'))
-                series = Series(series_ref, title=f"{entry.get('polymer_name')} in {solv_str}")
+                series = Series(series_ref)
+                series.title = SeriesLabel(strRef=StrRef(f=f"Polymers!$J${r}"))
                 chart_flory.append(series)
 
             cats_ref = Reference(ws_poly, min_col=6, max_col=7, min_row=header_row, max_row=header_row)
@@ -270,7 +281,7 @@ def build_polymers_sheet(wb, flory_entries: list, font_family: str = "Segoe UI")
     # Auto-adjust column widths (excluding hidden helper columns)
     for col in ws_poly.columns:
         col_letter = get_column_letter(col[0].column)
-        if col_letter in ("L", "M", "N", "O"):
+        if col_letter in ("J", "L", "M", "N", "O"):
             continue
         vals = [str(cell.value or '') for cell in col if cell.row >= header_row or cell.column in (1, 2, 3)]
         max_len = max(len(v) for v in vals) if vals else 10
