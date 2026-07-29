@@ -47,8 +47,8 @@ def build_flory_sheet(wb, flory_entries: list, font_family: str = "Segoe UI") ->
         ws_flory.cell(row=r, column=2, value=entry.get("table_name", "")).font = val_font
         ws_flory.cell(row=r, column=3, value=entry.get("polymer_name_original", "")).font = val_font
         ws_flory.cell(row=r, column=4, value=entry.get("polymer_name", "")).font = val_font
-        ws_flory.cell(row=r, column=5, value=entry.get("solvent_original", "")).font = val_font
-        ws_flory.cell(row=r, column=6, value=entry.get("solvent", "")).font = val_font
+        ws_flory.cell(row=r, column=5, value=entry.get("solvent_name_original", entry.get("solvent_original", ""))).font = val_font
+        ws_flory.cell(row=r, column=6, value=entry.get("solvent_name", entry.get("solvent", ""))).font = val_font
         
         temp = entry.get("temperature_k")
         ws_flory.cell(row=r, column=7, value=float(temp) if isinstance(temp, (int, float)) else temp).font = val_font
@@ -80,7 +80,8 @@ def build_flory_sheet(wb, flory_entries: list, font_family: str = "Segoe UI") ->
             ws_flory.cell(row=r, column=15, value=f"=H{r}-J{r}*6").font = val_font
             
             if not has_failed:
-                pair = (entry.get("solvent"), entry.get("polymer_name"))
+                solv_str = entry.get("solvent_name", entry.get("solvent"))
+                pair = (solv_str, entry.get("polymer_name"))
                 flory_counts[pair] = flory_counts.get(pair, 0) + 1
             
         for c in [1, 2, 3, 4, 5, 6, 9, 11, 12, 13]:
@@ -159,7 +160,8 @@ def build_flory_sheet(wb, flory_entries: list, font_family: str = "Segoe UI") ->
                 has_failed = is_entry_failed(entry)
                 if c_val is not None and v_val is not None and not has_failed:
                     series_ref = Reference(ws_flory, min_col=14, max_col=15, min_row=r, max_row=r)
-                    series = Series(series_ref, title=f"{entry.get('polymer_name')} in {entry.get('solvent')}")
+                    solv_str = entry.get('solvent_name', entry.get('solvent'))
+                    series = Series(series_ref, title=f"{entry.get('polymer_name')} in {solv_str}")
                     chart_flory.append(series)
                     
             cats_ref = Reference(ws_flory, min_col=14, max_col=15, min_row=1, max_row=1)

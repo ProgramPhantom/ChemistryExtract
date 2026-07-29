@@ -369,6 +369,7 @@ def process_mark_houwink_entries(
                 solvent_raw, cache, ai_instance, stats, target_type="solvent"
             )
 
+            # Parse temperature and check for pre-populated error
             temp_raw = entry.get("temperature_k")
             temp_parsed = try_parse_float(temp_raw)
             temp_missing = (
@@ -378,9 +379,17 @@ def process_mark_houwink_entries(
 
             k_raw = entry.get("K_value")
             k_parsed = try_parse_float(k_raw)
+            k_missing = (
+                k_parsed is None or
+                check_prepopulated_error(k_raw, DATA_ERROR_TYPES) is not None
+            )
 
             a_raw = entry.get("a_value")
             a_parsed = try_parse_float(a_raw)
+            a_missing = (
+                a_parsed is None or
+                check_prepopulated_error(a_raw, DATA_ERROR_TYPES) is not None
+            )
 
             entry_for_validation = entry.copy()
             if k_parsed is not None:
@@ -390,15 +399,15 @@ def process_mark_houwink_entries(
 
             bounds_failed = validate_mark_houwink_entry(entry_for_validation)
 
-            k_invalid = (
-                k_parsed is None or
-                check_prepopulated_error(k_raw, DATA_ERROR_TYPES) is not None or
+            k_out_of_range = (
+                k_parsed is not None and
+                check_prepopulated_error(k_raw, DATA_ERROR_TYPES) is None and
                 bounds_failed.get("K_value_out_of_range", False)
             )
 
-            a_invalid = (
-                a_parsed is None or
-                check_prepopulated_error(a_raw, DATA_ERROR_TYPES) is not None or
+            a_out_of_range = (
+                a_parsed is not None and
+                check_prepopulated_error(a_raw, DATA_ERROR_TYPES) is None and
                 bounds_failed.get("a_value_out_of_range", False)
             )
 
@@ -406,16 +415,18 @@ def process_mark_houwink_entries(
                 "solvent_name": bool(solv_fail_reason or solv_clean in (None, "N/A", "Invalid chemical")),
                 "polymer_name": bool(poly_fail_reason or poly_clean in (None, "N/A", "Invalid chemical")),
                 "temperature_missing": temp_missing,
-                "K_value_out_of_range": k_invalid,
-                "a_value_out_of_range": a_invalid,
+                "K_value_missing": k_missing,
+                "K_value_out_of_range": k_out_of_range,
+                "a_value_missing": a_missing,
+                "a_value_out_of_range": a_out_of_range,
                 "eta_out_of_range": bounds_failed.get("eta_out_of_range", False)
             }
 
             clean_entry = entry.copy()
             clean_entry["polymer_name_original"] = polymer_raw
             clean_entry["polymer_name"] = poly_clean
-            clean_entry["solvent_original"] = solvent_raw
-            clean_entry["solvent"] = solv_clean
+            clean_entry["solvent_name_original"] = solvent_raw
+            clean_entry["solvent_name"] = solv_clean
             clean_entry["source_paper"] = paper_name
             clean_entry["table_name"] = table_name
             if k_parsed is not None:
@@ -461,6 +472,7 @@ def process_flory_entries(
                 solvent_raw, cache, ai_instance, stats, target_type="solvent"
             )
 
+            # Parse temperature and check for pre-populated error
             temp_raw = entry.get("temperature_k")
             temp_parsed = try_parse_float(temp_raw)
             temp_missing = (
@@ -468,6 +480,7 @@ def process_flory_entries(
                 check_prepopulated_error(temp_raw, DATA_ERROR_TYPES) is not None
             )
 
+            # Parse c value and check for missing/pre-populated error
             c_raw = entry.get("c_value")
             c_parsed = try_parse_float(c_raw)
             c_missing = (
@@ -475,27 +488,42 @@ def process_flory_entries(
                 check_prepopulated_error(c_raw, DATA_ERROR_TYPES) is not None
             )
 
+            # Parse v value and check for missing/pre-populated error
             v_raw = entry.get("v_value")
             v_parsed = try_parse_float(v_raw)
+            v_missing = (
+                v_parsed is None or
+                check_prepopulated_error(v_raw, DATA_ERROR_TYPES) is not None
+            )
 
+            # Convert entry into entry with float values for c and v
             entry_for_validation = entry.copy()
             if c_parsed is not None:
                 entry_for_validation["c_value"] = c_parsed
             if v_parsed is not None:
                 entry_for_validation["v_value"] = v_parsed
 
+            # Check bounds for entry
             bounds_failed = validate_flory_entry(entry_for_validation)
 
-            v_invalid = (
-                v_parsed is None or
-                check_prepopulated_error(v_raw, DATA_ERROR_TYPES) is not None or
+            c_out_of_range = (
+                c_parsed is not None and
+                check_prepopulated_error(c_raw, DATA_ERROR_TYPES) is None and
+                bounds_failed.get("c_value_out_of_range", False)
+            )
+
+            v_out_of_range = (
+                v_parsed is not None and
+                check_prepopulated_error(v_raw, DATA_ERROR_TYPES) is None and
                 bounds_failed.get("v_value_out_of_range", False)
             )
 
             failed_fields = {
                 "solvent_name": bool(solv_fail_reason or solv_clean in (None, "N/A", "Invalid chemical")),
-                "c_value_out_of_range": c_missing,
-                "v_value_out_of_range": v_invalid,
+                "c_value_missing": c_missing,
+                "c_value_out_of_range": c_out_of_range,
+                "v_value_missing": v_missing,
+                "v_value_out_of_range": v_out_of_range,
                 "polymer_name": bool(poly_fail_reason or poly_clean in (None, "N/A", "Invalid chemical")),
                 "temperature_missing": temp_missing,
                 "D_out_of_range": bounds_failed.get("D_out_of_range", False)
@@ -504,8 +532,8 @@ def process_flory_entries(
             clean_entry = entry.copy()
             clean_entry["polymer_name_original"] = polymer_raw
             clean_entry["polymer_name"] = poly_clean
-            clean_entry["solvent_original"] = solvent_raw
-            clean_entry["solvent"] = solv_clean
+            clean_entry["solvent_name_original"] = solvent_raw
+            clean_entry["solvent_name"] = solv_clean
             clean_entry["source_paper"] = paper_name
             clean_entry["table_name"] = table_name
             if c_parsed is not None:
@@ -779,7 +807,7 @@ def sort_and_save(
                                     successful_rows += 1
                             elif isinstance(ff, str) and ff == "None":
                                 poly = entry.get("polymer_name")
-                                solv = entry.get("solvent")
+                                solv = entry.get("solvent_name")
                                 if poly and poly != "N/A" and solv and solv != "N/A":
                                     successful_rows += 1
 

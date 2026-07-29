@@ -22,7 +22,7 @@ def is_flory_entry_valid(entry: dict) -> bool:
     c_val = try_parse_float(entry.get("c_value"))
     v_val = try_parse_float(entry.get("v_value"))
     p_name = entry.get("polymer_name")
-    s_name = entry.get("solvent")
+    s_name = entry.get("solvent_name", entry.get("solvent"))
 
     if c_val is None or v_val is None:
         return False
@@ -71,13 +71,13 @@ def build_polymers_sheet(wb, flory_entries: list, font_family: str = "Segoe UI")
         valid_flory_poly, 
         key=lambda x: (
             (x.get("polymer_name") or "").lower(),
-            (x.get("solvent") or "").lower()
+            (x.get("solvent_name") or x.get("solvent") or "").lower()
         )
     )
 
     # Gather unique polymers and solvents for dropdown lists
     unique_polymers = ["All"] + sorted(list({e.get("polymer_name") for e in sorted_flory_poly if e.get("polymer_name")}))
-    unique_solvents = ["All"] + sorted(list({e.get("solvent") for e in sorted_flory_poly if e.get("solvent")}))
+    unique_solvents = ["All"] + sorted(list({e.get("solvent_name", e.get("solvent")) for e in sorted_flory_poly if e.get("solvent_name", e.get("solvent"))}))
 
     # Populate Data Validation helper columns in Columns L (Polymer list) and M (Solvent list)
     for idx, p in enumerate(unique_polymers, start=2):
@@ -170,7 +170,7 @@ def build_polymers_sheet(wb, flory_entries: list, font_family: str = "Segoe UI")
     for row_offset, entry in enumerate(sorted_flory_poly):
         r = start_data_row + row_offset
         ws_poly.cell(row=r, column=1, value=entry.get("polymer_name", "")).font = val_font
-        ws_poly.cell(row=r, column=2, value=entry.get("solvent", "")).font = val_font
+        ws_poly.cell(row=r, column=2, value=entry.get("solvent_name", entry.get("solvent", ""))).font = val_font
 
         temp = entry.get("temperature_k")
         ws_poly.cell(row=r, column=3, value=float(temp) if isinstance(temp, (int, float)) else temp).font = val_font
@@ -222,7 +222,8 @@ def build_polymers_sheet(wb, flory_entries: list, font_family: str = "Segoe UI")
             for row_offset, entry in enumerate(sorted_flory_poly):
                 r = start_data_row + row_offset
                 series_ref = Reference(ws_poly, min_col=6, max_col=7, min_row=r, max_row=r)
-                series = Series(series_ref, title=f"{entry.get('polymer_name')} in {entry.get('solvent')}")
+                solv_str = entry.get('solvent_name', entry.get('solvent'))
+                series = Series(series_ref, title=f"{entry.get('polymer_name')} in {solv_str}")
                 chart_flory.append(series)
 
             cats_ref = Reference(ws_poly, min_col=6, max_col=7, min_row=header_row, max_row=header_row)

@@ -26,7 +26,8 @@ def generate_flory_calibration_plot(plots_dir: str, flory_entries: list) -> str 
                 y3 = c_val - v_val * 3
                 y6 = c_val - v_val * 6
                 
-                label = f"{entry.get('polymer_name')} in {entry.get('solvent')}"
+                solv_str = entry.get('solvent_name', entry.get('solvent'))
+                label = f"{entry.get('polymer_name')} in {solv_str}"
                 color = COLOR_PALETTE[valid_flory_idx % len(COLOR_PALETTE)]
                 
                 ax.plot(x_vals, [y3, y6], label=label, color=color,

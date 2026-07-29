@@ -28,7 +28,7 @@ def generate_flory_sankey_diagram(plots_dir: str, combined_data: dict) -> list[s
             else:
                 ff = entry.get("failed_fields", "None")
                 poly = entry.get("polymer_name", "")
-                solv = entry.get("solvent", "")
+                solv = entry.get("solvent_name", entry.get("solvent", ""))
                 
                 active_reasons = []
                 if isinstance(ff, dict):

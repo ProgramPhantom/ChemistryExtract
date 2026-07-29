@@ -338,7 +338,7 @@ class TableExtractor:
             
             # Retrieve image locations with their bounding boxes to avoid redacting image links
             try:
-                image_infos = page.get_image_info(rects=True)
+                image_infos = page.get_image_info()
                 image_rects = [fitz.Rect(img["bbox"]) for img in image_infos if "bbox" in img]
             except Exception:
                 image_rects = []

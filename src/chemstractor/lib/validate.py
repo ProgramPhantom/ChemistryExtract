@@ -43,6 +43,7 @@ def validate_flory_entry(entry: dict) -> dict[str, bool]:
     Returns a dict mapping error flag name -> boolean.
     """
     failed_flags = {
+        "c_value_out_of_range": False,
         "v_value_out_of_range": False,
         "D_out_of_range": False
     }

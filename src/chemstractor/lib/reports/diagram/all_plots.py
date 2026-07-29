@@ -46,7 +46,7 @@ def create_plots(output_dir: str, combined_data: dict) -> list[str]:
     for entry in mh_entries:
         ff = entry.get("failed_fields", "None")
         poly = entry.get("polymer_name", "")
-        solv = entry.get("solvent", "")
+        solv = entry.get("solvent_name", entry.get("solvent", ""))
         if isinstance(ff, dict):
             if is_entry_failed(entry):
                 total_mh_failed += 1
@@ -72,7 +72,7 @@ def create_plots(output_dir: str, combined_data: dict) -> list[str]:
     for entry in flory_entries:
         ff = entry.get("failed_fields", "None")
         poly = entry.get("polymer_name", "")
-        solv = entry.get("solvent", "")
+        solv = entry.get("solvent_name", entry.get("solvent", ""))
         if isinstance(ff, dict):
             if is_entry_failed(entry):
                 total_flory_failed += 1

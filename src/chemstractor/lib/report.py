@@ -194,7 +194,8 @@ def create_excel(
                 ws.cell(row=r, column=1).alignment = left_align
                 ws.cell(row=r, column=1).border = data_border
                 
-                ws.cell(row=r, column=2, value=entry.get("solvent")).font = val_font
+                solv_str = entry.get("solvent_name", entry.get("solvent"))
+                ws.cell(row=r, column=2, value=solv_str).font = val_font
                 ws.cell(row=r, column=2).alignment = left_align
                 ws.cell(row=r, column=2).border = data_border
                 
@@ -207,7 +208,7 @@ def create_excel(
                 ws.cell(row=r, column=4).border = data_border
                 
                 # Series name (E)
-                series_name = f"{entry.get('polymer_name')} in {entry.get('solvent')}"
+                series_name = f"{entry.get('polymer_name')} in {solv_str}"
                 s_cell = ws.cell(row=r, column=5, value=series_name)
                 s_cell.font = helper_val_font
                 s_cell.alignment = left_align

@@ -9,7 +9,7 @@ def test_polymers_sheet_generation(tmp_path):
     mock_flory_entries = [
         {
             "polymer_name": "Polystyrene",
-            "solvent": "Toluene",
+            "solvent_name": "Toluene",
             "temperature_k": 298.15,
             "c_value": -10.5,
             "v_value": 0.52,
@@ -17,7 +17,7 @@ def test_polymers_sheet_generation(tmp_path):
         },
         {
             "polymer_name": "Polystyrene",
-            "solvent": "THF",
+            "solvent_name": "THF",
             "temperature_k": 298.15,
             "c_value": -10.8,
             "v_value": 0.55,
@@ -25,7 +25,7 @@ def test_polymers_sheet_generation(tmp_path):
         },
         {
             "polymer_name": "Poly(methyl methacrylate)",
-            "solvent": "Acetone",
+            "solvent_name": "Acetone",
             "temperature_k": 293.15,
             "c_value": -9.9,
             "v_value": 0.48,

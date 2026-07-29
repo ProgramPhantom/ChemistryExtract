@@ -7,9 +7,13 @@ ERROR_SEVERITY_MAP = {
     "solvent_name": {"severity": "deselected", "color": "FFF2CC", "label": "Solvent Identification Failure"},
     
     # Warning / Medium Severity (Yellow fill)
+    "c_value_missing": {"severity": "problem", "color": "FCE4D6", "label": "c_value Missing"},
     "c_value_out_of_range": {"severity": "problem", "color": "FCE4D6", "label": "c_value Out of Range"},
+    "v_value_missing": {"severity": "problem", "color": "FCE4D6", "label": "v_value Missing"},
     "v_value_out_of_range": {"severity": "problem", "color": "FCE4D6", "label": "v_value Out of Range"},
+    "K_value_missing": {"severity": "problem", "color": "FCE4D6", "label": "K_value Missing"},
     "K_value_out_of_range": {"severity": "problem", "color": "FCE4D6", "label": "K_value Out of Range"},
+    "a_value_missing": {"severity": "problem", "color": "FCE4D6", "label": "a_value Missing"},
     "a_value_out_of_range": {"severity": "problem", "color": "FCE4D6", "label": "a_value Out of Range"},
     "D_out_of_range": {"severity": "problem", "color": "FCE4D6", "label": "D Value Out of Range"},
     "eta_out_of_range": {"severity": "problem", "color": "FCE4D6", "label": "log10([eta]) Out of Range"},
@@ -27,7 +31,7 @@ def is_entry_failed(entry: dict) -> bool:
         return any(ff.values())
     elif isinstance(ff, str):
         return ff != "None"
-    return entry.get("polymer_name") in (None, "N/A", "Invalid chemical") or entry.get("solvent") in (None, "N/A", "Invalid chemical")
+    return entry.get("polymer_name") in (None, "N/A", "Invalid chemical") or entry.get("solvent_name") in (None, "N/A", "Invalid chemical") or entry.get("solvent") in (None, "N/A", "Invalid chemical")
 
 def get_entry_row_fill(failed_fields: dict) -> PatternFill | None:
     """Calculates Excel row fill color based on the highest severity active error in failed_fields."""
@@ -136,14 +140,30 @@ def get_field_error(entry: dict, field_key: str) -> str:
     if isinstance(ff, dict):
         if field_key == "polymer_name" and ff.get("polymer_name"):
             return "Invalid chemical"
-        if field_key == "solvent" and ff.get("solvent_name"):
+        if field_key in ("solvent", "solvent_name") and ff.get("solvent_name"):
             return "Invalid chemical"
         if field_key == "temperature_k" and ff.get("temperature_missing"):
             return "Missing"
-        if field_key in ("c_value", "v_value") and (ff.get("c_value_out_of_range") or ff.get("v_value_out_of_range")):
-            return "Out of range"
-        if field_key in ("K_value", "a_value") and (ff.get("K_value_out_of_range") or ff.get("a_value_out_of_range")):
-            return "Out of range"
+        if field_key == "c_value":
+            if ff.get("c_value_missing"):
+                return "Missing"
+            if ff.get("c_value_out_of_range"):
+                return "Out of range"
+        if field_key == "v_value":
+            if ff.get("v_value_missing"):
+                return "Missing"
+            if ff.get("v_value_out_of_range"):
+                return "Out of range"
+        if field_key == "K_value":
+            if ff.get("K_value_missing"):
+                return "Missing"
+            if ff.get("K_value_out_of_range"):
+                return "Out of range"
+        if field_key == "a_value":
+            if ff.get("a_value_missing"):
+                return "Missing"
+            if ff.get("a_value_out_of_range"):
+                return "Out of range"
         if field_key == "general_err" and (ff.get("D_out_of_range") or ff.get("eta_out_of_range")):
             return "Out of range"
         return "None"
@@ -155,6 +175,6 @@ def get_field_error(entry: dict, field_key: str) -> str:
             return err
     if field_key == "polymer_name" and entry.get("polymer_name") == "N/A":
         return "Invalid chemical"
-    if field_key == "solvent" and entry.get("solvent") == "N/A":
+    if field_key in ("solvent", "solvent_name") and (entry.get("solvent_name") == "N/A" or entry.get("solvent") == "N/A"):
         return "Invalid chemical"
     return "None"

@@ -41,7 +41,7 @@ def build_flat_databases(results: dict) -> tuple[pd.DataFrame, pd.DataFrame]:
     records_flory = []
     for entry in valid_flory:
         records_flory.append({
-            "solvent": entry.get("solvent"),
+            "solvent": entry.get("solvent_name", entry.get("solvent")),
             "polymer": entry.get("polymer_name"),
             "c_value": entry.get("c_value"),
             "v_value": entry.get("v_value"),
@@ -59,7 +59,7 @@ def build_flat_databases(results: dict) -> tuple[pd.DataFrame, pd.DataFrame]:
     records_mh = []
     for entry in valid_mh:
         records_mh.append({
-            "solvent": entry.get("solvent"),
+            "solvent": entry.get("solvent_name", entry.get("solvent")),
             "polymer": entry.get("polymer_name"),
             "K_value": entry.get("K_value"),
             "a_value": entry.get("a_value"),

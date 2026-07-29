@@ -15,19 +15,21 @@ def test_sankey():
             # Error free entries
             {
                 "polymer_name": "poly(methyl methacrylate)",
-                "solvent": "chloroform-d",
+                "solvent_name": "chloroform-d",
                 "c_value": -0.5,
                 "v_value": 0.5,
                 "failed_fields": "None"
             },
             {
                 "polymer_name": "polystyrene",
-                "solvent": "toluene-d8",
+                "solvent_name": "toluene-d8",
                 "c_value": -0.6,
                 "v_value": 0.55,
                 "failed_fields": {
                     "solvent_name": False,
+                    "c_value_missing": False,
                     "c_value_out_of_range": False,
+                    "v_value_missing": False,
                     "v_value_out_of_range": False,
                     "polymer_name": False,
                     "temperature_missing": False,
@@ -37,11 +39,13 @@ def test_sankey():
             # Entry with polymer identification failure
             {
                 "polymer_name": "N/A",
-                "solvent": "benzene-d6",
+                "solvent_name": "benzene-d6",
                 "failed_fields": {
                     "polymer_name": True,
                     "solvent_name": False,
+                    "c_value_missing": False,
                     "c_value_out_of_range": False,
+                    "v_value_missing": False,
                     "v_value_out_of_range": False,
                     "temperature_missing": False,
                     "D_out_of_range": False
@@ -50,11 +54,13 @@ def test_sankey():
             # Entry with v_value out of range and temperature missing
             {
                 "polymer_name": "polyethylene",
-                "solvent": "tetrahydrofuran-d8",
+                "solvent_name": "tetrahydrofuran-d8",
                 "failed_fields": {
                     "polymer_name": False,
                     "solvent_name": False,
+                    "c_value_missing": False,
                     "c_value_out_of_range": False,
+                    "v_value_missing": False,
                     "v_value_out_of_range": True,
                     "temperature_missing": True,
                     "D_out_of_range": False
