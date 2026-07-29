@@ -27,7 +27,7 @@ def is_entry_failed(entry: dict) -> bool:
         return any(ff.values())
     elif isinstance(ff, str):
         return ff != "None"
-    return entry.get("polymer_name") in (None, "N/A") or entry.get("solvent") in (None, "N/A")
+    return entry.get("polymer_name") in (None, "N/A", "Invalid chemical") or entry.get("solvent") in (None, "N/A", "Invalid chemical")
 
 def get_entry_row_fill(failed_fields: dict) -> PatternFill | None:
     """Calculates Excel row fill color based on the highest severity active error in failed_fields."""

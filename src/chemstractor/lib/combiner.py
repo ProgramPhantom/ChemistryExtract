@@ -245,7 +245,8 @@ def homogenise_chemical(raw_name: str, cache: dict, ai_instance, stats: dict, ta
             stats["total_processed"] += 1
             stats["failed"] += 1
             err_reason = pre_err if pre_err in CHEMICAL_ERROR_TYPES else "Not found"
-            return raw_name_clean, "fail", err_reason
+            clean_name = "Invalid chemical" if err_reason == "Invalid chemical" else raw_name_clean
+            return clean_name, "fail", err_reason
 
         stats["total_processed"] += 1
 
@@ -255,7 +256,8 @@ def homogenise_chemical(raw_name: str, cache: dict, ai_instance, stats: dict, ta
             stats["cache_hits"] += 1
             if cached_val.lower() in ("invalid chemical", "n/a", "not found"):
                 stats["failed"] += 1
-                return raw_name_clean, "fail", "Invalid chemical"
+                clean_name = "Invalid chemical" if cached_val.lower() in ("invalid chemical", "n/a") else raw_name_clean
+                return clean_name, "fail", "Invalid chemical"
             return cached_val, "cache", ""
 
         # 2. Select from existing clean names in the cache
@@ -277,11 +279,13 @@ def homogenise_chemical(raw_name: str, cache: dict, ai_instance, stats: dict, ta
             cache[raw_name_clean] = "Invalid chemical"
             stats["failed"] += 1
             err_reason = "Invalid chemical" if (generated_val and generated_val.lower() in ("invalid chemical", "n/a")) else "Not found"
-            return raw_name_clean, "fail", err_reason
+            clean_name = "Invalid chemical" if err_reason == "Invalid chemical" else raw_name_clean
+            return clean_name, "fail", err_reason
 
         # Save the generated name to the cache
         cache[raw_name_clean] = generated_val
         stats["ai_generated"] += 1
+        
         return generated_val, "ai_generate", ""
     except BaseException as e:
         if isinstance(e, (KeyboardInterrupt, SystemExit)):
