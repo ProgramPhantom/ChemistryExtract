@@ -1,7 +1,6 @@
 import openpyxl
 from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
 from openpyxl.utils import get_column_letter
-from openpyxl.chart import LineChart, Reference, Series
 from chemstractor.lib.reports.helpers import is_entry_failed, get_entry_errors_and_warnings_info
 
 def build_flory_sheet(wb, flory_entries: list, font_family: str = "Segoe UI") -> None:
@@ -39,8 +38,6 @@ def build_flory_sheet(wb, flory_entries: list, font_family: str = "Segoe UI") ->
         cell.alignment = table_header_align
         cell.border = data_border
         
-    flory_counts = {}
-    
     for row_idx, entry in enumerate(flory_entries):
         r = row_idx + 2
         ws_flory.cell(row=r, column=1, value=entry.get("source_paper", "")).font = val_font
@@ -74,15 +71,9 @@ def build_flory_sheet(wb, flory_entries: list, font_family: str = "Segoe UI") ->
         if warn_fill:
             warn_cell.fill = warn_fill
         
-        has_failed = is_entry_failed(entry)
         if isinstance(c_val, (int, float)) and isinstance(v_val, (int, float)):
             ws_flory.cell(row=r, column=14, value=f"=H{r}-J{r}*3").font = val_font
             ws_flory.cell(row=r, column=15, value=f"=H{r}-J{r}*6").font = val_font
-            
-            if not has_failed:
-                solv_str = entry.get("solvent_name", entry.get("solvent"))
-                pair = (solv_str, entry.get("polymer_name"))
-                flory_counts[pair] = flory_counts.get(pair, 0) + 1
             
         for c in [1, 2, 3, 4, 5, 6, 9, 11, 12, 13]:
             cell = ws_flory.cell(row=r, column=c)
@@ -92,89 +83,6 @@ def build_flory_sheet(wb, flory_entries: list, font_family: str = "Segoe UI") ->
             cell = ws_flory.cell(row=r, column=c)
             cell.alignment = right_align
             cell.border = data_border
-            
-    # Write Flory Summary Table starting at Column Q (17)
-    ws_flory.cell(row=1, column=17, value="Solvent").font = table_header_font
-    ws_flory.cell(row=1, column=17).fill = table_header_fill
-    ws_flory.cell(row=1, column=17).alignment = table_header_align
-    ws_flory.cell(row=1, column=17).border = data_border
-    
-    ws_flory.cell(row=1, column=18, value="Polymer").font = table_header_font
-    ws_flory.cell(row=1, column=18).fill = table_header_fill
-    ws_flory.cell(row=1, column=18).alignment = table_header_align
-    ws_flory.cell(row=1, column=18).border = data_border
-    
-    ws_flory.cell(row=1, column=19, value="Count").font = table_header_font
-    ws_flory.cell(row=1, column=19).fill = table_header_fill
-    ws_flory.cell(row=1, column=19).alignment = table_header_align
-    ws_flory.cell(row=1, column=19).border = data_border
-    
-    for summary_idx, (pair, count) in enumerate(sorted(flory_counts.items())):
-        sr = summary_idx + 2
-        ws_flory.cell(row=sr, column=17, value=pair[0]).font = val_font
-        ws_flory.cell(row=sr, column=17).alignment = left_align
-        ws_flory.cell(row=sr, column=17).border = data_border
-        
-        ws_flory.cell(row=sr, column=18, value=pair[1]).font = val_font
-        ws_flory.cell(row=sr, column=18).alignment = left_align
-        ws_flory.cell(row=sr, column=18).border = data_border
-        
-        ws_flory.cell(row=sr, column=19, value=count).font = val_font
-        ws_flory.cell(row=sr, column=19).alignment = right_align
-        ws_flory.cell(row=sr, column=19).border = data_border
-        
-    # Generate and embed Flory Line Chart
-    if flory_entries:
-        try:
-            chart_flory = LineChart()
-            chart_flory.title = "Flory Calibration Curves (log-log Plot)"
-            chart_flory.style = 13
-            chart_flory.x_axis.title = "log(M / g mol⁻¹)"
-            chart_flory.y_axis.title = "log(D / m² s⁻¹)"
-            chart_flory.x_axis.delete = False
-            chart_flory.y_axis.delete = False
-            chart_flory.x_axis.tickLblPos = "low"
-            chart_flory.y_axis.tickLblPos = "nextTo"
-            
-            y_vals = []
-            for entry in flory_entries:
-                c_val = entry.get("c_value")
-                v_val = entry.get("v_value")
-                has_failed = is_entry_failed(entry)
-                if c_val is not None and v_val is not None and not has_failed:
-                    y_vals.append(c_val - v_val * 3)
-                    y_vals.append(c_val - v_val * 6)
-            if y_vals:
-                min_y = min(y_vals)
-                max_y = max(y_vals)
-                chart_flory.y_axis.scaling.min = float(f"{min_y - 0.5:.2f}")
-                chart_flory.y_axis.scaling.max = float(f"{max_y + 0.5:.2f}")
-                
-            chart_flory.width = 18
-            chart_flory.height = 12
-            
-            for row_idx, entry in enumerate(flory_entries):
-                r = row_idx + 2
-                c_val = entry.get("c_value")
-                v_val = entry.get("v_value")
-                has_failed = is_entry_failed(entry)
-                if c_val is not None and v_val is not None and not has_failed:
-                    series_ref = Reference(ws_flory, min_col=14, max_col=15, min_row=r, max_row=r)
-                    solv_str = entry.get('solvent_name', entry.get('solvent'))
-                    series = Series(series_ref, title=f"{entry.get('polymer_name')} in {solv_str}")
-                    chart_flory.append(series)
-                    
-            cats_ref = Reference(ws_flory, min_col=14, max_col=15, min_row=1, max_row=1)
-            chart_flory.set_categories(cats_ref)
-            
-            colors = ["1F497D", "C0504D", "9BBB59", "8064A2", "F79646", "4BACC6", "E26B0A", "7030A0", "00B0F0"]
-            for s_idx, series in enumerate(chart_flory.series):
-                color = colors[s_idx % len(colors)]
-                series.graphicalProperties.line = openpyxl.drawing.line.LineProperties(solidFill=color)
-                
-            ws_flory.add_chart(chart_flory, "U4")
-        except Exception:
-            pass
             
     for col in ws_flory.columns:
         vals = [str(cell.value or '') for cell in col]
