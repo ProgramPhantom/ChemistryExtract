@@ -1,3 +1,4 @@
+from __future__ import annotations
 from openpyxl.styles import PatternFill
 
 # Error Severity & Fill Styling Configuration

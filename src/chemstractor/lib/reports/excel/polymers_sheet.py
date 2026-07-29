@@ -1,3 +1,4 @@
+from __future__ import annotations
 import openpyxl
 from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
 from openpyxl.utils import get_column_letter
@@ -79,15 +80,38 @@ def build_polymers_sheet(wb, flory_entries: list, font_family: str = "Segoe UI")
     unique_polymers = ["All"] + sorted(list({e.get("polymer_name") for e in sorted_flory_poly if e.get("polymer_name")}))
     unique_solvents = ["All"] + sorted(list({e.get("solvent_name", e.get("solvent")) for e in sorted_flory_poly if e.get("solvent_name", e.get("solvent"))}))
 
-    # Populate Data Validation helper columns in Columns L (Polymer list) and M (Solvent list)
+    # Row positioning definitions (Data table moved 50 lines lower: header at 69, data at 70)
+    header_row = 69
+    start_data_row = 70
+    end_data_row = start_data_row + len(sorted_flory_poly) - 1 if sorted_flory_poly else start_data_row
+
+    data_range_a = f"$A$70:$A${max(end_data_row, 70)}"
+    data_range_b = f"$B$70:$B${max(end_data_row, 70)}"
+
+    sel_poly_clean = "IF(OR(LEFT($C$3, 3)=\"All\", $C$3=\"\"), \"*\", LEFT($C$3, IF(ISNUMBER(SEARCH(\" (\", $C$3)), SEARCH(\" (\", $C$3)-1, LEN($C$3))))"
+    sel_solv_clean = "IF(OR(LEFT($C$4, 3)=\"All\", $C$4=\"\"), \"*\", LEFT($C$4, IF(ISNUMBER(SEARCH(\" (\", $C$4)), SEARCH(\" (\", $C$4)-1, LEN($C$4))))"
+
+    # Helper Column L: Raw Unique Polymers
     for idx, p in enumerate(unique_polymers, start=2):
         ws_poly.cell(row=idx, column=12, value=p).font = val_font
+
+    # Helper Column M: Raw Unique Solvents
     for idx, s in enumerate(unique_solvents, start=2):
         ws_poly.cell(row=idx, column=13, value=s).font = val_font
 
-    # Hide helper columns L and M
-    ws_poly.column_dimensions["L"].hidden = True
-    ws_poly.column_dimensions["M"].hidden = True
+    # Helper Column N: Dynamic Solvent List with Counts (Evaluating selected Polymer C3)
+    ws_poly.cell(row=2, column=14, value=f'=M2 & " (" & COUNTIFS({data_range_a}, {sel_poly_clean}) & ")"').font = val_font
+    for idx, s in enumerate(unique_solvents[1:], start=3):
+        ws_poly.cell(row=idx, column=14, value=f'=M{idx} & " (" & COUNTIFS({data_range_a}, {sel_poly_clean}, {data_range_b}, M{idx}) & ")"').font = val_font
+
+    # Helper Column O: Dynamic Polymer List with Counts (Evaluating selected Solvent C4)
+    ws_poly.cell(row=2, column=15, value=f'=L2 & " (" & COUNTIFS({data_range_b}, {sel_solv_clean}) & ")"').font = val_font
+    for idx, p in enumerate(unique_polymers[1:], start=3):
+        ws_poly.cell(row=idx, column=15, value=f'=L{idx} & " (" & COUNTIFS({data_range_a}, L{idx}, {data_range_b}, {sel_solv_clean}) & ")"').font = val_font
+
+    # Hide helper columns L, M, N, O
+    for c_letter in ("L", "M", "N", "O"):
+        ws_poly.column_dimensions[c_letter].hidden = True
 
     # 1. Interactive Control Panel (Rows 2 - 5, Columns B & C)
     ws_poly.merge_cells("B2:C2")
@@ -109,10 +133,10 @@ def build_polymers_sheet(wb, flory_entries: list, font_family: str = "Segoe UI")
     val_poly.alignment = left_align
     val_poly.border = data_border
 
-    # Add Polymer Data Validation
+    # Add Polymer Data Validation (Pointing to Column O)
     dv_poly = DataValidation(
         type="list", 
-        formula1=f"=Polymers!$L$2:$L${len(unique_polymers)+1}", 
+        formula1=f"=Polymers!$O$2:$O${len(unique_polymers)+1}", 
         allow_blank=True
     )
     ws_poly.add_data_validation(dv_poly)
@@ -129,19 +153,16 @@ def build_polymers_sheet(wb, flory_entries: list, font_family: str = "Segoe UI")
     val_solv.alignment = left_align
     val_solv.border = data_border
 
-    # Add Solvent Data Validation
+    # Add Solvent Data Validation (Pointing to Column N)
     dv_solv = DataValidation(
         type="list", 
-        formula1=f"=Polymers!$M$2:$M${len(unique_solvents)+1}", 
+        formula1=f"=Polymers!$N$2:$N${len(unique_solvents)+1}", 
         allow_blank=True
     )
     ws_poly.add_data_validation(dv_solv)
     dv_solv.add(val_solv)
 
     # Summary row: Active Curves count
-    start_data_row = 20
-    end_data_row = start_data_row + len(sorted_flory_poly) - 1 if sorted_flory_poly else start_data_row
-
     lbl_count = ws_poly.cell(row=5, column=2, value="Active Curves:")
     lbl_count.font = label_font
     lbl_count.alignment = Alignment(horizontal="right", vertical="center")
@@ -152,12 +173,11 @@ def build_polymers_sheet(wb, flory_entries: list, font_family: str = "Segoe UI")
     val_count.alignment = left_align
     val_count.border = data_border
 
-    # 2. Main Data Table Header (Row 19)
+    # 2. Main Data Table Header (Row 69)
     headers_poly = [
         "Polymer (Clean)", "Solvent (Clean)", "Temperature (K)", 
         "c Value (log Constant)", "v Value (Scaling Exponent)", "3", "6"
     ]
-    header_row = 19
     for col_idx, h in enumerate(headers_poly, start=1):
         cell = ws_poly.cell(row=header_row, column=col_idx, value=h if not h.isdigit() else int(h))
         cell.font = table_header_font
@@ -182,7 +202,12 @@ def build_polymers_sheet(wb, flory_entries: list, font_family: str = "Segoe UI")
         ws_poly.cell(row=r, column=5, value=float(v_val) if isinstance(v_val, (int, float)) else v_val).font = val_font
 
         # Dynamic formula: Evaluate to numeric log value if matching Polymer and Solvent selection, else NA()
-        formula_filter = f"AND(OR($C$3=\"All\", $C$3=\"\", A{r}=$C$3), OR($C$4=\"All\", $C$4=\"\", B{r}=$C$4))"
+        formula_filter = (
+            f"AND("
+            f"OR(LEFT($C$3, 3)=\"All\", $C$3=\"\", $C$3=A{r}, AND(LEFT($C$3, LEN(A{r}))=A{r}, MID($C$3, LEN(A{r})+1, 2)=\" (\")), "
+            f"OR(LEFT($C$4, 3)=\"All\", $C$4=\"\", $C$4=B{r}, AND(LEFT($C$4, LEN(B{r}))=B{r}, MID($C$4, LEN(B{r})+1, 2)=\" (\"))"
+            f")"
+        )
         ws_poly.cell(row=r, column=6, value=f"=IF({formula_filter}, D{r}-E{r}*3, NA())").font = val_font
         ws_poly.cell(row=r, column=7, value=f"=IF({formula_filter}, D{r}-E{r}*6, NA())").font = val_font
 
@@ -241,8 +266,9 @@ def build_polymers_sheet(wb, flory_entries: list, font_family: str = "Segoe UI")
     # Auto-adjust column widths (excluding hidden helper columns)
     for col in ws_poly.columns:
         col_letter = get_column_letter(col[0].column)
-        if col_letter in ("L", "M"):
+        if col_letter in ("L", "M", "N", "O"):
             continue
         vals = [str(cell.value or '') for cell in col if cell.row >= header_row or cell.column in (1, 2, 3)]
         max_len = max(len(v) for v in vals) if vals else 10
         ws_poly.column_dimensions[col_letter].width = max(max_len + 3, 14)
+
