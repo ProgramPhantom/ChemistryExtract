@@ -1,5 +1,5 @@
 import os
-import plotly.graph_objects as go
+import plotly.graph_objects as go  # type: ignore
 from chemstractor.lib.reports.helpers import ERROR_SEVERITY_MAP, is_entry_failed
 
 def generate_flory_sankey_diagram(plots_dir: str, combined_data: dict) -> list[str]:
