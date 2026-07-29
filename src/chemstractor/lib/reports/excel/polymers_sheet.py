@@ -176,7 +176,8 @@ def build_polymers_sheet(wb, flory_entries: list, font_family: str = "Segoe UI")
     # 2. Main Data Table Header (Row 69)
     headers_poly = [
         "Polymer (Clean)", "Solvent (Clean)", "Temperature (K)", 
-        "c Value (log Constant)", "v Value (Scaling Exponent)", "3", "6"
+        "c Value (log Constant)", "v Value (Scaling Exponent)", "3", "6",
+        "Source Paper", "Table"
     ]
     for col_idx, h in enumerate(headers_poly, start=1):
         cell = ws_poly.cell(row=header_row, column=col_idx, value=h if not h.isdigit() else int(h))
@@ -211,11 +212,14 @@ def build_polymers_sheet(wb, flory_entries: list, font_family: str = "Segoe UI")
         ws_poly.cell(row=r, column=6, value=f"=IF({formula_filter}, D{r}-E{r}*3, NA())").font = val_font
         ws_poly.cell(row=r, column=7, value=f"=IF({formula_filter}, D{r}-E{r}*6, NA())").font = val_font
 
+        ws_poly.cell(row=r, column=8, value=entry.get("source_paper", "")).font = val_font
+        ws_poly.cell(row=r, column=9, value=entry.get("table_name", "")).font = val_font
+
         if isinstance(c_val, (int, float)) and isinstance(v_val, (int, float)):
             y_vals.append(c_val - v_val * 3)
             y_vals.append(c_val - v_val * 6)
 
-        for c in [1, 2]:
+        for c in [1, 2, 8, 9]:
             ws_poly.cell(row=r, column=c).alignment = left_align
             ws_poly.cell(row=r, column=c).border = data_border
         for c in range(3, 8):

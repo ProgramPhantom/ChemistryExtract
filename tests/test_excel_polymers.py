@@ -13,7 +13,9 @@ def test_polymers_sheet_generation(tmp_path):
             "temperature_k": 298.15,
             "c_value": -10.5,
             "v_value": 0.52,
-            "failed_fields": "None"
+            "failed_fields": "None",
+            "source_paper": "Paper A",
+            "table_name": "Table 1"
         },
         {
             "polymer_name": "Polystyrene",
@@ -21,7 +23,9 @@ def test_polymers_sheet_generation(tmp_path):
             "temperature_k": 298.15,
             "c_value": -10.8,
             "v_value": 0.55,
-            "failed_fields": "None"
+            "failed_fields": "None",
+            "source_paper": "Paper B",
+            "table_name": "Table 3"
         },
         {
             "polymer_name": "Poly(methyl methacrylate)",
@@ -29,7 +33,9 @@ def test_polymers_sheet_generation(tmp_path):
             "temperature_k": 293.15,
             "c_value": -9.9,
             "v_value": 0.48,
-            "failed_fields": "None"
+            "failed_fields": "None",
+            "source_paper": "Paper C",
+            "table_name": "Table 2"
         }
     ]
     
@@ -71,7 +77,11 @@ def test_polymers_sheet_generation(tmp_path):
     
     # Check Table row 69 headers and row 70 data
     assert ws.cell(row=69, column=1).value == "Polymer (Clean)"
+    assert ws.cell(row=69, column=8).value == "Source Paper"
+    assert ws.cell(row=69, column=9).value == "Table"
     assert ws.cell(row=70, column=1).value == "Poly(methyl methacrylate)"
+    assert ws.cell(row=70, column=8).value == "Paper C"
+    assert ws.cell(row=70, column=9).value == "Table 2"
     
     # Check dynamic formula in column F & G
     formula_f = ws.cell(row=70, column=6).value
