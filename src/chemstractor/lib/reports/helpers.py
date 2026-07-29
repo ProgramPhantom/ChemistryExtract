@@ -7,13 +7,13 @@ ERROR_SEVERITY_MAP = {
     "solvent_name": {"severity": "deselected", "color": "FFF2CC", "label": "Solvent Identification Failure"},
     
     # Warning / Medium Severity (Yellow fill)
-    "c_value_missing": {"severity": "problem", "color": "FCE4D6", "label": "c_value Missing"},
+    "c_value_missing": {"severity": "problem", "color": "FCE4D6", "label": "c_value Not Found"},
     "c_value_out_of_range": {"severity": "problem", "color": "FCE4D6", "label": "c_value Out of Range"},
-    "v_value_missing": {"severity": "problem", "color": "FCE4D6", "label": "v_value Missing"},
+    "v_value_missing": {"severity": "problem", "color": "FCE4D6", "label": "v_value Not Found"},
     "v_value_out_of_range": {"severity": "problem", "color": "FCE4D6", "label": "v_value Out of Range"},
-    "K_value_missing": {"severity": "problem", "color": "FCE4D6", "label": "K_value Missing"},
+    "K_value_missing": {"severity": "problem", "color": "FCE4D6", "label": "K_value Not Found"},
     "K_value_out_of_range": {"severity": "problem", "color": "FCE4D6", "label": "K_value Out of Range"},
-    "a_value_missing": {"severity": "problem", "color": "FCE4D6", "label": "a_value Missing"},
+    "a_value_missing": {"severity": "problem", "color": "FCE4D6", "label": "a_value Not Found"},
     "a_value_out_of_range": {"severity": "problem", "color": "FCE4D6", "label": "a_value Out of Range"},
     "D_out_of_range": {"severity": "problem", "color": "FCE4D6", "label": "D Value Out of Range"},
     "eta_out_of_range": {"severity": "problem", "color": "FCE4D6", "label": "log10([eta]) Out of Range"},
@@ -25,13 +25,25 @@ ERROR_SEVERITY_MAP = {
 SEVERITY_PRIORITY = {"deselected": 2, "problem": 3, "warning": 1}
 
 def is_entry_failed(entry: dict) -> bool:
-    """Returns True if the entry has any active failure flags."""
+    """
+    Returns True if the entry has any active 'deselected' or 'problem' severity failure flags.
+    Entries with only 'warning' severity flags (e.g., temperature_missing) return False.
+    """
     ff = entry.get("failed_fields")
     if isinstance(ff, dict):
-        return any(ff.values())
+        for field_key, is_failed in ff.items():
+            if is_failed:
+                meta = ERROR_SEVERITY_MAP.get(field_key, {})
+                if meta.get("severity", "problem") in ("deselected", "problem"):
+                    return True
+        return False
     elif isinstance(ff, str):
         return ff != "None"
-    return entry.get("polymer_name") in (None, "N/A", "Invalid chemical") or entry.get("solvent_name") in (None, "N/A", "Invalid chemical") or entry.get("solvent") in (None, "N/A", "Invalid chemical")
+    return (
+        entry.get("polymer_name") in (None, "", "N/A", "Invalid chemical") or
+        entry.get("solvent_name") in (None, "", "N/A", "Invalid chemical") or
+        entry.get("solvent") in (None, "", "N/A", "Invalid chemical")
+    )
 
 def get_entry_row_fill(failed_fields: dict) -> PatternFill | None:
     """Calculates Excel row fill color based on the highest severity active error in failed_fields."""

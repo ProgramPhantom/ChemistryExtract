@@ -1,13 +1,14 @@
 from datetime import datetime
 from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
 from openpyxl.utils import get_column_letter
+from chemstractor.lib.reports.helpers import is_entry_failed, ERROR_SEVERITY_MAP
 
 def build_summary_sheet(
     wb,
     combined_data: dict,
     failure_reasons_count: dict,
+    severity_counts: dict,
     total_collected: int,
-    total_failures_all: int,
     font_family: str = "Segoe UI"
 ) -> None:
     """Builds the Summary worksheet in the Excel workbook."""
@@ -107,15 +108,26 @@ def build_summary_sheet(
         cell.border = data_border
     current_row += 1
 
-    successful_data_points = max(0, total_collected - total_failures_all)
-    success_rate = (successful_data_points / total_collected * 100) if total_collected > 0 else 0.0
+    all_entries = flory_entries + mh_entries
+    selected_data_points = 0
+    deselected_data_points = 0
+    for entry in all_entries:
+        if is_entry_failed(entry):
+            deselected_data_points += 1
+        else:
+            selected_data_points += 1
+
+    success_rate = (selected_data_points / total_collected * 100) if total_collected > 0 else 0.0
 
     kpis = [
         ("Total Data Points Collected", total_collected),
-        ("Successful Data Points (Included)", successful_data_points),
         ("Flory Data Points", len(flory_entries)),
         ("Mark-Houwink Data Points", len(mh_entries)),
-        ("Total Failures / Issues", total_failures_all),
+        ("Selected Data Points (Successful)", selected_data_points),
+        ("Deselected Data Points (Rejected)", deselected_data_points),
+        ("Issue Level: Deselected (Critical Failures)", severity_counts.get("deselected", 0)),
+        ("Issue Level: Problem (Parameter Errors)", severity_counts.get("problem", 0)),
+        ("Issue Level: Warning (Minor Warnings)", severity_counts.get("warning", 0)),
         ("Overall Success Rate (%)", f"{success_rate:.1f}%")
     ]
 
