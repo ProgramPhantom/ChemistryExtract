@@ -30,6 +30,6 @@ ollama pull gemma4:31b >> "${OLLAMA_LOG}" 2>&1
 
 sleep 100
 
-python3 src/chemstractor/main.py process-all ./tests/corpus/massive/ --model gemma4:31b --cache-path
+python3 src/chemstractor/main.py process-all ./tests/corpus/massive/ --model gemma4:31b
 
 pkill ollama
