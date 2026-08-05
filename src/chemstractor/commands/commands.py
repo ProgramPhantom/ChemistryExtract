@@ -145,7 +145,6 @@ def process(pdf_path, output_dir, model, direct, interpret, report, metadata, su
 @click.option('--direct', '-d', is_flag=True, help="Input is a directory of process output folders rather than PDFs.")
 @click.option('--interpret', '-i', is_flag=True, help="Interpret coeff tables.")
 @click.option('--report', '-r', is_flag=True, help="Generate report after process completes.")
-@click.option('--combine', '-c', is_flag=True, help="Run combine process after processing completes.")
 @click.option('--metadata', is_flag=True, help="Extract paper metadata.")
 @click.option('--summarise', '-s', is_flag=True, help="Summarise table conditions.")
 @click.option('--all', '-a', is_flag=True, help="Run all stages (metadata, summarise, interpret, combine).")
@@ -153,21 +152,20 @@ def process(pdf_path, output_dir, model, direct, interpret, report, metadata, su
 @click.option('--mark-houwink', '-m', is_flag=True, default=False, help="Interpret Mark-Houwink parameters.")
 @click.option('--fast', is_flag=True, help="Run in fast mode (skips summary/metadata, interprets Flory only, runs combine).")
 @click.option('--cache-path', type=click.Path(), default=None, help="Path to the chemical cache JSON file.")
-def process_all(pdf_dir, output_dir, model, direct, interpret, report, combine, metadata, summarise, all, flory, mark_houwink, fast, cache_path):
+def process_all(pdf_dir, output_dir, model, direct, interpret, report, metadata, summarise, all, flory, mark_houwink, fast, cache_path):
     """Process all PDF files in a directory."""
+    combine = True
     if fast:
         metadata = False
         summarise = False
         interpret = True
         flory = True
         mark_houwink = False
-        combine = True
     else:
         if all:
             metadata = True
             summarise = True
             interpret = True
-            combine = True
         if not flory and not mark_houwink:
             flory = True
             mark_houwink = False
