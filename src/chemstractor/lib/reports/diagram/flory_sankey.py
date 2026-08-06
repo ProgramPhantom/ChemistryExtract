@@ -29,48 +29,67 @@ def generate_flory_sankey_diagram(plots_dir: str, combined_data: dict) -> list[s
         num_unselected_pdfs = max(0, num_input_pdfs - num_selected_papers)
         num_flory_rows = len(flory_entries)
         
-        # Categorize Flory rows into error-free vs specific errors
-        flory_error_free = 0
-        flory_error_counts = {}
-        
+        # Categorize Flory rows:
+        # 1. Final Selected Entries (entries with NO deselected or problem errors)
+        # 2. Deselected errors (entries/reasons with "deselected" severity)
+        # 3. Problem errors (entries/reasons with "problem" severity)
+        # Note: "warning" severity errors (e.g. temperature_missing) are EXCLUDED completely.
+        num_passed_selection = 0
+        deselected_error_counts = {}
+        problem_error_counts = {}
+
         for entry in flory_entries:
             if not is_entry_failed(entry):
-                flory_error_free += 1
+                num_passed_selection += 1
             else:
                 ff = entry.get("failed_fields", "None")
                 poly = entry.get("polymer_name", "")
                 solv = entry.get("solvent_name", entry.get("solvent", ""))
-                
+
                 active_reasons = []
                 if isinstance(ff, dict):
                     for f_key, is_failed in ff.items():
                         if is_failed:
-                            lbl = ERROR_SEVERITY_MAP.get(f_key, {}).get("label", f_key)
-                            active_reasons.append(lbl)
+                            meta = ERROR_SEVERITY_MAP.get(f_key, {})
+                            severity = meta.get("severity", "problem")
+                            if severity == "warning":
+                                continue
+                            lbl = meta.get("label", f_key)
+                            active_reasons.append((severity, lbl))
                 elif isinstance(ff, str) and ff != "None":
                     for item in ff.split(","):
                         item_clean = item.strip()
                         if item_clean and item_clean != "None":
-                            lbl = ERROR_SEVERITY_MAP.get(item_clean, {}).get("label", item_clean)
-                            active_reasons.append(lbl)
-                            
+                            meta = ERROR_SEVERITY_MAP.get(item_clean, {})
+                            severity = meta.get("severity", "problem")
+                            if severity == "warning":
+                                continue
+                            lbl = meta.get("label", item_clean)
+                            active_reasons.append((severity, lbl))
+
                 if not active_reasons:
-                    if poly in (None, "N/A"):
-                        active_reasons.append(ERROR_SEVERITY_MAP.get("polymer_name", {}).get("label", "Polymer Identification Failure"))
-                    if solv in (None, "N/A"):
-                        active_reasons.append(ERROR_SEVERITY_MAP.get("solvent_name", {}).get("label", "Solvent Identification Failure"))
-                        
+                    if poly in (None, "", "N/A", "Invalid chemical"):
+                        lbl = ERROR_SEVERITY_MAP.get("polymer_name", {}).get("label", "Polymer Identification Failure")
+                        active_reasons.append(("deselected", lbl))
+                    if solv in (None, "", "N/A", "Invalid chemical"):
+                        lbl = ERROR_SEVERITY_MAP.get("solvent_name", {}).get("label", "Solvent Identification Failure")
+                        active_reasons.append(("deselected", lbl))
+
                 if not active_reasons:
-                    active_reasons.append("Unspecified Flory Entry Error")
-                    
-                for r in active_reasons:
-                    flory_error_counts[r] = flory_error_counts.get(r, 0) + 1
+                    active_reasons.append(("problem", "Unspecified Flory Entry Error"))
+
+                for severity, lbl in active_reasons:
+                    if severity == "deselected":
+                        deselected_error_counts[lbl] = deselected_error_counts.get(lbl, 0) + 1
+                    elif severity == "problem":
+                        problem_error_counts[lbl] = problem_error_counts.get(lbl, 0) + 1
 
         # Node setup for Sankey:
         # Layer 1: Node 0 = Input PDF Files
         # Layer 2: Node 1 = Selected PDF Files, (Optional Node 2 = PDF Files Not Selected)
         # Layer 3: Flory Marked Rows
-        # Layer 4: Error Free, Error reasons
+        # Layer 4: Severity Level Nodes: Final Selected Entries, Deselected, Problem
+        # Layer 5: Specific error nodes under Deselected & Problem
         node_labels = [
             f"Input PDF Files ({num_input_pdfs})",
             f"Selected PDF Files ({num_selected_papers})"
@@ -114,38 +133,80 @@ def generate_flory_sankey_diagram(plots_dir: str, combined_data: dict) -> list[s
             targets.append(flory_node_idx)
             values.append(num_flory_rows)
             link_colors.append("rgba(49, 130, 206, 0.4)")
-            
-        # Add Layer 4 nodes & links from Flory Marked Rows
-        if flory_error_free > 0:
+
+        # Layer 4: Final Selected Entries (Passed Selection)
+        if num_passed_selection > 0:
             node_idx = len(node_labels)
-            node_labels.append(f"Error Free ({flory_error_free})")
+            node_labels.append(f"Final Selected Entries ({num_passed_selection})")
             node_colors.append("#2f855a")  # Green
-            
+
             sources.append(flory_node_idx)
             targets.append(node_idx)
-            values.append(flory_error_free)
+            values.append(num_passed_selection)
             link_colors.append("rgba(47, 133, 90, 0.4)")
-            
-        fail_palette_rgba = [
-            ("rgba(175, 62, 62, 0.5)", "#e53e3e"),
-            ("rgba(221, 107, 32, 0.5)", "#dd6b20"),
-            ("rgba(214, 158, 46, 0.5)", "#d69e2e"),
-            ("rgba(128, 90, 213, 0.5)", "#805ad5"),
-            ("rgba(197, 48, 48, 0.5)", "#c53030"),
-            ("rgba(183, 121, 31, 0.5)", "#b7791f"),
-            ("rgba(155, 44, 44, 0.5)", "#9b2c2c")
-        ]
-        
-        if flory_error_counts:
-            sorted_errors = sorted(flory_error_counts.items(), key=lambda x: x[1], reverse=True)
-            for idx, (reason, count) in enumerate(sorted_errors):
+
+        # Layer 4: Deselected Node
+        total_deselected = sum(deselected_error_counts.values())
+        deselected_node_idx = None
+        if total_deselected > 0:
+            deselected_node_idx = len(node_labels)
+            node_labels.append(f"Deselected ({total_deselected})")
+            node_colors.append("#c53030")  # Crimson Red
+
+            sources.append(flory_node_idx)
+            targets.append(deselected_node_idx)
+            values.append(total_deselected)
+            link_colors.append("rgba(197, 48, 48, 0.4)")
+
+        # Layer 4: Problem Node
+        total_problem = sum(problem_error_counts.values())
+        problem_node_idx = None
+        if total_problem > 0:
+            problem_node_idx = len(node_labels)
+            node_labels.append(f"Problem ({total_problem})")
+            node_colors.append("#dd6b20")  # Dark Orange
+
+            sources.append(flory_node_idx)
+            targets.append(problem_node_idx)
+            values.append(total_problem)
+            link_colors.append("rgba(221, 107, 32, 0.4)")
+
+        # Layer 5: Specific Deselected Error Nodes
+        if deselected_node_idx is not None and deselected_error_counts:
+            deselected_palette = [
+                ("rgba(229, 62, 62, 0.5)", "#e53e3e"),
+                ("rgba(155, 44, 44, 0.5)", "#9b2c2c"),
+                ("rgba(197, 48, 48, 0.5)", "#c53030")
+            ]
+            sorted_deselected = sorted(deselected_error_counts.items(), key=lambda x: x[1], reverse=True)
+            for idx, (reason, count) in enumerate(sorted_deselected):
                 node_idx = len(node_labels)
                 node_labels.append(f"{reason} ({count})")
-                
-                rgba, hex_col = fail_palette_rgba[idx % len(fail_palette_rgba)]
+                rgba, hex_col = deselected_palette[idx % len(deselected_palette)]
                 node_colors.append(hex_col)
-                
-                sources.append(flory_node_idx)
+
+                sources.append(deselected_node_idx)
+                targets.append(node_idx)
+                values.append(count)
+                link_colors.append(rgba)
+
+        # Layer 5: Specific Problem Error Nodes
+        if problem_node_idx is not None and problem_error_counts:
+            problem_palette = [
+                ("rgba(221, 107, 32, 0.5)", "#dd6b20"),
+                ("rgba(214, 158, 46, 0.5)", "#d69e2e"),
+                ("rgba(183, 121, 31, 0.5)", "#b7791f"),
+                ("rgba(128, 90, 213, 0.5)", "#805ad5"),
+                ("rgba(202, 138, 4, 0.5)", "#ca8a04")
+            ]
+            sorted_problem = sorted(problem_error_counts.items(), key=lambda x: x[1], reverse=True)
+            for idx, (reason, count) in enumerate(sorted_problem):
+                node_idx = len(node_labels)
+                node_labels.append(f"{reason} ({count})")
+                rgba, hex_col = problem_palette[idx % len(problem_palette)]
+                node_colors.append(hex_col)
+
+                sources.append(problem_node_idx)
                 targets.append(node_idx)
                 values.append(count)
                 link_colors.append(rgba)
