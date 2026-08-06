@@ -7,6 +7,7 @@ from chemstractor.lib.reports.diagram.flory_calibration import generate_flory_ca
 from chemstractor.lib.reports.diagram.mark_houwink_calibration import generate_mark_houwink_calibration_plot
 from chemstractor.lib.reports.diagram.flory_sankey import generate_flory_sankey_diagram
 
+
 def create_plots(output_dir: str, combined_data: dict) -> list[str]:
     """Generates publication-quality Matplotlib charts and Plotly Sankey diagrams into a 'plots' subfolder under output_dir."""
     plots_dir = os.path.join(output_dir, "plots")

@@ -11,11 +11,22 @@ def generate_flory_sankey_diagram(plots_dir: str, combined_data: dict) -> list[s
         papers_summary = combined_data.get("papers_summary", [])
         
         num_input_pdfs = run_info.get("total_papers_inputted")
+        num_selected_papers = run_info.get("num_papers")
+        
+        if num_selected_papers is None or num_selected_papers < 0:
+            num_selected_papers = len(papers_summary) if papers_summary else (
+                len(set(e.get("source_paper") for e in flory_entries if e.get("source_paper")))
+            )
+
         if num_input_pdfs is None or num_input_pdfs <= 0:
             num_input_pdfs = len(papers_summary) if papers_summary else (
                 len(set(e.get("source_paper") for e in flory_entries if e.get("source_paper"))) or 1
             )
             
+        if num_input_pdfs < num_selected_papers:
+            num_input_pdfs = num_selected_papers
+
+        num_unselected_pdfs = max(0, num_input_pdfs - num_selected_papers)
         num_flory_rows = len(flory_entries)
         
         # Categorize Flory rows into error-free vs specific errors
@@ -57,42 +68,66 @@ def generate_flory_sankey_diagram(plots_dir: str, combined_data: dict) -> list[s
 
         # Node setup for Sankey:
         # Layer 1: Node 0 = Input PDF Files
-        # Layer 2: Node 1 = Flory Marked Rows
-        # Layer 3: Node 2 = Error Free, Node 3..K = Error reasons
+        # Layer 2: Node 1 = Selected PDF Files, (Optional Node 2 = PDF Files Not Selected)
+        # Layer 3: Flory Marked Rows
+        # Layer 4: Error Free, Error reasons
         node_labels = [
             f"Input PDF Files ({num_input_pdfs})",
-            f"Flory Marked Rows ({num_flory_rows})"
+            f"Selected PDF Files ({num_selected_papers})"
         ]
         node_colors = [
             "#2b6cb0",  # Layer 1: Input PDFs (Deep Blue)
-            "#6b46c1"   # Layer 2: Flory Marked Rows (Purple)
+            "#3182ce"   # Layer 2: Selected PDF Files (Blue)
         ]
-        
+
         sources = []
         targets = []
         values = []
         link_colors = []
-        
-        # Link Layer 1 -> Layer 2
-        if num_flory_rows > 0:
+
+        # Optional Node for PDF Files Not Selected
+        if num_unselected_pdfs > 0:
+            unselected_node_idx = len(node_labels)
+            node_labels.append(f"PDF Files Not Selected ({num_unselected_pdfs})")
+            node_colors.append("#a0aec0")  # Slate Gray
+
+            sources.append(0)
+            targets.append(unselected_node_idx)
+            values.append(num_unselected_pdfs)
+            link_colors.append("rgba(160, 174, 192, 0.4)")
+
+        # Link Layer 1 -> Layer 2 (Input -> Selected)
+        if num_selected_papers > 0:
             sources.append(0)
             targets.append(1)
-            values.append(num_flory_rows)
+            values.append(num_selected_papers)
             link_colors.append("rgba(43, 108, 176, 0.4)")
+
+        # Flory Marked Rows Node
+        flory_node_idx = len(node_labels)
+        node_labels.append(f"Flory Marked Rows ({num_flory_rows})")
+        node_colors.append("#6b46c1")  # Layer 3: Flory Marked Rows (Purple)
+
+        # Link Selected PDF Files -> Flory Marked Rows
+        if num_flory_rows > 0:
+            sources.append(1)
+            targets.append(flory_node_idx)
+            values.append(num_flory_rows)
+            link_colors.append("rgba(49, 130, 206, 0.4)")
             
-        # Add Layer 3 nodes & links from Layer 2
+        # Add Layer 4 nodes & links from Flory Marked Rows
         if flory_error_free > 0:
             node_idx = len(node_labels)
             node_labels.append(f"Error Free ({flory_error_free})")
             node_colors.append("#2f855a")  # Green
             
-            sources.append(1)
+            sources.append(flory_node_idx)
             targets.append(node_idx)
             values.append(flory_error_free)
             link_colors.append("rgba(47, 133, 90, 0.4)")
             
         fail_palette_rgba = [
-            ("rgba(229, 62, 62, 0.5)", "#e53e3e"),
+            ("rgba(175, 62, 62, 0.5)", "#e53e3e"),
             ("rgba(221, 107, 32, 0.5)", "#dd6b20"),
             ("rgba(214, 158, 46, 0.5)", "#d69e2e"),
             ("rgba(128, 90, 213, 0.5)", "#805ad5"),
@@ -105,12 +140,12 @@ def generate_flory_sankey_diagram(plots_dir: str, combined_data: dict) -> list[s
             sorted_errors = sorted(flory_error_counts.items(), key=lambda x: x[1], reverse=True)
             for idx, (reason, count) in enumerate(sorted_errors):
                 node_idx = len(node_labels)
-                node_labels.append(f"Fail: {reason} ({count})")
+                node_labels.append(f"{reason} ({count})")
                 
                 rgba, hex_col = fail_palette_rgba[idx % len(fail_palette_rgba)]
                 node_colors.append(hex_col)
                 
-                sources.append(1)
+                sources.append(flory_node_idx)
                 targets.append(node_idx)
                 values.append(count)
                 link_colors.append(rgba)
@@ -132,9 +167,9 @@ def generate_flory_sankey_diagram(plots_dir: str, combined_data: dict) -> list[s
         )])
         
         fig.update_layout(
-            title_text="<b>Flory Coefficients Extraction Flow & Error Breakdown</b>",
+            title_text="<b>Flory Coefficients Extraction Problem Breakdown</b>",
             font_size=12,
-            font_family="DejaVu Sans, Arial, sans-serif",
+            font_family="Helvetica, Arial, sans-serif",
             width=900,
             height=600
         )
