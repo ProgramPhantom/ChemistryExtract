@@ -53,52 +53,45 @@ def test_polymers_sheet_generation(tmp_path):
     
     ws = wb["Results"]
     
-    # Check sticky top row is removed
-    assert ws.freeze_panes is None
+    assert ws.freeze_panes == "A2"
 
-    # Check Dropdown Label & Defaults
-    assert ws["B3"].value == "Select Polymer:"
-    assert ws["C3"].value == "All"
-    assert ws["B4"].value == "Select Solvent:"
-    assert ws["C4"].value == "All"
-    
-    # Check Active Curves and Matplotlib Plot cells removed
-    assert ws["B5"].value is None
-    assert ws["C5"].value is None
-    assert ws["B6"].value is None
-    assert ws["C6"].value is None
+    # Check Dropdown Label & Defaults (Right hand side: L2:M3)
+    assert ws["L2"].value == "Select Polymer:"
+    assert ws["M2"].value == "All"
+    assert ws["L3"].value == "Select Solvent:"
+    assert ws["M3"].value == "All"
     
     # Check Data Validation presence
     assert len(ws.data_validations.dataValidation) >= 2
     
-    # Check Helper columns
-    assert ws["L2"].value == "All"
-    assert ws["M2"].value == "All"
-    poly_helpers = [ws.cell(row=r, column=12).value for r in range(2, 6)]
-    solv_helpers = [ws.cell(row=r, column=13).value for r in range(2, 6)]
+    # Check Helper columns P (col 16) and Q (col 17)
+    assert ws["P2"].value == "All"
+    assert ws["Q2"].value == "All"
+    poly_helpers = [ws.cell(row=r, column=16).value for r in range(2, 6)]
+    solv_helpers = [ws.cell(row=r, column=17).value for r in range(2, 6)]
     
     assert "Polystyrene" in poly_helpers
     assert "Toluene" in solv_helpers
 
-    # Check Dynamic Count Helper columns N and O
-    assert "COUNTIFS" in str(ws["N2"].value)
-    assert "COUNTIFS" in str(ws["O2"].value)
-    
-    # Check Python in Excel formula in cell E2
-    assert str(ws["E2"].value).startswith("=PY(")
+    # Check Dynamic Count Helper columns R and S
+    assert "COUNTIFS" in str(ws["R2"].value)
+    assert "COUNTIFS" in str(ws["S2"].value)
 
-    # Check Table row 69 headers and row 70 data
-    assert ws.cell(row=69, column=1).value == "Polymer (Clean)"
-    assert ws.cell(row=69, column=8).value == "Source Paper"
-    assert ws.cell(row=69, column=9).value == "Table"
-    assert ws.cell(row=70, column=1).value == "Poly(methyl methacrylate)"
-    assert ws.cell(row=70, column=8).value == "Paper C"
-    assert ws.cell(row=70, column=9).value == "Table 2"
+    # Check Table row 1 headers and row 2 data
+    assert ws.cell(row=1, column=1).value == "Polymer (Clean)"
+    assert ws.cell(row=1, column=8).value == "Source Paper"
+    assert ws.cell(row=1, column=9).value == "Table"
+    assert ws.cell(row=2, column=1).value == "Poly(methyl methacrylate)"
+    assert ws.cell(row=2, column=8).value == "Paper C"
+    assert ws.cell(row=2, column=9).value == "Table 2"
     
     # Check dynamic formula in column F & G
-    formula_f = ws.cell(row=70, column=6).value
-    assert formula_f.startswith("=IF(AND(OR(LEFT($C$3")
-    assert "D70-E70*3, NA())" in formula_f
+    formula_f = ws.cell(row=2, column=6).value
+    assert formula_f.startswith("=IF(AND(OR(LEFT($M$2")
+    assert "D2-E2*3, NA())" in formula_f
 
-    # Native Excel chart replaced by Python in Excel Matplotlib formula
-    assert len(ws._charts) == 0
+    # Native Excel chart present
+    assert len(ws._charts) == 1
+    chart = ws._charts[0]
+    title_text = chart.title.tx.rich.p[0].r[0].t if (chart.title and chart.title.tx and chart.title.tx.rich) else str(chart.title)
+    assert title_text == "Flory Calibration Curves (Interactive log-log Plot)"

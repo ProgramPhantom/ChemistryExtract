@@ -130,7 +130,6 @@ def build_summary_sheet(
         ("Issue Level: Deselected (Critical Failures)", severity_counts.get("deselected", 0)),
         ("Issue Level: Problem (Parameter Errors)", severity_counts.get("problem", 0)),
         ("Issue Level: Warning (Minor Warnings)", severity_counts.get("warning", 0)),
-        ("Overall Success Rate (%)", f"{success_rate:.1f}%")
     ]
 
     for m, v in kpis:

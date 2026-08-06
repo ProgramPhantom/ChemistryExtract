@@ -67,11 +67,8 @@ def create_combined_excel(dest_path: str, combined_data: dict) -> None:
     # 6. Failures Sheet
     build_failures_sheet(wb, flory_entries, mh_entries, font_family=font_family)
 
-    # Freeze top row for all worksheets except Results
+    # Freeze top row for all worksheets
     for ws in wb.worksheets:
-        if ws.title != "Results":
-            ws.freeze_panes = "A2"
-        else:
-            ws.freeze_panes = None
+        ws.freeze_panes = "A2"
 
     wb.save(dest_path)
