@@ -208,29 +208,56 @@ def combine_command(input_dir: str, output_path: str = None, cache_path: str = N
             except Exception:
                 process_manifest = None
 
-    if process_manifest and "start_timestamp" in process_manifest:
-        start_timestamp_str = process_manifest.get("start_time", "N/A")
-        papers_sec = process_manifest.get("papers_duration_seconds")
-        papers_elapsed_str = f"{papers_sec:.2f}s" if isinstance(papers_sec, (int, float)) else "N/A"
-        overall_sec = combine_end_time - process_manifest["start_timestamp"]
-        overall_elapsed_str = f"{overall_sec:.2f}s"
-    else:
-        start_timestamp_str = datetime.fromtimestamp(start_time).strftime("%Y-%m-%d %H:%M:%S")
-        papers_elapsed_str = "N/A"
-        overall_elapsed_str = f"{combine_elapsed:.2f}s"
+    process_start_time_str = "N/A"
+    process_end_time_str = "N/A"
+    papers_duration_val = None
 
-    end_timestamp_str = datetime.fromtimestamp(combine_end_time).strftime("%Y-%m-%d %H:%M:%S")
-    
+    if process_manifest:
+        process_start_time_str = process_manifest.get("start_time", "N/A")
+        if "end_papers_time" in process_manifest:
+            process_end_time_str = process_manifest["end_papers_time"]
+        elif "end_papers_timestamp" in process_manifest:
+            process_end_time_str = datetime.fromtimestamp(process_manifest["end_papers_timestamp"]).strftime("%Y-%m-%d %H:%M:%S")
+        elif "start_timestamp" in process_manifest and "papers_duration_seconds" in process_manifest:
+            try:
+                end_ts = process_manifest["start_timestamp"] + float(process_manifest["papers_duration_seconds"])
+                process_end_time_str = datetime.fromtimestamp(end_ts).strftime("%Y-%m-%d %H:%M:%S")
+            except Exception:
+                process_end_time_str = "N/A"
+
+        papers_sec = process_manifest.get("papers_duration_seconds")
+        if isinstance(papers_sec, (int, float)):
+            papers_duration_val = float(papers_sec)
+        elif isinstance(papers_sec, str):
+            try:
+                papers_duration_val = float(papers_sec.strip().rstrip("s"))
+            except ValueError:
+                papers_duration_val = None
+
+    combine_start_time_str = datetime.fromtimestamp(start_time).strftime("%Y-%m-%d %H:%M:%S")
+    combine_end_time_str = datetime.fromtimestamp(combine_end_time).strftime("%Y-%m-%d %H:%M:%S")
+    combine_duration_val = float(combine_elapsed)
+
+    if papers_duration_val is not None:
+        total_execution_val = papers_duration_val + combine_duration_val
+    else:
+        total_execution_val = combine_duration_val
+
     papers_summary = results.get("papers_summary", [])
     total_tables_checked = sum(p.get("total_tables", 0) for p in papers_summary)
     total_tables_selected = sum(p.get("selected_tables", 0) for p in papers_summary)
 
     results["run_info"] = {
-        "start_time": start_timestamp_str,
-        "end_time": end_timestamp_str,
-        "duration_seconds": overall_elapsed_str,
-        "papers_duration_seconds": papers_elapsed_str,
-        "combine_duration_seconds": f"{combine_elapsed:.2f}s",
+        "process_start_time": process_start_time_str,
+        "process_end_time": process_end_time_str,
+        "combine_start_time": combine_start_time_str,
+        "combine_end_time": combine_end_time_str,
+        "start_time": process_start_time_str if process_start_time_str != "N/A" else combine_start_time_str,
+        "end_time": combine_end_time_str,
+        "duration_seconds": f"{total_execution_val:.2f}s",
+        "total_execution_seconds": total_execution_val,
+        "papers_duration_seconds": f"{papers_duration_val:.2f}s" if papers_duration_val is not None else "N/A",
+        "combine_duration_seconds": f"{combine_duration_val:.2f}s",
         "model_used": selected_model,
         "input_directory": input_dir,
         "total_papers_inputted": len(valid_subfolders),
@@ -279,13 +306,14 @@ def combine_command(input_dir: str, output_path: str = None, cache_path: str = N
     # 6. Report results and statistics
     console.print()
     run_info = results.get("run_info", {})
+    from chemstractor.lib.reports.helpers import format_duration
     if run_info.get("papers_duration_seconds") and run_info.get("papers_duration_seconds") != "N/A":
         console.print(
-            f"[bold green]✓[/bold green] Combining process completed in [yellow]{combine_elapsed:.2f}s[/yellow] "
-            f"(Total process: [yellow]{run_info['duration_seconds']}[/yellow], Papers: [yellow]{run_info['papers_duration_seconds']}[/yellow])."
+            f"[bold green]✓[/bold green] Combining process completed in [yellow]{format_duration(combine_duration_val)}[/yellow] "
+            f"(Total execution time: [yellow]{format_duration(total_execution_val)}[/yellow], Papers: [yellow]{format_duration(papers_duration_val)}[/yellow])."
         )
     else:
-        console.print(f"[bold green]✓[/bold green] Combining process completed in [yellow]{combine_elapsed:.2f}s[/yellow].")
+        console.print(f"[bold green]✓[/bold green] Combining process completed in [yellow]{format_duration(combine_duration_val)}[/yellow].")
     console.print(f"JSON data saved to: [cyan]{json_out}[/cyan]")
     console.print(f"Excel report saved to: [cyan]{xlsx_out}[/cyan]")
     if generated_plots:
