@@ -49,15 +49,24 @@ def test_polymers_sheet_generation(tmp_path):
     assert os.path.exists(dest_file)
     
     wb = openpyxl.load_workbook(dest_file)
-    assert "Polymers" in wb.sheetnames
+    assert "Results" in wb.sheetnames
     
-    ws = wb["Polymers"]
+    ws = wb["Results"]
     
+    # Check sticky top row is removed
+    assert ws.freeze_panes is None
+
     # Check Dropdown Label & Defaults
     assert ws["B3"].value == "Select Polymer:"
     assert ws["C3"].value == "All"
     assert ws["B4"].value == "Select Solvent:"
     assert ws["C4"].value == "All"
+    
+    # Check Active Curves and Matplotlib Plot cells removed
+    assert ws["B5"].value is None
+    assert ws["C5"].value is None
+    assert ws["B6"].value is None
+    assert ws["C6"].value is None
     
     # Check Data Validation presence
     assert len(ws.data_validations.dataValidation) >= 2
@@ -74,10 +83,6 @@ def test_polymers_sheet_generation(tmp_path):
     # Check Dynamic Count Helper columns N and O
     assert "COUNTIFS" in str(ws["N2"].value)
     assert "COUNTIFS" in str(ws["O2"].value)
-    
-    # Check Matplotlib Plot Control Button
-    assert ws["B6"].value == "Matplotlib Plot:"
-    assert ws["C6"].value == "Generate / Refresh Plot"
     
     # Check Python in Excel formula in cell E2
     assert str(ws["E2"].value).startswith("=PY(")

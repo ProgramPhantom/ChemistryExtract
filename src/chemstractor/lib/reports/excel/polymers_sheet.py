@@ -43,7 +43,7 @@ def is_flory_entry_valid(entry: dict) -> bool:
 
 def build_polymers_sheet(wb, flory_entries: list, font_family: str = "Segoe UI") -> None:
     """Builds the interactive Polymers worksheet in the Excel workbook."""
-    ws_poly = wb.create_sheet(title="Polymers")
+    ws_poly = wb.create_sheet(title="Results")
     ws_poly.views.sheetView[0].showGridLines = True
 
     # Styling definitions
@@ -115,7 +115,7 @@ def build_polymers_sheet(wb, flory_entries: list, font_family: str = "Segoe UI")
 
     # 1. Interactive Control Panel (Rows 2 - 5, Columns B & C)
     ws_poly.merge_cells("B2:C2")
-    ctrl_title_cell = ws_poly.cell(row=2, column=2, value="Interactive Curve Explorer")
+    ctrl_title_cell = ws_poly.cell(row=2, column=2, value="Data explorer")
     ctrl_title_cell.font = title_font
     ctrl_title_cell.fill = title_fill
     ctrl_title_cell.alignment = center_align
@@ -162,28 +162,9 @@ def build_polymers_sheet(wb, flory_entries: list, font_family: str = "Segoe UI")
     ws_poly.add_data_validation(dv_solv)
     dv_solv.add(val_solv)
 
-    # Summary row: Active Curves count
-    lbl_count = ws_poly.cell(row=5, column=2, value="Active Curves:")
-    lbl_count.font = label_font
-    lbl_count.alignment = Alignment(horizontal="right", vertical="center")
-    lbl_count.border = data_border
+    # Ensure top row is not frozen/sticky
+    ws_poly.freeze_panes = None
 
-    val_count = ws_poly.cell(row=5, column=3, value=f'=COUNTIF(F{start_data_row}:F{max(end_data_row, start_data_row)}, "<>#N/A")')
-    val_count.font = label_font
-    val_count.alignment = left_align
-    val_count.border = data_border
-
-    # Matplotlib Plot control button row
-    lbl_plot = ws_poly.cell(row=6, column=2, value="Matplotlib Plot:")
-    lbl_plot.font = label_font
-    lbl_plot.alignment = Alignment(horizontal="right", vertical="center")
-    lbl_plot.border = data_border
-
-    val_plot = ws_poly.cell(row=6, column=3, value="Generate / Refresh Plot")
-    val_plot.font = Font(name=font_family, size=10, bold=True, color="1F497D")
-    val_plot.alignment = center_align
-    val_plot.fill = PatternFill(start_color="DCE6F1", end_color="DCE6F1", fill_type="solid")
-    val_plot.border = data_border
 
     # Python in Excel Matplotlib plot formula placed in cell E2
     py_plot_code = (
