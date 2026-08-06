@@ -115,6 +115,7 @@ def process_all_command(
     process_manifest = {
         "start_time": datetime.fromtimestamp(start_time_all).strftime("%Y-%m-%d %H:%M:%S"),
         "start_timestamp": start_time_all,
+        "end_papers_time": datetime.fromtimestamp(end_papers_time).strftime("%Y-%m-%d %H:%M:%S"),
         "end_papers_timestamp": end_papers_time,
         "papers_duration_seconds": paper_processing_time
     }

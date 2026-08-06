@@ -1,7 +1,7 @@
 from datetime import datetime
 from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
 from openpyxl.utils import get_column_letter
-from chemstractor.lib.reports.helpers import is_entry_failed, ERROR_SEVERITY_MAP
+from chemstractor.lib.reports.helpers import is_entry_failed, ERROR_SEVERITY_MAP, format_duration
 
 def build_summary_sheet(
     wb,
@@ -64,11 +64,13 @@ def build_summary_sheet(
     total_tables_selected = sum(p.get("selected_tables", 0) for p in papers_summary)
 
     metadata_rows = [
-        ("Run Start Time", run_info.get("start_time", "N/A")),
-        ("Run End Time", run_info.get("end_time", "N/A")),
-        ("Total Execution Time", run_info.get("duration_seconds", "N/A")),
-        ("Paper Processing Time", run_info.get("papers_duration_seconds", "N/A")),
-        ("Combine Stage Execution Time", run_info.get("combine_duration_seconds", run_info.get("duration_seconds", "N/A"))),
+        ("Process Stage Start Time", run_info.get("process_start_time", run_info.get("start_time", "N/A"))),
+        ("Process Stage End Time", run_info.get("process_end_time", "N/A")),
+        ("Paper Processing Time", format_duration(run_info.get("papers_duration_seconds"))),
+        ("Combine Stage Start Time", run_info.get("combine_start_time", "N/A")),
+        ("Combine Stage End Time", run_info.get("combine_end_time", run_info.get("end_time", "N/A"))),
+        ("Combine Stage Execution Time", format_duration(run_info.get("combine_duration_seconds"))),
+        ("Total Execution Time", format_duration(run_info.get("total_execution_seconds", run_info.get("duration_seconds")))),
         ("AI Model Selected", run_info.get("model_used", "N/A")),
         ("Input Directory / Run", run_info.get("input_directory", "N/A")),
         ("Total Papers Inputted", run_info.get("total_papers_inputted", run_info.get("num_papers", len(papers_summary)))),
@@ -128,7 +130,6 @@ def build_summary_sheet(
         ("Issue Level: Deselected (Critical Failures)", severity_counts.get("deselected", 0)),
         ("Issue Level: Problem (Parameter Errors)", severity_counts.get("problem", 0)),
         ("Issue Level: Warning (Minor Warnings)", severity_counts.get("warning", 0)),
-        ("Overall Success Rate (%)", f"{success_rate:.1f}%")
     ]
 
     for m, v in kpis:

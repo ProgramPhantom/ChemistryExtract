@@ -4,6 +4,8 @@ from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
 from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.datavalidation import DataValidation
 from openpyxl.chart import LineChart, Reference, Series
+from openpyxl.chart.series import SeriesLabel
+from openpyxl.chart.data_source import StrRef
 from chemstractor.lib.reports.helpers import is_entry_failed
 
 def try_parse_float(val) -> float | None:
@@ -43,7 +45,7 @@ def is_flory_entry_valid(entry: dict) -> bool:
 
 def build_polymers_sheet(wb, flory_entries: list, font_family: str = "Segoe UI") -> None:
     """Builds the interactive Polymers worksheet in the Excel workbook."""
-    ws_poly = wb.create_sheet(title="Polymers")
+    ws_poly = wb.create_sheet(title="Results")
     ws_poly.views.sheetView[0].showGridLines = True
 
     # Styling definitions
@@ -80,162 +82,41 @@ def build_polymers_sheet(wb, flory_entries: list, font_family: str = "Segoe UI")
     unique_polymers = ["All"] + sorted(list({e.get("polymer_name") for e in sorted_flory_poly if e.get("polymer_name")}))
     unique_solvents = ["All"] + sorted(list({e.get("solvent_name", e.get("solvent")) for e in sorted_flory_poly if e.get("solvent_name", e.get("solvent"))}))
 
-    # Row positioning definitions (Data table moved 50 lines lower: header at 69, data at 70)
-    header_row = 69
-    start_data_row = 70
+    # Row positioning definitions (Data table at top: header at row 1, data starts at row 2)
+    header_row = 1
+    start_data_row = 2
     end_data_row = start_data_row + len(sorted_flory_poly) - 1 if sorted_flory_poly else start_data_row
 
-    data_range_a = f"$A$70:$A${max(end_data_row, 70)}"
-    data_range_b = f"$B$70:$B${max(end_data_row, 70)}"
+    data_range_a = f"$A$2:$A${max(end_data_row, 2)}"
+    data_range_b = f"$B$2:$B${max(end_data_row, 2)}"
 
-    sel_poly_clean = "IF(OR(LEFT($C$3, 3)=\"All\", $C$3=\"\"), \"*\", LEFT($C$3, IF(ISNUMBER(SEARCH(\" (\", $C$3)), SEARCH(\" (\", $C$3)-1, LEN($C$3))))"
-    sel_solv_clean = "IF(OR(LEFT($C$4, 3)=\"All\", $C$4=\"\"), \"*\", LEFT($C$4, IF(ISNUMBER(SEARCH(\" (\", $C$4)), SEARCH(\" (\", $C$4)-1, LEN($C$4))))"
+    # Data explorer dropdown selections are in M2 (Polymer) and M3 (Solvent)
+    sel_poly_clean = "IF(OR(LEFT($M$2, 3)=\"All\", $M$2=\"\"), \"*\", LEFT($M$2, IF(ISNUMBER(SEARCH(\" (\", $M$2)), SEARCH(\" (\", $M$2)-1, LEN($M$2))))"
+    sel_solv_clean = "IF(OR(LEFT($M$3, 3)=\"All\", $M$3=\"\"), \"*\", LEFT($M$3, IF(ISNUMBER(SEARCH(\" (\", $M$3)), SEARCH(\" (\", $M$3)-1, LEN($M$3))))"
 
-    # Helper Column L: Raw Unique Polymers
+    # Helper Column P: Raw Unique Polymers
     for idx, p in enumerate(unique_polymers, start=2):
-        ws_poly.cell(row=idx, column=12, value=p).font = val_font
+        ws_poly.cell(row=idx, column=16, value=p).font = val_font
 
-    # Helper Column M: Raw Unique Solvents
+    # Helper Column Q: Raw Unique Solvents
     for idx, s in enumerate(unique_solvents, start=2):
-        ws_poly.cell(row=idx, column=13, value=s).font = val_font
+        ws_poly.cell(row=idx, column=17, value=s).font = val_font
 
-    # Helper Column N: Dynamic Solvent List with Counts (Evaluating selected Polymer C3)
-    ws_poly.cell(row=2, column=14, value=f'=M2 & " (" & COUNTIFS({data_range_a}, {sel_poly_clean}) & ")"').font = val_font
+    # Helper Column R: Dynamic Solvent List with Counts (Evaluating selected Polymer M2)
+    ws_poly.cell(row=2, column=18, value=f'=Q2 & " (" & COUNTIFS({data_range_a}, {sel_poly_clean}) & ")"').font = val_font
     for idx, s in enumerate(unique_solvents[1:], start=3):
-        ws_poly.cell(row=idx, column=14, value=f'=M{idx} & " (" & COUNTIFS({data_range_a}, {sel_poly_clean}, {data_range_b}, M{idx}) & ")"').font = val_font
+        ws_poly.cell(row=idx, column=18, value=f'=Q{idx} & " (" & COUNTIFS({data_range_a}, {sel_poly_clean}, {data_range_b}, Q{idx}) & ")"').font = val_font
 
-    # Helper Column O: Dynamic Polymer List with Counts (Evaluating selected Solvent C4)
-    ws_poly.cell(row=2, column=15, value=f'=L2 & " (" & COUNTIFS({data_range_b}, {sel_solv_clean}) & ")"').font = val_font
+    # Helper Column S: Dynamic Polymer List with Counts (Evaluating selected Solvent M3)
+    ws_poly.cell(row=2, column=19, value=f'=P2 & " (" & COUNTIFS({data_range_b}, {sel_solv_clean}) & ")"').font = val_font
     for idx, p in enumerate(unique_polymers[1:], start=3):
-        ws_poly.cell(row=idx, column=15, value=f'=L{idx} & " (" & COUNTIFS({data_range_a}, L{idx}, {data_range_b}, {sel_solv_clean}) & ")"').font = val_font
+        ws_poly.cell(row=idx, column=19, value=f'=P{idx} & " (" & COUNTIFS({data_range_a}, P{idx}, {data_range_b}, {sel_solv_clean}) & ")"').font = val_font
 
-    # Hide helper columns J, L, M, N, O
-    for c_letter in ("J", "L", "M", "N", "O"):
+    # Hide helper columns J, P, Q, R, S
+    for c_letter in ("J", "P", "Q", "R", "S"):
         ws_poly.column_dimensions[c_letter].hidden = True
 
-    # 1. Interactive Control Panel (Rows 2 - 5, Columns B & C)
-    ws_poly.merge_cells("B2:C2")
-    ctrl_title_cell = ws_poly.cell(row=2, column=2, value="Interactive Curve Explorer")
-    ctrl_title_cell.font = title_font
-    ctrl_title_cell.fill = title_fill
-    ctrl_title_cell.alignment = center_align
-    ctrl_title_cell.border = data_border
-    ws_poly.cell(row=2, column=3).border = data_border
-
-    # Select Polymer row
-    lbl_poly = ws_poly.cell(row=3, column=2, value="Select Polymer:")
-    lbl_poly.font = label_font
-    lbl_poly.alignment = Alignment(horizontal="right", vertical="center")
-    lbl_poly.border = data_border
-
-    val_poly = ws_poly.cell(row=3, column=3, value="All")
-    val_poly.font = val_font
-    val_poly.alignment = left_align
-    val_poly.border = data_border
-
-    # Add Polymer Data Validation (Pointing to Column O)
-    dv_poly = DataValidation(
-        type="list", 
-        formula1=f"=Polymers!$O$2:$O${len(unique_polymers)+1}", 
-        allow_blank=True
-    )
-    ws_poly.add_data_validation(dv_poly)
-    dv_poly.add(val_poly)
-
-    # Select Solvent row
-    lbl_solv = ws_poly.cell(row=4, column=2, value="Select Solvent:")
-    lbl_solv.font = label_font
-    lbl_solv.alignment = Alignment(horizontal="right", vertical="center")
-    lbl_solv.border = data_border
-
-    val_solv = ws_poly.cell(row=4, column=3, value="All")
-    val_solv.font = val_font
-    val_solv.alignment = left_align
-    val_solv.border = data_border
-
-    # Add Solvent Data Validation (Pointing to Column N)
-    dv_solv = DataValidation(
-        type="list", 
-        formula1=f"=Polymers!$N$2:$N${len(unique_solvents)+1}", 
-        allow_blank=True
-    )
-    ws_poly.add_data_validation(dv_solv)
-    dv_solv.add(val_solv)
-
-    # Summary row: Active Curves count
-    lbl_count = ws_poly.cell(row=5, column=2, value="Active Curves:")
-    lbl_count.font = label_font
-    lbl_count.alignment = Alignment(horizontal="right", vertical="center")
-    lbl_count.border = data_border
-
-    val_count = ws_poly.cell(row=5, column=3, value=f'=COUNTIF(F{start_data_row}:F{max(end_data_row, start_data_row)}, "<>#N/A")')
-    val_count.font = label_font
-    val_count.alignment = left_align
-    val_count.border = data_border
-
-    # Matplotlib Plot control button row
-    lbl_plot = ws_poly.cell(row=6, column=2, value="Matplotlib Plot:")
-    lbl_plot.font = label_font
-    lbl_plot.alignment = Alignment(horizontal="right", vertical="center")
-    lbl_plot.border = data_border
-
-    val_plot = ws_poly.cell(row=6, column=3, value="Generate / Refresh Plot")
-    val_plot.font = Font(name=font_family, size=10, bold=True, color="1F497D")
-    val_plot.alignment = center_align
-    val_plot.fill = PatternFill(start_color="DCE6F1", end_color="DCE6F1", fill_type="solid")
-    val_plot.border = data_border
-
-    # Python in Excel Matplotlib plot formula placed in cell E2
-    py_plot_code = (
-        '=PY("'
-        'import matplotlib.pyplot as plt\n'
-        'poly = xl(\'C3\')\n'
-        'solv = xl(\'C4\')\n'
-        'poly_clean = poly.split(\' (\')[0] if poly and str(poly) != \'All\' and not str(poly).startswith(\'All\') else None\n'
-        'solv_clean = solv.split(\' (\')[0] if solv and str(solv) != \'All\' and not str(solv).startswith(\'All\') else None\n'
-        f'df = xl(\'A{header_row}:I{max(end_data_row, start_data_row)}\', headers=True)\n'
-        'fig, ax = plt.subplots(figsize=(7.5, 5.0), dpi=300)\n'
-        'colors = [\'#1f77b4\', \'#ff7f0e\', \'#2ca02c\', \'#d62728\', \'#9467bd\', \'#8c564b\', \'#e377c2\', \'#7f7f7f\', \'#bcbd22\', \'#17becf\', \'#319795\', \'#d69e2e\', \'#805ad5\', \'#dd6b20\', \'#3182ce\']\n'
-        'valid_count = 0\n'
-        'for idx, row in df.iterrows():\n'
-        '    p = str(row[\'Polymer (Clean)\'])\n'
-        '    s = str(row[\'Solvent (Clean)\'])\n'
-        '    c_val = row[\'c Value (log Constant)\']\n'
-        '    v_val = row[\'v Value (Scaling Exponent)\']\n'
-        '    if poly_clean and p != poly_clean:\n'
-        '        continue\n'
-        '    if solv_clean and s != solv_clean:\n'
-        '        continue\n'
-        '    try:\n'
-        '        c = float(c_val)\n'
-        '        v = float(v_val)\n'
-        '        y3 = c - v * 3\n'
-        '        y6 = c - v * 6\n'
-        '        if poly_clean and not solv_clean:\n'
-        '            label = s\n'
-        '        elif solv_clean and not poly_clean:\n'
-        '            label = p\n'
-        '        else:\n'
-        '            label = f\'{p} in {s}\'\n'
-        '        color = colors[valid_count % len(colors)]\n'
-        '        ax.plot([3, 6], [y3, y6], label=label, color=color, linewidth=2.0, alpha=0.9)\n'
-        '        valid_count += 1\n'
-        '    except (ValueError, TypeError):\n'
-        '        continue\n'
-        'if valid_count > 0:\n'
-        '    ax.set_title(\'Flory Calibration Curves (Interactive log-log Plot)\', pad=12)\n'
-        '    ax.set_xlabel(\'log10(M / g mol-1)\')\n'
-        '    ax.set_ylabel(\'log10(D / m2 s-1)\')\n'
-        '    ax.set_xticks([3, 4, 5, 6])\n'
-        '    ax.grid(True, linestyle=\'--\', alpha=0.6, color=\'#cbd5e0\')\n'
-        '    ax.spines[\'top\'].set_visible(False)\n'
-        '    ax.spines[\'right\'].set_visible(False)\n'
-        '    ax.legend(bbox_to_anchor=(1.04, 1), loc=\'upper left\', frameon=True, facecolor=\'#f7fafc\', edgecolor=\'#e2e8f0\', fontsize=8.5)\n'
-        'plt.gcf()")'
-    )
-    ws_poly.cell(row=2, column=5, value=py_plot_code)
-
-    # 2. Main Data Table Header (Row 69)
+    # 1. Main Data Table Header (Row 1)
     headers_poly = [
         "Polymer (Clean)", "Solvent (Clean)", "Temperature (K)", 
         "c Value (log Constant)", "v Value (Scaling Exponent)", "3", "6",
@@ -267,8 +148,8 @@ def build_polymers_sheet(wb, flory_entries: list, font_family: str = "Segoe UI")
         # Dynamic formula: Evaluate to numeric log value if matching Polymer and Solvent selection, else NA()
         formula_filter = (
             f"AND("
-            f"OR(LEFT($C$3, 3)=\"All\", $C$3=\"\", $C$3=A{r}, AND(LEFT($C$3, LEN(A{r}))=A{r}, MID($C$3, LEN(A{r})+1, 2)=\" (\")), "
-            f"OR(LEFT($C$4, 3)=\"All\", $C$4=\"\", $C$4=B{r}, AND(LEFT($C$4, LEN(B{r}))=B{r}, MID($C$4, LEN(B{r})+1, 2)=\" (\"))"
+            f"OR(LEFT($M$2, 3)=\"All\", $M$2=\"\", $M$2=A{r}, AND(LEFT($M$2, LEN(A{r}))=A{r}, MID($M$2, LEN(A{r})+1, 2)=\" (\")), "
+            f"OR(LEFT($M$3, 3)=\"All\", $M$3=\"\", $M$3=B{r}, AND(LEFT($M$3, LEN(B{r}))=B{r}, MID($M$3, LEN(B{r})+1, 2)=\" (\"))"
             f")"
         )
         ws_poly.cell(row=r, column=6, value=f"=IF({formula_filter}, D{r}-E{r}*3, NA())").font = val_font
@@ -277,11 +158,18 @@ def build_polymers_sheet(wb, flory_entries: list, font_family: str = "Segoe UI")
         ws_poly.cell(row=r, column=8, value=entry.get("source_paper", "")).font = val_font
         ws_poly.cell(row=r, column=9, value=entry.get("table_name", "")).font = val_font
 
+        # Dynamic Series Title in Column J (col 10) for plot legend
+        title_formula = (
+            f"IF(AND(OR(LEFT($M$2, 3)=\"All\", $M$2=\"\"), OR(LEFT($M$3, 3)=\"All\", $M$3=\"\")), A{r} & \" in \" & B{r}, "
+            f"IF(OR(LEFT($M$2, 3)<>\"All\", $M$2<=\"\"), B{r}, A{r}))"
+        )
+        ws_poly.cell(row=r, column=10, value=f"={title_formula}").font = val_font
+
         if isinstance(c_val, (int, float)) and isinstance(v_val, (int, float)):
             y_vals.append(c_val - v_val * 3)
             y_vals.append(c_val - v_val * 6)
 
-        for c in [1, 2, 8, 9]:
+        for c in [1, 2, 8, 9, 10]:
             ws_poly.cell(row=r, column=c).alignment = left_align
             ws_poly.cell(row=r, column=c).border = data_border
         for c in range(3, 8):
@@ -291,12 +179,102 @@ def build_polymers_sheet(wb, flory_entries: list, font_family: str = "Segoe UI")
     # Enable native Excel AutoFilter on the main data table
     ws_poly.auto_filter.ref = f"A{header_row}:I{max(end_data_row, start_data_row)}"
 
+    # 2. Interactive Control Panel (Right hand side: Rows 1 - 3, Columns L & M)
+    ws_poly.merge_cells("L1:M1")
+    ctrl_title_cell = ws_poly.cell(row=1, column=12, value="Data explorer")
+    ctrl_title_cell.font = title_font
+    ctrl_title_cell.fill = title_fill
+    ctrl_title_cell.alignment = center_align
+    ctrl_title_cell.border = data_border
+    ws_poly.cell(row=1, column=13).border = data_border
+
+    # Select Polymer row (Row 2, Cols L & M)
+    lbl_poly = ws_poly.cell(row=2, column=12, value="Select Polymer:")
+    lbl_poly.font = label_font
+    lbl_poly.alignment = Alignment(horizontal="right", vertical="center")
+    lbl_poly.border = data_border
+
+    val_poly = ws_poly.cell(row=2, column=13, value="All")
+    val_poly.font = val_font
+    val_poly.alignment = left_align
+    val_poly.border = data_border
+
+    # Add Polymer Data Validation (Pointing to Column S)
+    dv_poly = DataValidation(
+        type="list", 
+        formula1=f"=Results!$S$2:$S${len(unique_polymers)+1}", 
+        allow_blank=True
+    )
+    ws_poly.add_data_validation(dv_poly)
+    dv_poly.add(val_poly)
+
+    # Select Solvent row (Row 3, Cols L & M)
+    lbl_solv = ws_poly.cell(row=3, column=12, value="Select Solvent:")
+    lbl_solv.font = label_font
+    lbl_solv.alignment = Alignment(horizontal="right", vertical="center")
+    lbl_solv.border = data_border
+
+    val_solv = ws_poly.cell(row=3, column=13, value="All")
+    val_solv.font = val_font
+    val_solv.alignment = left_align
+    val_solv.border = data_border
+
+    # Add Solvent Data Validation (Pointing to Column R)
+    dv_solv = DataValidation(
+        type="list", 
+        formula1=f"=Results!$R$2:$R${len(unique_solvents)+1}", 
+        allow_blank=True
+    )
+    ws_poly.add_data_validation(dv_solv)
+    dv_solv.add(val_solv)
+
+    # 3. Interactive Flory Line Chart (Placed at L5 on the right hand side)
+    if sorted_flory_poly:
+        try:
+            chart_flory = LineChart()
+            chart_flory.title = "Flory Calibration Curves (Interactive log-log Plot)"
+            chart_flory.style = 13
+            chart_flory.x_axis.title = "log(M / g mol⁻¹)"
+            chart_flory.y_axis.title = "log(D / m² s⁻¹)"
+            chart_flory.x_axis.delete = False
+            chart_flory.y_axis.delete = False
+            chart_flory.x_axis.tickLblPos = "low"
+            chart_flory.y_axis.tickLblPos = "nextTo"
+
+            if y_vals:
+                min_y = min(y_vals)
+                max_y = max(y_vals)
+                chart_flory.y_axis.scaling.min = float(f"{min_y - 0.5:.2f}")
+                chart_flory.y_axis.scaling.max = float(f"{max_y + 0.5:.2f}")
+
+            chart_flory.width = 18
+            chart_flory.height = 13
+            chart_flory.visible_cells_only = True
+
+            for row_offset, entry in enumerate(sorted_flory_poly):
+                r = start_data_row + row_offset
+                series_ref = Reference(ws_poly, min_col=6, max_col=7, min_row=r, max_row=r)
+                series = Series(series_ref)
+                series.title = SeriesLabel(strRef=StrRef(f=f"Results!$J${r}"))
+                chart_flory.append(series)
+
+            cats_ref = Reference(ws_poly, min_col=6, max_col=7, min_row=header_row, max_row=header_row)
+            chart_flory.set_categories(cats_ref)
+
+            colors = ["1F497D", "C0504D", "9BBB59", "8064A2", "F79646", "4BACC6", "E26B0A", "7030A0", "00B0F0"]
+            for s_idx, series in enumerate(chart_flory.series):
+                color = colors[s_idx % len(colors)]
+                series.graphicalProperties.line = openpyxl.drawing.line.LineProperties(solidFill=color)
+
+            ws_poly.add_chart(chart_flory, "L5")
+        except Exception:
+            pass
+
     # Auto-adjust column widths (excluding hidden helper columns)
     for col in ws_poly.columns:
         col_letter = get_column_letter(col[0].column)
-        if col_letter in ("J", "L", "M", "N", "O"):
+        if col_letter in ("J", "P", "Q", "R", "S"):
             continue
-        vals = [str(cell.value or '') for cell in col if cell.row >= header_row or cell.column in (1, 2, 3)]
+        vals = [str(cell.value or '') for cell in col if cell.row >= header_row or cell.column in (1, 2, 12, 13)]
         max_len = max(len(v) for v in vals) if vals else 10
         ws_poly.column_dimensions[col_letter].width = max(max_len + 3, 14)
-

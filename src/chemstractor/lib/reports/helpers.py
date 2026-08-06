@@ -1,6 +1,52 @@
 from __future__ import annotations
 from openpyxl.styles import PatternFill
 
+def format_duration(val: str | int | float | None) -> str:
+    """
+    Formats a duration in seconds (float, int, or string) into a human-readable string:
+    e.g. '4d 23h 29m 18s', '2m 15.20s', '15.20s', or 'N/A'.
+    """
+    if val is None or val == "" or val == "N/A":
+        return "N/A"
+
+    seconds = None
+    if isinstance(val, (int, float)):
+        seconds = float(val)
+    elif isinstance(val, str):
+        cleaned = val.strip().rstrip("s").strip()
+        try:
+            seconds = float(cleaned)
+        except ValueError:
+            return val
+
+    if seconds is None:
+        return "N/A"
+    if seconds < 0:
+        seconds = 0.0
+
+    days = int(seconds // 86400)
+    rem = seconds % 86400
+    hours = int(rem // 3600)
+    rem %= 3600
+    minutes = int(rem // 60)
+    secs = rem % 60
+
+    parts = []
+    if days > 0:
+        parts.append(f"{days}d")
+    if hours > 0 or days > 0:
+        parts.append(f"{hours}h")
+    if minutes > 0 or hours > 0 or days > 0:
+        parts.append(f"{minutes}m")
+
+    if days > 0 or hours > 0:
+        parts.append(f"{int(secs)}s")
+    else:
+        parts.append(f"{secs:.2f}s")
+
+    return " ".join(parts)
+
+
 # Error Severity & Fill Styling Configuration
 ERROR_SEVERITY_MAP = {
     # Critical / High Severity (Red fill)
