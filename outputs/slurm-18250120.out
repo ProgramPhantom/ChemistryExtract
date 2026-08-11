@@ -1,0 +1,124 @@
+Starting Ollama server (logs redirected to ollama_18250120.log)...
+Pulling model gemma4:31b...
+────────────────── COMBINING & HOMOGENISING DATA (230 PAPERS) ──────────────────
+Inputs dir: ./tests/runs/2026-07-31_17-39-11
+Cache file: ./tests/runs/2026-07-31_17-39-11/chemical_cache.json
+
+Loaded 16 papers containing interpreted table data.
+  Homogenisation complete! ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 16/16 0:17:05
+Homogenising Chemical Names using gemma4:31b
+├── ✓ 1994 - Structural Information on Hyaluronic Acid Solutions As Studied by 
+│   Probe Diffusion Experiments (4 Flory, 0 Mark-Houwink)
+├── ✓ 1995 - Determination of Molecular Weight Distributions for Polymers by 
+│   diffusion NMR (1 Flory, 0 Mark-Houwink)
+├── ✓ 2008 - Determination of the Chemical Structure of Poly-β-pinene by NMR 
+│   Spectroscopy (1 Flory, 0 Mark-Houwink)
+├── ✓ 2009 - NMR Measure of Translational Diffusion and Fractal Dimension. 
+│   Application to Molecular Mass Measurement (23 Flory, 0 Mark-Houwink)
+├── ✓ 2011 - A Simple Access to the LogNormal Molecular weight distribution 
+│   parameters of Polymers using PGSTE NMR (0 Flory, 0 Mark-Houwink)
+├── ✓ 2014 - Determination of the Average Molecular Weight of Hydroxyethyl 
+│   Starches by Diffusion Ordered NMR Spectroscopy (3 Flory, 0 Mark-Houwink)
+├── ✓ 2015 - Determination of the parameters of molecular-weight distribution of
+│   hydroxyethyl starches by diffusion-ordered NMR spectroscopy (6 Flory, 0 
+│   Mark-Houwink)
+├── ✓ 2016 - 1 H DOSY NMR Determination of the Molecular Weight and the Solution
+│   Properties of Poly-( N -acryloylmorpholine) in Various Solvents (4 Flory, 0 
+│   Mark-Houwink)
+├── ✓ 2019 - Quantitative Studies of Block Copolymers and Their Containing 
+│   Homopolymer Components by Diffusion Ordered Spectroscopy (6 Flory, 0 
+│   Mark-Houwink)
+├── ✓ 2020 - Application of 1H DOSY NMR in Measurement of Polystyrene Molecular 
+│   Weights (1 Flory, 0 Mark-Houwink)
+├── ✓ 2021 - Solvent‐Independent Molecular Weight Determination of Polymers 
+│   Based on a Truly  Universal Calibration (17 Flory, 0 Mark-Houwink)
+├── ✓ 2021 - Solvent‐Independent Molecular Weight Determination of Polymers 
+│   Based on a Truly Universal Calibration SI (2 Flory, 0 Mark-Houwink)
+├── ✓ 2022 - Molar Mass Distribution and Chemical Composition Distribution of 
+│   PS‑b‑PMMA Block Copolymers Determined by Diffusion Ordered Spectroscopy (2 
+│   Flory, 0 Mark-Houwink)
+├── ✓ 2023 - A fast and efficient way of obtaining the average molecular weight 
+│   of block copolymers via DOSY (12 Flory, 0 Mark-Houwink)
+├── ✓ 2023 - The Universal Calibration for Structure- and Solvent-Independent 
+│   Molar Mass Determinations of Polymers Using Diffusion-Ordered Spectroscopy 
+│   (16 Flory, 0 Mark-Houwink)
+└── ✓ 2024 - Molar Mass Determination for Small and Large Molecules Using 
+    Diffusion-Ordered Spectroscopy - SI (55 Flory, 0 Mark-Houwink)
+✓ Combining process completed in 1025.25s (Total process: 428558.51s, Papers: 
+32871.61s).
+JSON data saved to: 
+./tests/runs/2026-07-31_17-39-11/combined_data_2026-08-05_16-22-26.json
+Excel report saved to: 
+./tests/runs/2026-07-31_17-39-11/combined_data_2026-08-05_16-22-26.xlsx
+Matplotlib plots saved to: ./tests/runs/2026-07-31_17-39-11/plots (4 PNG charts 
+generated)
+Flory database saved to: 
+./tests/runs/2026-07-31_17-39-11/combined_data_2026-08-05_16-22-26_flory_databas
+e.pkl / .csv
+Mark-Houwink database saved to: 
+./tests/runs/2026-07-31_17-39-11/combined_data_2026-08-05_16-22-26_mh_database.p
+kl / .csv
+Sorted paper PDFs saved to: ./tests/runs/2026-07-31_17-39-11/sorted
+  - Healthy: 0
+  - Unhealthy: 16
+  - No Data: 0
+
+          Homogenisation Statistics           
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━┓
+┃ Metric                             ┃ Count ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━┩
+│ Total Chemical Fields Checked      │ 306   │
+│ Cache Hits (Fuzzy + Exact)         │ 199   │
+│ AI Match Hits (Enum Selection)     │ 36    │
+│ AI Generated Names (New)           │ 31    │
+│ Failed / Non-Chemical Fields (N/A) │ 61    │
+└────────────────────────────────────┴───────┘
+
+Recorded Entry Failures (75):
+ - 1994 - Structural Information on Hyaluronic Acid Solutions As Studied by 
+Probe Diffusion Experiments/table1 (Flory): Active Errors solvent_name, 
+temperature_missing, D_out_of_range
+ - 1994 - Structural Information on Hyaluronic Acid Solutions As Studied by 
+Probe Diffusion Experiments/table1 (Flory): Active Errors solvent_name, 
+temperature_missing, D_out_of_range
+ - 1994 - Structural Information on Hyaluronic Acid Solutions As Studied by 
+Probe Diffusion Experiments/table1 (Flory): Active Errors solvent_name, 
+temperature_missing, D_out_of_range
+ - 1994 - Structural Information on Hyaluronic Acid Solutions As Studied by 
+Probe Diffusion Experiments/table1 (Flory): Active Errors solvent_name, 
+temperature_missing, D_out_of_range
+ - 2008 - Determination of the Chemical Structure of Poly-β-pinene by NMR 
+Spectroscopy/table5 (Flory): Active Errors solvent_name, temperature_missing
+ - 2009 - NMR Measure of Translational Diffusion and Fractal Dimension. 
+Application to Molecular Mass Measurement/table1 (Flory): Active Errors 
+solvent_name, c_value_missing, polymer_name, temperature_missing
+ - 2009 - NMR Measure of Translational Diffusion and Fractal Dimension. 
+Application to Molecular Mass Measurement/table1 (Flory): Active Errors 
+solvent_name, c_value_missing, polymer_name, temperature_missing
+ - 2009 - NMR Measure of Translational Diffusion and Fractal Dimension. 
+Application to Molecular Mass Measurement/table2 (Flory): Active Errors 
+solvent_name, c_value_missing, temperature_missing
+ - 2009 - NMR Measure of Translational Diffusion and Fractal Dimension. 
+Application to Molecular Mass Measurement/table2 (Flory): Active Errors 
+solvent_name, c_value_missing, temperature_missing
+ - 2009 - NMR Measure of Translational Diffusion and Fractal Dimension. 
+Application to Molecular Mass Measurement/table2 (Flory): Active Errors 
+c_value_missing, temperature_missing
+ - 2009 - NMR Measure of Translational Diffusion and Fractal Dimension. 
+Application to Molecular Mass Measurement/table2 (Flory): Active Errors 
+c_value_missing, temperature_missing
+ - 2009 - NMR Measure of Translational Diffusion and Fractal Dimension. 
+Application to Molecular Mass Measurement/table2 (Flory): Active Errors 
+c_value_missing, temperature_missing
+ - 2009 - NMR Measure of Translational Diffusion and Fractal Dimension. 
+Application to Molecular Mass Measurement/table2 (Flory): Active Errors 
+c_value_missing, temperature_missing
+ - 2009 - NMR Measure of Translational Diffusion and Fractal Dimension. 
+Application to Molecular Mass Measurement/table2 (Flory): Active Errors 
+c_value_missing, temperature_missing
+ - 2009 - NMR Measure of Translational Diffusion and Fractal Dimension. 
+Application to Molecular Mass Measurement/table2 (Flory): Active Errors 
+solvent_name, c_value_missing, temperature_missing
+ ... and 60 more failed entries. See the Failures sheet in Excel.
+
+AI Usage during run: gemma4:31b - 37567 input tokens, 1301 output tokens
