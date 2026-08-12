@@ -1,7 +1,0 @@
-,object,δ,R,d F,range a,source
-0,sphere,0.33,0.33,3,∞,
-1,polymers in,0.50,,2,∞,ref 7
-2,Θ solvent polymers in good solvent,0.588,,1.70,∞,refs 7 and 8
-3,finite rods,,0.81,1.24,2.5,this work
-4,finite rods,0.997,,1.003,2.5,this work
-5,infinite rod,1,1,1,∞,

@@ -3,6 +3,6 @@ tests/runs
 venv/
 *.egg-info/
 **/__pycache__/
-gitInit.sh
 case_studies/
 ~$*
+tests/old

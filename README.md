@@ -8,180 +8,213 @@
 \____/_/ /_/\___/_/ /_/ /_/____/____/_/   \__,_/\__/\____/_/      
 
            .---.
-          |[ ]  |                 🧪 Chemstractor v0.1.0
-          |  _  |                 Chemistry Table & Metadata Extraction
-          | (_) |                 
+          |     |                 🧪 Chemstractor v0.1.0
+          |     |                 Chemistry Table & Metadata Extraction
+          |     |                 
          /       \                Powered by Docling & LLMs
         /    o    \               
        /  o     o  \              
       /_____________\             
 ```
 
-**Chemstractor** is a powerful command-line tool designed to orchestrate the extraction, classification, and summarisation of chemistry-related table data and metadata from scientific PDFs. By combining robust document layout analysis (via **Docling**) with modern Large Language Models (online via **Gemini** and offline via **Ollama / Llama**), Chemstractor automates the conversion of complex scientific publications into clean, structured datasets.
+**Chemstractor** is an automated pipeline and command-line tool for extracting, categorising, interpreting, and synthesising chemistry table data and metadata from scientific publications. Combining document layout parsing (**Docling**) with Large Language Models (**Google Gemini** or local **Ollama**), Chemstractor turns complex PDF literature into structured, homogenised datasets and Excel reports.
 
 ---
 
-## ✨ Features
+## ✨ Key Features
 
-- **📄 Document Layout Extraction**: Powered by **Docling** to parse PDF structures into clean markdown files, extracting in-memory tables and saving them in both CSV and TXT formats.
-- **💎 Hardware Acceleration**: Out-of-the-box support for hardware backends (DirectML for Windows AMD/Intel GPUs, CUDA for NVIDIA, and MPS for Apple Silicon).
-- **🏷️ Smart Table Categorisation**: Automatically inspects and categorizes extracted tables (e.g., reaction conditions, reagents, catalyst screenings) using configured LLMs.
-- **📝 Metadata Retrieval**: Automatically parses publication metadata such as Paper Title, Authors, and DOI.
-- **✍️ Condition Summarisation**: Leverages LLM reasoning to summarize experimental reaction conditions, yields, and chemical formulations directly from the extracted tables.
-- **⚖️ Pipeline Validation**: Supports validation commands to compare pipeline outputs directly against ground-truth validation datasets, reporting precise key-value matching percentages.
-- **📊 Excel Reporting**: Compiles output folders into professional, multi-sheet Excel workbooks (`.xlsx`) for easy downstream analysis.
-
----
-
-## 📂 Pipeline Output Structure
-
-When processing a PDF, Chemstractor generates a clean output directory structure containing everything from raw extractions to final AI summaries:
-
-```text
-[Output Directory]/
-└── 📂 [pdf_filename_without_extension]/
-    ├── 📂 extract/
-    │   ├── 📄 clean_[filename].pdf      # Copy of the original processed PDF
-    │   ├── 📄 output.md                 # Unclean document content parsed into Markdown
-    │   ├── 📄 output_clean.md           # Cleaned document content parsed into Markdown
-    │   ├── 📄 log_[filename].log        # Complete timing and parser logs
-    │   └── 📂 tables/
-    │       ├── 📊 table1.csv            # Raw table data in CSV format
-    │       └── 📄 table1.txt            # Raw table content in formatted text
-    │
-    ├── 📂 categorisation/
-    │   └── 📄 table1.json               # Table category tags (JSON)
-    │
-    └── 📂 summary/
-        ├── 📄 summary.json              # Paper metadata and summarized reaction conditions
-        └── 📊 tables_summary.csv        # Tabular summary compilation
-```
+- **📄 Document Layout Extraction**: Uses **Docling** to parse PDF structures into Markdown and extract tables into CSV and formatted text files.
+- **🏷️ Table Categorisation**: Automatically classifies extracted tables (e.g. reaction conditions, physical parameters, screening results) using configured LLMs.
+- **📝 Metadata & Condition Summarisation**: Extracts paper metadata (title, authors, DOI) and synthesises experimental reaction parameters, yields, and formulations.
+- **🔬 Parameter Interpretation**: Extracts and interprets specialised chemical coefficients, such as **Flory-Huggins** interaction parameters and **Mark-Houwink** parameters.
+- **🔄 Data Combination & Homogenisation**: Standardises chemical names (solvents & polymers) across multiple papers, generates combined datasets, and plots summary diagrams (e.g., Sankey flowcharts).
+- **📥 Paper Downloader**: Bulk downloads open-access research papers from **OpenAlex** via keyword or semantic search.
+- **📊 Excel Reporting**: Compiles extractions into structured, multi-sheet Excel workbooks (`.xlsx`).
+- **⚖️ Pipeline Validation**: Benchmark extraction accuracy against ground-truth validation datasets.
 
 ---
 
-## ⚡ Getting Started
+## ⚡ Setup Tutorial
+
+Follow these steps to get Chemstractor installed and ready on your system.
 
 ### 1. Prerequisites
 
-- Python 3.10 or higher
-- [Ollama](https://ollama.com/) (Optional, required for offline/local model usage)
+- **Python 3.10** or higher
+- **Git**
+- **Ollama** *(Optional — required only for offline/local model execution)*
 
 ### 2. Installation
 
-Clone the repository and install the dependencies inside a virtual environment:
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/henry/ChemistryExtract.git
+   cd ChemistryExtract
+   ```
 
-```bash
-# Clone the repository
-git clone https://github.com/henry/ChemistryExtract.git
-cd ChemistryExtract
+2. **Create and activate a virtual environment:**
+   - On **Windows (PowerShell)**:
+     ```powershell
+     python -m venv venv
+     .\venv\Scripts\activate
+     ```
+   - On **Linux / macOS**:
+     ```bash
+     python3 -m venv venv
+     source venv/bin/activate
+     ```
 
-# Create and activate virtual environment
-python -m venv venv
-# On Windows:
-.\venv\Scripts\activate
-# On macOS/Linux:
-source venv/bin/activate
-
-# Install required packages
-pip install -e .
-```
+3. **Install the package and dependencies:**
+   ```bash
+   pip install -e .
+   ```
 
 ### 3. Environment Configuration
 
-Create a `.env` file in the root directory to store your Gemini API Key:
+Create a `.env` file in the root directory to configure your API credentials for online models (Google Gemini):
 
 ```env
-GEMINI_API_KEY=your_gemini_api_key_here
+API_KEY=your_gemini_api_key_here
+```
+
+> [!NOTE]
+> If you are using local models via Ollama (e.g. `gemma4:31b`), ensure the Ollama application or daemon is running (`ollama serve`) and pull the target model (`ollama pull gemma4:31b`).
+
+---
+
+## 🚀 Quick Start Tutorial
+
+Here is a quick walkthrough showing how to download scientific papers, extract data, interpret results, and build a unified dataset.
+
+### Step 1: Download Scientific Papers (Optional)
+Fetch 5 Open Access papers on polymer solutions from OpenAlex:
+```bash
+python src/chemstractor/main.py download "polymer solution viscosity" --limit 5 -n test_papers
+```
+
+### Step 2: Process a Single PDF
+Run the full pipeline (extraction, categorisation, metadata, summarisation, and interpretation) on a single PDF paper:
+```bash
+python src/chemstractor/main.py process path/to/paper.pdf output_folder --model gemini-2.5-flash --all
+```
+
+### Step 3: Batch Process a Folder of PDFs
+Process an entire directory of PDFs into individual structured output folders:
+```bash
+python src/chemstractor/main.py process_all path/to/pdf_dir output_parent_dir --model gemini-2.5-flash --all
+```
+
+### Step 4: Combine & Homogenise Data Across Papers
+Homogenise chemical names and aggregate parameter tables across all processed papers into an Excel workbook:
+```bash
+python src/chemstractor/main.py combine output_parent_dir -o report.xlsx --model gemini-2.5-flash
 ```
 
 ---
 
-## 🚀 CLI Reference
+## 📖 CLI Reference
 
-Chemstractor exposes a rich command-line interface via `click`.
+Chemstractor provides a command-line interface driven by `click`. 
 
 > [!TIP]
-> If you run any processing commands without specifying the `--model` flag, Chemstractor will open an interactive menu letting you choose the target model.
+> If you omit the `--model` flag in processing commands, Chemstractor will open an interactive selector menu.
 
-### Complete Process Pipeline
-Process an entire PDF file (runs extraction, categorisation, metadata, and summarisation):
-```bash
-python src/chemstractor/main.py process path/to/paper.pdf [output_dir] --model gemini-2.5-flash
-```
-*Use the `-d` or `--direct` flag to re-run pipeline steps on a folder containing pre-extracted data.*
+### Core Pipelines
 
-### Batch Process Directory
-Process all PDF files found within a directory:
-```bash
-python src/chemstractor/main.py process_all path/to/pdf_dir/ [output_parent_dir] --model gemini-2.5-flash
-```
+| Command | Description | Example Usage |
+| :--- | :--- | :--- |
+| `process` | Process a single PDF paper | `python src/chemstractor/main.py process paper.pdf out_dir --all` |
+| `process_all` | Batch process all PDFs in a folder | `python src/chemstractor/main.py process_all ./corpus ./outputs --all` |
+| `combine` | Standardise & merge extractions across papers | `python src/chemstractor/main.py combine ./outputs -o dataset.xlsx` |
+| `download` | Bulk download OpenAccess PDFs from OpenAlex | `python src/chemstractor/main.py download "flory huggins" -l 10` |
 
-### Extract Only
-Extract text and tables from a PDF (no LLM classification or summarisation):
-```bash
-python src/chemstractor/main.py extract path/to/paper.pdf [output_dir]
-```
+### Stage-by-Stage Commands
 
-### Categorise Only
-Categorise extracted tables:
-```bash
-python src/chemstractor/main.py categorise path/to/paper.pdf [output_dir] --model gemini-2.5-flash
-```
+- **Extract Only** (Docling layout parsing):
+  ```bash
+  python src/chemstractor/main.py extract path/to/paper.pdf [output_dir]
+  python src/chemstractor/main.py extract_all path/to/pdf_dir/ [output_dir]
+  ```
 
-### Summarise Only
-Summarise reaction conditions and metadata:
-```bash
-python src/chemstractor/main.py summarise path/to/paper.pdf [output_dir] --model gemini-2.5-flash
-```
+- **Categorise Only** (Table classification):
+  ```bash
+  python src/chemstractor/main.py categorise path/to/paper.pdf [output_dir] --model gemini-2.5-flash
+  ```
 
-### Validate Outputs
-Compare extracted run results against a directory of correct ground-truth validation files:
-```bash
-python src/chemstractor/main.py validate path/to/run_output/ path/to/validation_data/
-```
+- **Metadata & Summarise**:
+  ```bash
+  python src/chemstractor/main.py metadata path/to/paper.pdf [output_dir] --model gemini-2.5-flash
+  python src/chemstractor/main.py summarise path/to/paper.pdf [output_dir] --model gemini-2.5-flash
+  ```
 
-### Batch Validation
-Validate all runs under the run parent folder against the validation folder:
-```bash
-python src/chemstractor/main.py validate_all [outputs_dir] [validation_dir]
-```
+- **Interpret Coefficients** (Flory parameters `-f` / Mark-Houwink `-m`):
+  ```bash
+  python src/chemstractor/main.py interpret path/to/paper.pdf [output_dir] --flory --model gemini-2.5-flash
+  python src/chemstractor/main.py interpret_all path/to/pdf_dir [output_dir] --flory --model gemini-2.5-flash
+  ```
 
-### Excel Report Generation
-Compile run results into an Excel report (`.xlsx` file):
-```bash
-python src/chemstractor/main.py report path/to/processed_output_folder/ -o reports/compilation.xlsx
-```
+- **Excel Reporting**:
+  ```bash
+  python src/chemstractor/main.py report path/to/processed_output_folder -o report.xlsx
+  ```
+
+- **Validation & Benchmarking**:
+  ```bash
+  python src/chemstractor/main.py validate path/to/output/ path/to/ground_truth/
+  python src/chemstractor/main.py validate_all path/to/runs/ path/to/ground_truth/
+  ```
 
 ---
 
 ## 🤖 Supported Models
 
-Chemstractor supports both online LLM providers and local/offline engines:
+Chemstractor supports both cloud API models and local offline execution:
 
-### ☁️ Online Models (Google Gemini)
-Configured with input/output pricing parameters per 1M tokens:
+### ☁️ Cloud Models (Google Gemini)
+Requires `API_KEY` set in `.env`:
 - `gemini-2.5-flash`
 - `gemini-2.5-pro`
 - `gemini-3.5-flash`
 - `gemini-3.1-flash-lite`
 
-### 💻 Offline Models (Ollama)
-Run models locally on your hardware without internet requirements:
-- `llama3.1`
-- `llama3`
+### 💻 Local Offline Models (Ollama)
+Requires [Ollama](https://ollama.com/) running locally:
+- `gemma4:31b` *(Default local model)*
+- `qwen3.6:35b`
+
+---
+
+## 📂 Output Folder Structure
+
+When processing a PDF, Chemstractor outputs a structured folder containing raw extractions, classified tables, and AI summaries:
+
+```text
+[Output Directory]/
+└── 📂 [paper_name]/
+    ├── 📂 extract/
+    │   ├── 📄 clean_[filename].pdf      # Clean copy of original PDF
+    │   ├── 📄 output.md                 # Markdown parsed by Docling
+    │   ├── 📄 output_clean.md           # Cleaned document content
+    │   ├── 📄 log_[filename].log        # Processing timing & log output
+    │   └── 📂 tables/
+    │       ├── 📊 table1.csv            # Raw table CSV format
+    │       └── 📄 table1.txt            # Formatted text table
+    ├── 📂 categorisation/
+    │   └── 📄 table1.json               # Table classification tag
+    ├── 📂 interpretation/
+    │   ├── 📄 flory_interpretation.json # Flory interaction parameters
+    │   └── 📄 mh_interpretation.json    # Mark-Houwink parameters
+    └── 📂 summary/
+        ├── 📄 summary.json              # Extracted metadata & condition summary
+        └── 📊 tables_summary.csv        # Tabular condition summary
+```
 
 ---
 
 ## ⚖️ License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](file:///c:/Users/henry/Github/ChemistryExtract/LICENSE) file for details.
 
 ---
 
-```text
-       O   H
-       ║  ╱
-       C ─── N ─── H          Happy Extracting!
-      ╱ ╲                     🧪✨
-     H   O ─── CH₃
-```
+

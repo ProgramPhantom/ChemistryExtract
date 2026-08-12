@@ -1,8 +1,0 @@
-,Sample,%2.1-%2.5,% crosslink,Structure (excluded the crosslinked forms)
-0,PBP 300 kGy,0-100,4%,"(2,5)n"
-1,PBP 600 kGy,0-100,9%,"(2,5)n"
-2,PBP 1000 kGy,0-100,13%,"(2,5)n"
-3,PBP 2000 kGy,0-100,12%,"(2,5)n"
-4,PBP free radical initiator,10-90,23%,"(2,5)n"
-5,PBP cationic catalysis,30-70,30%,"irregular, (2,5)n < 5%"
-6,PBP Ziegler Natta,35-65,15%,"(2,1-2,5-2,5)n or (2,5-2,1-2,5)n"

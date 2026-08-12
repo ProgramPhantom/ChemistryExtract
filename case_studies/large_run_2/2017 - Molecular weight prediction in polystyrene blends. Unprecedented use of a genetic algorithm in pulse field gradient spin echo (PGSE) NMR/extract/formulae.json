@@ -1,8 +1,0 @@
-[
-  "E _ { \\text {diff} } = e ^ { - D _ { 7 } e _ { \\text {eff} } ^ { 2 } \\delta ^ { 2 } \\sigma ^ { 2 } g ^ { 2 } \\Delta ^ { \\prime } } & & ( 1 ) & & D _ { 2 } \\\\",
-  "E _ { d i r } ( g ) = \\int _ { 0 } ^ { \\infty } A ( D ) e ^ { - D _ { 7 } e ^ { 2 } \\delta ^ { 2 } \\sigma ^ { 2 } g ^ { 2 } \\Delta ^ { \\prime } } d D & & ( 2 ) & \\quad e t \\ \\ a n d \\\\",
-  "A ( D ) = \\sum _ { i = 1 } ^ { n } \\Pi _ { D _ { i } \\pm \\omega } ( d ) _ { i } \\quad \\quad ( 3 )",
-  "\\Pi _ { a , b } ( d ) = H ( d - a ) - H ( d - b )",
-  "( a , b ) = \\left ( D - \\frac { \\omega } { 2 } , D + \\frac { \\omega } { 2 } \\right ) = D \\pm \\omega & & ( 5 ) & & \\text {of} \\ t \\\\",
-  "\\min F ( A ) \\equiv f ( D ) = \\left \\| C \\cdot \\sum _ { i = 1 } ^ { n } \\Pi _ { D _ { i } \\pm \\omega } ( d ) _ { i } - E _ { d i r } \\right \\| _ { 2 } \\quad ( 6 ) \\quad \\text {estab} \\quad \\begin{matrix} A \\\\ 6 \\end{matrix}"
-]

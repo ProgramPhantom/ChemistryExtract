@@ -1,279 +1,0 @@
-Running: parse_pdf
-[32m[INFO] 2026-07-23 10:43:31,196 [RapidOCR] base.py:23: Using engine_name: onnxruntime[0m
-[32m[INFO] 2026-07-23 10:43:32,139 [RapidOCR] download_file.py:60: File exists and is valid: /mnt/iusers01/fatpou01/chem02/b07755hv/.local/lib/python3.12/site-packages/rapidocr/models/PP-OCRv6_det_small.onnx[0m
-[32m[INFO] 2026-07-23 10:43:32,140 [RapidOCR] main.py:63: Using /mnt/iusers01/fatpou01/chem02/b07755hv/.local/lib/python3.12/site-packages/rapidocr/models/PP-OCRv6_det_small.onnx[0m
-[32m[INFO] 2026-07-23 10:43:37,809 [RapidOCR] base.py:23: Using engine_name: onnxruntime[0m
-[32m[INFO] 2026-07-23 10:43:37,894 [RapidOCR] download_file.py:60: File exists and is valid: /mnt/iusers01/fatpou01/chem02/b07755hv/.local/lib/python3.12/site-packages/rapidocr/models/ch_ppocr_mobile_v2.0_cls_mobile.onnx[0m
-[32m[INFO] 2026-07-23 10:43:37,894 [RapidOCR] main.py:63: Using /mnt/iusers01/fatpou01/chem02/b07755hv/.local/lib/python3.12/site-packages/rapidocr/models/ch_ppocr_mobile_v2.0_cls_mobile.onnx[0m
-[32m[INFO] 2026-07-23 10:43:37,924 [RapidOCR] base.py:23: Using engine_name: onnxruntime[0m
-[32m[INFO] 2026-07-23 10:43:38,874 [RapidOCR] download_file.py:60: File exists and is valid: /mnt/iusers01/fatpou01/chem02/b07755hv/.local/lib/python3.12/site-packages/rapidocr/models/PP-OCRv6_rec_small.onnx[0m
-[32m[INFO] 2026-07-23 10:43:38,874 [RapidOCR] main.py:63: Using /mnt/iusers01/fatpou01/chem02/b07755hv/.local/lib/python3.12/site-packages/rapidocr/models/PP-OCRv6_rec_small.onnx[0m
-Loading weights:   0%|          | 0/770 [00:00<?, ?it/s]Loading weights:   4%|4         | 31/770 [00:00<00:02, 249.66it/s]Loading weights:  10%|9         | 76/770 [00:00<00:01, 355.83it/s]Loading weights:  15%|#4        | 113/770 [00:00<00:02, 231.11it/s]Loading weights:  18%|#8        | 141/770 [00:00<00:03, 182.88it/s]Loading weights:  22%|##2       | 171/770 [00:00<00:02, 204.50it/s]Loading weights:  28%|##7       | 213/770 [00:00<00:02, 255.14it/s]Loading weights:  32%|###1      | 243/770 [00:01<00:02, 186.97it/s]Loading weights:  35%|###4      | 267/770 [00:01<00:03, 128.75it/s]Loading weights:  44%|####3     | 336/770 [00:01<00:02, 216.50it/s]Loading weights:  54%|#####3    | 414/770 [00:01<00:01, 319.39it/s]Loading weights:  62%|######1   | 476/770 [00:01<00:00, 380.55it/s]Loading weights:  70%|#######   | 542/770 [00:01<00:00, 441.86it/s]Loading weights:  78%|#######7  | 597/770 [00:02<00:00, 461.61it/s]Loading weights:  87%|########6 | 669/770 [00:02<00:00, 514.52it/s]Loading weights:  94%|#########4| 727/770 [00:02<00:00, 495.49it/s]Loading weights: 100%|##########| 770/770 [00:02<00:00, 331.17it/s]
-[transformers] Model config: pad_token_id must be `None` or an integer within the vocabulary (between 0 and 31999), got 128002. This may result in unexpected behavior.
-Loading weights:   0%|          | 0/471 [00:00<?, ?it/s]Loading weights:   0%|          | 1/471 [00:01<14:00,  1.79s/it]Loading weights:   1%|          | 3/471 [00:02<06:28,  1.20it/s]Loading weights:   3%|2         | 12/471 [00:02<01:10,  6.52it/s]Loading weights:   5%|5         | 24/471 [00:03<00:31, 14.32it/s]Loading weights:   6%|6         | 29/471 [00:03<00:25, 17.67it/s]Loading weights:   7%|7         | 34/471 [00:03<00:23, 18.65it/s]Loading weights:   8%|8         | 39/471 [00:03<00:20, 21.45it/s]Loading weights:  12%|#1        | 55/471 [00:03<00:10, 41.07it/s]Loading weights:  15%|#4        | 70/471 [00:03<00:06, 59.16it/s]Loading weights:  18%|#8        | 87/471 [00:03<00:04, 78.62it/s]Loading weights:  22%|##1       | 102/471 [00:03<00:03, 93.71it/s]Loading weights:  24%|##4       | 115/471 [00:04<00:03, 100.23it/s]Loading weights:  28%|##8       | 132/471 [00:04<00:02, 115.48it/s]Loading weights:  31%|###1      | 147/471 [00:04<00:02, 122.45it/s]Loading weights:  34%|###4      | 161/471 [00:04<00:02, 124.43it/s]Loading weights:  38%|###7      | 177/471 [00:04<00:02, 130.82it/s]Loading weights:  41%|####      | 191/471 [00:04<00:02, 100.05it/s]Loading weights:  43%|####3     | 203/471 [00:04<00:03, 82.11it/s] Loading weights:  46%|####5     | 216/471 [00:05<00:02, 91.25it/s]Loading weights:  49%|####9     | 231/471 [00:05<00:02, 103.24it/s]Loading weights:  52%|#####2    | 246/471 [00:05<00:02, 107.81it/s]Loading weights:  56%|#####6    | 264/471 [00:05<00:01, 124.47it/s]Loading weights:  60%|######    | 283/471 [00:05<00:01, 130.60it/s]Loading weights:  63%|######3   | 299/471 [00:05<00:01, 128.36it/s]Loading weights:  67%|######6   | 315/471 [00:06<00:02, 76.46it/s] Loading weights:  70%|#######   | 331/471 [00:06<00:01, 72.97it/s]Loading weights:  73%|#######3  | 345/471 [00:06<00:01, 79.53it/s]Loading weights:  77%|#######6  | 362/471 [00:06<00:01, 90.65it/s]Loading weights:  80%|########  | 378/471 [00:06<00:01, 92.33it/s]Loading weights:  84%|########4 | 397/471 [00:06<00:00, 106.57it/s]Loading weights:  87%|########7 | 411/471 [00:07<00:00, 107.78it/s]Loading weights:  91%|#########1| 429/471 [00:07<00:00, 117.74it/s]Loading weights:  94%|#########3| 442/471 [00:07<00:00, 117.28it/s]Loading weights:  97%|#########6| 455/471 [00:07<00:00, 113.50it/s]Loading weights:  99%|#########9| 467/471 [00:07<00:00, 70.30it/s] Loading weights: 100%|##########| 471/471 [00:07<00:00, 60.94it/s]
-[transformers] The tied weights mapping and config for this model specifies to tie model.text_model.embed_tokens.weight to lm_head.weight, but both are present in the checkpoints with different values, so we will NOT tie them. You should update the config with `tie_word_embeddings=False` to silence this warning.
-[transformers] Passing `generation_config` together with generation-related arguments=({'do_sample', 'max_new_tokens', 'use_cache'}) is deprecated and will be removed in future versions. Please pass either a `generation_config` object OR all generation parameters explicitly, but not both.
-Raw PDF conversion timings:
-{
-  "pipeline_total": {
-    "scope": "document",
-    "count": 1,
-    "times": [
-      26.92221950890962
-    ],
-    "start_timestamps": [
-      "2026-07-23 09:44:13.484657+00:00"
-    ]
-  },
-  "page_parse": {
-    "scope": "page",
-    "count": 5,
-    "times": [
-      0.6880196719430387,
-      0.17603352898731828,
-      0.2623949319822714,
-      0.16904944193083793,
-      0.05690429196693003
-    ],
-    "start_timestamps": [
-      "2026-07-23 09:44:13.494726+00:00",
-      "2026-07-23 09:44:14.182860+00:00",
-      "2026-07-23 09:44:14.358936+00:00",
-      "2026-07-23 09:44:14.621372+00:00",
-      "2026-07-23 09:44:14.790464+00:00"
-    ]
-  },
-  "ocr": {
-    "scope": "page",
-    "count": 5,
-    "times": [
-      0.666642728028819,
-      0.12044071801938117,
-      17.72134025907144,
-      0.1193294619442895,
-      0.11545321601442993
-    ],
-    "start_timestamps": [
-      "2026-07-23 09:44:14.183282+00:00",
-      "2026-07-23 09:44:14.849967+00:00",
-      "2026-07-23 09:44:14.970423+00:00",
-      "2026-07-23 09:44:32.691785+00:00",
-      "2026-07-23 09:44:32.811122+00:00"
-    ]
-  },
-  "layout": {
-    "scope": "page",
-    "count": 2,
-    "times": [
-      13.302113836049102,
-      0.08671081298962235
-    ],
-    "start_timestamps": [
-      "2026-07-23 09:44:14.850047+00:00",
-      "2026-07-23 09:44:32.926813+00:00"
-    ]
-  },
-  "table_structure": {
-    "scope": "page",
-    "count": 5,
-    "times": [
-      3.304204437881708e-05,
-      1.8325684330193326,
-      0.7567857089452446,
-      2.1831016056239605e-05,
-      8.59599094837904e-06
-    ],
-    "start_timestamps": [
-      "2026-07-23 09:44:28.207697+00:00",
-      "2026-07-23 09:44:33.172012+00:00",
-      "2026-07-23 09:44:35.004596+00:00",
-      "2026-07-23 09:44:35.761400+00:00",
-      "2026-07-23 09:44:35.761425+00:00"
-    ]
-  },
-  "page_assemble": {
-    "scope": "page",
-    "count": 5,
-    "times": [
-      0.0008611830417066813,
-      0.0008823130046948791,
-      0.00026938808150589466,
-      0.00029272201936692,
-      0.00016889802645891905
-    ],
-    "start_timestamps": [
-      "2026-07-23 09:44:28.207805+00:00",
-      "2026-07-23 09:44:35.761807+00:00",
-      "2026-07-23 09:44:35.762745+00:00",
-      "2026-07-23 09:44:35.765675+00:00",
-      "2026-07-23 09:44:35.765990+00:00"
-    ]
-  },
-  "doc_assemble": {
-    "scope": "document",
-    "count": 1,
-    "times": [
-      0.026690203929319978
-    ],
-    "start_timestamps": [
-      "2026-07-23 09:44:35.766499+00:00"
-    ]
-  },
-  "reading_order": {
-    "scope": "document",
-    "count": 1,
-    "times": [
-      0.025931264040991664
-    ],
-    "start_timestamps": [
-      "2026-07-23 09:44:35.766619+00:00"
-    ]
-  },
-  "doc_enrich": {
-    "scope": "document",
-    "count": 1,
-    "times": [
-      4.613603933947161
-    ],
-    "start_timestamps": [
-      "2026-07-23 09:44:35.793252+00:00"
-    ]
-  }
-}
-All hyperlinked elements redacted in-memory.
-Clean PDF conversion timings:
-{
-  "pipeline_total": {
-    "scope": "document",
-    "count": 1,
-    "times": [
-      6.12748888193164
-    ],
-    "start_timestamps": [
-      "2026-07-23 09:44:44.042306+00:00"
-    ]
-  },
-  "page_parse": {
-    "scope": "page",
-    "count": 5,
-    "times": [
-      0.12670279294252396,
-      0.1708704549819231,
-      0.14048232999630272,
-      0.16743286501150578,
-      0.07814007601700723
-    ],
-    "start_timestamps": [
-      "2026-07-23 09:44:44.047029+00:00",
-      "2026-07-23 09:44:44.173778+00:00",
-      "2026-07-23 09:44:44.344692+00:00",
-      "2026-07-23 09:44:44.485216+00:00",
-      "2026-07-23 09:44:44.652689+00:00"
-    ]
-  },
-  "ocr": {
-    "scope": "page",
-    "count": 5,
-    "times": [
-      0.17363101907540113,
-      0.14532945700921118,
-      2.7352808250579983,
-      0.11890499305445701,
-      0.12367616698611528
-    ],
-    "start_timestamps": [
-      "2026-07-23 09:44:44.174008+00:00",
-      "2026-07-23 09:44:44.347678+00:00",
-      "2026-07-23 09:44:44.493045+00:00",
-      "2026-07-23 09:44:47.228377+00:00",
-      "2026-07-23 09:44:47.347301+00:00"
-    ]
-  },
-  "layout": {
-    "scope": "page",
-    "count": 4,
-    "times": [
-      0.3135376339778304,
-      0.03673762606922537,
-      0.029441721038892865,
-      0.12086895597167313
-    ],
-    "start_timestamps": [
-      "2026-07-23 09:44:44.347756+00:00",
-      "2026-07-23 09:44:44.759793+00:00",
-      "2026-07-23 09:44:47.228627+00:00",
-      "2026-07-23 09:44:47.471129+00:00"
-    ]
-  },
-  "table_structure": {
-    "scope": "page",
-    "count": 5,
-    "times": [
-      2.179096918553114e-05,
-      0.3708552250172943,
-      0.826137576950714,
-      1.8885941244661808e-05,
-      7.304013706743717e-06
-    ],
-    "start_timestamps": [
-      "2026-07-23 09:44:44.759960+00:00",
-      "2026-07-23 09:44:44.865748+00:00",
-      "2026-07-23 09:44:47.285447+00:00",
-      "2026-07-23 09:44:48.112418+00:00",
-      "2026-07-23 09:44:48.112440+00:00"
-    ]
-  },
-  "page_assemble": {
-    "scope": "page",
-    "count": 5,
-    "times": [
-      0.000297210062853992,
-      0.00047887302935123444,
-      0.00035594101063907146,
-      0.0003754580393433571,
-      0.0001979829976335168
-    ],
-    "start_timestamps": [
-      "2026-07-23 09:44:44.760060+00:00",
-      "2026-07-23 09:44:45.236749+00:00",
-      "2026-07-23 09:44:48.112515+00:00",
-      "2026-07-23 09:44:48.112931+00:00",
-      "2026-07-23 09:44:48.113343+00:00"
-    ]
-  },
-  "doc_assemble": {
-    "scope": "document",
-    "count": 1,
-    "times": [
-      0.021265819086693227
-    ],
-    "start_timestamps": [
-      "2026-07-23 09:44:48.113791+00:00"
-    ]
-  },
-  "reading_order": {
-    "scope": "document",
-    "count": 1,
-    "times": [
-      0.020786103908903897
-    ],
-    "start_timestamps": [
-      "2026-07-23 09:44:48.113843+00:00"
-    ]
-  },
-  "doc_enrich": {
-    "scope": "document",
-    "count": 1,
-    "times": [
-      2.034691564971581
-    ],
-    "start_timestamps": [
-      "2026-07-23 09:44:48.135083+00:00"
-    ]
-  }
-}
-Function parse_pdf took 234.4183 seconds to execute.
-Running: get_tables
-Function get_tables took 0.0001 seconds to execute.
-Running: get_surrounding_paragraphs
-Function get_surrounding_paragraphs took 0.0001 seconds to execute.
