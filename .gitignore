@@ -3,6 +3,6 @@ tests/runs
 venv/
 *.egg-info/
 **/__pycache__/
-case_studies/
 ~$*
-tests/old
+tests/old/
+paper/
