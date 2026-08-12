@@ -193,20 +193,28 @@ When processing a PDF, Chemstractor outputs a structured folder containing raw e
 └── 📂 [paper_name]/
     ├── 📂 extract/
     │   ├── 📄 clean_[filename].pdf      # Clean copy of original PDF
-    │   ├── 📄 output.md                 # Markdown parsed by Docling
-    │   ├── 📄 output_clean.md           # Cleaned document content
-    │   ├── 📄 log_[filename].log        # Processing timing & log output
+    │   ├── 📄 [filename].pdf            # Copy of source PDF
+    │   ├── 📄 output.md                 # Raw document content parsed into Markdown
+    │   ├── 📄 output_clean.md           # Cleaned document content parsed into Markdown
+    │   ├── 📄 formulae.json             # Extracted chemical formulae
+    │   ├── 📄 log_[filename].log        # Complete timing and parser logs
     │   └── 📂 tables/
-    │       ├── 📊 table1.csv            # Raw table CSV format
-    │       └── 📄 table1.txt            # Formatted text table
+    │       ├── 📂 csv/
+    │       │   └── 📊 table1.csv        # Raw table data in CSV format
+    │       └── 📂 txt/
+    │           └── 📄 table1.txt        # Raw table content in formatted text
+    │
     ├── 📂 categorisation/
-    │   └── 📄 table1.json               # Table classification tag
+    │   └── 📄 table1.json               # Table category tags (JSON)
+    │
     ├── 📂 interpretation/
-    │   ├── 📄 flory_interpretation.json # Flory interaction parameters
-    │   └── 📄 mh_interpretation.json    # Mark-Houwink parameters
+    │   ├── 📄 table1_flory.json         # Flory parameter interpretation (JSON)
+    │   └── 📄 table1_mh.json            # Mark-Houwink parameter interpretation (JSON)
+    │
     └── 📂 summary/
-        ├── 📄 summary.json              # Extracted metadata & condition summary
-        └── 📊 tables_summary.csv        # Tabular condition summary
+        ├── 📄 summary.json              # Paper metadata (Title, Authors, DOI)
+        └── 📂 tables/
+            └── 📄 table1.json           # Reaction condition summary per table (JSON)
 ```
 
 ---
